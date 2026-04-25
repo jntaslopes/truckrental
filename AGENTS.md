@@ -9,11 +9,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
 Antes de executar qualquer plano, atualize o contexto real do projeto:
 
 - Rode `git status --short --branch`, confira a branch/worktree atual e veja se há commits ahead/behind.
+- Confira se está no worktree principal (`C:\projects\truckrental`) ou em uma worktree auxiliar. Em worktree auxiliar, trabalhe em branch com prefixo `codex/`; se não houver branch com upstream, crie uma e publique com `git push -u origin <branch>`. No worktree principal em `main`, branch não é obrigatória.
 - Rode `git fetch origin` e verifique se `origin/main` mudou; incorpore essas mudanças antes de implementar quando isso for necessário para trabalhar sobre a base atual.
 - Releia os arquivos relevantes depois do fetch/merge e antes de editar. O usuário pode alterar arquivos localmente em paralelo, com ou sem commit.
 - Não presuma que o Git contém todo o contexto: mudanças locais não commitadas também são fonte de verdade.
+- Nunca descarte mudanças locais do usuário. Antes de pull/merge/rebase que possa sobrescrever arquivos, preserve o estado atual com commit temporário, stash seletivo ou branch de segurança.
+- Nunca crie ou troque branch descartando mudanças locais; preserve o estado primeiro.
 - Se o plano ficar desatualizado por mudanças locais ou remotas, ajuste o plano antes de executar.
-- Resolva merges e conflitos de forma autônoma. O usuário não fará resolução manual.
+- Resolva merges e conflitos de forma autônoma, preservando a intenção local e remota sempre que possível. O usuário não fará resolução manual.
 - Preserve texto em PT-BR como UTF-8. Não introduza mojibake; se tocar em um arquivo com mojibake, corrija o trecho afetado.
 
 ## Project Figma Source
