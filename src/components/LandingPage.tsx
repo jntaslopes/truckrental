@@ -25,7 +25,7 @@ function Header({ proposalCount }: { proposalCount: number }) {
         {navItems.map((item, index) => (
           <a key={item.href} href={item.href} className={index === 0 ? "nav-dropdown" : ""}>
             {item.label}
-            {index === 0 ? <img src={asset("icon-chevron-down.svg")} alt="" /> : null}
+            {index === 0 ? <span className="nav-caret" aria-hidden="true" /> : null}
           </a>
         ))}
       </nav>
@@ -62,7 +62,9 @@ function Hero() {
         <h1>
           Sua frota,
           <br />
-          sem burocracia e <span>com tudo incluso</span>
+          sem burocracia e
+          <br />
+          <span className="accent-line">com tudo incluso</span>
         </h1>
         <p>
           Assine a frota ideal para o seu negócio e tenha mais controle,
