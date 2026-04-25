@@ -76,7 +76,11 @@ function Hero() {
       </div>
 
       <div className="hero-visual" aria-label="Caminhão Volkswagen Meteor">
-        <img src={asset("hero-truck.png")} alt="Caminhão Volkswagen Meteor" />
+        <img className="hero-composite" src={asset("hero-truck.png")} alt="Caminhão Volkswagen Meteor" />
+        <div className="hero-badge">
+          <img src={asset("benefit-money.svg")} alt="" />
+          <span>Assinatura mensal</span>
+        </div>
       </div>
 
       <div className="benefits-bar">

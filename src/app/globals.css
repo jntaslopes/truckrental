@@ -315,12 +315,37 @@ button {
   z-index: 1;
 }
 
-.hero-visual > img {
-  height: 100%;
+.hero-composite {
+  display: block;
+  height: 652px;
+  max-width: none;
   mix-blend-mode: multiply;
-  object-fit: contain;
-  position: relative;
-  width: 100%;
+  object-fit: cover;
+  width: 977px;
+}
+
+.hero-badge {
+  align-items: center;
+  background: var(--bright-blue);
+  border-radius: 999px 999px 999px 127px;
+  color: var(--white);
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  gap: 10px;
+  left: 528px;
+  min-height: 59px;
+  padding: 10px 24px 10px 20px;
+  position: absolute;
+  top: 267px;
+  z-index: 4;
+}
+
+.hero-badge img {
+  filter: brightness(0) invert(1);
+  height: 39px;
+  width: 39px;
 }
 
 .benefits-bar {
