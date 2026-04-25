@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import {
   faqs,
   footerTruckLinks,
@@ -13,35 +14,44 @@ import {
 
 const asset = (name: string) => `/assets/figma/${name}`;
 
-function Header({ proposalCount }: { proposalCount: number }) {
+export function Header({
+  proposalCount,
+  activePath,
+}: {
+  proposalCount: number;
+  activePath?: string;
+}) {
   return (
     <header className="site-header">
-      <a className="brand" href="#top" aria-label="VW Truck Rental">
+      <Link className="brand" href="/#top" aria-label="VW Truck Rental">
         <img src={asset("logo-symbol-blue.svg")} alt="" className="brand-symbol" />
         <img src={asset("logo-word-blue.png")} alt="VW Truck Rental" className="brand-word" />
-      </a>
+      </Link>
 
       <nav className="main-nav" aria-label="Navegação principal">
-        {navItems.map((item, index) => (
-          <a key={item.href} href={item.href} className={index === 0 ? "nav-dropdown" : ""}>
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={activePath === item.href ? "active" : undefined}
+          >
             {item.label}
-            {index === 0 ? <span className="nav-caret" aria-hidden="true" /> : null}
-          </a>
+          </Link>
         ))}
       </nav>
 
       <div className="header-actions">
-        <a href="#concessionarias" className="ghost-action">
+        <Link href="/#concessionarias" className="ghost-action">
           <img src={asset("icon-pin.svg")} alt="" />
           Encontrar uma Concessionária
-        </a>
-        <a href="#proposta" className="cart-action" aria-label={`${proposalCount} itens na proposta`}>
+        </Link>
+        <Link href="/#proposta" className="cart-action" aria-label={`${proposalCount} itens na proposta`}>
           <img src={asset("icon-cart.svg")} alt="" />
           <span>{proposalCount}</span>
-        </a>
-        <a href="#proposta" className="primary-action">
+        </Link>
+        <Link href="/#proposta" className="primary-action">
           Falar agora com um Especialista
-        </a>
+        </Link>
       </div>
     </header>
   );
@@ -392,7 +402,7 @@ function FooterColumn({
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-top">

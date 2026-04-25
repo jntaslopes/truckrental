@@ -152,16 +152,24 @@ button {
   color: var(--blue);
   font-size: 16px;
   gap: 8px;
+  min-height: 30px;
+  position: relative;
 }
 
-.nav-caret {
-  border-bottom: 2px solid var(--blue);
-  border-right: 2px solid var(--blue);
-  display: inline-block;
-  height: 7px;
-  margin-left: 1px;
-  transform: rotate(45deg) translateY(-2px);
-  width: 7px;
+.main-nav a.active {
+  color: var(--bright-blue);
+}
+
+.main-nav a.active::after {
+  background: var(--bright-blue);
+  border-radius: 999px;
+  bottom: -8px;
+  content: "";
+  height: 4px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 30px;
 }
 
 .header-actions {
@@ -557,6 +565,16 @@ button {
   background: #d1d9f2;
   color: var(--blue);
   padding: 4px 8px;
+}
+
+.badge.electric {
+  background: #dff5ff;
+  color: var(--blue);
+}
+
+.badge.neutral {
+  background: var(--soft);
+  color: var(--blue);
 }
 
 .text-link {
@@ -1179,6 +1197,261 @@ button {
   top: 18px;
 }
 
+.catalog-page {
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  min-height: calc(100vh - 88px);
+  padding-top: 88px;
+}
+
+.catalog-sidebar {
+  background: #f9f9fb;
+  padding: 46px 22px 24px 40px;
+}
+
+.catalog-filter-header {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.catalog-filter-header h2 {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.catalog-filter-header button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--bright-blue);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 4px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+
+.catalog-filter-header span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.catalog-filter-section {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 14px;
+  padding: 0 0 20px;
+}
+
+.catalog-filter-section + .catalog-filter-section {
+  padding-top: 28px;
+}
+
+.catalog-filter-section h3 {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.catalog-filter-section label {
+  align-items: center;
+  color: var(--ink);
+  display: inline-flex;
+  font-size: 14px;
+  gap: 10px;
+  line-height: 17px;
+}
+
+.fake-checkbox {
+  background: var(--white);
+  border: 1px solid #9faabc;
+  border-radius: 2px;
+  height: 14px;
+  width: 14px;
+}
+
+.catalog-filter-section.capacity {
+  border-bottom: 0;
+}
+
+.capacity-slider {
+  align-items: center;
+  display: flex;
+  height: 22px;
+  position: relative;
+}
+
+.capacity-slider::before {
+  background: #9faabc;
+  content: "";
+  height: 2px;
+  left: 8px;
+  position: absolute;
+  right: 8px;
+}
+
+.capacity-slider::after,
+.capacity-slider span {
+  background: var(--white);
+  border: 2px solid var(--bright-blue);
+  border-radius: 50%;
+  content: "";
+  height: 12px;
+  position: absolute;
+  width: 12px;
+  z-index: 1;
+}
+
+.capacity-slider::after {
+  left: 0;
+}
+
+.capacity-slider span {
+  right: 0;
+}
+
+.capacity-scale {
+  display: flex;
+  justify-content: space-between;
+}
+
+.capacity-scale span {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.catalog-main {
+  padding: 40px 40px 60px;
+}
+
+.catalog-breadcrumb {
+  align-items: center;
+  color: var(--ink);
+  display: flex;
+  font-size: 12px;
+  gap: 12px;
+  line-height: 14px;
+  margin-bottom: 35px;
+}
+
+.catalog-breadcrumb a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.catalog-heading h1 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  line-height: 43px;
+}
+
+.catalog-heading h1 span {
+  color: var(--blue);
+  font-weight: 300;
+}
+
+.catalog-heading p {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+  margin-top: 4px;
+}
+
+.catalog-divider {
+  background: var(--line);
+  height: 1px;
+  margin: 34px 0 32px;
+  width: 100%;
+}
+
+.catalog-count {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 32px;
+}
+
+.catalog-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.catalog-truck-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 354px;
+  overflow: hidden;
+  position: relative;
+  transition: border 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.catalog-truck-card:hover {
+  box-shadow: 0 18px 42px rgba(0, 30, 80, 0.12);
+  transform: translateY(-2px);
+}
+
+.catalog-truck-card.selected {
+  border-color: var(--bright-blue);
+}
+
+.catalog-truck-media {
+  align-items: flex-end;
+  background: var(--panel);
+  display: flex;
+  height: 144px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.catalog-truck-image,
+.catalog-truck-shadow {
+  bottom: -6px;
+  max-height: 136px;
+  max-width: 118%;
+  object-fit: contain;
+  position: absolute;
+}
+
+.catalog-truck-shadow {
+  mix-blend-mode: multiply;
+}
+
+.catalog-truck-content {
+  padding: 24px;
+}
+
+.catalog-truck-content h3 {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.catalog-truck-content p {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+  margin: 2px 0 18px;
+}
+
+.catalog-truck-content .badges {
+  flex-wrap: wrap;
+  height: 24px;
+  overflow: hidden;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -1192,7 +1465,26 @@ button {
 
 @media (max-width: 1280px) {
   .site-header {
-    min-width: 1180px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .brand {
+    gap: 16px;
+  }
+
+  .main-nav {
+    gap: 18px;
+    margin-left: 24px;
+    padding-left: 24px;
+  }
+
+  .header-actions .ghost-action {
+    display: none;
+  }
+
+  .catalog-page ~ .fab {
+    display: none;
   }
 
   .hero-copy {
@@ -1201,5 +1493,19 @@ button {
 
   .hero-visual {
     left: 455px;
+  }
+
+  .catalog-page {
+    grid-template-columns: 276px minmax(904px, 1fr);
+    min-width: 1180px;
+  }
+
+  .catalog-sidebar {
+    padding-left: 22px;
+  }
+
+  .catalog-main {
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
