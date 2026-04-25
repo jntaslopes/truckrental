@@ -25,9 +25,9 @@ export type NavItem = {
 };
 
 export const navItems: NavItem[] = [
-  { label: "Caminhões por Assinatura", href: "#catalogo" },
-  { label: "Como funciona", href: "#como-funciona" },
-  { label: "Central de Ajuda", href: "#faq" },
+  { label: "Caminhões por Assinatura", href: "/caminhoes" },
+  { label: "Como funciona", href: "/#como-funciona" },
+  { label: "Central de Ajuda", href: "/#faq" },
 ];
 
 export const trucks: Truck[] = [
