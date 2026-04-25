@@ -77,16 +77,6 @@ function Hero() {
 
       <div className="hero-visual" aria-label="Caminhão Volkswagen Meteor">
         <img src={asset("hero-truck.png")} alt="Caminhão Volkswagen Meteor" />
-        <span className="hero-badge">
-          <img src={asset("benefit-money.svg")} alt="" />
-          Assinatura mensal
-        </span>
-        <span className="orbit orbit-one" />
-        <span className="orbit orbit-two" />
-        <span className="callout callout-left">Documentação e IPVA</span>
-        <span className="callout callout-top">Proteção e seguro</span>
-        <span className="callout callout-right">Manutenção preventiva</span>
-        <span className="callout callout-bottom">Mais previsibilidade</span>
       </div>
 
       <div className="benefits-bar">
