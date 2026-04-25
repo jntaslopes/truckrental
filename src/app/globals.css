@@ -442,7 +442,7 @@ button {
 }
 
 .truck-card {
-  background: var(--panel);
+  background: linear-gradient(to bottom, var(--panel) 0 158px, var(--white) 158px 100%);
   border: 1px solid var(--line);
   border-radius: 8px;
   min-height: 491px;
@@ -478,7 +478,7 @@ button {
 
 .truck-media {
   align-items: flex-end;
-  background: var(--white);
+  background: transparent;
   display: flex;
   height: 221px;
   justify-content: center;
@@ -488,9 +488,9 @@ button {
 
 .truck-image,
 .truck-shadow {
-  bottom: -1px;
-  max-height: 205px;
-  max-width: 118%;
+  bottom: -12px;
+  max-height: 214px;
+  max-width: 120%;
   object-fit: contain;
   position: absolute;
 }
@@ -500,7 +500,10 @@ button {
 }
 
 .truck-content {
+  background: transparent;
   padding: 32px;
+  position: relative;
+  z-index: 1;
 }
 
 .truck-content h3 {
@@ -534,11 +537,14 @@ button {
   gap: 2px;
   height: 24px;
   line-height: 14px;
-  padding: 2px 6px;
+  justify-content: center;
+  padding: 2px 4px;
+  white-space: nowrap;
 }
 
 .badge img {
   height: 16px;
+  object-fit: contain;
   width: 16px;
 }
 
@@ -550,6 +556,7 @@ button {
 .badge.engine {
   background: #d1d9f2;
   color: var(--blue);
+  padding: 4px 8px;
 }
 
 .text-link {
@@ -574,7 +581,9 @@ button {
 }
 
 .centered {
+  display: flex;
   margin: 40px auto 0;
+  width: fit-content;
 }
 
 .outline-cta img {
