@@ -2,12 +2,23 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useMemo, useState } from "react";
+import { type ChangeEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { catalogFilterSections, catalogTrucks, type CatalogTruck } from "@/data/catalog";
-import { Header, Footer } from "@/components/LandingPage";
+import {
+  Header,
+  Footer,
+  ProposalDrawer,
+  ProposalSummary,
+  type ProposalItem,
+} from "@/components/LandingPage";
 
 const asset = (name: string) => `/assets/figma/${name}`;
+
+function toPositiveQuantity(value: string) {
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+}
 
 function CatalogFilterSidebar() {
   return (
@@ -25,7 +36,7 @@ function CatalogFilterSidebar() {
           <h3>{section.title}</h3>
           {section.options.map((option) => (
             <label key={option}>
-              <span className="fake-checkbox" aria-hidden="true" />
+              <input className="ds-checkbox" type="checkbox" name={section.title} value={option} />
               <span>{option}</span>
             </label>
           ))}
@@ -49,11 +60,15 @@ function CatalogFilterSidebar() {
 function CatalogTruckCard({
   truck,
   selected,
+  quantity,
   onToggle,
+  onQuantityChange,
 }: {
   truck: CatalogTruck;
   selected: boolean;
+  quantity: number;
   onToggle: (truck: CatalogTruck) => void;
+  onQuantityChange: (id: string, quantity: number) => void;
 }) {
   return (
     <article className={`catalog-truck-card ${selected ? "selected" : ""}`}>
@@ -79,57 +94,96 @@ function CatalogTruckCard({
             </span>
           ))}
         </div>
-        <button className="text-link" type="button" onClick={() => onToggle(truck)}>
-          {selected ? "Remover da proposta" : "Adicionar à proposta"}
-          <img src={asset("icon-add.svg")} alt="" />
-        </button>
+        {selected ? (
+          <div className="card-selection-row catalog-card-selection-row">
+            <label className="floating-field card-quantity-field catalog-card-quantity-field">
+              <input
+                type="number"
+                min="1"
+                step="1"
+                value={quantity}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  onQuantityChange(truck.id, toPositiveQuantity(event.target.value))
+                }
+              />
+              <span>Qtd.</span>
+            </label>
+            <span className="card-selection-divider" aria-hidden="true" />
+            <button className="card-remove-link" type="button" onClick={() => onToggle(truck)}>
+              <span className="card-remove-label">Remover</span>
+              <span className="card-remove-icon" aria-hidden="true">×</span>
+            </button>
+          </div>
+        ) : (
+          <button className="text-link" type="button" onClick={() => onToggle(truck)}>
+            Adicionar à proposta
+            <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
+          </button>
+        )}
         <button className="text-link" type="button">
           Ver detalhes
-          <img src={asset("icon-arrow-right.svg")} alt="" />
+          <img className="action-icon text-link-icon" src={asset("icon-arrow-right.svg")} alt="" />
         </button>
       </div>
     </article>
   );
 }
 
-function CatalogProposalSummary({
-  selectedTrucks,
-  onClear,
-}: {
-  selectedTrucks: CatalogTruck[];
-  onClear: () => void;
-}) {
-  if (selectedTrucks.length === 0) {
-    return null;
-  }
-
-  return (
-    <aside className="proposal-summary" aria-live="polite">
-      <img src={asset("icon-cart.svg")} alt="" />
-      <div>
-        <strong>{selectedTrucks.length} caminhão{selectedTrucks.length > 1 ? "s" : ""} na proposta</strong>
-        <span>{selectedTrucks.map((truck) => `${truck.family} ${truck.model}`).join(", ")}</span>
-      </div>
-      <button type="button" onClick={onClear}>Limpar</button>
-      <Link href="/#proposta">Falar com especialista</Link>
-    </aside>
-  );
-}
-
 export function TruckCatalogPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
 
-  const selectedTrucks = useMemo(
-    () => catalogTrucks.filter((truck) => selectedIds.includes(truck.id)),
-    [selectedIds],
+  const selectedItems = useMemo<ProposalItem[]>(
+    () =>
+      catalogTrucks
+        .filter((truck) => selectedIds.includes(truck.id))
+        .map((truck) => ({
+          id: truck.id,
+          family: truck.family,
+          model: truck.model,
+          image: truck.image,
+          quantity: quantities[truck.id] ?? 1,
+        })),
+    [quantities, selectedIds],
   );
 
   function toggleTruck(truck: CatalogTruck) {
-    setSelectedIds((current) =>
-      current.includes(truck.id)
-        ? current.filter((id) => id !== truck.id)
-        : [...current, truck.id],
-    );
+    setSelectedIds((current) => {
+      if (current.includes(truck.id)) {
+        setQuantities((currentQuantities) => {
+          const next = { ...currentQuantities };
+          delete next[truck.id];
+          return next;
+        });
+        return current.filter((id) => id !== truck.id);
+      }
+
+      setQuantities((currentQuantities) => ({
+        ...currentQuantities,
+        [truck.id]: currentQuantities[truck.id] ?? 1,
+      }));
+      return [...current, truck.id];
+    });
+  }
+
+  function removeProposalItem(id: string) {
+    if (selectedIds.length <= 1) {
+      setIsProposalDrawerOpen(false);
+    }
+    setQuantities((currentQuantities) => {
+      const next = { ...currentQuantities };
+      delete next[id];
+      return next;
+    });
+    setSelectedIds((current) => current.filter((currentId) => currentId !== id));
+  }
+
+  function changeProposalQuantity(id: string, quantity: number) {
+    setQuantities((currentQuantities) => ({
+      ...currentQuantities,
+      [id]: quantity,
+    }));
   }
 
   return (
@@ -157,7 +211,9 @@ export function TruckCatalogPage() {
                 key={truck.id}
                 truck={truck}
                 selected={selectedIds.includes(truck.id)}
+                quantity={quantities[truck.id] ?? 1}
                 onToggle={toggleTruck}
+                onQuantityChange={changeProposalQuantity}
               />
             ))}
           </div>
@@ -167,7 +223,23 @@ export function TruckCatalogPage() {
       <Link href="/#faq" className="fab" aria-label="Abrir central de ajuda">
         ?
       </Link>
-      <CatalogProposalSummary selectedTrucks={selectedTrucks} onClear={() => setSelectedIds([])} />
+      <ProposalSummary
+        selectedItems={selectedItems}
+        onClear={() => {
+          setSelectedIds([]);
+          setIsProposalDrawerOpen(false);
+        }}
+        onContinue={() => setIsProposalDrawerOpen(true)}
+      />
+      {isProposalDrawerOpen ? (
+        <ProposalDrawer
+          selectedItems={selectedItems}
+          onClose={() => setIsProposalDrawerOpen(false)}
+          onRemoveItem={removeProposalItem}
+          onQuantityChange={changeProposalQuantity}
+          onSubmit={() => setIsProposalDrawerOpen(false)}
+        />
+      ) : null}
     </>
   );
 }
