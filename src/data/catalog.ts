@@ -357,21 +357,21 @@ const meteorDetails = [
 
 const detailCtas: TruckDetailCta[] = [
   {
-    icon: asset("icon-cart.svg"),
+    icon: asset("detail-cta-cart.svg"),
     title: "Solicitar proposta com este modelo",
     copy: "Adicione este caminhão à sua frota e receba uma proposta personalizada",
     cta: "Solicitar proposta",
     href: "#proposta",
   },
   {
-    icon: asset("icon-specialist.svg"),
+    icon: asset("detail-cta-specialist.svg"),
     title: "Fale com um especialista",
     copy: "Nossa equipe ajuda você a avaliar este modelo para sua operação",
     cta: "Falar com um especialista",
     href: "#proposta",
   },
   {
-    icon: asset("icon-dealer-pin.svg"),
+    icon: asset("detail-cta-dealer-pin.svg"),
     title: "Ver em uma concessionária",
     copy: "Encontre uma unidade próxima e conheça este modelo pessoalmente",
     cta: "Encontrar concessionária",
