@@ -3177,24 +3177,34 @@ html.proposal-drawer-open body {
 }
 
 .detail-next-section {
-  padding-top: 28px;
+  background: var(--white);
+  border-bottom: 1px solid #ddd;
+  padding: 80px 72px;
+}
+
+.detail-next-section .detail-section-copy {
+  font-size: 14px;
+  line-height: 17px;
+  margin-top: 16px;
 }
 
 .detail-cta-grid {
   display: grid;
-  gap: 16px;
+  gap: 14px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 48px;
 }
 
 .detail-cta-card {
   align-items: center;
+  background: var(--white);
   border: 1px solid var(--line);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  min-height: 236px;
-  padding: 32px;
+  justify-content: center;
+  min-height: 274px;
+  padding: 24px;
   text-align: center;
 }
 
@@ -3208,21 +3218,29 @@ html.proposal-drawer-open body {
   color: var(--ink);
   font-family: "VW Head", Arial, sans-serif;
   font-size: 20px;
+  font-weight: 700;
   line-height: 24px;
-  margin-top: 24px;
+  margin-top: 8px;
 }
 
 .detail-cta-card p {
   color: var(--ink);
+  font-family: "VW Text", Arial, sans-serif;
   font-size: 14px;
+  font-weight: 400;
   line-height: 17px;
-  margin: 8px auto 24px;
+  margin: 8px auto 0;
   max-width: 310px;
 }
 
 .detail-cta-card .outline-cta {
   height: 48px;
-  margin-top: auto;
+  font-family: "VW Text", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 19px;
+  margin-top: 24px;
+  min-height: 48px;
+  padding: 8px 20px;
 }
 
 .detail-related-section {
