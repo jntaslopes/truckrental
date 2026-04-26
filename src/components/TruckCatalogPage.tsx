@@ -83,10 +83,10 @@ function CatalogTruckCard({
           {selected ? "Remover da proposta" : "Adicionar à proposta"}
           <img src={asset("icon-add.svg")} alt="" />
         </button>
-        <button className="text-link" type="button">
+        <Link className="text-link" href={`/caminhoes/${truck.slug}`}>
           Ver detalhes
           <img src={asset("icon-arrow-right.svg")} alt="" />
-        </button>
+        </Link>
       </div>
     </article>
   );
