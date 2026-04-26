@@ -890,45 +890,150 @@ button {
 }
 
 .assistance-grid {
-  align-items: center;
   background: var(--white);
-  display: grid;
-  gap: 64px;
-  grid-template-columns: 1fr 560px;
-  padding: 56px 64px;
+  display: block;
+  max-width: calc(100vw - 200px);
+  min-height: 930px;
+  overflow: visible;
+  padding: 80px;
+  position: relative;
+  width: 1348px;
+}
+
+.assistance-section.page-band.soft {
+  background: #f3f4f7;
+}
+
+.assistance-content {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 652px;
+  width: 652px;
+}
+
+.assistance-copy .eyebrow {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 12px;
+  text-transform: none;
 }
 
 .assistance-copy h2 {
   color: var(--blue);
   font-family: "VW Head", Arial, sans-serif;
-  font-size: 34px;
-  line-height: 40px;
-  margin: 12px 0 16px;
-  max-width: 560px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
+  margin: 0 0 26px;
+  max-width: 652px;
+  position: relative;
+}
+
+.assistance-copy h2 span {
+  display: block;
+  font-weight: 300;
+}
+
+.assistance-copy h2::after {
+  background: var(--cyan);
+  bottom: -12px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 80px;
 }
 
 .assistance-copy > p:not(.eyebrow) {
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 24px;
-  max-width: 520px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+  max-width: 652px;
 }
 
-.mini-actions {
+.assistance-cards {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.assistance-card {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
   display: flex;
-  gap: 16px;
-  margin-top: 32px;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  min-height: 224px;
+  min-width: 0;
+  padding: 24px;
+  text-align: center;
+}
+
+.assistance-card.wide {
+  grid-column: 1 / -1;
+  min-height: 256px;
+}
+
+.assistance-card-copy {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 620px;
+  width: 100%;
+}
+
+.assistance-card-copy img {
+  height: 80px;
+  width: 80px;
+}
+
+.assistance-card h3 {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.assistance-card p {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+  max-width: 287px;
+}
+
+.assistance-card.wide p {
+  max-width: 620px;
+}
+
+.assistance-card .outline-cta {
+  height: 48px;
+  min-width: 0;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .assistance-photo {
-  height: 420px;
+  align-self: center;
+  height: 760px;
+  left: 813px;
   overflow: hidden;
+  position: absolute;
+  top: 80px;
+  width: 640px;
 }
 
 .assistance-photo img {
   height: 100%;
   object-fit: cover;
-  object-position: left center;
+  object-position: center;
   width: 100%;
 }
 
@@ -1679,6 +1784,46 @@ button {
   .benefits-visual {
     transform: translateX(-50%) scale(0.9);
   }
+
+  .assistance-grid {
+    display: grid;
+    gap: 48px;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 46%);
+    max-width: 100%;
+    min-height: 640px;
+    padding: 64px;
+    width: 100%;
+  }
+
+  .assistance-content {
+    max-width: none;
+    width: 100%;
+  }
+
+  .assistance-photo {
+    height: 620px;
+    left: auto;
+    position: static;
+    top: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 980px) {
+  .assistance-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 48px;
+  }
+
+  .assistance-content {
+    max-width: none;
+  }
+
+  .assistance-photo {
+    aspect-ratio: 4 / 3;
+    height: auto;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1778,5 +1923,38 @@ button {
   .benefits-card:nth-child(2).left,
   .benefits-card:nth-child(2).right {
     padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-band {
+    padding: 64px 16px;
+  }
+
+  .assistance-grid {
+    gap: 32px;
+    padding: 28px 20px;
+  }
+
+  .assistance-content {
+    gap: 32px;
+  }
+
+  .assistance-copy h2 {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .assistance-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .assistance-card {
+    min-height: 0;
+  }
+
+  .assistance-card .outline-cta {
+    white-space: normal;
+    width: 100%;
   }
 }

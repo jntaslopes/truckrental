@@ -373,22 +373,66 @@ function PlansSection() {
 }
 
 function AssistanceSection() {
+  const paths = [
+    {
+      icon: "icon-fleet-online.svg",
+      title: "Simule sua frota online",
+      copy: "Selecione os modelos e receba uma proposta personalizada",
+      cta: "Ver caminhões disponíveis",
+      href: "#catalogo",
+    },
+    {
+      icon: "icon-specialist.svg",
+      title: "Fale com um especialista",
+      copy: "Nossa equipe ajuda a montar a melhor solução para sua operação",
+      cta: "Falar com um especialista",
+      href: "#proposta",
+    },
+    {
+      icon: "icon-dealer-pin.svg",
+      title: "Ou visite uma concessionária",
+      copy: "Atendimento presencial com a rede Volkswagen",
+      cta: "Buscar uma concessionária",
+      href: "#concessionarias",
+      wide: true,
+    },
+  ];
+
   return (
     <section className="assistance-section page-band soft">
       <div className="page-inner assistance-grid">
-        <div className="assistance-copy">
-          <p className="eyebrow">Atendimento para sua empresa</p>
-          <h2>Tenha acesso ao mercado e à sua frota Volkswagen.</h2>
-          <p>
-            Especialistas ajudam a escolher o caminhão, estimar o plano ideal e avançar com a proposta.
-          </p>
-          <div className="mini-actions">
-            <a href="#concessionarias" className="outline-cta">Encontrar concessionária</a>
-            <a href="#faq" className="outline-cta">Central de ajuda</a>
+        <div className="assistance-content">
+          <div className="assistance-copy">
+            <p className="eyebrow">Dê o próximo passo agora mesmo</p>
+            <h2>
+              <span>Três formas de</span>
+              {" "}
+              montar a sua frota Volkswagen
+            </h2>
+            <p>
+              Você pode simular online, falar com um especialista ou visitar uma concessionária.
+              Escolha o caminho mais conveniente para sua operação.
+            </p>
+          </div>
+
+          <div className="assistance-cards">
+            {paths.map((path) => (
+              <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title}>
+                <div className="assistance-card-copy">
+                  <img src={asset(path.icon)} alt="" />
+                  <h3>{path.title}</h3>
+                  <p>{path.copy}</p>
+                </div>
+                <a href={path.href} className="outline-cta">
+                  {path.cta}
+                </a>
+              </article>
+            ))}
           </div>
         </div>
+
         <div className="assistance-photo">
-          <img src={asset("faq-truck.png")} alt="Atendimento Volkswagen Caminhões" />
+          <img src={asset("assistance-fleet.png")} alt="Atendimento Volkswagen Caminhões" />
         </div>
       </div>
     </section>
