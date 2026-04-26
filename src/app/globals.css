@@ -3275,63 +3275,74 @@ html.proposal-drawer-open body {
 }
 
 .detail-related-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
   border-top: 1px solid var(--line);
+  padding-bottom: 80px;
+  padding-top: 80px;
+}
+
+.detail-related-section .page-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.detail-related-carousel {
+  position: relative;
+  width: 100%;
 }
 
 .detail-related-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  margin-top: 48px;
-}
-
-.detail-related-card {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  min-height: 354px;
-  overflow: hidden;
-  position: relative;
-}
-
-.detail-related-card.selected {
-  border-color: var(--bright-blue);
-}
-
-.detail-related-media {
-  align-items: flex-end;
-  background: var(--panel);
   display: flex;
-  height: 144px;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
+  gap: 24px;
+  min-height: 407px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
 }
 
-.detail-related-media img {
-  bottom: -6px;
-  max-height: 136px;
-  max-width: 118%;
-  object-fit: contain;
+.detail-related-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.detail-related-grid .catalog-truck-card {
+  flex: 0 0 268.8px;
+  scroll-snap-align: start;
+}
+
+.detail-related-arrow {
+  background: var(--white);
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  color: var(--blue);
+  display: grid;
+  height: 48px;
+  place-items: center;
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  z-index: 3;
 }
 
-.detail-related-content {
-  padding: 24px;
+.detail-related-arrow span {
+  display: block;
+  font-size: 38px;
+  height: 38px;
+  line-height: 32px;
+  text-align: center;
+  width: 24px;
 }
 
-.detail-related-content h3 {
-  color: var(--ink);
-  font-family: "VW Head", Arial, sans-serif;
-  font-size: 20px;
-  line-height: 24px;
+.detail-related-arrow.previous {
+  left: -24px;
 }
 
-.detail-related-content p {
-  color: var(--ink);
-  font-size: 14px;
-  line-height: 17px;
-  margin: 2px 0 18px;
+.detail-related-arrow.next {
+  right: -24px;
 }
 
 .detail-faq-section {
@@ -3729,6 +3740,10 @@ html.proposal-drawer-open body {
     padding: 72px 24px;
   }
 
+  .detail-related-section {
+    padding: 72px 24px;
+  }
+
   .footer-top {
     flex-direction: column;
   }
@@ -4078,6 +4093,22 @@ html.proposal-drawer-open body {
 @media (max-width: 640px) {
   .page-band {
     padding: 64px 16px;
+  }
+
+  .detail-related-section {
+    padding: 64px 16px;
+  }
+
+  .detail-related-section .page-inner {
+    gap: 32px;
+  }
+
+  .detail-related-grid .catalog-truck-card {
+    flex-basis: min(268.8px, calc(100vw - 32px));
+  }
+
+  .detail-related-arrow {
+    display: none;
   }
 
   .assistance-grid {
