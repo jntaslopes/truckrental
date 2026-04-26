@@ -957,11 +957,11 @@ export function ProposalDrawer({
 
         <div className="proposal-consents">
           <label>
-            <input className="ds-checkbox" type="checkbox" name="marketing" />
+            <input className="ds-checkbox" type="checkbox" name="marketing" data-state="default" data-size="sm" />
             <span>Autorizo a utilização dos meus dados para Marketing</span>
           </label>
           <label>
-            <input className="ds-checkbox" type="checkbox" name="legal" />
+            <input className="ds-checkbox" type="checkbox" name="legal" data-state="default" data-size="sm" />
             <span>
               Li e concordo com as <a href="#top">Informações Legais</a> e com a <a href="#top">Política de Privacidade</a>
             </span>
