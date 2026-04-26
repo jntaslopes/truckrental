@@ -54,9 +54,16 @@ export function Header({
       </nav>
 
       <div className="header-actions">
-        <Link href="/#concessionarias" className="ghost-action">
+        <Link
+          href="/#concessionarias"
+          className="ghost-action"
+          aria-label="Encontrar uma Concessionária"
+        >
           <img src={asset("icon-pin.svg")} alt="" />
-          Encontrar uma Concessionária
+          <span className="ghost-action-label ghost-action-label-full">
+            Encontrar uma Concessionária
+          </span>
+          <span className="ghost-action-label ghost-action-label-short">Concessionárias</span>
         </Link>
         <Link href="/#proposta" className="cart-action" aria-label={`${proposalCount} itens na proposta`}>
           <img src={asset("icon-cart.svg")} alt="" />
