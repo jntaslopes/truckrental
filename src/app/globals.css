@@ -610,29 +610,6 @@ button {
   width: 24px;
 }
 
-.operation-panel {
-  align-items: center;
-  background: var(--white);
-  display: grid;
-  gap: 32px;
-  grid-template-columns: 1fr 360px 1fr;
-  min-height: 440px;
-  padding: 48px 64px;
-}
-
-.operation-list {
-  display: grid;
-  gap: 38px;
-}
-
-.operation-list.left {
-  text-align: right;
-}
-
-.operation-list.right {
-  text-align: left;
-}
-
 .info-line strong {
   color: var(--blue);
   display: block;
@@ -649,29 +626,198 @@ button {
   margin-top: 4px;
 }
 
-.truck-orbit {
-  align-items: center;
-  border: 1px solid rgba(0, 130, 214, 0.3);
-  border-radius: 50%;
-  display: flex;
-  height: 360px;
-  justify-content: center;
-  position: relative;
-  width: 360px;
+.benefits-section {
+  background: #f3f4f7;
+  padding: 100px 40px;
+  scroll-margin-top: 88px;
 }
 
-.truck-orbit::before {
-  border: 1px solid rgba(0, 130, 214, 0.18);
-  border-radius: 50%;
-  content: "";
-  inset: 34px;
+.benefits-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+}
+
+.benefits-heading {
+  color: var(--ink);
+}
+
+.benefits-heading > p:first-child {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  margin: 0 0 10px;
+}
+
+.benefits-heading h2 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
+  margin: 0;
+}
+
+.benefits-heading h2 span {
+  font-weight: 300;
+}
+
+.benefits-heading-rule {
+  background: var(--cyan);
+  height: 2px;
+  margin: 10px 0 16px;
+  width: 80px;
+}
+
+.benefits-intro {
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+}
+
+.benefits-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  position: relative;
+}
+
+.benefits-column {
+  display: grid;
+  gap: 24px;
+}
+
+.benefits-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  min-height: 201px;
+  padding-bottom: 32px;
+  padding-top: 32px;
+  position: relative;
+}
+
+.benefits-card.left {
+  align-items: flex-end;
+  border-radius: 8px 0 0 8px;
+  border-right: 0;
+  padding-left: 32px;
+  padding-right: 220px;
+  text-align: right;
+}
+
+.benefits-card.right {
+  align-items: flex-start;
+  border-left: 0;
+  border-radius: 0 8px 8px 0;
+  padding-left: 220px;
+  padding-right: 32px;
+  text-align: left;
+}
+
+.benefits-card:nth-child(2).left {
+  padding-right: 298px;
+}
+
+.benefits-card:nth-child(2).right {
+  padding-left: 298px;
+}
+
+.benefits-card-icon {
+  height: 48px;
+  object-fit: contain;
+  width: 48px;
+}
+
+.benefits-card h3 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 28px;
+  line-height: 34px;
+  margin: 0 0 8px;
+}
+
+.benefits-card h3 span {
+  color: var(--bright-blue);
+  font-weight: 300;
+}
+
+.benefits-card p {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+}
+
+.benefits-visual {
+  --benefits-visual-scale: 1;
+  height: 650px;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: -28px;
+  transform: translateX(-50%);
+  width: 471px;
+  z-index: 3;
+}
+
+.benefits-rings {
+  height: 650px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: scale(var(--benefits-visual-scale));
+  transform-origin: top left;
+  width: 471px;
+}
+
+.benefits-ring {
+  display: block;
+  max-width: none;
   position: absolute;
 }
 
-.truck-orbit img {
-  max-width: 460px;
-  position: relative;
-  width: 128%;
+.benefits-ring-outer {
+  height: 470px;
+  left: 1px;
+  top: 126px;
+  width: 470px;
+}
+
+.benefits-ring-middle {
+  height: 415px;
+  left: 29px;
+  top: 154px;
+  width: 415px;
+}
+
+.benefits-ring-inner {
+  height: 353px;
+  left: 60px;
+  top: 185px;
+  width: 353px;
+}
+
+.benefits-device {
+  height: 708px;
+  left: 0;
+  max-width: none;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 471px;
+}
+
+.benefits-cta {
+  align-self: center;
+  display: inline-flex;
+  font-weight: 700;
+  justify-content: center;
 }
 
 .plans-section,
@@ -1507,5 +1653,130 @@ button {
   .catalog-main {
     padding-left: 32px;
     padding-right: 32px;
+  }
+
+  .benefits-section {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .benefits-card.left {
+    padding-right: 190px;
+  }
+
+  .benefits-card.right {
+    padding-left: 190px;
+  }
+
+  .benefits-card:nth-child(2).left {
+    padding-right: 244px;
+  }
+
+  .benefits-card:nth-child(2).right {
+    padding-left: 244px;
+  }
+
+  .benefits-visual {
+    transform: translateX(-50%) scale(0.9);
+  }
+}
+
+@media (max-width: 900px) {
+  .page-band {
+    padding: 72px 24px;
+  }
+
+  .benefits-section {
+    padding: 72px 24px;
+  }
+
+  .benefits-inner {
+    gap: 32px;
+  }
+
+  .benefits-heading h2 {
+    font-size: 34px;
+    line-height: 40px;
+  }
+
+  .benefits-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .benefits-visual {
+    --benefits-visual-scale: 0.65;
+    align-self: center;
+    height: 460px;
+    left: auto;
+    order: -1;
+    position: relative;
+    top: auto;
+    transform: none;
+    width: 306px;
+  }
+
+  .benefits-rings {
+    height: 460px;
+    width: 306px;
+  }
+
+  .benefits-device {
+    height: 460px;
+    width: 306px;
+  }
+
+  .benefits-card,
+  .benefits-card.left,
+  .benefits-card.right,
+  .benefits-card:nth-child(2).left,
+  .benefits-card:nth-child(2).right {
+    align-items: flex-start;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    min-height: 0;
+    padding: 28px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .benefits-section {
+    padding: 64px 24px;
+  }
+
+  .benefits-heading h2 {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .benefits-card h3 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .benefits-visual {
+    --benefits-visual-scale: 0.552;
+    height: 390px;
+    width: 260px;
+  }
+
+  .benefits-rings {
+    height: 390px;
+    width: 260px;
+  }
+
+  .benefits-device {
+    height: 390px;
+    width: 260px;
+  }
+
+  .benefits-card,
+  .benefits-card.left,
+  .benefits-card.right,
+  .benefits-card:nth-child(2).left,
+  .benefits-card:nth-child(2).right {
+    padding: 24px;
   }
 }

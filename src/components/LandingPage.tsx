@@ -211,39 +211,123 @@ function TruckCatalogue({
   );
 }
 
-function InfoLine({ title, copy }: { title: string; copy: string }) {
+function InfoLine({ title, copy, icon }: { title: string; copy: string; icon?: string }) {
   return (
     <div className="info-line">
-      <strong>{title}</strong>
-      <span>{copy}</span>
+      {icon ? <img className="info-line-icon" src={asset(icon)} alt="" /> : null}
+      <div>
+        <strong>{title}</strong>
+        <span>{copy}</span>
+      </div>
     </div>
   );
 }
 
-function OperationSection() {
+type BenefitCard = {
+  icon: string;
+  title: string;
+  light: string;
+  copy: string;
+};
+
+function BenefitCard({ item, side }: { item: BenefitCard; side: "left" | "right" }) {
   return (
-    <section id="como-funciona" className="operation-section page-band soft">
-      <div className="page-inner">
-        <SectionTitle
-          eyebrow="Tenha controle de ponta a ponta"
-          title="Meteor 28.480HD"
-          light="Tudo mais foco na sua operação."
-        />
-        <div className="operation-panel">
-          <div className="operation-list left">
-            <InfoLine title="Custos" copy="Mensalidade fixa e previsível" />
-            <InfoLine title="Proteção" copy="Serviços inclusos na contratação" />
-            <InfoLine title="Operação" copy="Disponibilidade para sua frota" />
+    <article className={`benefits-card ${side}`}>
+      <img className="benefits-card-icon" src={asset(item.icon)} alt="" />
+      <div>
+        <h3>
+          {item.title} <span>{item.light}</span>
+        </h3>
+        <p>{item.copy}</p>
+      </div>
+    </article>
+  );
+}
+
+function OperationSection() {
+  const leftBenefits: BenefitCard[] = [
+    {
+      icon: "benefits-icon-document.svg",
+      title: "Custos",
+      light: "centralizados",
+      copy: "IPVA, documentação e serviços em uma única mensalidade",
+    },
+    {
+      icon: "benefits-icon-shield.svg",
+      title: "Proteção",
+      light: "completa da operação",
+      copy: "Seguro e cobertura para rodar com tranquilidade",
+    },
+    {
+      icon: "benefits-icon-wrench.svg",
+      title: "Operação",
+      light: "sem interrupções",
+      copy: "Manutenção preventiva e corretiva inclusas",
+    },
+  ];
+
+  const rightBenefits: BenefitCard[] = [
+    {
+      icon: "benefits-icon-truck-check.svg",
+      title: "Gestão simplificada",
+      light: "da frota",
+      copy: "Menos burocracia e mais eficiência operacional",
+    },
+    {
+      icon: "benefits-icon-data.svg",
+      title: "Decisões",
+      light: "baseadas em dados",
+      copy: "Telemetria para otimizar custos e performance",
+    },
+    {
+      icon: "benefits-icon-support.svg",
+      title: "Suporte",
+      light: "contínuo",
+      copy: "Assistência 24h para manter sua operação rodando",
+    },
+  ];
+
+  return (
+    <section id="como-funciona" className="benefits-section">
+      <div className="benefits-inner">
+        <div className="benefits-heading">
+          <p>Tudo incluso para você não se preocupar</p>
+          <h2>
+            <span>Menos gestão de frota.</span> Mais foco na sua operação.
+          </h2>
+          <div className="benefits-heading-rule" />
+          <p className="benefits-intro">
+            Na assinatura do VW Truck | Rental, <strong>tudo o que você precisa já está incluso</strong> em uma única
+            parcela previsível.
+          </p>
+        </div>
+
+        <div className="benefits-layout">
+          <div className="benefits-column">
+            {leftBenefits.map((item) => (
+              <BenefitCard key={item.title} item={item} side="left" />
+            ))}
           </div>
-          <div className="truck-orbit">
-            <img src={asset("truck-meteor-gray.png")} alt="Meteor 28.480HD" />
+
+          <div className="benefits-visual" aria-hidden="true">
+            <div className="benefits-rings">
+              <img className="benefits-ring benefits-ring-middle" src={asset("benefits-ellipse-middle.svg")} alt="" />
+              <img className="benefits-ring benefits-ring-inner" src={asset("benefits-ellipse-inner.svg")} alt="" />
+              <img className="benefits-ring benefits-ring-outer" src={asset("benefits-ellipse-outer.svg")} alt="" />
+            </div>
+            <img className="benefits-device" src={asset("benefits-device-composite.png")} alt="" />
           </div>
-          <div className="operation-list right">
-            <InfoLine title="Gestão simplificada" copy="Menos burocracia no dia a dia" />
-            <InfoLine title="Rede nacional" copy="Atendimento especializado para caminhões" />
-            <InfoLine title="Suporte" copy="Especialistas para orientar sua proposta" />
+
+          <div className="benefits-column">
+            {rightBenefits.map((item) => (
+              <BenefitCard key={item.title} item={item} side="right" />
+            ))}
           </div>
         </div>
+
+        <a className="outline-cta benefits-cta" href="#faq">
+          Entender tudo que está incluso
+        </a>
       </div>
     </section>
   );
