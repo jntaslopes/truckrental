@@ -42,6 +42,11 @@ export type TruckDetailCta = {
   href: string;
 };
 
+export type TruckDetailComparisonItem = {
+  icon: string;
+  label: string;
+};
+
 export type TruckDetailData = CatalogTruck & {
   heroImage: string;
   heroCopy: string;
@@ -52,8 +57,8 @@ export type TruckDetailData = CatalogTruck & {
     alt: string;
   }[];
   comparison: {
-    subscription: string[];
-    financing: string[];
+    subscription: TruckDetailComparisonItem[];
+    financing: TruckDetailComparisonItem[];
   };
   ctas: TruckDetailCta[];
   related: CatalogTruck[];
@@ -376,18 +381,18 @@ const detailCtas: TruckDetailCta[] = [
 
 const comparison = {
   subscription: [
-    "Sem imobilizar capital",
-    "Custos previsíveis ao longo do contrato",
-    "Gestão da frota terceirizada",
-    "Foco na operação, não na gestão",
-    "Flexibilidade para ajustar a frota",
+    { icon: asset("comparison-icon-zero.svg"), label: "Sem imobilizar capital" },
+    { icon: asset("comparison-icon-cost.svg"), label: "Custos previsíveis ao longo do contrato" },
+    { icon: asset("comparison-icon-shipment.svg"), label: "Gestão da frota terceirizada" },
+    { icon: asset("comparison-icon-included.svg"), label: "Foco na operação, não na gestão" },
+    { icon: asset("comparison-icon-truck.svg"), label: "Flexibilidade para ajustar a frota" },
   ],
   financing: [
-    "Investimento inicial elevado",
-    "Custos operacionais não inclusos",
-    "Gestão interna da frota",
-    "Maior esforço operacional",
-    "Menor flexibilidade contratual",
+    { icon: asset("comparison-icon-dollar.svg"), label: "Investimento inicial elevado" },
+    { icon: asset("comparison-icon-laptop.svg"), label: "Custos operacionais não inclusos" },
+    { icon: asset("comparison-icon-briefcase.svg"), label: "Gestão interna da frota" },
+    { icon: asset("comparison-icon-monitor.svg"), label: "Maior esforço operacional" },
+    { icon: asset("comparison-icon-script.svg"), label: "Menor flexibilidade contratual" },
   ],
 };
 
