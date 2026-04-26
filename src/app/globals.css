@@ -2163,9 +2163,10 @@ button {
 }
 
 .truck-detail-list-item img {
-  flex: 0 0 auto;
-  height: 24px;
-  width: 24px;
+  flex: 0 0 20px;
+  height: 20px;
+  margin-top: 2px;
+  width: 20px;
 }
 
 .truck-detail-list-item span {
@@ -2187,28 +2188,43 @@ button {
   position: relative;
 }
 
-.truck-detail-gallery img {
+.truck-detail-gallery-photo {
   border: 1px solid #ddd;
   height: 466px;
   object-fit: cover;
+  transition: opacity 180ms ease, transform 180ms ease;
   width: 100%;
 }
 
+.truck-detail-gallery-photo.active {
+  transform: scale(1.01);
+}
+
 .gallery-arrow {
-  align-items: center;
   background: var(--white);
   border: 1px solid var(--blue);
   border-radius: 50%;
   color: var(--blue);
-  display: flex;
-  font-size: 38px;
+  cursor: pointer;
+  display: grid;
+  font: inherit;
   height: 48px;
-  justify-content: center;
-  line-height: 1;
+  line-height: 0;
+  place-items: center;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 48px;
+  z-index: 2;
+}
+
+.gallery-arrow span {
+  display: block;
+  font-size: 38px;
+  height: 38px;
+  line-height: 32px;
+  text-align: center;
+  width: 24px;
 }
 
 .gallery-arrow.previous {
@@ -2868,7 +2884,7 @@ button {
     grid-template-columns: repeat(3, minmax(260px, 1fr));
   }
 
-  .truck-detail-gallery img {
+  .truck-detail-gallery-photo {
     height: 360px;
   }
 

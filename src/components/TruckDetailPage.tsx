@@ -140,10 +140,26 @@ function DetailProposalSummary({
 
 export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const selectedTrucks = useMemo(
     () => catalogTrucks.filter((item) => selectedIds.includes(item.id)),
     [selectedIds],
   );
+  const visibleGalleryPhotos = useMemo(() => {
+    if (truck.gallery.length === 0) {
+      return [];
+    }
+
+    const currentIndex = activePhotoIndex % truck.gallery.length;
+    const previousIndex = (currentIndex - 1 + truck.gallery.length) % truck.gallery.length;
+    const nextIndex = (currentIndex + 1) % truck.gallery.length;
+
+    return [
+      { ...truck.gallery[previousIndex], position: "previous" },
+      { ...truck.gallery[currentIndex], position: "active" },
+      { ...truck.gallery[nextIndex], position: "next" },
+    ];
+  }, [activePhotoIndex, truck.gallery]);
 
   function toggleTruck(item: CatalogTruck) {
     setSelectedIds((current) =>
@@ -151,6 +167,22 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
         ? current.filter((id) => id !== item.id)
         : [...current, item.id],
     );
+  }
+
+  function showPreviousPhoto() {
+    if (truck.gallery.length === 0) {
+      return;
+    }
+
+    setActivePhotoIndex((current) => (current - 1 + truck.gallery.length) % truck.gallery.length);
+  }
+
+  function showNextPhoto() {
+    if (truck.gallery.length === 0) {
+      return;
+    }
+
+    setActivePhotoIndex((current) => (current + 1) % truck.gallery.length);
   }
 
   return (
@@ -213,11 +245,20 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
             <h2 className="truck-detail-gallery-title">Fotos</h2>
           </div>
           <div className="truck-detail-gallery" aria-label="Fotos do caminhão">
-            {truck.gallery.map((photo) => (
-              <img src={photo.image} alt={photo.alt} key={photo.image} />
+            {visibleGalleryPhotos.map((photo) => (
+              <img
+                className={`truck-detail-gallery-photo ${photo.position}`}
+                src={photo.image}
+                alt={photo.alt}
+                key={`${photo.position}-${photo.image}`}
+              />
             ))}
-            <button className="gallery-arrow previous" type="button" aria-label="Foto anterior">‹</button>
-            <button className="gallery-arrow next" type="button" aria-label="Próxima foto">›</button>
+            <button className="gallery-arrow previous" type="button" aria-label="Foto anterior" onClick={showPreviousPhoto}>
+              <span aria-hidden="true">&lsaquo;</span>
+            </button>
+            <button className="gallery-arrow next" type="button" aria-label="Próxima foto" onClick={showNextPhoto}>
+              <span aria-hidden="true">&rsaquo;</span>
+            </button>
           </div>
         </section>
 
