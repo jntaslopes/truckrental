@@ -3077,30 +3077,45 @@ html.proposal-drawer-open body {
 }
 
 .detail-comparison {
+  background: var(--white);
   border: 1px solid var(--line);
   border-radius: 8px;
   display: grid;
-  grid-template-columns: 1fr 96px 1fr;
+  grid-template-columns: minmax(0, 1fr) 192px minmax(0, 1fr);
   margin-top: 64px;
-  min-height: 486px;
+  min-height: 528px;
   overflow: hidden;
   position: relative;
+}
+
+.detail-comparison::before {
+  background: var(--line);
+  content: "";
+  height: calc(100% - 56px);
+  left: 50%;
+  position: absolute;
+  top: 28px;
+  transform: translateX(-50%);
+  width: 1px;
+  z-index: 1;
 }
 
 .detail-comparison-column {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 64px 96px;
+  padding: 56px 48px;
+  position: relative;
+  z-index: 2;
 }
 
-.detail-comparison-column:first-child {
-  border-right: 1px solid var(--line);
+.detail-comparison-column:last-child {
+  grid-column: 3;
 }
 
-.detail-comparison-column > img {
+.detail-comparison-wordmark {
   height: 14px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   object-fit: contain;
   object-position: left center;
   width: 166px;
@@ -3108,22 +3123,33 @@ html.proposal-drawer-open body {
 
 .detail-comparison-column .detail-comparison-symbol {
   height: 32px;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
+  object-fit: contain;
+  object-position: left center;
   width: 32px;
 }
 
 .detail-comparison-column h3 {
+  align-items: center;
   color: var(--blue);
+  display: flex;
   font-family: "VW Head", Arial, sans-serif;
-  font-size: 28px;
-  line-height: 34px;
+  font-size: 25px;
+  gap: 8px;
+  line-height: 30px;
+}
+
+.detail-comparison-column h3 img {
+  flex: 0 0 auto;
+  height: 16px;
+  width: 16px;
 }
 
 .detail-comparison-column p {
   color: var(--blue);
   font-size: 18px;
-  line-height: 27px;
-  margin: 4px 0 48px;
+  line-height: 22px;
+  margin: 6px 0 44px;
 }
 
 .detail-comparison-column h4 {
@@ -3136,7 +3162,7 @@ html.proposal-drawer-open body {
 
 .detail-comparison-column ul {
   display: grid;
-  gap: 24px;
+  gap: 18px;
   list-style: none;
 }
 
@@ -3146,13 +3172,14 @@ html.proposal-drawer-open body {
   display: flex;
   font-size: 18px;
   font-weight: 700;
-  gap: 24px;
-  line-height: 27px;
+  gap: 20px;
+  line-height: 22px;
 }
 
 .detail-comparison-column li img {
-  height: 24px;
-  width: 24px;
+  flex: 0 0 auto;
+  height: 32px;
+  width: 32px;
 }
 
 .detail-versus {
@@ -3173,7 +3200,7 @@ html.proposal-drawer-open body {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 96px;
-  z-index: 2;
+  z-index: 3;
 }
 
 .detail-next-section {
@@ -3503,9 +3530,13 @@ html.proposal-drawer-open body {
     gap: 16px 48px;
   }
 
+  .detail-comparison {
+    grid-template-columns: minmax(0, 1fr) 128px minmax(0, 1fr);
+  }
+
   .detail-comparison-column {
-    padding-left: 56px;
-    padding-right: 56px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   .detail-related-grid {
@@ -3612,15 +3643,32 @@ html.proposal-drawer-open body {
 
   .detail-comparison {
     grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .detail-comparison::before {
+    display: none;
   }
 
   .detail-comparison-column:first-child {
     border-bottom: 1px solid var(--line);
     border-right: 0;
+    padding-bottom: 80px;
+  }
+
+  .detail-comparison-column:last-child {
+    grid-column: 1;
+    padding-top: 80px;
   }
 
   .detail-versus {
-    top: 50%;
+    grid-column: 1;
+    justify-self: center;
+    left: auto;
+    margin: -49px 0;
+    position: relative;
+    top: auto;
+    transform: none;
   }
 
   .detail-cta-grid,
@@ -3856,14 +3904,45 @@ html.proposal-drawer-open body {
     padding: 40px 24px;
   }
 
+  .detail-comparison-column:first-child {
+    padding-bottom: 64px;
+  }
+
+  .detail-comparison-column:last-child {
+    padding-top: 64px;
+  }
+
+  .detail-comparison-wordmark {
+    margin-bottom: 36px;
+  }
+
+  .detail-comparison-column .detail-comparison-symbol {
+    margin-bottom: 32px;
+  }
+
+  .detail-comparison-column h3 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .detail-comparison-column p {
+    margin-bottom: 40px;
+  }
+
   .detail-comparison-column li {
     gap: 14px;
     font-size: 16px;
     line-height: 22px;
   }
 
+  .detail-comparison-column li img {
+    height: 28px;
+    width: 28px;
+  }
+
   .detail-versus {
     height: 72px;
+    margin: -37px 0;
     width: 72px;
   }
 

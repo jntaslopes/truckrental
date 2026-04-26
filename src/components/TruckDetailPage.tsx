@@ -271,30 +271,36 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
             <p className="detail-section-copy">Veja como cada modelo impacta seu custo mensal e total ao longo do contrato.</p>
             <div className="detail-comparison">
               <div className="detail-comparison-column">
-                <img src={asset("logo-word-blue.png")} alt="VW Truck Rental" />
-                <h3>Frota por Assinatura</h3>
+                <img className="detail-comparison-wordmark" src={asset("comparison-wordmark.png")} alt="VW Truck Rental" />
+                <h3>
+                  Frota por Assinatura
+                  <img src={asset("comparison-icon-info.svg")} alt="" />
+                </h3>
                 <p>Gestão completa com previsibilidade de custos</p>
                 <h4>Assinatura</h4>
                 <ul>
                   {truck.comparison.subscription.map((item) => (
-                    <li key={item}>
-                      <img src={asset("detail-icon-check.svg")} alt="" />
-                      {item}
+                    <li key={item.label}>
+                      <img src={item.icon} alt="" />
+                      <span>{item.label}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="detail-versus" aria-hidden="true">VS</div>
               <div className="detail-comparison-column">
-                <img className="detail-comparison-symbol" src={asset("logo-symbol-blue.svg")} alt="" />
-                <h3>Financiamento</h3>
+                <img className="detail-comparison-symbol" src={asset("comparison-vw-badge.png")} alt="" />
+                <h3>
+                  Financiamento
+                  <img src={asset("comparison-icon-info.svg")} alt="" />
+                </h3>
                 <p>Aquisição do ativo com gestão própria</p>
                 <h4>Financiamento</h4>
                 <ul>
                   {truck.comparison.financing.map((item) => (
-                    <li key={item}>
-                      <img src={asset("detail-icon-check.svg")} alt="" />
-                      {item}
+                    <li key={item.label}>
+                      <img src={item.icon} alt="" />
+                      <span>{item.label}</span>
                     </li>
                   ))}
                 </ul>
