@@ -1152,34 +1152,61 @@ button {
 }
 
 .faq-section {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 800px;
-  min-height: 800px;
-}
-
-.faq-image {
-  overflow: hidden;
-  position: relative;
-}
-
-.faq-image img {
-  height: 100%;
-  object-fit: cover;
-  object-position: left center;
+  align-items: center;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  padding: 100px 105px;
+  scroll-margin-top: 88px;
   width: 100%;
 }
 
 .faq-panel {
-  background: var(--white);
-  padding: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
 }
 
-.faq-panel h2 {
+.faq-heading {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.faq-heading p {
+  color: var(--ink);
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.faq-heading h2 {
   color: var(--blue);
   font-family: "VW Head", Arial, sans-serif;
-  font-size: 36px;
-  line-height: 43px;
-  margin: 8px 0 32px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.faq-heading h2 span {
+  font-weight: 400;
+}
+
+.faq-heading-rule {
+  background: var(--cyan);
+  height: 2px;
+  width: 80px;
+}
+
+.accordion {
+  width: 100%;
 }
 
 .accordion-item {
@@ -1187,25 +1214,39 @@ button {
 }
 
 .accordion-item button {
-  align-items: flex-start;
+  align-items: center;
   background: transparent;
   border: 0;
-  color: var(--ink);
+  color: var(--blue);
   display: flex;
   font-family: "VW Head", Arial, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   justify-content: space-between;
-  line-height: 24px;
+  line-height: 1.3;
+  min-height: 64px;
   padding: 24px 0;
   text-align: left;
   width: 100%;
 }
 
+.accordion-item button span:first-child {
+  min-width: 0;
+  padding-right: 24px;
+}
+
 .accordion-icon {
-  color: var(--bright-blue);
+  background: var(--cyan);
   flex: 0 0 auto;
-  font-family: "VW Text", Arial, sans-serif;
+  height: 24px;
+  mask: url("/assets/figma/icon-chevron-down.svg") center / 16px 10px no-repeat;
+  transition: transform 180ms ease;
+  width: 40px;
+  -webkit-mask: url("/assets/figma/icon-chevron-down.svg") center / 16px 10px no-repeat;
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(180deg);
 }
 
 .accordion-item p {
@@ -1222,6 +1263,14 @@ button {
   max-height: 220px;
   opacity: 1;
   padding: 0 0 24px;
+}
+
+.faq-panel > .outline-cta.centered {
+  height: 48px;
+  margin-top: 0;
+  max-width: 100%;
+  min-height: 48px;
+  width: 318px;
 }
 
 .site-footer {
@@ -1765,6 +1814,11 @@ button {
     padding-right: 32px;
   }
 
+  .faq-section {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+
   .benefits-card.left {
     padding-right: 190px;
   }
@@ -1835,6 +1889,14 @@ button {
     padding: 72px 24px;
   }
 
+  .faq-section {
+    padding: 72px 24px;
+  }
+
+  .faq-heading h2 {
+    font-size: 30px;
+  }
+
   .benefits-inner {
     gap: 32px;
   }
@@ -1889,6 +1951,31 @@ button {
 @media (max-width: 560px) {
   .benefits-section {
     padding: 64px 24px;
+  }
+
+  .faq-section {
+    padding: 64px 24px;
+  }
+
+  .faq-panel {
+    gap: 32px;
+  }
+
+  .faq-heading {
+    gap: 12px;
+  }
+
+  .faq-heading h2 {
+    font-size: 28px;
+  }
+
+  .accordion-item button {
+    font-size: 16px;
+    min-height: 72px;
+  }
+
+  .faq-panel > .outline-cta.centered {
+    width: 100%;
   }
 
   .benefits-heading h2 {
