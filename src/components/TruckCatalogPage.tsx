@@ -98,8 +98,12 @@ function CatalogFilterSidebar({
               }}
             >
               <input
+                className="ds-checkbox"
                 type="checkbox"
                 checked={filters[section.key].includes(option)}
+                data-selection={filters[section.key].includes(option) ? "checked" : "unchecked"}
+                data-state="default"
+                data-size="sm"
                 onKeyDown={(event) => {
                   if (event.key === " " || event.key === "Enter") {
                     event.preventDefault();
@@ -108,7 +112,6 @@ function CatalogFilterSidebar({
                 }}
                 readOnly
               />
-              <span className="fake-checkbox" aria-hidden="true" />
               <span>{option}</span>
             </label>
           ))}

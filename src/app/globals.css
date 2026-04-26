@@ -174,37 +174,121 @@ html.proposal-drawer-open body {
   background: var(--white);
   border: 1px solid #7f8f9a;
   border-radius: 4px;
+  cursor: pointer;
   flex: 0 0 auto;
   height: 16px;
   position: relative;
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
   width: 16px;
 }
 
-.ds-checkbox:hover {
+.ds-checkbox[data-size="md"] {
+  border-radius: 4px;
+  height: 20px;
+  width: 20px;
+}
+
+/* DS 3.0 visual states */
+.ds-checkbox:hover,
+.ds-checkbox[data-state="hover"] {
   border-color: var(--bright-blue);
 }
 
-.ds-checkbox:focus-visible {
-  border-color: var(--bright-blue);
-  box-shadow: 0 0 0 4px rgba(0, 130, 214, 0.22);
+.ds-checkbox:active,
+.ds-checkbox[data-state="active"],
+.ds-checkbox[data-state="active/pressed"] {
+  border-color: var(--blue);
+}
+
+.ds-checkbox:focus-visible,
+.ds-checkbox[data-state="focus"] {
+  border-color: #0a9fff;
+  box-shadow: 0 0 0 4px rgba(0, 15, 41, 0.25);
   outline: 0;
 }
 
-.ds-checkbox:checked {
+.ds-checkbox:disabled,
+.ds-checkbox[data-state="disabled"] {
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+.ds-checkbox[data-state="error"] {
+  border-color: #ea4a64;
+}
+
+.ds-checkbox:checked,
+.ds-checkbox:indeterminate,
+.ds-checkbox[data-selection="checked"],
+.ds-checkbox[data-selection="indeterminate"] {
   background: var(--blue);
   border-color: var(--blue);
 }
 
-.ds-checkbox:checked::after {
-  border: solid var(--white);
-  border-width: 0 2px 2px 0;
+.ds-checkbox:checked:hover,
+.ds-checkbox[data-selection="checked"][data-state="hover"],
+.ds-checkbox[data-selection="indeterminate"][data-state="hover"] {
+  background: var(--bright-blue);
+  border-color: var(--bright-blue);
+}
+
+.ds-checkbox:checked:active,
+.ds-checkbox:indeterminate:active,
+.ds-checkbox[data-selection="checked"][data-state="active"],
+.ds-checkbox[data-selection="checked"][data-state="active/pressed"],
+.ds-checkbox[data-selection="indeterminate"][data-state="active"],
+.ds-checkbox[data-selection="indeterminate"][data-state="active/pressed"] {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.ds-checkbox:checked:disabled,
+.ds-checkbox[data-selection="checked"][data-state="disabled"],
+.ds-checkbox[data-selection="indeterminate"][data-state="disabled"] {
+  background: var(--line);
+  border-color: var(--line);
+}
+
+.ds-checkbox[data-selection="checked"][data-state="error"],
+.ds-checkbox[data-selection="indeterminate"][data-state="error"] {
+  background: #ea4a64;
+  border-color: #ea4a64;
+}
+
+.ds-checkbox::before {
+  background-color: var(--white);
   content: "";
-  height: 7px;
-  left: 5px;
+  height: 8px;
+  left: 50%;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
   position: absolute;
-  top: 2px;
-  transform: rotate(45deg);
-  width: 4px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+}
+
+.ds-checkbox[data-size="md"]::before {
+  height: 10px;
+  width: 12px;
+}
+
+.ds-checkbox:checked::before,
+.ds-checkbox:indeterminate::before,
+.ds-checkbox[data-selection="checked"]::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3E%3Cpath d='M1 4.2 3.6 6.8 9 1.5' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+}
+
+.ds-checkbox:indeterminate::before,
+.ds-checkbox[data-selection="indeterminate"]::before {
+  height: 2px;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 2'%3E%3Crect x='1' y='0' width='8' height='2' rx='1' fill='black'/%3E%3C/svg%3E");
+}
+
+.ds-checkbox:disabled::before,
+.ds-checkbox[data-state="disabled"]::before {
+  background-color: #f4f5f6;
 }
 
 .site-header {
@@ -2408,7 +2492,7 @@ html.proposal-drawer-open body {
 }
 
 .proposal-consents label {
-  align-items: center;
+  align-items: flex-start;
   color: var(--ink);
   display: flex;
   font-size: 12px;
@@ -2416,7 +2500,7 @@ html.proposal-drawer-open body {
   line-height: 18px;
 }
 
-.proposal-consents input {
+.proposal-consents .ds-checkbox {
   margin-top: 1px;
 }
 
@@ -2584,7 +2668,7 @@ html.proposal-drawer-open body {
 }
 
 .catalog-filter-section label {
-  align-items: center;
+  align-items: flex-start;
   color: var(--ink);
   cursor: pointer;
   display: inline-flex;
@@ -2593,42 +2677,8 @@ html.proposal-drawer-open body {
   line-height: 17px;
 }
 
-.catalog-filter-section label input[type="checkbox"] {
-  height: 1px;
-  opacity: 0;
-  position: absolute;
-  width: 1px;
-}
-
-.fake-checkbox {
-  background: var(--white);
-  border: 1px solid #9faabc;
-  border-radius: 2px;
-  display: inline-flex;
-  flex: 0 0 auto;
-  height: 14px;
-  width: 14px;
-}
-
-.catalog-filter-section label input[type="checkbox"]:checked + .fake-checkbox {
-  align-items: center;
-  background: var(--bright-blue);
-  border-color: var(--bright-blue);
-  justify-content: center;
-}
-
-.catalog-filter-section label input[type="checkbox"]:checked + .fake-checkbox::after {
-  border: solid var(--white);
-  border-width: 0 1.5px 1.5px 0;
-  content: "";
-  height: 7px;
-  transform: rotate(45deg) translate(-1px, -1px);
-  width: 3px;
-}
-
-.catalog-filter-section label input[type="checkbox"]:focus-visible + .fake-checkbox {
-  outline: 2px solid var(--bright-blue);
-  outline-offset: 2px;
+.catalog-filter-section .ds-checkbox {
+  margin-top: 1px;
 }
 
 .catalog-filter-section.capacity {
