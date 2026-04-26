@@ -2954,6 +2954,8 @@ html.proposal-drawer-open body {
   grid-template-columns: minmax(0, 647px) minmax(480px, 1fr);
   min-height: 0;
   padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
   position: relative;
 }
 
@@ -3134,12 +3136,22 @@ html.proposal-drawer-open body {
 }
 
 .truck-detail-gallery {
+  --gallery-drag-offset: 0px;
   display: grid;
   gap: 10px;
   grid-template-columns: minmax(290px, 0.9fr) minmax(360px, 1.3fr) minmax(290px, 0.9fr);
   height: 466px;
   overflow: hidden;
   position: relative;
+  touch-action: pan-y;
+}
+
+.truck-detail-gallery.is-draggable {
+  cursor: grab;
+}
+
+.truck-detail-gallery.is-dragging {
+  cursor: grabbing;
 }
 
 .truck-detail-gallery-photo {
@@ -3147,11 +3159,18 @@ html.proposal-drawer-open body {
   height: 466px;
   object-fit: cover;
   transition: opacity 180ms ease, transform 180ms ease;
+  transform: translateX(var(--gallery-drag-offset));
+  user-select: none;
+  -webkit-user-drag: none;
   width: 100%;
 }
 
 .truck-detail-gallery-photo.active {
-  transform: scale(1.01);
+  transform: translateX(var(--gallery-drag-offset)) scale(1.01);
+}
+
+.truck-detail-gallery.is-dragging .truck-detail-gallery-photo {
+  transition: none;
 }
 
 .gallery-arrow {
@@ -3771,6 +3790,10 @@ html.proposal-drawer-open body {
   .catalog-page {
     grid-template-columns: 276px minmax(904px, 1fr);
     min-width: 1180px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .truck-detail-hero-inner {
