@@ -164,8 +164,8 @@ export function TruckCatalogPage() {
         </section>
       </main>
       <Footer />
-      <Link href="/#faq" className="fab" aria-label="Abrir central de ajuda">
-        ?
+      <Link href="/#faq" className="fab" aria-label="Abrir WhatsApp">
+        <img src={asset("icon-whatsapp.svg")} alt="" />
       </Link>
       <CatalogProposalSummary selectedTrucks={selectedTrucks} onClear={() => setSelectedIds([])} />
     </>
