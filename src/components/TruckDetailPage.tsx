@@ -2,7 +2,14 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type ChangeEvent, useMemo, useRef, useState } from "react";
+import {
+  type CSSProperties,
+  type ChangeEvent,
+  type PointerEvent as ReactPointerEvent,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import { faqs } from "@/data/landing";
 import { catalogTrucks, type CatalogTruck, type TruckDetailData } from "@/data/catalog";
@@ -156,7 +163,17 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
+  const [galleryDragOffset, setGalleryDragOffset] = useState(0);
+  const [isGalleryDragging, setIsGalleryDragging] = useState(false);
   const relatedTrackRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const galleryDragStateRef = useRef({
+    deltaX: 0,
+    isDragging: false,
+    pointerId: -1,
+    startX: 0,
+    width: 0,
+  });
 
   const selectedItems = useMemo<ProposalItem[]>(
     () =>
@@ -250,6 +267,87 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
     setActivePhotoIndex((current) => (current + 1) % truck.gallery.length);
   }
 
+  function startGalleryDrag(event: ReactPointerEvent<HTMLDivElement>) {
+    if (truck.gallery.length <= 1) {
+      return;
+    }
+
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    if ((event.target as Element | null)?.closest(".gallery-arrow")) {
+      return;
+    }
+
+    const gallery = galleryRef.current;
+
+    if (!gallery) {
+      return;
+    }
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+    galleryDragStateRef.current = {
+      deltaX: 0,
+      isDragging: true,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      width: gallery.clientWidth,
+    };
+    setIsGalleryDragging(true);
+    setGalleryDragOffset(0);
+  }
+
+  function moveGalleryDrag(event: ReactPointerEvent<HTMLDivElement>) {
+    const dragState = galleryDragStateRef.current;
+
+    if (!dragState.isDragging || dragState.pointerId !== event.pointerId) {
+      return;
+    }
+
+    const deltaX = event.clientX - dragState.startX;
+    dragState.deltaX = deltaX;
+    setGalleryDragOffset(deltaX);
+  }
+
+  function endGalleryDrag(event: ReactPointerEvent<HTMLDivElement>, canceled = false) {
+    const dragState = galleryDragStateRef.current;
+
+    if (!dragState.isDragging || dragState.pointerId !== event.pointerId) {
+      return;
+    }
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    const deltaX = dragState.deltaX;
+    const threshold = Math.max(48, dragState.width * 0.12);
+
+    galleryDragStateRef.current = {
+      deltaX: 0,
+      isDragging: false,
+      pointerId: -1,
+      startX: 0,
+      width: 0,
+    };
+    setIsGalleryDragging(false);
+    setGalleryDragOffset(0);
+
+    if (canceled) {
+      return;
+    }
+
+    if (deltaX > threshold) {
+      showPreviousPhoto();
+      return;
+    }
+
+    if (deltaX < -threshold) {
+      showNextPhoto();
+    }
+  }
+
   function scrollRelated(direction: "previous" | "next") {
     const track = relatedTrackRef.current;
 
@@ -322,13 +420,28 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
             </div>
             <h2 className="truck-detail-gallery-title">Fotos</h2>
           </div>
-          <div className="truck-detail-gallery" aria-label="Fotos do caminhão">
+          <div
+            ref={galleryRef}
+            className={`truck-detail-gallery ${truck.gallery.length > 1 ? "is-draggable" : ""} ${isGalleryDragging ? "is-dragging" : ""}`}
+            aria-label="Fotos do caminhão"
+            onPointerDown={startGalleryDrag}
+            onPointerMove={moveGalleryDrag}
+            onPointerUp={endGalleryDrag}
+            onPointerCancel={(event) => endGalleryDrag(event, true)}
+            onPointerLeave={(event) => {
+              if (event.pointerType === "mouse") {
+                endGalleryDrag(event, true);
+              }
+            }}
+            style={{ "--gallery-drag-offset": `${galleryDragOffset}px` } as CSSProperties}
+          >
             {visibleGalleryPhotos.map((photo) => (
               <img
                 className={`truck-detail-gallery-photo ${photo.position}`}
                 src={photo.image}
                 alt={photo.alt}
                 key={`${photo.position}-${photo.image}`}
+                draggable={false}
               />
             ))}
             <button className="gallery-arrow previous" type="button" aria-label="Foto anterior" onClick={showPreviousPhoto}>
