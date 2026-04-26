@@ -6,6 +6,7 @@ export type TruckBadge = {
 
 export type Truck = {
   id: string;
+  slug: string;
   family: string;
   model: string;
   image: string;
@@ -33,6 +34,7 @@ export const navItems: NavItem[] = [
 export const trucks: Truck[] = [
   {
     id: "meteor-28480",
+    slug: "meteor-28480",
     family: "Meteor",
     model: "28.480HD 6x2 Highline",
     image: "/assets/figma/truck-meteor-gray.png",
@@ -53,6 +55,7 @@ export const trucks: Truck[] = [
   },
   {
     id: "meteor-29530",
+    slug: "meteor-29530",
     family: "Meteor",
     model: "29.530 6x4 Highline",
     image: "/assets/figma/truck-meteor-blue.png",
@@ -68,6 +71,7 @@ export const trucks: Truck[] = [
   },
   {
     id: "constellation-33480",
+    slug: "constellation-33480",
     family: "Constellation",
     model: "33.480 6x4",
     image: "/assets/figma/truck-constellation.png",
@@ -78,6 +82,7 @@ export const trucks: Truck[] = [
   },
   {
     id: "edelivery-14",
+    slug: "edelivery-14",
     family: "e-Delivery",
     model: "14",
     image: "/assets/figma/truck-edelivery.png",
@@ -118,7 +123,7 @@ export const faqs: FaqItem[] = [
   {
     question: "Posso cancelar antes do fim do contrato?",
     answer:
-      "A Volkswagen Caminhões e Ônibus conta com uma rede nacional de concessionárias para apoiar contratação, entrega e suporte.",
+      "As regras de cancelamento dependem do contrato e das condições comerciais acordadas para a operação.",
   },
 ];
 

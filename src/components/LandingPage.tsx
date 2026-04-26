@@ -132,12 +132,10 @@ function TruckCard({
   truck,
   selected,
   onToggle,
-  onDetails,
 }: {
   truck: Truck;
   selected: boolean;
   onToggle: (truck: Truck) => void;
-  onDetails: (truck: Truck) => void;
 }) {
   return (
     <article className={`truck-card ${selected ? "selected" : ""}`}>
@@ -165,10 +163,10 @@ function TruckCard({
           {selected ? "Remover da proposta" : "Adicionar à proposta"}
           <img src={asset("icon-add.svg")} alt="" />
         </button>
-        <button className="text-link" onClick={() => onDetails(truck)}>
+        <Link className="text-link" href={`/caminhoes/${truck.slug}`}>
           Ver detalhes
           <img src={asset("icon-arrow-right.svg")} alt="" />
-        </button>
+        </Link>
       </div>
     </article>
   );
@@ -177,11 +175,9 @@ function TruckCard({
 function TruckCatalogue({
   selectedIds,
   onToggle,
-  onDetails,
 }: {
   selectedIds: string[];
   onToggle: (truck: Truck) => void;
-  onDetails: (truck: Truck) => void;
 }) {
   return (
     <section id="catalogo" className="catalogue-section page-band">
@@ -198,7 +194,6 @@ function TruckCatalogue({
               truck={truck}
               selected={selectedIds.includes(truck.id)}
               onToggle={onToggle}
-              onDetails={onDetails}
             />
           ))}
         </div>
@@ -393,8 +388,7 @@ function AssistanceSection() {
           <div className="assistance-copy">
             <p className="eyebrow">Dê o próximo passo agora mesmo</p>
             <h2>
-              <span>Três formas de</span>
-              {" "}
+              <span>Três formas de</span>{" "}
               montar a sua frota Volkswagen
             </h2>
             <p>
@@ -617,8 +611,8 @@ function FooterColumn({
     <div className="footer-column">
       <h3>{title}</h3>
       <div className={twoColumns ? "footer-list two-columns" : "footer-list"}>
-        {links.map((link) => (
-          <a href="#top" key={link}>{link}</a>
+        {links.map((link, index) => (
+          <a href="#top" key={`${link}-${index}`}>{link}</a>
         ))}
       </div>
       {children}
@@ -696,35 +690,8 @@ function FloatingActionButton() {
   );
 }
 
-function DetailModal({ truck, onClose }: { truck: Truck; onClose: () => void }) {
-  return (
-    <div className="modal-backdrop" role="presentation" onClick={onClose}>
-      <div
-        className="truck-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="truck-modal-title"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <button className="modal-close" onClick={onClose} aria-label="Fechar detalhes">×</button>
-        <img src={truck.image} alt={`${truck.family} ${truck.model}`} />
-        <div>
-          <p className="eyebrow">Detalhes do modelo</p>
-          <h2 id="truck-modal-title">{truck.family}</h2>
-          <h3>{truck.model}</h3>
-          <p>{truck.detail}</p>
-          <a className="primary-action" href="#proposta" onClick={onClose}>
-            Solicitar proposta
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function LandingPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [activeTruck, setActiveTruck] = useState<Truck | null>(null);
 
   const selectedTrucks = useMemo(
     () => trucks.filter((truck) => selectedIds.includes(truck.id)),
@@ -744,7 +711,7 @@ export function LandingPage() {
       <Header proposalCount={selectedIds.length} />
       <main className="landing-page">
         <Hero />
-        <TruckCatalogue selectedIds={selectedIds} onToggle={toggleTruck} onDetails={setActiveTruck} />
+        <TruckCatalogue selectedIds={selectedIds} onToggle={toggleTruck} />
         <OperationSection />
         <PlansSection />
         <AssistanceSection />
@@ -754,7 +721,6 @@ export function LandingPage() {
       <Footer />
       <ProposalSummary selectedTrucks={selectedTrucks} onClear={() => setSelectedIds([])} />
       <FloatingActionButton />
-      {activeTruck ? <DetailModal truck={activeTruck} onClose={() => setActiveTruck(null)} /> : null}
     </>
   );
 }
