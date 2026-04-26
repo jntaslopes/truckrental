@@ -317,39 +317,98 @@ function OperationSection() {
 }
 
 function PlansSection() {
+  const subscriptionBenefits = [
+    ["comparison-icon-zero.svg", "Sem imobilizar capital"],
+    ["comparison-icon-cost.svg", "Custos previsíveis ao longo do contrato"],
+    ["comparison-icon-shipment.svg", "Gestão da frota terceirizada"],
+    ["comparison-icon-included.svg", "Foco na operação, não na gestão"],
+    ["comparison-icon-truck.svg", "Flexibilidade para ajustar a frota"],
+  ];
+  const financingItems = [
+    ["comparison-icon-dollar.svg", "Investimento inicial elevado"],
+    ["comparison-icon-laptop.svg", "Custos operacionais não inclusos"],
+    ["comparison-icon-briefcase.svg", "Gestão interna da frota"],
+    ["comparison-icon-monitor.svg", "Maior esforço operacional"],
+    ["comparison-icon-script.svg", "Menor flexibilidade contratual"],
+  ];
+
   return (
     <section id="proposta" className="plans-section page-band">
       <div className="page-inner">
-        <SectionTitle eyebrow="Assinatura vs. compra de frota" title="Mais controle" light="para crescer" />
-        <div className="plans-grid">
-          <div className="plan-column muted">
-            <h3>Frota por assinatura</h3>
-            <p>Sem entrada, com custos previstos e gestão operacional simplificada.</p>
-            <img src={asset("truck-meteor-blue.png")} alt="Caminhão Meteor azul" />
-          </div>
-          <div className="plan-column highlighted">
-            <h3>VW Truck Rental</h3>
-            <p>Plano ideal para empresas que precisam operar com previsibilidade.</p>
-            <ul>
-              <li>Manutenção preventiva inclusa</li>
-              <li>Documentação e taxas planejadas</li>
-              <li>Suporte especializado</li>
-              <li>Renovação de frota simplificada</li>
-            </ul>
-          </div>
-          <div className="plan-column muted">
-            <h3>Financiamento</h3>
-            <p>Mais exposição a custos variáveis, imobilização e revenda do ativo.</p>
-            <ul>
-              <li>Entrada e parcelas</li>
-              <li>Custos extras recorrentes</li>
-              <li>Gestão interna mais pesada</li>
-            </ul>
-          </div>
+        <div className="comparison-heading">
+          <h2>
+            Assinatura <span>vs compra de frota</span>
+          </h2>
+          <p>Veja como cada modelo impacta seu custo mensal e total ao longo do contrato.</p>
         </div>
-        <a href="#catalogo" className="outline-cta centered">
-          Voltar aos caminhões
-        </a>
+
+        <div className="comparison-content">
+          <div className="comparison-grid" aria-label="Comparativo entre assinatura e financiamento">
+            <div className="comparison-fleet-card">
+              <div className="comparison-fleet-copy">
+                <h3>Frota por assinatura</h3>
+                <p>Gestão completa com previsibilidade de custos</p>
+                <div className="comparison-divider" />
+                <span>Frota exemplo:</span>
+                <small>10 caminhões para operação rodoviária</small>
+              </div>
+              <div className="comparison-trucks" aria-hidden="true">
+                <img className="comparison-trucks-image" src={asset("comparison-trucks.png")} alt="" />
+              </div>
+            </div>
+
+            <div className="comparison-feature comparison-feature-header comparison-feature-highlighted">
+              <div className="comparison-ribbon">Mais previsibilidade para sua operação</div>
+              <img className="comparison-wordmark" src={asset("comparison-wordmark.png")} alt="VW Truck Rental" />
+              <div>
+                <h3>
+                  Frota por Assinatura
+                  <img src={asset("comparison-icon-info.svg")} alt="" />
+                </h3>
+                <p>Gestão completa com previsibilidade de custos</p>
+              </div>
+            </div>
+
+            <div className="comparison-feature comparison-feature-header comparison-feature-financing">
+              <img className="comparison-vw-badge" src={asset("comparison-vw-badge.png")} alt="" />
+              <div>
+                <h3>
+                  Financiamento
+                  <img src={asset("comparison-icon-info.svg")} alt="" />
+                </h3>
+                <p>Aquisição do ativo com gestão própria</p>
+              </div>
+            </div>
+
+            <div className="comparison-feature comparison-feature-list comparison-feature-highlighted">
+              <h4>Assinatura</h4>
+              <ul>
+                {subscriptionBenefits.map(([icon, label]) => (
+                  <li key={label}>
+                    <img src={asset(icon)} alt="" />
+                    <span>{label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="comparison-feature comparison-feature-list comparison-feature-financing">
+              <h4>Financiamento</h4>
+              <ul>
+                {financingItems.map(([icon, label]) => (
+                  <li key={label}>
+                    <img src={asset(icon)} alt="" />
+                    <span>{label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <a href="#catalogo" className="outline-cta centered">
+            Ver todos os caminhões disponíveis
+          </a>
+        </div>
       </div>
     </section>
   );
