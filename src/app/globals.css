@@ -1565,20 +1565,22 @@ html.proposal-drawer-open body {
 }
 
 .assistance-grid {
-  --assistance-background-right-inset: max(40px, calc((100vw - min(1348px, calc(100vw - 200px))) / 2));
-  --assistance-content-gap: 80px;
+  --assistance-background-right-inset: 0px;
+  --assistance-content-gap: clamp(56px, 5vw, 80px);
   --assistance-content-width: 652px;
-  --assistance-padding: 80px;
-  --assistance-photo-height: 760px;
-  --assistance-photo-width: 640px;
+  --assistance-padding: clamp(56px, 5vw, 80px);
+  --assistance-photo-escape: clamp(64px, 6.3vw, 104px);
+  --assistance-photo-height: clamp(620px, 48.7vw, 760px);
+  --assistance-photo-width: clamp(520px, 41vw, 640px);
   --assistance-content-available: calc(
-    100% - var(--assistance-photo-width) - var(--assistance-content-gap) + var(--assistance-padding)
+    100% - var(--assistance-photo-width) - var(--assistance-content-gap) + var(--assistance-photo-escape) +
+      var(--assistance-padding)
   );
 
   display: block;
   isolation: isolate;
-  max-width: min(1348px, calc(100vw - 200px));
-  min-height: 930px;
+  max-width: min(1348px, calc(100vw - 96px));
+  min-height: calc(var(--assistance-photo-height) + (var(--assistance-padding) * 2));
   overflow: visible;
   padding: var(--assistance-padding);
   position: relative;
@@ -1599,12 +1601,14 @@ html.proposal-drawer-open body {
 
 .assistance-content {
   align-items: stretch;
+  container-name: assistance-content;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  justify-content: space-between;
+  gap: 48px;
+  justify-content: flex-start;
   max-width: var(--assistance-content-width);
-  min-height: var(--assistance-photo-height);
+  min-height: 0;
   position: relative;
   width: min(var(--assistance-content-width), var(--assistance-content-available));
   z-index: 1;
@@ -1654,7 +1658,7 @@ html.proposal-drawer-open body {
 .assistance-cards {
   align-items: start;
   display: grid;
-  gap: 8px;
+  gap: 16px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -1722,9 +1726,28 @@ html.proposal-drawer-open body {
 
 .assistance-card .outline-cta {
   height: 48px;
+  max-width: 100%;
   min-width: 0;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+@container assistance-content (max-width: 560px) {
+  .assistance-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .assistance-card {
+    min-height: 0;
+  }
+
+  .assistance-card .outline-cta {
+    white-space: normal;
+    width: 100%;
+  }
 }
 
 .assistance-photo {
@@ -1733,8 +1756,8 @@ html.proposal-drawer-open body {
   left: auto;
   overflow: hidden;
   position: absolute;
-  right: 0;
-  top: 80px;
+  right: calc(var(--assistance-photo-escape) * -1);
+  top: var(--assistance-padding);
   width: var(--assistance-photo-width);
   z-index: 1;
 }
@@ -3913,34 +3936,32 @@ html.proposal-drawer-open body {
 
   .assistance-grid {
     --assistance-background-right-inset: 0px;
+    --assistance-content-gap: 48px;
+    --assistance-padding: 64px;
+    --assistance-photo-escape: 64px;
+    --assistance-photo-height: 620px;
+    --assistance-photo-width: 520px;
 
-    display: grid;
-    gap: 48px;
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 46%);
     max-width: 100%;
-    min-height: 640px;
-    padding: 64px;
     width: 100%;
   }
 
   .assistance-content {
-    gap: 48px;
-    justify-content: flex-start;
-    max-width: none;
-    min-height: 0;
-    width: 100%;
+    max-width: var(--assistance-content-width);
+    width: min(var(--assistance-content-width), var(--assistance-content-available));
   }
 
   .assistance-cards {
-    gap: 14px;
+    gap: 16px;
   }
 
   .assistance-photo {
-    height: 620px;
+    height: var(--assistance-photo-height);
     left: auto;
-    position: static;
-    top: auto;
-    width: 100%;
+    position: absolute;
+    right: calc(var(--assistance-photo-escape) * -1);
+    top: var(--assistance-padding);
+    width: var(--assistance-photo-width);
   }
 
   .dealer-layout {
@@ -4230,11 +4251,17 @@ html.proposal-drawer-open body {
 
   .assistance-content {
     max-width: none;
+    width: 100%;
   }
 
   .assistance-photo {
     aspect-ratio: 4 / 3;
     height: auto;
+    margin-top: 48px;
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
   }
 }
 
@@ -4351,6 +4378,22 @@ html.proposal-drawer-open body {
     min-height: 0;
     padding: 28px;
     text-align: left;
+  }
+
+  .assistance-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .assistance-card {
+    min-height: 0;
+  }
+
+  .assistance-card .outline-cta {
+    max-width: 100%;
+    min-width: 0;
+    text-align: center;
+    white-space: normal;
+    width: 100%;
   }
 
   .dealer-layout {
