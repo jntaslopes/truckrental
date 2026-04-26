@@ -1292,14 +1292,32 @@ html.proposal-drawer-open body {
 }
 
 .assistance-grid {
-  background: var(--white);
+  --assistance-background-right-inset: max(40px, calc((100vw - min(1348px, calc(100vw - 200px))) / 2));
+  --assistance-content-gap: 80px;
+  --assistance-content-width: 652px;
+  --assistance-padding: 80px;
+  --assistance-photo-height: 760px;
+  --assistance-photo-width: 640px;
+  --assistance-content-available: calc(
+    100% - var(--assistance-photo-width) - var(--assistance-content-gap) + var(--assistance-padding)
+  );
+
   display: block;
-  max-width: calc(100vw - 200px);
+  isolation: isolate;
+  max-width: min(1348px, calc(100vw - 200px));
   min-height: 930px;
   overflow: visible;
-  padding: 80px;
+  padding: var(--assistance-padding);
   position: relative;
-  width: 1348px;
+  width: 100%;
+}
+
+.assistance-grid::before {
+  background: var(--white);
+  content: "";
+  inset: 0 var(--assistance-background-right-inset) 0 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .assistance-section.page-band.soft {
@@ -1310,9 +1328,13 @@ html.proposal-drawer-open body {
   align-items: stretch;
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  max-width: 652px;
-  width: 652px;
+  gap: 16px;
+  justify-content: space-between;
+  max-width: var(--assistance-content-width);
+  min-height: var(--assistance-photo-height);
+  position: relative;
+  width: min(var(--assistance-content-width), var(--assistance-content-available));
+  z-index: 1;
 }
 
 .assistance-copy .eyebrow {
@@ -1357,8 +1379,9 @@ html.proposal-drawer-open body {
 }
 
 .assistance-cards {
+  align-items: start;
   display: grid;
-  gap: 14px;
+  gap: 8px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -1370,7 +1393,7 @@ html.proposal-drawer-open body {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  justify-content: center;
+  justify-content: space-between;
   min-height: 224px;
   min-width: 0;
   padding: 24px;
@@ -1385,8 +1408,10 @@ html.proposal-drawer-open body {
 .assistance-card-copy {
   align-items: center;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 8px;
+  justify-content: center;
   max-width: 620px;
   width: 100%;
 }
@@ -1397,11 +1422,18 @@ html.proposal-drawer-open body {
 }
 
 .assistance-card h3 {
+  align-items: center;
   color: var(--ink);
+  display: flex;
   font-family: "VW Head", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
+  justify-content: center;
   line-height: 24px;
+}
+
+.assistance-card:not(.wide) h3 {
+  min-height: 48px;
 }
 
 .assistance-card p {
@@ -1424,12 +1456,14 @@ html.proposal-drawer-open body {
 
 .assistance-photo {
   align-self: center;
-  height: 760px;
-  left: 813px;
+  height: var(--assistance-photo-height);
+  left: auto;
   overflow: hidden;
   position: absolute;
+  right: 0;
   top: 80px;
-  width: 640px;
+  width: var(--assistance-photo-width);
+  z-index: 1;
 }
 
 .assistance-photo img {
@@ -3616,6 +3650,8 @@ html.proposal-drawer-open body {
   }
 
   .assistance-grid {
+    --assistance-background-right-inset: 0px;
+
     display: grid;
     gap: 48px;
     grid-template-columns: minmax(0, 1fr) minmax(360px, 46%);
@@ -3626,8 +3662,15 @@ html.proposal-drawer-open body {
   }
 
   .assistance-content {
+    gap: 48px;
+    justify-content: flex-start;
     max-width: none;
+    min-height: 0;
     width: 100%;
+  }
+
+  .assistance-cards {
+    gap: 14px;
   }
 
   .assistance-photo {
