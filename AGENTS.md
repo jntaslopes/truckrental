@@ -9,7 +9,20 @@ This version has breaking changes — APIs, conventions, and file structure may 
 Antes de executar qualquer plano, atualize o contexto real do projeto:
 
 - Rode `git status --short --branch`, confira a branch/worktree atual e veja se há commits ahead/behind.
-- Confira se está no worktree principal (`C:\projects\truckrental`) ou em uma worktree auxiliar. Em worktree auxiliar, trabalhe em branch com prefixo `codex/`; ao criar uma branch nova, use o menor número incremental disponível no formato `codex/codex-1`, `codex/codex-2`, `codex/codex-3`, etc., considerando branches locais e remotas. Se não houver branch com upstream, crie uma e publique com `git push -u origin <branch>`. No worktree principal em `main`, branch não é obrigatória.
+- Confira se está no worktree principal (`C:\projects\truckrental`) ou em uma worktree auxiliar. Em worktree auxiliar, trabalhe em branch com prefixo `codex/`; ao criar uma branch nova, use o maior número existente + 1 no formato `codex/codex-1`, `codex/codex-2`, `codex/codex-3`, etc., considerando branches locais e remotas (sem reutilizar lacunas). Se não houver branch com upstream, crie uma e publique com `git push -u origin <branch>`. No worktree principal em `main`, branch não é obrigatória.
+- Comando canônico (PowerShell) para calcular, criar e publicar a próxima branch `codex/codex-*`:
+  ```powershell
+  $refs = git for-each-ref --format='%(refname:short)' `
+    refs/heads/codex/codex-* `
+    refs/remotes/origin/codex/codex-* 2>$null
+  $max = ($refs |
+    ForEach-Object { if ($_ -match 'codex/codex-(\d+)$') { [int]$Matches[1] } } |
+    Measure-Object -Maximum).Maximum
+  if ($null -eq $max) { $max = 0 }
+  $next = "codex/codex-$($max + 1)"
+  git switch -c $next
+  git push -u origin $next
+  ```
 - Rode `git fetch origin` e verifique se `origin/main` mudou; incorpore essas mudanças antes de implementar quando isso for necessário para trabalhar sobre a base atual.
 - Releia os arquivos relevantes depois do fetch/merge e antes de editar. O usuário pode alterar arquivos localmente em paralelo, com ou sem commit.
 - Não presuma que o Git contém todo o contexto: mudanças locais não commitadas também são fonte de verdade.
