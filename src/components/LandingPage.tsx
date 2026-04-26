@@ -476,26 +476,33 @@ function DealersSection() {
 }
 
 function FaqSection() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(-1);
 
   return (
     <section id="faq" className="faq-section">
-      <div className="faq-image">
-        <img src={asset("faq-truck.png")} alt="Caminhão Volkswagen em operação" />
-      </div>
       <div className="faq-panel">
-        <p className="eyebrow">Perguntas frequentes</p>
-        <h2>Perguntas frequentes sobre o VW Truck Rental</h2>
+        <div className="faq-heading">
+          <p>Respostas rápidas para seguir com mais clareza</p>
+          <h2>
+            Perguntas frequentes <span>sobre o VW Truck Rental</span>
+          </h2>
+          <div className="faq-heading-rule" />
+        </div>
         <div className="accordion">
           {faqs.map((item, index) => {
             const isOpen = openIndex === index;
+            const answerId = `faq-answer-${index}`;
             return (
-              <div className="accordion-item" key={item.question}>
-                <button onClick={() => setOpenIndex(isOpen ? -1 : index)} aria-expanded={isOpen}>
+              <div className={`accordion-item ${isOpen ? "open" : ""}`} key={item.question}>
+                <button
+                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                  aria-expanded={isOpen}
+                  aria-controls={answerId}
+                >
                   <span>{index + 1}. {item.question}</span>
-                  <span className="accordion-icon">{isOpen ? "-" : "+"}</span>
+                  <span className="accordion-icon" aria-hidden="true" />
                 </button>
-                <p className={isOpen ? "open" : ""}>{item.answer}</p>
+                <p id={answerId} className={isOpen ? "open" : ""}>{item.answer}</p>
               </div>
             );
           })}
