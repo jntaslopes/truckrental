@@ -12,9 +12,20 @@ export type CatalogTruck = {
   fuel: "Diesel" | "Elétrico";
   application: "Urbano" | "Rodoviário" | "Construção" | "Distribuição" | "Vocacional";
   traction: "4x2" | "6x2" | "6x4" | "8x2" | "Sob medida";
+  capacityTons: number;
+  capacityMetric: "CMT" | "PBTC" | "PBT";
+  capacitySourceUrl: string;
   image: string;
   shadowImage?: string;
   badges: CatalogBadge[];
+};
+
+export type CatalogFilterKey = "category" | "application" | "traction" | "fuel";
+
+export type CatalogFilterSection = {
+  title: string;
+  key: CatalogFilterKey;
+  options: string[];
 };
 
 export type TruckDetailSpec = {
@@ -55,6 +66,15 @@ const manBadge: CatalogBadge = { label: "Motor MAN D26", tone: "engine" };
 const electricBadge: CatalogBadge = { label: "Zero emissão local", tone: "electric" };
 const customBadge: CatalogBadge = { label: "Aplicação sob medida", tone: "neutral" };
 
+const sources = {
+  delivery11180: "https://vwco.com.br/caminhoes/Delivery/Delivery%2011.180?id=1&productid=24",
+  eDelivery: "https://vwtbpress.vwco.com.br/press/e-delivery",
+  fenatran2024: "https://vwtbpress.vwco.com.br/press/fenatran-2024",
+  constellation20480:
+    "https://vwtbpress.vwco.com.br/noticia/vwco-apresenta-condicoes-especiais-para-o-vw-constellation-20-480--4x2--e-25-480--6x2--neste-mes-de-agosto",
+  novosCaminhoes: "https://vwtbpress.vwco.com.br/press/novos-caminhoes-vw",
+};
+
 export const catalogTrucks: CatalogTruck[] = [
   {
     id: "meteor-28480",
@@ -65,6 +85,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Rodoviário",
     traction: "6x2",
+    capacityTons: 58.5,
+    capacityMetric: "PBTC",
+    capacitySourceUrl: sources.fenatran2024,
     image: asset("truck-meteor-gray.png"),
     badges: [boltBadge, manBadge],
   },
@@ -77,6 +100,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Rodoviário",
     traction: "6x4",
+    capacityTons: 60,
+    capacityMetric: "CMT",
+    capacitySourceUrl: sources.fenatran2024,
     image: asset("truck-meteor-blue.png"),
     badges: [manBadge],
   },
@@ -89,6 +115,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Construção",
     traction: "6x4",
+    capacityTons: 42,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
     shadowImage: asset("truck-constellation-shadow.png"),
     badges: [],
@@ -102,6 +131,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Elétrico",
     application: "Urbano",
     traction: "6x2",
+    capacityTons: 14.3,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.eDelivery,
     image: asset("truck-edelivery.png"),
     shadowImage: asset("truck-edelivery-shadow.png"),
     badges: [boltBadge, electricBadge],
@@ -115,6 +147,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Elétrico",
     application: "Urbano",
     traction: "4x2",
+    capacityTons: 10.7,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.eDelivery,
     image: asset("truck-edelivery.png"),
     shadowImage: asset("truck-edelivery-shadow.png"),
     badges: [electricBadge],
@@ -128,6 +163,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Distribuição",
     traction: "4x2",
+    capacityTons: 10.7,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.delivery11180,
     image: asset("truck-constellation.png"),
     shadowImage: asset("truck-constellation-shadow.png"),
     badges: [boltBadge],
@@ -141,6 +179,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Construção",
     traction: "8x2",
+    capacityTons: 33,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
     shadowImage: asset("truck-constellation-shadow.png"),
     badges: [],
@@ -154,6 +195,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Rodoviário",
     traction: "8x2",
+    capacityTons: 30,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-meteor-gray.png"),
     badges: [],
   },
@@ -166,6 +210,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Urbano",
     traction: "4x2",
+    capacityTons: 10.7,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.delivery11180,
     image: asset("truck-constellation.png"),
     shadowImage: asset("truck-constellation-shadow.png"),
     badges: [],
@@ -179,6 +226,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Distribuição",
     traction: "6x2",
+    capacityTons: 14,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.delivery11180,
     image: asset("truck-edelivery.png"),
     shadowImage: asset("truck-edelivery-shadow.png"),
     badges: [boltBadge],
@@ -192,6 +242,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Rodoviário",
     traction: "4x2",
+    capacityTons: 18,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
     shadowImage: asset("truck-constellation-shadow.png"),
     badges: [],
@@ -205,6 +258,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Construção",
     traction: "6x4",
+    capacityTons: 27,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
     shadowImage: asset("truck-constellation-shadow.png"),
     badges: [],
@@ -218,6 +274,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Distribuição",
     traction: "6x2",
+    capacityTons: 25,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-meteor-gray.png"),
     badges: [],
   },
@@ -230,6 +289,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Rodoviário",
     traction: "6x2",
+    capacityTons: 70,
+    capacityMetric: "CMT",
+    capacitySourceUrl: sources.constellation20480,
     image: asset("truck-meteor-blue.png"),
     badges: [manBadge],
   },
@@ -242,6 +304,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Rodoviário",
     traction: "4x2",
+    capacityTons: 60,
+    capacityMetric: "CMT",
+    capacitySourceUrl: sources.constellation20480,
     image: asset("truck-meteor-blue.png"),
     badges: [manBadge],
   },
@@ -254,6 +319,9 @@ export const catalogTrucks: CatalogTruck[] = [
     fuel: "Diesel",
     application: "Vocacional",
     traction: "Sob medida",
+    capacityTons: 42,
+    capacityMetric: "PBT",
+    capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
     shadowImage: asset("truck-constellation-shadow.png"),
     badges: [customBadge],
@@ -363,9 +431,9 @@ export function getTruckDetailBySlug(slug: string): TruckDetailData | undefined 
   };
 }
 
-export const catalogFilterSections = [
-  { title: "Tipo de veículo", options: ["Leve", "Médio", "Pesado", "Extrapesado"] },
-  { title: "Aplicação", options: ["Rodoviário", "Urbano", "Construção", "Distribuição"] },
-  { title: "Tração", options: ["4x2", "6x2", "6x4"] },
-  { title: "Combustível", options: ["Diesel", "Elétrico"] },
+export const catalogFilterSections: CatalogFilterSection[] = [
+  { title: "Tipo de veículo", key: "category", options: ["Leve", "Médio", "Pesado", "Extrapesado"] },
+  { title: "Aplicação", key: "application", options: ["Rodoviário", "Urbano", "Construção", "Distribuição"] },
+  { title: "Tração", key: "traction", options: ["4x2", "6x2", "6x4"] },
+  { title: "Combustível", key: "fuel", options: ["Diesel", "Elétrico"] },
 ];

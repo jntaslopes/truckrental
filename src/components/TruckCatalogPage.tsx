@@ -4,27 +4,99 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { catalogFilterSections, catalogTrucks, type CatalogTruck } from "@/data/catalog";
+import {
+  catalogFilterSections,
+  catalogTrucks,
+  type CatalogFilterKey,
+  type CatalogTruck,
+} from "@/data/catalog";
 import { Header, Footer } from "@/components/LandingPage";
 
 const asset = (name: string) => `/assets/figma/${name}`;
+const defaultCapacityRange = { min: 10, max: 80 };
 
-function CatalogFilterSidebar() {
+type CatalogFilters = Record<CatalogFilterKey, string[]> & {
+  capacityMin: number;
+  capacityMax: number;
+};
+
+const defaultFilters: CatalogFilters = {
+  category: [],
+  application: [],
+  traction: [],
+  fuel: [],
+  capacityMin: defaultCapacityRange.min,
+  capacityMax: defaultCapacityRange.max,
+};
+
+function hasActiveFilters(filters: CatalogFilters) {
+  return (
+    catalogFilterSections.some((section) => filters[section.key].length > 0) ||
+    filters.capacityMin !== defaultCapacityRange.min ||
+    filters.capacityMax !== defaultCapacityRange.max
+  );
+}
+
+function matchesOptionFilter(truck: CatalogTruck, filters: CatalogFilters, key: CatalogFilterKey) {
+  const selectedOptions = filters[key];
+  return selectedOptions.length === 0 || selectedOptions.includes(String(truck[key]));
+}
+
+function clampCapacity(value: number) {
+  if (!Number.isFinite(value)) {
+    return defaultCapacityRange.min;
+  }
+
+  return Math.max(defaultCapacityRange.min, Math.min(defaultCapacityRange.max, value));
+}
+
+function CatalogFilterSidebar({
+  filters,
+  active,
+  onToggleOption,
+  onCapacityChange,
+  onClear,
+}: {
+  filters: CatalogFilters;
+  active: boolean;
+  onToggleOption: (key: CatalogFilterKey, option: string) => void;
+  onCapacityChange: (edge: "min" | "max", value: number) => void;
+  onClear: () => void;
+}) {
   return (
     <aside className="catalog-sidebar" aria-label="Filtros de caminhões">
       <div className="catalog-filter-header">
         <h2>Filtros</h2>
-        <button type="button">
-          Limpar filtros
-          <span aria-hidden="true">×</span>
-        </button>
+        {active ? (
+          <button type="button" onClick={onClear}>
+            Limpar filtros
+            <span aria-hidden="true">×</span>
+          </button>
+        ) : null}
       </div>
 
       {catalogFilterSections.map((section) => (
         <section className="catalog-filter-section" key={section.title}>
           <h3>{section.title}</h3>
           {section.options.map((option) => (
-            <label key={option}>
+            <label
+              key={option}
+              onClick={(event) => {
+                event.preventDefault();
+                onToggleOption(section.key, option);
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={filters[section.key].includes(option)}
+                onKeyDown={(event) => {
+                  if (event.key === " " || event.key === "Enter") {
+                    event.preventDefault();
+                    onToggleOption(section.key, option);
+                  }
+                }}
+                readOnly
+              />
               <span className="fake-checkbox" aria-hidden="true" />
               <span>{option}</span>
             </label>
@@ -34,12 +106,56 @@ function CatalogFilterSidebar() {
 
       <section className="catalog-filter-section capacity">
         <h3>Capacidade (CMT)</h3>
-        <div className="capacity-slider" aria-hidden="true">
-          <span />
+        <div className="capacity-slider">
+          <div
+            className="capacity-slider-track"
+            style={{
+              left: `${((filters.capacityMin - defaultCapacityRange.min) / (defaultCapacityRange.max - defaultCapacityRange.min)) * 100}%`,
+              right: `${100 - ((filters.capacityMax - defaultCapacityRange.min) / (defaultCapacityRange.max - defaultCapacityRange.min)) * 100}%`,
+            }}
+          />
+          <input
+            aria-label="Capacidade mínima"
+            type="range"
+            min={defaultCapacityRange.min}
+            max={defaultCapacityRange.max}
+            step="1"
+            value={filters.capacityMin}
+            onChange={(event) => onCapacityChange("min", Number(event.target.value))}
+          />
+          <input
+            aria-label="Capacidade máxima"
+            type="range"
+            min={defaultCapacityRange.min}
+            max={defaultCapacityRange.max}
+            step="1"
+            value={filters.capacityMax}
+            onChange={(event) => onCapacityChange("max", Number(event.target.value))}
+          />
         </div>
         <div className="capacity-scale">
-          <span>10 t</span>
-          <span>80 t</span>
+          <label>
+            <input
+              aria-label="Capacidade mínima em toneladas"
+              type="number"
+              min={defaultCapacityRange.min}
+              max={filters.capacityMax}
+              value={filters.capacityMin}
+              onChange={(event) => onCapacityChange("min", Number(event.target.value))}
+            />
+            <span>t</span>
+          </label>
+          <label>
+            <input
+              aria-label="Capacidade máxima em toneladas"
+              type="number"
+              min={filters.capacityMin}
+              max={defaultCapacityRange.max}
+              value={filters.capacityMax}
+              onChange={(event) => onCapacityChange("max", Number(event.target.value))}
+            />
+            <span>t</span>
+          </label>
         </div>
       </section>
     </aside>
@@ -118,10 +234,26 @@ function CatalogProposalSummary({
 
 export function TruckCatalogPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [filters, setFilters] = useState<CatalogFilters>(defaultFilters);
 
   const selectedTrucks = useMemo(
     () => catalogTrucks.filter((truck) => selectedIds.includes(truck.id)),
     [selectedIds],
+  );
+
+  const filtersActive = hasActiveFilters(filters);
+  const filteredTrucks = useMemo(
+    () =>
+      catalogTrucks.filter(
+        (truck) =>
+          matchesOptionFilter(truck, filters, "category") &&
+          matchesOptionFilter(truck, filters, "application") &&
+          matchesOptionFilter(truck, filters, "traction") &&
+          matchesOptionFilter(truck, filters, "fuel") &&
+          truck.capacityTons >= filters.capacityMin &&
+          truck.capacityTons <= filters.capacityMax,
+      ),
+    [filters],
   );
 
   function toggleTruck(truck: CatalogTruck) {
@@ -132,11 +264,40 @@ export function TruckCatalogPage() {
     );
   }
 
+  function toggleFilterOption(key: CatalogFilterKey, option: string) {
+    setFilters((current) => {
+      const selectedOptions = current[key];
+      const nextOptions = selectedOptions.includes(option)
+        ? selectedOptions.filter((item) => item !== option)
+        : [...selectedOptions, option];
+
+      return { ...current, [key]: nextOptions };
+    });
+  }
+
+  function updateCapacityFilter(edge: "min" | "max", value: number) {
+    setFilters((current) => {
+      const nextValue = clampCapacity(value);
+
+      if (edge === "min") {
+        return { ...current, capacityMin: Math.min(nextValue, current.capacityMax) };
+      }
+
+      return { ...current, capacityMax: Math.max(nextValue, current.capacityMin) };
+    });
+  }
+
   return (
     <>
       <Header proposalCount={selectedIds.length} activePath="/caminhoes" />
       <main className="catalog-page">
-        <CatalogFilterSidebar />
+        <CatalogFilterSidebar
+          filters={filters}
+          active={filtersActive}
+          onToggleOption={toggleFilterOption}
+          onCapacityChange={updateCapacityFilter}
+          onClear={() => setFilters(defaultFilters)}
+        />
         <section className="catalog-main">
           <nav className="catalog-breadcrumb" aria-label="Breadcrumb">
             <Link href="/">Página inicial</Link>
@@ -150,9 +311,9 @@ export function TruckCatalogPage() {
             <p>Selecione diferentes caminhões e solicite uma proposta personalizada para sua operação.</p>
           </div>
           <div className="catalog-divider" />
-          <p className="catalog-count">{catalogTrucks.length} modelos encontrados</p>
+          <p className="catalog-count">{filteredTrucks.length} modelos encontrados</p>
           <div className="catalog-grid">
-            {catalogTrucks.map((truck) => (
+            {filteredTrucks.map((truck) => (
               <CatalogTruckCard
                 key={truck.id}
                 truck={truck}
