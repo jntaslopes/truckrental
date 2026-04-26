@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useMemo, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   faqs,
@@ -13,6 +13,19 @@ import {
 } from "@/data/landing";
 
 const asset = (name: string) => `/assets/figma/${name}`;
+
+function toPositiveQuantity(value: string) {
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+}
+
+export type ProposalItem = {
+  id: string;
+  family: string;
+  model: string;
+  image: string;
+  quantity: number;
+};
 
 export function Header({
   proposalCount,
@@ -131,11 +144,15 @@ function SectionTitle({
 function TruckCard({
   truck,
   selected,
+  quantity,
   onToggle,
+  onQuantityChange,
 }: {
   truck: Truck;
   selected: boolean;
+  quantity: number;
   onToggle: (truck: Truck) => void;
+  onQuantityChange: (id: string, quantity: number) => void;
 }) {
   return (
     <article className={`truck-card ${selected ? "selected" : ""}`}>
@@ -159,14 +176,37 @@ function TruckCard({
             </span>
           ))}
         </div>
-        <button className="text-link" onClick={() => onToggle(truck)}>
-          {selected ? "Remover da proposta" : "Adicionar à proposta"}
-          <img src={asset("icon-add.svg")} alt="" />
-        </button>
+        {selected ? (
+          <div className="card-selection-row">
+            <label className="floating-field card-quantity-field">
+              <input
+                type="number"
+                min="1"
+                step="1"
+                value={quantity}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  onQuantityChange(truck.id, toPositiveQuantity(event.target.value))
+                }
+              />
+              <span>Qtd.</span>
+            </label>
+            <span className="card-selection-divider" aria-hidden="true" />
+            <button className="card-remove-link" type="button" onClick={() => onToggle(truck)}>
+              <span className="card-remove-label">Remover</span>
+              <span className="card-remove-icon" aria-hidden="true">×</span>
+            </button>
+          </div>
+        ) : (
+          <button className="text-link" onClick={() => onToggle(truck)}>
+            Adicionar à proposta
+            <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
+          </button>
+        )}
         <Link className="text-link" href={`/caminhoes/${truck.slug}`}>
           Ver detalhes
-          <img src={asset("icon-arrow-right.svg")} alt="" />
+          <img className="action-icon text-link-icon" src={asset("icon-arrow-right.svg")} alt="" />
         </Link>
+
       </div>
     </article>
   );
@@ -174,10 +214,14 @@ function TruckCard({
 
 function TruckCatalogue({
   selectedIds,
+  quantities,
   onToggle,
+  onQuantityChange,
 }: {
   selectedIds: string[];
+  quantities: Record<string, number>;
   onToggle: (truck: Truck) => void;
+  onQuantityChange: (id: string, quantity: number) => void;
 }) {
   return (
     <section id="catalogo" className="catalogue-section page-band">
@@ -193,13 +237,15 @@ function TruckCatalogue({
               key={truck.id}
               truck={truck}
               selected={selectedIds.includes(truck.id)}
+              quantity={quantities[truck.id] ?? 1}
               onToggle={onToggle}
+              onQuantityChange={onQuantityChange}
             />
           ))}
         </div>
         <a href="#proposta" className="outline-cta centered">
           Explorar todos os modelos
-          <img src={asset("icon-add.svg")} alt="" />
+          <img className="action-icon button-icon" src={asset("icon-add.svg")} alt="" />
         </a>
       </div>
     </section>
@@ -511,6 +557,7 @@ function DealersSection() {
                 <img src={asset("dealer-icon-target.svg")} alt="" />
                 Usar minha localização
               </button>
+
             </div>
             <div className="dealer-divider" />
             <p className="dealer-nearest-label">Concessionária mais próxima:</p>
@@ -658,27 +705,221 @@ export function Footer() {
   );
 }
 
-function ProposalSummary({
-  selectedTrucks,
+export function ProposalSummary({
+  selectedItems,
   onClear,
+  onContinue,
 }: {
-  selectedTrucks: Truck[];
+  selectedItems: ProposalItem[];
   onClear: () => void;
+  onContinue: () => void;
 }) {
-  if (selectedTrucks.length === 0) {
+  if (selectedItems.length === 0) {
+    return null;
+  }
+
+  const selectedLabel = selectedItems.length === 1 ? "1 modelo selecionado" : `${selectedItems.length} modelos selecionados`;
+  const detailsLabel = selectedItems
+    .map((truck) => `${truck.family} ${truck.model} (${truck.quantity})`)
+    .join(", ");
+
+  return (
+    <aside className="proposal-summary" aria-live="polite">
+      <div className="proposal-cart-badge" aria-hidden="true">
+        <img src={asset("icon-cart.svg")} alt="" />
+        <span>{selectedItems.length}</span>
+      </div>
+      <div className="proposal-summary-copy">
+        <strong>{selectedLabel}</strong>
+        <span>{detailsLabel}</span>
+      </div>
+      <div className="proposal-summary-actions">
+        <button className="proposal-clear" type="button" onClick={onClear}>
+          Remover tudo
+        </button>
+        <button className="proposal-continue" type="button" onClick={onContinue}>
+          Continuar com a proposta
+          <img className="action-icon button-icon" src={asset("icon-arrow-right.svg")} alt="" />
+        </button>
+      </div>
+    </aside>
+  );
+}
+
+export function ProposalDrawer({
+  selectedItems,
+  onClose,
+  onRemoveItem,
+  onQuantityChange,
+  onSubmit,
+}: {
+  selectedItems: ProposalItem[];
+  onClose: () => void;
+  onRemoveItem: (id: string) => void;
+  onQuantityChange: (id: string, quantity: number) => void;
+  onSubmit: () => void;
+}) {
+  const selectedLabel = selectedItems.length === 1 ? "1 modelo selecionado" : `${selectedItems.length} modelos selecionados`;
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    onSubmit();
+  }
+
+  function handleQuantityChange(id: string, event: ChangeEvent<HTMLInputElement>) {
+    onQuantityChange(id, Math.max(1, Number(event.target.value) || 1));
+  }
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const body = document.body;
+    const scrollY = window.scrollY;
+    const previousRootOverflow = root.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousBodyPosition = body.style.position;
+    const previousBodyTop = body.style.top;
+    const previousBodyWidth = body.style.width;
+
+    root.classList.add("proposal-drawer-open");
+    root.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+
+    return () => {
+      root.classList.remove("proposal-drawer-open");
+      root.style.overflow = previousRootOverflow;
+      body.style.overflow = previousBodyOverflow;
+      body.style.position = previousBodyPosition;
+      body.style.top = previousBodyTop;
+      body.style.width = previousBodyWidth;
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
+
+  if (selectedItems.length === 0) {
     return null;
   }
 
   return (
-    <aside className="proposal-summary" aria-live="polite">
-      <img src={asset("icon-cart.svg")} alt="" />
-      <div>
-        <strong>{selectedTrucks.length} caminhão{selectedTrucks.length > 1 ? "s" : ""} na proposta</strong>
-        <span>{selectedTrucks.map((truck) => truck.family).join(", ")}</span>
-      </div>
-      <button onClick={onClear}>Limpar</button>
-      <a href="#proposta">Falar com especialista</a>
-    </aside>
+    <div className="proposal-drawer-backdrop" role="presentation" onClick={onClose}>
+      <form
+        className="proposal-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="proposal-drawer-title"
+        onClick={(event) => event.stopPropagation()}
+        onSubmit={handleSubmit}
+      >
+        <div className="proposal-drawer-content">
+          <header className="proposal-drawer-header">
+            <div>
+              <h2 id="proposal-drawer-title">Enviar solicitação de proposta</h2>
+              <span aria-hidden="true" />
+            </div>
+            <button type="button" className="proposal-drawer-close" onClick={onClose} aria-label="Fechar solicitação">
+              ×
+            </button>
+          </header>
+
+          <p className="proposal-drawer-intro">
+            Confirme e envie seus dados que entraremos em contato sobre a oferta
+          </p>
+
+          <section className="proposal-drawer-section">
+            <h3>{selectedLabel}</h3>
+            <div className="proposal-selected-list">
+              {selectedItems.map((truck) => (
+                <article className="proposal-selected-card" key={truck.id}>
+                  <div className="proposal-selected-media">
+                    <img src={truck.image} alt="" />
+                  </div>
+                  <div className="proposal-selected-details">
+                    <strong>{truck.family}</strong>
+                    <span>{truck.model}</span>
+                  </div>
+                  <label className="floating-field proposal-quantity-field">
+                    <input
+                      type="number"
+                      min="1"
+                      step="1"
+                      value={truck.quantity}
+                      placeholder=" "
+                      aria-label={`Quantidade de ${truck.family} ${truck.model}`}
+                      onChange={(event) => handleQuantityChange(truck.id, event)}
+                    />
+                    <span>Qtd.</span>
+                  </label>
+                  <button type="button" className="proposal-remove-item" onClick={() => onRemoveItem(truck.id)}>
+                    <span className="proposal-remove-label">Remover</span>
+                    <span className="proposal-remove-icon" aria-hidden="true">×</span>
+                  </button>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="proposal-drawer-section">
+            <h3>Informações Gerais</h3>
+            <div className="proposal-fields">
+              <label className="floating-field">
+                <input name="name" placeholder=" " autoComplete="name" />
+                <span>Nome Completo / Razão Social</span>
+              </label>
+              <label className="floating-field">
+                <input name="email" type="email" placeholder=" " autoComplete="email" />
+                <span>E-mail</span>
+              </label>
+              <label className="floating-field">
+                <input name="phone" type="tel" placeholder=" " autoComplete="tel" />
+                <span>Telefone</span>
+              </label>
+              <label className="floating-field">
+                <input name="document" placeholder=" " />
+                <span>CPF/CNPJ</span>
+              </label>
+              <label className="floating-field">
+                <input name="postalCode" placeholder=" " autoComplete="postal-code" />
+                <span>CEP do seu endereço</span>
+              </label>
+              <label className="floating-field">
+                <select name="contactPreference" defaultValue="">
+                  <option value="" disabled hidden />
+                  <option>Whatsapp</option>
+                  <option>E-mail</option>
+                  <option>Telefone</option>
+                </select>
+                <span>Preferência de contato</span>
+              </label>
+            </div>
+          </section>
+        </div>
+
+        <div className="proposal-consents">
+          <label>
+            <input className="ds-checkbox" type="checkbox" name="marketing" />
+            <span>Autorizo a utilização dos meus dados para Marketing</span>
+          </label>
+          <label>
+            <input className="ds-checkbox" type="checkbox" name="legal" />
+            <span>
+              Li e concordo com as <a href="#top">Informações Legais</a> e com a <a href="#top">Política de Privacidade</a>
+            </span>
+          </label>
+        </div>
+
+        <footer className="proposal-drawer-footer">
+          <button type="button" className="proposal-cancel" onClick={onClose}>
+            Cancelar
+          </button>
+          <button type="submit" className="proposal-submit">
+            Solicitar Proposta
+            <img className="action-icon button-icon button-icon-on-dark" src={asset("icon-arrow-right.svg")} alt="" />
+          </button>
+        </footer>
+      </form>
+    </div>
   );
 }
 
@@ -692,18 +933,59 @@ function FloatingActionButton() {
 
 export function LandingPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
 
-  const selectedTrucks = useMemo(
-    () => trucks.filter((truck) => selectedIds.includes(truck.id)),
-    [selectedIds],
+  const selectedItems = useMemo<ProposalItem[]>(
+    () =>
+      trucks
+        .filter((truck) => selectedIds.includes(truck.id))
+        .map((truck) => ({
+          id: truck.id,
+          family: truck.family,
+          model: truck.model,
+          image: truck.image,
+          quantity: quantities[truck.id] ?? 1,
+        })),
+    [quantities, selectedIds],
   );
 
   function toggleTruck(truck: Truck) {
-    setSelectedIds((current) =>
-      current.includes(truck.id)
-        ? current.filter((id) => id !== truck.id)
-        : [...current, truck.id],
-    );
+    setSelectedIds((current) => {
+      if (current.includes(truck.id)) {
+        setQuantities((currentQuantities) => {
+          const next = { ...currentQuantities };
+          delete next[truck.id];
+          return next;
+        });
+        return current.filter((id) => id !== truck.id);
+      }
+
+      setQuantities((currentQuantities) => ({
+        ...currentQuantities,
+        [truck.id]: currentQuantities[truck.id] ?? 1,
+      }));
+      return [...current, truck.id];
+    });
+  }
+
+  function removeProposalItem(id: string) {
+    if (selectedIds.length <= 1) {
+      setIsProposalDrawerOpen(false);
+    }
+    setQuantities((currentQuantities) => {
+      const next = { ...currentQuantities };
+      delete next[id];
+      return next;
+    });
+    setSelectedIds((current) => current.filter((currentId) => currentId !== id));
+  }
+
+  function changeProposalQuantity(id: string, quantity: number) {
+    setQuantities((currentQuantities) => ({
+      ...currentQuantities,
+      [id]: quantity,
+    }));
   }
 
   return (
@@ -711,7 +993,12 @@ export function LandingPage() {
       <Header proposalCount={selectedIds.length} />
       <main className="landing-page">
         <Hero />
-        <TruckCatalogue selectedIds={selectedIds} onToggle={toggleTruck} />
+        <TruckCatalogue
+          selectedIds={selectedIds}
+          quantities={quantities}
+          onToggle={toggleTruck}
+          onQuantityChange={changeProposalQuantity}
+        />
         <OperationSection />
         <PlansSection />
         <AssistanceSection />
@@ -719,8 +1006,24 @@ export function LandingPage() {
         <FaqSection />
       </main>
       <Footer />
-      <ProposalSummary selectedTrucks={selectedTrucks} onClear={() => setSelectedIds([])} />
+      <ProposalSummary
+        selectedItems={selectedItems}
+        onClear={() => {
+          setSelectedIds([]);
+          setIsProposalDrawerOpen(false);
+        }}
+        onContinue={() => setIsProposalDrawerOpen(true)}
+      />
       <FloatingActionButton />
+      {isProposalDrawerOpen ? (
+        <ProposalDrawer
+          selectedItems={selectedItems}
+          onClose={() => setIsProposalDrawerOpen(false)}
+          onRemoveItem={removeProposalItem}
+          onQuantityChange={changeProposalQuantity}
+          onSubmit={() => setIsProposalDrawerOpen(false)}
+        />
+      ) : null}
     </>
   );
 }
