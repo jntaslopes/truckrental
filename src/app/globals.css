@@ -49,6 +49,26 @@
   --line: #dadfe2;
   --panel: #e5e9eb;
   --green: #00c48a;
+  --button-primary-bg: #001e50;
+  --button-primary-bg-hover: #0082d6;
+  --button-primary-bg-active: #000e26;
+  --button-primary-bg-disabled: #c2cacf;
+  --button-primary-content: #f4f5f6;
+  --button-primary-content-hover: #ffffff;
+  --button-primary-content-disabled: #7f8f9a;
+  --button-secondary-content: #001e50;
+  --button-secondary-content-hover: #0082d6;
+  --button-secondary-content-active: #000e26;
+  --button-secondary-border-disabled: #dadfe2;
+  --button-secondary-content-disabled: #a1adb5;
+  --button-primary-inverse-bg: #ffffff;
+  --button-primary-inverse-bg-hover: #70c7ff;
+  --button-primary-inverse-bg-active: #dbe9ff;
+  --button-primary-inverse-content: #000e26;
+  --button-primary-inverse-content-hover: #001f33;
+  --button-secondary-inverse-content: #ffffff;
+  --button-secondary-inverse-content-hover: #70c7ff;
+  --button-secondary-inverse-content-active: #dbe9ff;
 }
 
 html {
@@ -228,26 +248,202 @@ html.proposal-drawer-open body {
 }
 
 .main-nav a,
+.text-link,
 .ghost-action,
 .primary-action,
 .secondary-action,
 .outline-cta,
-.text-link,
-.footer-button {
+.footer-button,
+.dealer-location,
+.dealer-route,
+.dealer-details,
+.map-card,
+.proposal-summary button,
+.proposal-cancel,
+.proposal-submit {
   align-items: center;
-  border: 0;
   display: inline-flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
   font-weight: 700;
   justify-content: center;
   letter-spacing: 0;
-  line-height: 19px;
   white-space: nowrap;
+}
+
+.ghost-action,
+.primary-action,
+.secondary-action,
+.outline-cta,
+.footer-button,
+.dealer-location,
+.dealer-route,
+.dealer-details,
+.map-card,
+.proposal-summary button {
+  border-radius: 24px;
+  font-size: 16px;
+  gap: 8px;
+  height: 48px;
+  line-height: 19px;
+  padding: 8px 20px;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.proposal-cancel,
+.proposal-submit {
+  border-radius: 24px;
+  font-size: 14px;
+  gap: 8px;
+  height: 40px;
+  line-height: 17px;
+  padding: 8px 16px;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.primary-action,
+.dealer-route,
+.proposal-submit {
+  background: var(--button-primary-bg);
+  border: 1px solid var(--button-primary-bg);
+  color: var(--button-primary-content);
+}
+
+.primary-action:hover,
+.dealer-route:hover,
+.proposal-submit:hover {
+  background: var(--button-primary-bg-hover);
+  border-color: var(--button-primary-bg-hover);
+  color: var(--button-primary-content-hover);
+}
+
+.primary-action:active,
+.dealer-route:active,
+.proposal-submit:active {
+  background: var(--button-primary-bg-active);
+  border-color: var(--button-primary-bg-active);
+  color: var(--button-primary-content);
+}
+
+.primary-action:disabled,
+.dealer-route:disabled,
+.proposal-submit:disabled {
+  background: var(--button-primary-bg-disabled);
+  border-color: var(--button-primary-bg-disabled);
+  color: var(--button-primary-content-disabled);
+  cursor: default;
+}
+
+.secondary-action,
+.outline-cta,
+.dealer-location,
+.dealer-details,
+.map-card {
+  background: transparent;
+  border: 1px solid var(--button-secondary-content);
+  color: var(--button-secondary-content);
+}
+
+.secondary-action:hover,
+.outline-cta:hover,
+.dealer-location:hover:not(:disabled),
+.dealer-details:hover,
+.map-card:hover {
+  border-color: var(--button-secondary-content-hover);
+  color: var(--button-secondary-content-hover);
+}
+
+.secondary-action:active,
+.outline-cta:active,
+.dealer-location:active:not(:disabled),
+.dealer-details:active,
+.map-card:active {
+  border-color: var(--button-secondary-content-active);
+  color: var(--button-secondary-content-active);
+}
+
+.secondary-action:disabled,
+.outline-cta:disabled,
+.dealer-location:disabled,
+.dealer-details:disabled,
+.map-card:disabled {
+  border-color: var(--button-secondary-border-disabled);
+  color: var(--button-secondary-content-disabled);
+  cursor: default;
+}
+
+.ghost-action,
+.proposal-cancel {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--button-secondary-content);
+}
+
+.ghost-action:hover,
+.proposal-cancel:hover {
+  color: var(--button-secondary-content-hover);
+}
+
+.ghost-action:active,
+.proposal-cancel:active {
+  color: var(--button-secondary-content-active);
+}
+
+.footer-button,
+.proposal-summary button {
+  background: transparent;
+  border: 1px solid var(--button-secondary-inverse-content);
+  color: var(--button-secondary-inverse-content);
+}
+
+.footer-button:hover,
+.proposal-summary button:hover {
+  border-color: var(--button-secondary-inverse-content-hover);
+  color: var(--button-secondary-inverse-content-hover);
+}
+
+.footer-button:active,
+.proposal-summary button:active {
+  border-color: var(--button-secondary-inverse-content-active);
+  color: var(--button-secondary-inverse-content-active);
+}
+
+.proposal-summary .proposal-continue {
+  background: var(--button-primary-inverse-bg);
+  border-color: var(--button-primary-inverse-bg);
+  color: var(--button-primary-inverse-content);
+}
+
+.proposal-summary .proposal-continue:hover {
+  background: var(--button-primary-inverse-bg-hover);
+  border-color: var(--button-primary-inverse-bg-hover);
+  color: var(--button-primary-inverse-content-hover);
+}
+
+.proposal-summary .proposal-continue:active {
+  background: var(--button-primary-inverse-bg-active);
+  border-color: var(--button-primary-inverse-bg-active);
+  color: var(--button-primary-inverse-content);
+}
+
+:is(.ghost-action, .primary-action, .secondary-action, .outline-cta, .footer-button, .dealer-location, .dealer-route, .dealer-details, .map-card, .proposal-summary button) :is(img, .button-icon) {
+  box-sizing: border-box;
+  height: 24px;
+  padding: 3px;
+  width: 24px;
+}
+
+:is(.proposal-cancel, .proposal-submit) :is(img, .button-icon) {
+  box-sizing: border-box;
+  height: 20px;
+  padding: 2px;
+  width: 20px;
 }
 
 .main-nav a {
   color: var(--blue);
   font-size: 16px;
   gap: 8px;
+  line-height: 19px;
   min-height: 30px;
   position: relative;
 }
@@ -273,18 +469,6 @@ html.proposal-drawer-open body {
   display: flex;
   gap: 16px;
   margin-left: auto;
-}
-
-.ghost-action {
-  color: var(--blue);
-  gap: 8px;
-  height: 48px;
-  padding: 8px 20px;
-}
-
-.ghost-action img {
-  height: 24px;
-  width: 24px;
 }
 
 .cart-action {
@@ -317,22 +501,6 @@ html.proposal-drawer-open body {
   right: -6px;
   top: -4px;
   width: 20px;
-}
-
-.primary-action {
-  background: var(--blue);
-  border-radius: 999px;
-  color: var(--white);
-  font-size: 16px;
-  min-height: 48px;
-  padding: 8px 20px;
-  transition: background 160ms ease, transform 160ms ease;
-}
-
-.primary-action:hover,
-.secondary-action:hover,
-.outline-cta:hover {
-  transform: translateY(-1px);
 }
 
 .landing-page {
@@ -402,22 +570,6 @@ html.proposal-drawer-open body {
   line-height: 19px;
   margin: 16px 0 32px;
   width: 409px;
-}
-
-.secondary-action,
-.outline-cta {
-  border: 1px solid var(--blue);
-  border-radius: 999px;
-  color: var(--blue);
-  font-size: 16px;
-  min-height: 48px;
-  padding: 8px 20px;
-  transition: transform 160ms ease, background 160ms ease;
-}
-
-.secondary-action:hover,
-.outline-cta:hover {
-  background: #f7fbff;
 }
 
 .hero-visual {
@@ -706,10 +858,12 @@ html.proposal-drawer-open body {
 
 .text-link {
   background: transparent;
+  border: 0;
   border-top: 1px solid var(--line);
   color: var(--blue);
   font-size: 16px;
   justify-content: flex-start;
+  line-height: 19px;
   padding: 16px 0 0;
   text-decoration: underline;
   width: 100%;
@@ -726,9 +880,9 @@ html.proposal-drawer-open body {
 }
 
 .text-link .text-link-icon {
-  height: 20px;
+  height: 16px;
   margin-left: 8px;
-  width: 20px;
+  width: 16px;
 }
 
 .button-icon {
@@ -813,9 +967,7 @@ html.proposal-drawer-open body {
 }
 
 .outline-cta .button-icon {
-  height: 20px;
   margin-left: 8px;
-  width: 20px;
 }
 
 .info-line strong {
@@ -1611,23 +1763,8 @@ html.proposal-drawer-open body {
   justify-content: center;
 }
 
-.dealer-location {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  color: #a1adb5;
-  gap: 8px;
-  height: 48px;
-  padding: 0 20px;
-}
-
 .dealer-location:disabled {
   cursor: default;
-}
-
-.dealer-location img {
-  height: 24px;
-  width: 24px;
 }
 
 .dealer-divider,
@@ -1698,24 +1835,7 @@ html.proposal-drawer-open body {
 
 .dealer-route,
 .dealer-details {
-  border-radius: 24px;
-  font-size: 16px;
-  height: 48px;
-  line-height: 19px;
   width: 100%;
-
-}
-
-.dealer-route {
-  background: var(--blue);
-  border: 1px solid var(--blue);
-  color: var(--white);
-}
-
-.dealer-details {
-  background: var(--white);
-  border: 1px solid var(--blue);
-  color: var(--blue);
 }
 
 .map-panel {
@@ -1735,14 +1855,7 @@ html.proposal-drawer-open body {
 
 .map-card {
   background: var(--white);
-  border: 1px solid var(--blue);
-  border-radius: 24px;
-  color: var(--blue);
-  font-size: 16px;
-  height: 48px;
   left: 50%;
-  line-height: 19px;
-  padding: 0 20px;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -1995,12 +2108,7 @@ html.proposal-drawer-open body {
 }
 
 .footer-button {
-  border: 1px solid var(--white);
-  border-radius: 999px;
-  font-size: 16px;
-  height: 48px;
   margin-top: 24px;
-  padding: 8px 20px;
 }
 
 .footer-bottom {
@@ -2103,26 +2211,7 @@ html.proposal-drawer-open body {
   gap: 16px;
 }
 
-.proposal-summary button {
-  align-items: center;
-  background: transparent;
-  border: 1px solid var(--white);
-  border-radius: 999px;
-  color: var(--white);
-  display: inline-flex;
-  font-weight: 700;
-  gap: 8px;
-  height: 48px;
-  justify-content: center;
-  line-height: 19px;
-  padding: 0 20px;
-  white-space: nowrap;
-}
-
 .proposal-summary .proposal-continue {
-  background: var(--white);
-  border-color: var(--white);
-  color: var(--ink);
   min-width: 252px;
 }
 
@@ -2347,35 +2436,8 @@ html.proposal-drawer-open body {
   padding-top: 16px;
 }
 
-.proposal-cancel,
 .proposal-submit {
-  align-items: center;
-  border: 0;
-  border-radius: 999px;
-  display: inline-flex;
-  font-size: 14px;
-  font-weight: 700;
-  gap: 8px;
-  height: 40px;
-  justify-content: center;
-  line-height: 17px;
-  padding: 8px 16px;
-}
-
-.proposal-cancel {
-  background: transparent;
-  color: var(--blue);
-}
-
-.proposal-submit {
-  background: var(--blue);
-  color: var(--white);
   min-width: 168px;
-}
-
-.proposal-submit .button-icon {
-  height: 16px;
-  width: 16px;
 }
 
 .fab {
@@ -2970,9 +3032,6 @@ html.proposal-drawer-open body {
 
 .detail-action-row .primary-action img {
   filter: brightness(0) invert(1);
-  height: 24px;
-  margin-left: 12px;
-  width: 24px;
 }
 
 .truck-detail-info {
@@ -3040,10 +3099,10 @@ html.proposal-drawer-open body {
 }
 
 .gallery-arrow {
-  background: var(--white);
-  border: 1px solid var(--blue);
+  background: transparent;
+  border: 1px solid var(--button-secondary-content);
   border-radius: 50%;
-  color: var(--blue);
+  color: var(--button-secondary-content);
   cursor: pointer;
   display: grid;
   font: inherit;
@@ -3057,11 +3116,21 @@ html.proposal-drawer-open body {
   z-index: 2;
 }
 
+.gallery-arrow:hover {
+  border-color: var(--button-secondary-content-hover);
+  color: var(--button-secondary-content-hover);
+}
+
+.gallery-arrow:active {
+  border-color: var(--button-secondary-content-active);
+  color: var(--button-secondary-content-active);
+}
+
 .gallery-arrow span {
   display: block;
-  font-size: 38px;
-  height: 38px;
-  line-height: 32px;
+  font-size: 30px;
+  height: 24px;
+  line-height: 20px;
   text-align: center;
   width: 24px;
 }
