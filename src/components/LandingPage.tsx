@@ -211,18 +211,6 @@ function TruckCatalogue({
   );
 }
 
-function InfoLine({ title, copy, icon }: { title: string; copy: string; icon?: string }) {
-  return (
-    <div className="info-line">
-      {icon ? <img className="info-line-icon" src={asset(icon)} alt="" /> : null}
-      <div>
-        <strong>{title}</strong>
-        <span>{copy}</span>
-      </div>
-    </div>
-  );
-}
-
 type BenefitCard = {
   icon: string;
   title: string;
@@ -440,35 +428,136 @@ function AssistanceSection() {
 }
 
 function DealersSection() {
+  const [dealerQuery, setDealerQuery] = useState("");
+
+  const dealers = [
+    {
+      name: "Volkswagen Itaim Bibi",
+      distance: "3km de você",
+      address: "Av. Brig. Faria Lima, 3.173",
+      city: "Itaim Bibi, São Paulo - SP",
+      phone: "(11) 3047-7400",
+      terms: ["são paulo", "sao paulo", "sp", "itaim", "itaim bibi", "faria lima", "04538", "cep"],
+    },
+    {
+      name: "Volkswagen Vila Leopoldina",
+      distance: "5km de você",
+      address: "Av. Imperatriz Leopoldina, 950",
+      city: "Vila Leopoldina, São Paulo - SP",
+      phone: "(11) 3838-1200",
+      terms: ["vila leopoldina", "leopoldina", "lapa", "alto de pinheiros", "05085"],
+    },
+    {
+      name: "Volkswagen ABC",
+      distance: "18km de você",
+      address: "Av. Pereira Barreto, 1.600",
+      city: "Santo André - SP",
+      phone: "(11) 4433-2200",
+      terms: ["santo andre", "santo andré", "abc", "são bernardo", "sao bernardo", "maua", "mauá"],
+    },
+  ];
+
+  const normalizedDealerQuery = dealerQuery.trim().toLocaleLowerCase("pt-BR");
+  const selectedDealer = normalizedDealerQuery
+    ? dealers.find((dealer) => dealer.terms.some((term) => normalizedDealerQuery.includes(term))) ?? dealers[0]
+    : dealers[0];
+
+  const dealerStats = [
+    {
+      icon: "dealer-stat-pin.svg",
+      title: "+100",
+      copy: "concessionárias em todo o Brasil",
+    },
+    {
+      icon: "dealer-stat-person.svg",
+      title: "+3.000",
+      copy: "profissionais especializados",
+    },
+    {
+      icon: "dealer-stat-tools.svg",
+      title: "+500",
+      copy: "pontos de atendimento e serviços",
+    },
+    {
+      icon: "dealer-stat-vw.svg",
+      title: "Padrão Volkswagen",
+      copy: "qualidade que você já conhece e confia",
+      brand: true,
+    },
+  ];
+
   return (
     <section id="concessionarias" className="dealers-section page-band">
       <div className="page-inner">
-        <SectionTitle
-          eyebrow="Rede de atendimento"
-          title="Uma rede pronta para atender sua operação"
-          light="em todo o Brasil"
-        />
+        <div className="dealer-section-header">
+          <p>Por todo o Brasil</p>
+          <h2>
+            <span>Uma rede pronta para atender seu negócio </span>
+            <strong>em todo o Brasil</strong>
+          </h2>
+          <p className="dealer-section-copy">
+            Conte com uma rede nacional pronta para apoiar sua operação, com atendimento especializado e suporte completo para sua frota.
+          </p>
+        </div>
         <div className="dealer-layout">
-          <div className="dealer-search">
-            <label htmlFor="dealer-city">Encontre uma Concessionária</label>
-            <input id="dealer-city" value="São Paulo, SP" readOnly />
-            <button>Buscar</button>
-          </div>
-          <div className="map-panel" aria-label="Mapa ilustrativo de concessionárias">
-            {Array.from({ length: 15 }).map((_, index) => (
-              <span key={index} className={`map-pin pin-${index + 1}`} />
-            ))}
-            <div className="map-card">
-              <strong>Volkswagen Caminhões</strong>
-              <span>Rede nacional de atendimento</span>
+          <aside className="dealer-search" aria-label="Busca demonstrativa de concessionária">
+            <h3>Encontre uma Concessionária</h3>
+            <div className="dealer-controls">
+              <label className="dealer-field" htmlFor="dealer-city">
+                <img src={asset("dealer-icon-search.svg")} alt="" />
+                <input
+                  id="dealer-city"
+                  value={dealerQuery}
+                  onChange={(event) => setDealerQuery(event.target.value)}
+                  placeholder="Digite o CEP, cidade, ou região"
+                  aria-label="Digite o CEP, cidade, ou região"
+                />
+              </label>
+              <button className="dealer-location" type="button" disabled>
+                <img src={asset("dealer-icon-target.svg")} alt="" />
+                Usar minha localização
+              </button>
             </div>
+            <div className="dealer-divider" />
+            <p className="dealer-nearest-label">Concessionária mais próxima:</p>
+            <article className="dealer-nearest-card">
+              <div className="dealer-nearest-copy">
+                <span className="dealer-distance">
+                  <img src={asset("dealer-icon-target-small.svg")} alt="" />
+                  {selectedDealer.distance}
+                </span>
+                <h4>{selectedDealer.name}</h4>
+                <p>
+                  {selectedDealer.address}
+                  <br />
+                  {selectedDealer.city}
+                </p>
+                <p>{selectedDealer.phone}</p>
+              </div>
+              <div className="dealer-card-actions">
+                <button className="dealer-route" type="button">Traçar rota</button>
+                <button className="dealer-details" type="button">Ver detalhes</button>
+              </div>
+            </article>
+          </aside>
+          <div className="map-panel" aria-label="Mapa ilustrativo de concessionárias">
+            <img className="dealer-map-image" src={asset("dealer-map-figma.png")} alt="" aria-hidden="true" />
+            <button className="map-card" type="button">
+              Ver todas as concessionárias
+            </button>
           </div>
         </div>
-        <div className="dealer-stats">
-          <InfoLine title="+130" copy="concessionárias" />
-          <InfoLine title="+3.000" copy="profissionais especializados" />
-          <InfoLine title="+500" copy="pontos de atendimento" />
-          <InfoLine title="Volkswagen" copy="presente no Brasil" />
+        <div className="dealer-stats-shell">
+          <div className="dealer-section-divider" />
+          <div className="dealer-stats">
+            {dealerStats.map((item) => (
+              <div className={`dealer-stat ${item.brand ? "brand-stat" : ""}`} key={item.title}>
+                <img src={asset(item.icon)} alt="" />
+                <strong>{item.title}</strong>
+                <span>{item.copy}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
