@@ -156,18 +156,23 @@ function TruckCard({
 }) {
   return (
     <article className={`truck-card ${selected ? "selected" : ""}`}>
-      <button
-        className="select-dot"
-        onClick={() => onToggle(truck)}
-        aria-label={selected ? `Remover ${truck.family} da proposta` : `Adicionar ${truck.family} à proposta`}
-      />
       <div className="truck-media">
         {truck.shadowImage ? <img src={truck.shadowImage} alt="" className="truck-shadow" /> : null}
         <img src={truck.image} alt={`${truck.family} ${truck.model}`} className="truck-image" />
       </div>
       <div className="truck-content">
-        <h3>{truck.family}</h3>
-        <p>{truck.model}</p>
+        <div className="card-truck-heading">
+          <div className="card-truck-title">
+            <h3>{truck.family}</h3>
+            <p>{truck.model}</p>
+          </div>
+          <button
+            className="select-dot"
+            type="button"
+            onClick={() => onToggle(truck)}
+            aria-label={selected ? `Remover ${truck.family} da proposta` : `Adicionar ${truck.family} à proposta`}
+          />
+        </div>
         <div className="badges" aria-label="Características">
           {truck.badges.map((badge) => (
             <span className={`badge ${badge.tone}`} key={badge.label}>
