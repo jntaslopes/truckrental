@@ -601,8 +601,8 @@ function ProposalSummary({
 
 function FloatingActionButton() {
   return (
-    <a href="#faq" className="fab" aria-label="Abrir central de ajuda">
-      ?
+    <a href="#faq" className="fab" aria-label="Abrir WhatsApp">
+      <img src={asset("icon-whatsapp.svg")} alt="" />
     </a>
   );
 }
