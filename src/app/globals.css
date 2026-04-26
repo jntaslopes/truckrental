@@ -704,13 +704,14 @@ html.proposal-drawer-open body {
 .truck-grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .truck-card {
   background: linear-gradient(to bottom, var(--panel) 0 158px, var(--white) 158px 100%);
   border: 1px solid var(--line);
   border-radius: 8px;
+  container: truck-card / inline-size;
   min-height: 491px;
   overflow: hidden;
   position: relative;
@@ -731,12 +732,10 @@ html.proposal-drawer-open body {
   background: transparent;
   border: 1px solid var(--blue);
   border-radius: 50%;
+  flex: 0 0 auto;
   height: 24px;
-  position: absolute;
-  right: 19px;
-  top: 19px;
+  position: relative;
   width: 24px;
-  z-index: 2;
 }
 
 .select-dot:focus-visible {
@@ -756,15 +755,15 @@ html.proposal-drawer-open body {
   border-width: 0 2px 2px 0;
   content: "";
   height: 9px;
-  left: 8px;
+  left: 50%;
   position: absolute;
-  top: 5px;
-  transform: rotate(45deg);
+  top: 50%;
+  transform: translate(-50%, -58%) rotate(45deg);
   width: 5px;
 }
 
 .truck-media {
-  align-items: flex-end;
+  align-items: flex-start;
   background: transparent;
   display: flex;
   height: 221px;
@@ -775,11 +774,12 @@ html.proposal-drawer-open body {
 
 .truck-image,
 .truck-shadow {
-  bottom: -12px;
-  max-height: 214px;
-  max-width: 120%;
+  height: 202px;
+  max-width: none;
   object-fit: contain;
   position: absolute;
+  top: 30px;
+  width: 404px;
 }
 
 .truck-shadow {
@@ -791,6 +791,19 @@ html.proposal-drawer-open body {
   padding: 32px;
   position: relative;
   z-index: 1;
+}
+
+.card-truck-heading {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.card-truck-title {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .truck-content h3 {
@@ -805,20 +818,32 @@ html.proposal-drawer-open body {
   color: var(--ink);
   font-size: 18px;
   line-height: 27px;
-  margin: 0 0 16px;
+  margin: 0;
 }
 
 .badges {
   align-items: center;
   display: flex;
+  flex-wrap: nowrap;
   gap: 8px;
   height: 24px;
   margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.truck-card .badges {
+  gap: 6px;
+}
+
+.truck-card .badge.engine {
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .badge {
   align-items: center;
   display: inline-flex;
+  flex: 0 0 auto;
   font-size: 12px;
   font-weight: 700;
   gap: 2px;
@@ -827,6 +852,12 @@ html.proposal-drawer-open body {
   justify-content: center;
   padding: 2px 4px;
   white-space: nowrap;
+}
+
+@container truck-card (max-width: 319px) {
+  .truck-card .badge:nth-child(n + 2) {
+    display: none;
+  }
 }
 
 .badge img {
@@ -2827,8 +2858,13 @@ html.proposal-drawer-open body {
 }
 
 .catalog-truck-card .select-dot {
-  right: 9px;
-  top: 9px;
+  height: 20px;
+  width: 20px;
+}
+
+.catalog-truck-card.selected .select-dot::after {
+  height: 8px;
+  width: 4px;
 }
 
 .catalog-truck-media {
@@ -2865,19 +2901,24 @@ html.proposal-drawer-open body {
   font-family: "VW Head", Arial, sans-serif;
   font-size: 20px;
   line-height: 24px;
+  margin: 0;
 }
 
 .catalog-truck-content p {
   color: var(--ink);
   font-size: 16px;
   line-height: 24px;
-  margin: 0 0 16px;
+  margin: 0;
 }
 
 .catalog-truck-content .badges {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   height: 24px;
   overflow: hidden;
+}
+
+.catalog-truck-content .badge:nth-child(n + 2) {
+  display: none;
 }
 
 .truck-detail-page {
@@ -3647,6 +3688,14 @@ html.proposal-drawer-open body {
     left: 455px;
   }
 
+  .truck-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .truck-grid .truck-card:nth-child(n + 4) {
+    display: none;
+  }
+
   .catalog-page {
     grid-template-columns: 276px minmax(904px, 1fr);
     min-width: 1180px;
@@ -3852,6 +3901,10 @@ html.proposal-drawer-open body {
     padding: 72px 24px;
   }
 
+  .truck-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .detail-related-section {
     padding: 72px 24px;
   }
@@ -4001,6 +4054,10 @@ html.proposal-drawer-open body {
 
   .truck-detail-page {
     padding-top: 88px;
+  }
+
+  .truck-grid {
+    grid-template-columns: 1fr;
   }
 
   .truck-detail-hero-inner {
