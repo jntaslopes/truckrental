@@ -96,27 +96,27 @@ export const trucks: Truck[] = [
 
 export const faqs: FaqItem[] = [
   {
-    question: "O que é o VW Truck Rental?",
+    question: "O que é o Volkswagen Truck Rental?",
     answer:
       "É uma solução de assinatura de caminhões Volkswagen para empresas que precisam ampliar ou renovar a frota com mensalidade previsível e serviços inclusos.",
   },
   {
-    question: "O que está incluso na assinatura do caminhão?",
+    question: "O que está incluso na assinatura do(s) caminhão(ões)?",
     answer:
       "O contrato pode incluir documentação, taxas, manutenção preventiva, suporte operacional e gestão da frota, conforme o plano escolhido.",
   },
   {
-    question: "Preciso dar entrada ou pagar taxa de adesão?",
+    question: "Como funciona o plano de pagamento?",
     answer:
       "A proposta foi desenhada para reduzir desembolso inicial. As condições comerciais são confirmadas por um especialista depois da análise da operação.",
   },
   {
-    question: "Posso trocar de caminhão durante o contrato?",
+    question: "Posso trocar a frota durante a assinatura?",
     answer:
       "A troca depende do plano contratado, disponibilidade do modelo e regras comerciais vigentes no momento da solicitação.",
   },
   {
-    question: "Tem atendimento em todo o Brasil?",
+    question: "Posso cancelar antes do fim do contrato?",
     answer:
       "A Volkswagen Caminhões e Ônibus conta com uma rede nacional de concessionárias para apoiar contratação, entrega e suporte.",
   },
