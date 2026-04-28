@@ -304,21 +304,27 @@ html.proposal-drawer-open body {
 }
 
 .brand {
+  --brand-scale: 1;
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
-  gap: 24px;
+  gap: calc(12px * var(--brand-scale));
 }
 
 .brand-symbol {
-  height: 43px;
-  width: 43px;
+  display: block;
+  flex: 0 0 auto;
+  height: calc(42.6915px * var(--brand-scale));
+  object-fit: contain;
+  width: calc(43px * var(--brand-scale));
 }
 
 .brand-word {
-  height: 11px;
+  display: block;
+  flex: 0 0 auto;
+  height: calc(14px * var(--brand-scale));
   object-fit: contain;
-  width: 129px;
+  width: calc(165px * var(--brand-scale));
 }
 
 .main-nav {
@@ -3761,7 +3767,7 @@ html.proposal-drawer-open body {
   }
 
   .brand {
-    gap: 12px;
+    --brand-scale: 0.92;
   }
 
   .main-nav {
@@ -3980,7 +3986,7 @@ html.proposal-drawer-open body {
   }
 
   .brand {
-    gap: clamp(12px, 1.6vw, 24px);
+    --brand-scale: 1;
   }
 
   .main-nav {
@@ -4057,11 +4063,7 @@ html.proposal-drawer-open body {
   }
 
   .brand {
-    gap: 10px;
-  }
-
-  .brand-word {
-    width: 116px;
+    --brand-scale: 0.82;
   }
 
   .main-nav {
