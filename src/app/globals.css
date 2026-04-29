@@ -1445,18 +1445,65 @@ html.proposal-drawer-open body {
 }
 
 .plans-section {
+  background: var(--white);
+  padding: 100px clamp(16px, 5vw, 100px) 88px;
   text-align: center;
 }
 
-.plans-section .section-title h2::after,
-.dealers-section .section-title h2::after {
-  left: 50%;
-  transform: translateX(-50%);
+.plans-section .page-inner {
+  max-width: 1501px;
+  padding: 0;
+  width: 100%;
 }
 
-.plans-section {
-  background: var(--white);
-  padding: 100px 72px;
+.comparison-layout {
+  --comparison-side-space: clamp(16px, 5vw, 100px);
+  --comparison-content-max: 906px;
+  --comparison-gap: 32px;
+  --comparison-hero-track: min(563px, max(360px, calc(100% - var(--comparison-content-max) - var(--comparison-gap))));
+  align-items: stretch;
+  display: grid;
+  gap: var(--comparison-gap);
+  grid-template-columns: var(--comparison-hero-track) minmax(0, calc(100% - var(--comparison-hero-track) - var(--comparison-gap)));
+  justify-content: start;
+  margin: 0 auto;
+  max-width: 1501px;
+  width: 100%;
+}
+
+.comparison-hero {
+  background: #d6d9dc;
+  aspect-ratio: 563 / 721;
+  height: auto;
+  justify-self: start;
+  max-width: 563px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.comparison-hero img {
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: 34% center;
+  position: absolute;
+  width: 100%;
+}
+
+.comparison-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  height: auto;
+  justify-content: flex-start;
+  max-width: var(--comparison-content-max);
+  min-height: 761px;
+  min-width: 0;
+  padding-top: 0;
+  width: 100%;
 }
 
 .comparison-heading {
@@ -1464,11 +1511,11 @@ html.proposal-drawer-open body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 0 auto 48px;
   max-width: 825px;
   padding: 3px 1px 13px;
   position: relative;
   text-align: center;
+  width: 100%;
 }
 
 .comparison-heading::after {
@@ -1500,151 +1547,75 @@ html.proposal-drawer-open body {
   margin: 0;
 }
 
-.comparison-content {
-  align-items: center;
+.comparison-grid-wrap {
   display: flex;
-  flex-direction: column;
-  gap: 48px;
+  justify-content: center;
+  min-height: 526px;
+  max-width: var(--comparison-content-max);
+  position: relative;
+  width: 100%;
 }
 
 .comparison-grid {
-  background: var(--line);
-  border: 1px solid var(--line);
+  background: var(--white);
+  border: 1px solid #dadfe2;
   border-radius: 8px;
   display: grid;
-  gap: 1px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: auto auto;
   margin: 0 auto;
-  max-width: 1296px;
+  max-width: var(--comparison-content-max);
+  position: relative;
   overflow: hidden;
   text-align: left;
   width: 100%;
 }
 
-.comparison-fleet-card,
 .comparison-feature {
   background: var(--white);
-  min-width: 0;
-}
-
-.comparison-fleet-card {
-  background: #f9fafb;
   display: flex;
   flex-direction: column;
-  grid-row: 1 / span 2;
-  min-height: 474px;
-  overflow: hidden;
-  padding: 48px;
-  position: relative;
-}
-
-.comparison-fleet-copy {
+  gap: 24px;
+  min-width: 0;
   position: relative;
   z-index: 1;
 }
 
-.comparison-fleet-copy h3,
-.comparison-feature h3 {
-  color: var(--blue);
-  font-family: "VW Head", Arial, sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 29px;
-  margin: 0;
-}
-
-.comparison-fleet-copy p,
-.comparison-feature-header p {
-  color: var(--blue);
-  font-size: 18px;
-  line-height: 22px;
-  margin: 4px 0 0;
-}
-
-.comparison-fleet-copy p {
-  color: var(--muted);
-}
-
-.comparison-divider {
-  background: var(--line);
-  height: 1px;
-  margin: 24px 0;
-  width: 100%;
-}
-
-.comparison-fleet-copy span,
-.comparison-fleet-copy small {
-  color: var(--muted);
-  display: block;
-  font-size: 14px;
-  line-height: 17px;
-}
-
-.comparison-trucks {
-  bottom: 42px;
-  height: 320px;
-  left: 12px;
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  right: 12px;
-}
-
-.comparison-trucks-image {
-  bottom: 0;
-  height: auto;
-  left: 50%;
-  object-fit: contain;
-  position: absolute;
-  transform: translateX(-50%);
-  width: clamp(430px, 108%, 572px);
-}
-
-.comparison-feature {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.comparison-feature-header {
+  justify-content: flex-start;
+  min-height: 206px;
   padding: 48px;
 }
 
-.comparison-feature-header {
-  min-height: 196px;
-  padding-top: 91px;
-  position: relative;
-}
-
-.comparison-feature-highlighted {
-  border-left: 2px solid var(--bright-blue);
-  border-right: 2px solid var(--bright-blue);
-}
-
-.comparison-feature-header.comparison-feature-highlighted {
-  border-top: 2px solid var(--bright-blue);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-.comparison-feature-list.comparison-feature-highlighted {
-  border-bottom: 2px solid var(--bright-blue);
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.comparison-ribbon {
+.comparison-feature-mark {
   align-items: center;
-  background: var(--bright-blue);
-  color: var(--white);
   display: flex;
-  font-size: 16px;
-  font-weight: 700;
-  inset: 0 0 auto;
-  justify-content: center;
-  line-height: 19px;
-  min-height: 48px;
-  padding: 12px 16px;
-  position: absolute;
-  text-align: center;
+  flex: 0 0 32px;
+  height: 32px;
+}
+
+.comparison-feature-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comparison-feature-list {
+  min-height: 288px;
+  padding-bottom: 48px;
+  padding-top: 0;
+}
+
+.comparison-feature-subscription.comparison-feature-header,
+.comparison-feature-subscription.comparison-feature-list {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.comparison-feature-financing.comparison-feature-header,
+.comparison-feature-financing.comparison-feature-list {
+  padding-right: 48px;
+  padding-left: 96px;
 }
 
 .comparison-wordmark {
@@ -1663,8 +1634,18 @@ html.proposal-drawer-open body {
 
 .comparison-feature h3 {
   align-items: center;
+  color: var(--blue);
   display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
   gap: 8px;
+  line-height: 29px;
+  margin: 0;
+}
+
+.comparison-feature-financing.comparison-feature-header h3 {
+  max-width: 100%;
 }
 
 .comparison-feature h3 img {
@@ -1672,17 +1653,25 @@ html.proposal-drawer-open body {
   width: 16px;
 }
 
+.comparison-feature-header p {
+  color: var(--blue);
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+}
+
 .comparison-feature-list h4 {
   color: var(--blue);
   font-family: "VW Head", Arial, sans-serif;
   font-size: 20px;
+  font-weight: 700;
   line-height: 24px;
   margin: 0;
 }
 
 .comparison-feature-list ul {
   display: grid;
-  gap: 16px;
+  gap: 8px;
   list-style: none;
   margin: 0;
 }
@@ -1691,10 +1680,11 @@ html.proposal-drawer-open body {
   align-items: center;
   color: var(--blue);
   display: flex;
-  font-size: 18px;
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 16px;
   font-weight: 700;
   gap: 16px;
-  line-height: 22px;
+  line-height: 19px;
 }
 
 .comparison-feature-list li img {
@@ -1703,7 +1693,68 @@ html.proposal-drawer-open body {
   width: 32px;
 }
 
-.comparison-content .centered {
+.comparison-divider-axis {
+  border-left: 1px solid #dadfe2;
+  height: 474px;
+  left: calc(50% + 0.5px);
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% + 0.5px);
+  transform: translate(-50%, -50%);
+  width: 0;
+  z-index: 2;
+}
+
+.comparison-divider-axis img {
+  display: none;
+}
+
+.comparison-vs {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 116px;
+  justify-content: center;
+  left: calc(50% + 0.5px);
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% + 0.5px);
+  transform: translate(-50%, -50%);
+  width: 116px;
+  z-index: 2;
+}
+
+.comparison-vs-ring {
+  display: block;
+  position: absolute;
+}
+
+.comparison-vs-ring-outer {
+  height: 116px;
+  width: 116px;
+}
+
+.comparison-vs-ring-middle {
+  height: 86px;
+  width: 86px;
+}
+
+.comparison-vs-ring-inner {
+  height: 64px;
+  width: 64px;
+}
+
+.comparison-vs-label {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.comparison-cta.centered {
   margin: 0 auto;
 }
 
@@ -3890,34 +3941,165 @@ html.proposal-drawer-open body {
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1400px) {
   .plans-section {
+    padding: 96px clamp(16px, 3vw, 32px) 84px;
+  }
+
+  .comparison-hero img {
+    object-position: 38% center;
+  }
+
+  .comparison-layout {
+    --comparison-side-space: clamp(16px, 3vw, 32px);
+    --comparison-gap: var(--comparison-side-space);
+    --comparison-content-max: 872px;
+    --comparison-hero-track: min(480px, max(320px, calc(100% - var(--comparison-content-max) - var(--comparison-gap))));
+  }
+
+  .comparison-feature-subscription.comparison-feature-header,
+  .comparison-feature-subscription.comparison-feature-list {
     padding-left: 40px;
     padding-right: 40px;
   }
 
-  .comparison-feature,
-  .comparison-fleet-card {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-
-  .comparison-feature-list li {
-    align-items: flex-start;
-    font-size: 14px;
-    line-height: 17px;
+  .comparison-feature-financing.comparison-feature-header,
+  .comparison-feature-financing.comparison-feature-list {
+    padding-left: 80px;
+    padding-right: 40px;
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1650px) {
+  .comparison-layout {
+    margin-left: calc(-1 * var(--comparison-side-space));
+    max-width: calc(1501px + var(--comparison-side-space));
+    width: calc(100% + var(--comparison-side-space));
+  }
+
+  .comparison-hero {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1280px) {
+  .comparison-hero img {
+    object-position: 44% center;
+  }
+
+  .comparison-layout {
+    --comparison-gap: var(--comparison-side-space);
+    --comparison-content-max: 752px;
+    --comparison-hero-track: min(360px, max(260px, calc(100% - var(--comparison-content-max) - var(--comparison-gap))));
+  }
+
+  .comparison-feature-subscription.comparison-feature-header,
+  .comparison-feature-subscription.comparison-feature-list {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+
+  .comparison-feature-financing.comparison-feature-header,
+  .comparison-feature-financing.comparison-feature-list {
+    padding-left: 64px;
+    padding-right: 32px;
+  }
+
+  .comparison-feature-financing.comparison-feature-list {
+    padding-left: 76px;
+  }
+
+  .comparison-feature-financing.comparison-feature-header h3 {
+    align-items: flex-start;
+    line-height: 1.05;
+    max-width: 224px;
+  }
+
+  .comparison-vs {
+    height: 88px;
+    left: calc(50% - 12px);
+    width: 88px;
+  }
+
+  .comparison-vs-ring-outer {
+    height: 88px;
+    width: 88px;
+  }
+
+  .comparison-vs-ring-middle {
+    height: 66px;
+    width: 66px;
+  }
+
+  .comparison-vs-ring-inner {
+    height: 48px;
+    width: 48px;
+  }
+
+  .comparison-vs-label {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .comparison-divider-axis {
+    height: 396px;
+    left: calc(50% - 12px);
+  }
+}
+
+@media (max-width: 1023px) {
   .plans-section {
     padding: 80px 24px;
   }
 
-  .comparison-heading {
-    margin-bottom: 40px;
+  .comparison-layout {
+    gap: 32px;
+    grid-template-columns: 1fr;
+    width: 100%;
   }
 
+  .comparison-hero {
+    aspect-ratio: 563 / 721;
+    margin-left: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .comparison-content {
+    gap: 40px;
+    height: auto;
+    max-width: none;
+    min-height: 0;
+    padding-top: 0;
+    width: 100%;
+  }
+
+  .comparison-grid-wrap {
+    height: auto;
+    width: 100%;
+  }
+
+  .comparison-grid {
+    max-width: 100%;
+  }
+
+  .comparison-feature-header,
+  .comparison-feature-list,
+  .comparison-feature-subscription.comparison-feature-header,
+  .comparison-feature-subscription.comparison-feature-list,
+  .comparison-feature-financing.comparison-feature-header,
+  .comparison-feature-financing.comparison-feature-list {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+
+  .comparison-feature-list {
+    padding-top: 32px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 960px) {
   .comparison-heading h2,
   .comparison-heading h2 span {
     display: inline;
@@ -3927,42 +4109,40 @@ html.proposal-drawer-open body {
 
   .comparison-grid {
     grid-template-columns: 1fr;
-  }
-
-  .comparison-fleet-card {
-    grid-row: auto;
-    min-height: 500px;
+    grid-template-rows: auto;
   }
 
   .comparison-feature-header,
-  .comparison-feature-list {
+  .comparison-feature-list,
+  .comparison-feature-subscription.comparison-feature-header,
+  .comparison-feature-subscription.comparison-feature-list,
+  .comparison-feature-financing.comparison-feature-header,
+  .comparison-feature-financing.comparison-feature-list {
     min-height: auto;
-    padding: 30px;
+    padding: 32px 28px;
   }
 
-  .comparison-feature-header.comparison-feature-highlighted,
-  .comparison-feature-list.comparison-feature-highlighted,
-  .comparison-feature-highlighted {
-    border: 0;
-    border-left: 2px solid var(--bright-blue);
-    border-right: 2px solid var(--bright-blue);
-    border-radius: 0;
+  .comparison-feature-list {
+    gap: 20px;
   }
 
-  .comparison-feature-header.comparison-feature-highlighted {
-    padding-top: 70px;
-  }
-
-  .comparison-feature-list.comparison-feature-highlighted {
-    border-bottom: 2px solid var(--bright-blue);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+  .comparison-divider-axis,
+  .comparison-vs {
+    display: none;
   }
 }
 
 @media (max-width: 640px) {
   .plans-section {
     padding: 64px 16px;
+  }
+
+  .comparison-content {
+    gap: 32px;
+  }
+
+  .comparison-hero {
+    min-height: 420px;
   }
 
   .comparison-heading h2,
@@ -3976,50 +4156,27 @@ html.proposal-drawer-open body {
     line-height: 21px;
   }
 
-  .comparison-fleet-card {
-    min-height: 440px;
-    padding: 28px 24px;
-  }
-
-  .comparison-fleet-copy h3,
   .comparison-feature h3 {
     font-size: 20px;
     line-height: 24px;
   }
 
-  .comparison-fleet-copy p,
   .comparison-feature-header p,
   .comparison-feature-list li {
     font-size: 14px;
     line-height: 18px;
   }
 
-  .comparison-trucks {
-    bottom: 32px;
-    height: 230px;
-    left: 16px;
-    right: 16px;
+  .comparison-feature-list h4 {
+    font-size: 20px;
+    line-height: 24px;
   }
 
-  .comparison-trucks-image {
-    width: min(108%, 460px);
+  .comparison-feature-list li {
+    align-items: flex-start;
   }
 
-  .comparison-feature-header,
-  .comparison-feature-list {
-    padding: 28px 24px;
-  }
-
-  .comparison-feature-header.comparison-feature-highlighted {
-    padding-top: 68px;
-  }
-
-  .comparison-ribbon {
-    font-size: 14px;
-    line-height: 17px;
-  }
 }
-
 @media (max-width: 1280px) {
   .site-header {
     padding-left: 20px;
@@ -5348,3 +5505,5 @@ html.proposal-drawer-open body {
     width: 100%;
   }
 }
+
+
