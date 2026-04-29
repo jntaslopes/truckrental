@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -11,13 +11,9 @@ import {
   trucks,
   type Truck,
 } from "@/data/landing";
+import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
 const asset = (name: string) => `/assets/figma/${name}`;
-
-function toPositiveQuantity(value: string) {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-}
 
 export type ProposalItem = {
   id: string;
@@ -195,95 +191,21 @@ function SectionTitle({
   eyebrow,
   title,
   light,
+  className,
 }: {
   eyebrow: string;
   title: string;
   light?: string;
+  className?: string;
 }) {
   return (
-    <div className="section-title">
+    <div className={`section-title${className ? ` ${className}` : ""}`}>
       <p>{eyebrow}</p>
       <h2>
         {title}
         {light ? <span> {light}</span> : null}
       </h2>
     </div>
-  );
-}
-
-function TruckCard({
-  truck,
-  selected,
-  quantity,
-  onToggle,
-  onQuantityChange,
-}: {
-  truck: Truck;
-  selected: boolean;
-  quantity: number;
-  onToggle: (truck: Truck) => void;
-  onQuantityChange: (id: string, quantity: number) => void;
-}) {
-  return (
-    <article className={`truck-card ${selected ? "selected" : ""}`}>
-      <div className="truck-media">
-        {truck.shadowImage ? <img src={truck.shadowImage} alt="" className="truck-shadow" /> : null}
-        <img src={truck.image} alt={`${truck.family} ${truck.model}`} className="truck-image" />
-      </div>
-      <div className="truck-content">
-        <div className="card-truck-heading">
-          <div className="card-truck-title">
-            <h3>{truck.family}</h3>
-            <p>{truck.model}</p>
-          </div>
-          <button
-            className="select-dot"
-            type="button"
-            onClick={() => onToggle(truck)}
-            aria-label={selected ? `Remover ${truck.family} da proposta` : `Adicionar ${truck.family} à proposta`}
-          />
-        </div>
-        <div className="badges" aria-label="Características">
-          {truck.badges.map((badge) => (
-            <span className={`badge ${badge.tone}`} key={badge.label}>
-              {badge.icon ? <img src={badge.icon} alt="" /> : null}
-              {badge.label}
-            </span>
-          ))}
-        </div>
-        {selected ? (
-          <div className="card-selection-row">
-            <label className="floating-field card-quantity-field">
-              <input
-                type="number"
-                min="1"
-                step="1"
-                value={quantity}
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  onQuantityChange(truck.id, toPositiveQuantity(event.target.value))
-                }
-              />
-              <span>Qtd.</span>
-            </label>
-            <span className="card-selection-divider" aria-hidden="true" />
-            <button className="card-remove-link" type="button" onClick={() => onToggle(truck)}>
-              <span className="card-remove-label">Remover</span>
-              <span className="card-remove-icon" aria-hidden="true">×</span>
-            </button>
-          </div>
-        ) : (
-          <button className="text-link" onClick={() => onToggle(truck)}>
-            Adicionar à proposta
-            <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
-          </button>
-        )}
-        <Link className="text-link" href={`/caminhoes/${truck.slug}`}>
-          Ver detalhes
-          <img className="action-icon text-link-icon" src={asset("icon-arrow-right.svg")} alt="" />
-        </Link>
-
-      </div>
-    </article>
   );
 }
 
@@ -298,17 +220,71 @@ function TruckCatalogue({
   onToggle: (truck: Truck) => void;
   onQuantityChange: (id: string, quantity: number) => void;
 }) {
+  const operationCards = [
+    {
+      slug: "road",
+      title: "Rodoviário",
+      application: "Rodoviário",
+      description: "Desempenho e eficiência para longas distâncias",
+      image: "/assets/figma/catalog-banner-road.jpg",
+    },
+    {
+      slug: "urban",
+      title: "Urbano",
+      application: "Urbano",
+      description: "Agilidade e segurança para o dia a dia da cidade.",
+      image: "/assets/figma/catalog-banner-urban.jpg",
+    },
+    {
+      slug: "construction",
+      title: "Construção",
+      application: "Construção",
+      description: "Robustez e força para os trabalhos mais exigentes.",
+      image: "/assets/figma/catalog-banner-construction.jpg",
+    },
+    {
+      slug: "distribution",
+      title: "Distribuição",
+      application: "Distribuição",
+      description: "Versatilidade e economia para suas entregas.",
+      image: "/assets/figma/catalog-banner-distribution.jpg",
+    },
+  ] as const;
+
   return (
     <section id="catalogo" className="catalogue-section page-band">
       <div className="page-inner">
         <SectionTitle
+          className="section-title-catalog"
           eyebrow="Caminhões disponíveis para assinatura"
           title="Explore os modelos"
           light="e solicite uma proposta"
         />
+        <div className="catalog-operation-grid">
+          <article className="catalog-operation-intro">
+            <h3>
+              Caminhões para cada
+              <span> tipo de operação</span>
+            </h3>
+            <p>Explore por tipo de uso e descubra os modelos ideais</p>
+          </article>
+          {operationCards.map((item) => (
+            <Link
+              className={`catalog-operation-card ${item.slug}`}
+              href={`/caminhoes?application=${encodeURIComponent(item.application)}`}
+              key={item.title}
+            >
+              <img src={item.image} alt="" className="catalog-operation-banner" />
+              <div className="catalog-operation-content">
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
         <div className="truck-grid">
           {trucks.map((truck) => (
-            <TruckCard
+            <TruckSelectionCard
               key={truck.id}
               truck={truck}
               selected={selectedIds.includes(truck.id)}
@@ -317,30 +293,46 @@ function TruckCatalogue({
               onQuantityChange={onQuantityChange}
             />
           ))}
+          <Link href="/caminhoes" className="catalog-all-models-card">
+            <span>
+              <strong>Ver todos</strong> os
+              <br />
+              modelos
+              <br />
+              disponíveis
+            </span>
+            <img src={asset("catalog-all-models-arrow-72.svg")} alt="" />
+          </Link>
         </div>
-        <a href="#proposta" className="outline-cta centered">
-          Explorar todos os modelos
-          <img className="action-icon button-icon" src={asset("icon-add.svg")} alt="" />
-        </a>
       </div>
     </section>
   );
 }
 
 type BenefitCard = {
+  cardClassName?: string;
   icon: string;
+  iconClassName?: string;
+  titleClassName?: string;
   title: string;
-  light: string;
+  light?: string;
   copy: string;
 };
 
-function BenefitCard({ item, side }: { item: BenefitCard; side: "left" | "right" }) {
+function BenefitCard({ item }: { item: BenefitCard }) {
   return (
-    <article className={`benefits-card ${side}`}>
-      <img className="benefits-card-icon" src={asset(item.icon)} alt="" />
-      <div>
-        <h3>
-          {item.title} <span>{item.light}</span>
+    <article className={`benefits-card${item.cardClassName ? ` ${item.cardClassName}` : ""}`}>
+      <div className="benefits-card-icon-surface" aria-hidden="true">
+        <img
+          className={`benefits-card-icon${item.iconClassName ? ` ${item.iconClassName}` : ""}`}
+          src={asset(item.icon)}
+          alt=""
+        />
+      </div>
+      <div className="benefits-card-copy">
+        <h3 className={item.titleClassName}>
+          <span className="benefits-card-title-strong">{item.title}</span>
+          <span className="benefits-card-title-light">{item.light}</span>
         </h3>
         <p>{item.copy}</p>
       </div>
@@ -354,18 +346,23 @@ function OperationSection() {
       icon: "benefits-icon-document.svg",
       title: "Custos",
       light: "centralizados",
+      titleClassName: "benefits-card-title--inline",
       copy: "IPVA, documentação e serviços em uma única mensalidade",
     },
     {
       icon: "benefits-icon-shield.svg",
+      iconClassName: "benefits-card-icon--compact",
       title: "Proteção",
       light: "completa da operação",
+      titleClassName: "benefits-card-title--stacked",
       copy: "Seguro e cobertura para rodar com tranquilidade",
     },
     {
       icon: "benefits-icon-wrench.svg",
+      iconClassName: "benefits-card-icon--compact",
       title: "Operação",
       light: "sem interrupções",
+      titleClassName: "benefits-card-title--stacked",
       copy: "Manutenção preventiva e corretiva inclusas",
     },
   ];
@@ -375,20 +372,29 @@ function OperationSection() {
       icon: "benefits-icon-truck-check.svg",
       title: "Gestão simplificada",
       light: "da frota",
+      titleClassName: "benefits-card-title--stacked",
       copy: "Menos burocracia e mais eficiência operacional",
     },
     {
       icon: "benefits-icon-data.svg",
       title: "Decisões",
       light: "baseadas em dados",
+      titleClassName: "benefits-card-title--stacked",
       copy: "Telemetria para otimizar custos e performance",
     },
     {
       icon: "benefits-icon-support.svg",
+      iconClassName: "benefits-card-icon--compact",
       title: "Suporte",
       light: "contínuo",
+      titleClassName: "benefits-card-title--inline",
       copy: "Assistência 24h para manter sua operação rodando",
     },
+  ];
+
+  const includedHighlights = [
+    ["comparison-icon-zero.svg", "Zero imobilização de capital"],
+    ["benefits-icon-handshake.svg", "Sem preocupação com revenda"],
   ];
 
   return (
@@ -407,31 +413,53 @@ function OperationSection() {
         </div>
 
         <div className="benefits-layout">
-          <div className="benefits-column">
-            {leftBenefits.map((item) => (
-              <BenefitCard key={item.title} item={item} side="left" />
-            ))}
-          </div>
-
           <div className="benefits-visual" aria-hidden="true">
             <div className="benefits-rings">
               <img className="benefits-ring benefits-ring-middle" src={asset("benefits-ellipse-middle.svg")} alt="" />
               <img className="benefits-ring benefits-ring-inner" src={asset("benefits-ellipse-inner.svg")} alt="" />
               <img className="benefits-ring benefits-ring-outer" src={asset("benefits-ellipse-outer.svg")} alt="" />
             </div>
-            <img className="benefits-device" src={asset("benefits-device-composite.png")} alt="" />
+            <img className="benefits-device-layer benefits-device-base" src={asset("benefits-device-base.png")} alt="" />
+            <img className="benefits-device-layer benefits-device-overlay" src={asset("benefits-device-overlay.png")} alt="" />
           </div>
 
-          <div className="benefits-column">
-            {rightBenefits.map((item) => (
-              <BenefitCard key={item.title} item={item} side="right" />
-            ))}
+          <div className="benefits-card-grid">
+            <div className="benefits-column">
+              {leftBenefits.map((item) => (
+                <BenefitCard key={item.title} item={item} />
+              ))}
+            </div>
+
+            <div className="benefits-column">
+              {rightBenefits.map((item) => (
+                <BenefitCard key={item.title} item={item} />
+              ))}
+            </div>
           </div>
         </div>
 
-        <a className="outline-cta benefits-cta" href="#faq">
-          Entender tudo que está incluso
-        </a>
+        <div className="benefits-footer">
+          <div className="benefits-footer-copy">
+            <h3>
+              Tudo incluso. <span>Um só contrato.</span>
+            </h3>
+            <p>Zero surpresas.</p>
+          </div>
+
+          <div className="benefits-footer-highlights">
+            <div className="benefits-footer-divider" aria-hidden="true" />
+            {includedHighlights.map(([icon, label]) => (
+              <div className="benefits-footer-highlight" key={label}>
+                <img src={asset(icon)} alt="" />
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+
+          <a className="outline-cta benefits-cta" href="#faq">
+            Entender tudo que está incluso
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -456,85 +484,93 @@ function PlansSection() {
   return (
     <section id="proposta" className="plans-section page-band">
       <div className="page-inner">
-        <div className="comparison-heading">
-          <h2>
-            Assinatura <span>vs compra de frota</span>
-          </h2>
-          <p>Veja como cada modelo impacta seu custo mensal e total ao longo do contrato.</p>
-        </div>
-
-        <div className="comparison-content">
-          <div className="comparison-grid" aria-label="Comparativo entre assinatura e financiamento">
-            <div className="comparison-fleet-card">
-              <div className="comparison-fleet-copy">
-                <h3>Frota por assinatura</h3>
-                <p>Gestão completa com previsibilidade de custos</p>
-                <div className="comparison-divider" />
-                <span>Frota exemplo:</span>
-                <small>10 caminhões para operação rodoviária</small>
-              </div>
-              <div className="comparison-trucks" aria-hidden="true">
-                <img className="comparison-trucks-image" src={asset("comparison-trucks.png")} alt="" />
-              </div>
-            </div>
-
-            <div className="comparison-feature comparison-feature-header comparison-feature-highlighted">
-              <div className="comparison-ribbon">Mais previsibilidade para sua operação</div>
-              <img className="comparison-wordmark" src={asset("comparison-wordmark.png")} alt="VW Truck Rental" />
-              <div>
-                <h3>
-                  Frota por Assinatura
-                  <img src={asset("comparison-icon-info.svg")} alt="" />
-                </h3>
-                <p>Gestão completa com previsibilidade de custos</p>
-              </div>
-            </div>
-
-            <div className="comparison-feature comparison-feature-header comparison-feature-financing">
-              <img className="comparison-vw-badge" src={asset("comparison-vw-badge.png")} alt="" />
-              <div>
-                <h3>
-                  Financiamento
-                  <img src={asset("comparison-icon-info.svg")} alt="" />
-                </h3>
-                <p>Aquisição do ativo com gestão própria</p>
-              </div>
-            </div>
-
-            <div className="comparison-feature comparison-feature-list comparison-feature-highlighted">
-              <h4>Assinatura</h4>
-              <ul>
-                {subscriptionBenefits.map(([icon, label]) => (
-                  <li key={label}>
-                    <img src={asset(icon)} alt="" />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="comparison-feature comparison-feature-list comparison-feature-financing">
-              <h4>Financiamento</h4>
-              <ul>
-                {financingItems.map(([icon, label]) => (
-                  <li key={label}>
-                    <img src={asset(icon)} alt="" />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="comparison-layout">
+          <div className="comparison-hero">
+            <img src={asset("comparison-hero.jpg")} alt="Profissional Volkswagen ao lado da frota" />
           </div>
 
-          <a href="#catalogo" className="outline-cta centered">
-            Ver todos os caminhões disponíveis
-          </a>
+          <div className="comparison-content">
+            <div className="comparison-heading">
+              <h2>
+                Assinatura <span>vs compra de frota</span>
+              </h2>
+              <p>Veja como cada modelo impacta seu custo mensal e total ao longo do contrato.</p>
+            </div>
+
+            <div className="comparison-grid-wrap">
+              <div className="comparison-grid" aria-label="Comparativo entre assinatura e financiamento">
+                <div className="comparison-feature comparison-feature-header comparison-feature-subscription">
+                  <div className="comparison-feature-mark">
+                    <img className="comparison-wordmark" src={asset("comparison-wordmark.png")} alt="VW Truck Rental" />
+                  </div>
+                  <div className="comparison-feature-copy">
+                    <h3>
+                      Frota por Assinatura
+                      <img src={asset("comparison-icon-info.svg")} alt="" />
+                    </h3>
+                    <p>Gestão completa com previsibilidade de custos</p>
+                  </div>
+                </div>
+
+                <div className="comparison-feature comparison-feature-header comparison-feature-financing">
+                  <div className="comparison-feature-mark">
+                    <img className="comparison-vw-badge" src={asset("comparison-vw-badge.png")} alt="" />
+                  </div>
+                  <div className="comparison-feature-copy">
+                    <h3>
+                      Financia<wbr />mento
+                      <img src={asset("comparison-icon-info.svg")} alt="" />
+                    </h3>
+                    <p>Aquisição do ativo com gestão própria</p>
+                  </div>
+                </div>
+
+                <div className="comparison-feature comparison-feature-list comparison-feature-subscription">
+                  <h4>Assinatura</h4>
+                  <ul>
+                    {subscriptionBenefits.map(([icon, label]) => (
+                      <li key={label}>
+                        <img src={asset(icon)} alt="" />
+                        <span>{label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="comparison-feature comparison-feature-list comparison-feature-financing">
+                  <h4>Financiamento</h4>
+                  <ul>
+                    {financingItems.map(([icon, label]) => (
+                      <li key={label}>
+                        <img src={asset(icon)} alt="" />
+                        <span>{label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="comparison-divider-axis" aria-hidden="true">
+                <img src={asset("comparison-divider.svg")} alt="" />
+              </div>
+
+              <div className="comparison-vs" aria-hidden="true">
+                <img className="comparison-vs-ring comparison-vs-ring-outer" src={asset("comparison-vs-outer.svg")} alt="" />
+                <img className="comparison-vs-ring comparison-vs-ring-middle" src={asset("comparison-vs-middle.svg")} alt="" />
+                <img className="comparison-vs-ring comparison-vs-ring-inner" src={asset("comparison-vs-inner.svg")} alt="" />
+                <span className="comparison-vs-label">VS</span>
+              </div>
+            </div>
+
+            <a href="#catalogo" className="outline-cta centered comparison-cta">
+              Ver todos os caminhões disponíveis
+            </a>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
 function AssistanceSection() {
   const paths = [
     {
@@ -564,37 +600,41 @@ function AssistanceSection() {
   return (
     <section className="assistance-section page-band soft">
       <div className="page-inner assistance-grid">
-        <div className="assistance-content">
-          <div className="assistance-copy">
-            <p className="eyebrow">Dê o próximo passo agora mesmo</p>
-            <h2>
-              <span>Três formas de</span>{" "}
-              montar a sua frota Volkswagen
-            </h2>
-            <p>
-              Você pode simular online, falar com um especialista ou visitar uma concessionária.
-              Escolha o caminho mais conveniente para sua operação.
-            </p>
+        <div className="assistance-shell">
+          <div className="assistance-panel">
+            <div className="assistance-content">
+              <div className="assistance-copy">
+                <p className="eyebrow">Dê o próximo passo agora mesmo</p>
+                <h2>
+                  <span>Três formas de</span>{" "}
+                  montar a sua frota Volkswagen
+                </h2>
+                <p>
+                  Você pode simular online, falar com um especialista ou visitar uma concessionária.
+                  Escolha o caminho mais conveniente para sua operação.
+                </p>
+              </div>
+
+              <div className="assistance-cards">
+                {paths.map((path) => (
+                  <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title}>
+                    <div className="assistance-card-copy">
+                      <img src={asset(path.icon)} alt="" />
+                      <h3>{path.title}</h3>
+                      <p>{path.copy}</p>
+                    </div>
+                    <a href={path.href} className="outline-cta">
+                      {path.cta}
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="assistance-cards">
-            {paths.map((path) => (
-              <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title}>
-                <div className="assistance-card-copy">
-                  <img src={asset(path.icon)} alt="" />
-                  <h3>{path.title}</h3>
-                  <p>{path.copy}</p>
-                </div>
-                <a href={path.href} className="outline-cta">
-                  {path.cta}
-                </a>
-              </article>
-            ))}
+          <div className="assistance-photo">
+            <img src={asset("assistance-fleet.png")} alt="Atendimento Volkswagen Caminhões" />
           </div>
-        </div>
-
-        <div className="assistance-photo">
-          <img src={asset("assistance-fleet.png")} alt="Atendimento Volkswagen Caminhões" />
         </div>
       </div>
     </section>
