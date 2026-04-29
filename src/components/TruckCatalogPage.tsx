@@ -199,6 +199,7 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
           family: truck.family,
           model: truck.model,
           image: truck.image,
+          shadowImage: truck.shadowImage,
           quantity: quantities[truck.id] ?? 1,
         })),
     [quantities, selectedIds],
