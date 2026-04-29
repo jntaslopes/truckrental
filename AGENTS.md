@@ -63,14 +63,24 @@ For any UI implementation or visual update, Figma is mandatory and non-negotiabl
 - Do not add preventive/placeholder markup or CSS for hidden parts.
 - Implement only the requested target frame/state. Hidden elements from non-requested variants remain out of scope.
 
+### Image Asset Contract
+
+- If Figma defines an image asset for the target frame/state, implement exactly that asset (same content, crop, scale, and placement).
+- Never invent or replace defined Figma assets with AI-generated images, stock photos, alternative illustrations, simulated gradients, or final placeholders.
+- Asset source priority: direct export from Figma first, then matching existing file in `public/assets/figma/` for the same node.
+- Before declaring any image-asset blocker, the agent must try all available MCPs and retrieval paths. Do not stop after the first failure.
+- If all attempts fail, report each attempted path/MCP and outcome, then block completion with objective pending items (affected node/frame and expected asset).
+
 - **Blocking delivery policy:**
   - If any visual divergence exists between implementation and Figma/print, the task must not be marked as complete.
   - If any hidden element is implemented in the target state, the task must not be marked as complete.
+  - If a defined Figma image asset is not used or is replaced by invented imagery, the task must not be marked as complete.
   - The agent must report objective pending items, including the exact divergent property and where it occurs.
 - **Mandatory pre-completion checklist for UI changes:**
   - Validate: `font-family`, `font-size`, `font-weight`, `line-height`, `letter-spacing`, `color`.
   - Validate spacing and positioning against Figma frame geometry.
   - Verify visibility for all relevant layers/properties and confirm no `border`, `shadow`, `background`, or text style was derived from hidden layers.
+  - Verify that every rendered image has traceable origin to Figma and matches screenshot/content/crop/scale/placement.
   - Compare implementation screenshot vs Figma node screenshot before finalizing.
 - **Tolerance:**
   - Zero tolerance. No visual deviation is allowed.
