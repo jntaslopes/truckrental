@@ -48,13 +48,16 @@ Document any intentional deviation from the Figma design in the change summary.
 For any UI implementation or visual update, Figma is mandatory and non-negotiable. Agents are not authorized to reinterpret design decisions when Figma already defines them.
 
 - **Precedence order (must be followed exactly):**
-  1. Visual match between browser rendering and the target Figma node/frame screenshot (approval gate).
+  1. Visual match between browser rendering and the target Figma node/frame screenshot (or approved print fallback) (approval gate).
   2. Figma `Text Style` and tokens: `font-family`, `font-weight`, `font-size`, `line-height`, `letter-spacing`, `color`.
   3. Frame geometry and layout: spacing, gaps, paddings, alignment, dimensions, and positioning.
 - **Prohibited behaviors:**
   - Do not replace typography, colors, or spacing values when they already exist in Figma.
   - Do not make "approximate" style adjustments.
   - Do not introduce unsolicited visual "improvements".
+- **Implementation autonomy with accountability:**
+  - The agent chooses the technical implementation path.
+  - Completion is allowed only when the result is pixel-perfect against Figma (or approved print fallback) and all validation gates pass.
 
 ### Browser Validation Gate
 
@@ -62,6 +65,50 @@ For any UI implementation or visual update, Figma is mandatory and non-negotiabl
 - A UI task can only be marked as complete after opening the implemented screen in the browser and comparing it against the corresponding Figma node/frame screenshot.
 - The agent must iterate on fixes until visual divergences are zero.
 - Validation evidence is textual by default (no mandatory screenshot or pixel-diff artifact unless explicitly requested).
+
+### UI Execution SOP (Mandatory)
+
+For every UI task, follow this operational SOP before declaring completion:
+
+- **UI preflight (mandatory):**
+  - Check whether a local dev server for the target URL/port is already active before visual QA.
+  - If already running, reuse it (do not restart by default).
+  - If not running, start it with `npm run dev -- --port <default-port>` and confirm HTTP access before visual comparison.
+- **Port policy and fallback:**
+  - Default attempt order: `3000`, then any explicit port present in user context/comments (for example `3017`).
+  - If the current in-app browser URL is valid for the requested screen, treat it as the primary source.
+- **Visual comparison protocol:**
+  - Always compare browser rendering against the target Figma node/frame or user-approved print before closing the task.
+  - After each CSS/TSX visual adjustment, reload and revalidate the same crop/area.
+- **Viewport and breakpoint policy:**
+  - For responsive UI, validate at least desktop, tablet, and mobile.
+  - If the user provides a print from a specific breakpoint, that breakpoint becomes an approval gate.
+  - If the user provides multiple breakpoint prints, validate each one explicitly.
+- **Browser-size awareness:**
+  - Browser width/height materially changes layout and comparison outcomes; treat viewport as part of the acceptance criteria.
+  - Report which viewports were validated in the completion summary.
+- **UI done criteria (blocking):**
+  - Do not mark complete before all are true: visual validation passed, `npm run lint` passed, `npm run build` passed, and breakpoint checks are listed objectively.
+
+### Reference Fallback Policy
+
+- If Figma MCP is available, use target node/frame context plus screenshot as the primary reference.
+- If Figma MCP is unavailable, use the user-provided print as temporary source of truth and state this explicitly in the completion summary.
+- Default responsive validation set (when user does not specify): desktop `1440x900`, tablet `1024x768`, mobile `390x844`.
+- The agent may resize viewport autonomously to cover required breakpoints without waiting for extra user instruction.
+
+### MCP Connectivity Retry Gate
+
+- Do not declare MCP unavailability after a single failed attempt.
+- Before fallback, the agent must run a short retry sequence (up to 3 attempts) with brief intervals.
+- When multiple equivalent MCP/connectors exist for the same source, the agent must try alternatives before declaring failure.
+- For Figma tasks, if reading the target node fails, the agent must also try one known node/frame in the same file to distinguish node-level failure from connection-level failure.
+- Fallback to print/manual reference is allowed only after the retry gate is exhausted.
+- Completion summary must include objective MCP attempt evidence:
+  - MCP/connector tried
+  - attempt count
+  - short error outcome per attempt
+  - final decision (`MCP active` or `fallback used`)
 
 ### Visibility Contract
 
