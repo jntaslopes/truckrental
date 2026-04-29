@@ -101,7 +101,7 @@ function Hero() {
           previsibilidade e eficiência na sua operação.
         </p>
         <a href="#catalogo" className="secondary-action">
-          Ver todos os caminhões para assinatura
+              Ver todos os caminhões disponíveis
         </a>
       </div>
 
@@ -439,85 +439,93 @@ function PlansSection() {
   return (
     <section id="proposta" className="plans-section page-band">
       <div className="page-inner">
-        <div className="comparison-heading">
-          <h2>
-            Assinatura <span>vs compra de frota</span>
-          </h2>
-          <p>Veja como cada modelo impacta seu custo mensal e total ao longo do contrato.</p>
-        </div>
-
-        <div className="comparison-content">
-          <div className="comparison-grid" aria-label="Comparativo entre assinatura e financiamento">
-            <div className="comparison-fleet-card">
-              <div className="comparison-fleet-copy">
-                <h3>Frota por assinatura</h3>
-                <p>Gestão completa com previsibilidade de custos</p>
-                <div className="comparison-divider" />
-                <span>Frota exemplo:</span>
-                <small>10 caminhões para operação rodoviária</small>
-              </div>
-              <div className="comparison-trucks" aria-hidden="true">
-                <img className="comparison-trucks-image" src={asset("comparison-trucks.png")} alt="" />
-              </div>
-            </div>
-
-            <div className="comparison-feature comparison-feature-header comparison-feature-highlighted">
-              <div className="comparison-ribbon">Mais previsibilidade para sua operação</div>
-              <img className="comparison-wordmark" src={asset("comparison-wordmark.png")} alt="VW Truck Rental" />
-              <div>
-                <h3>
-                  Frota por Assinatura
-                  <img src={asset("comparison-icon-info.svg")} alt="" />
-                </h3>
-                <p>Gestão completa com previsibilidade de custos</p>
-              </div>
-            </div>
-
-            <div className="comparison-feature comparison-feature-header comparison-feature-financing">
-              <img className="comparison-vw-badge" src={asset("comparison-vw-badge.png")} alt="" />
-              <div>
-                <h3>
-                  Financiamento
-                  <img src={asset("comparison-icon-info.svg")} alt="" />
-                </h3>
-                <p>Aquisição do ativo com gestão própria</p>
-              </div>
-            </div>
-
-            <div className="comparison-feature comparison-feature-list comparison-feature-highlighted">
-              <h4>Assinatura</h4>
-              <ul>
-                {subscriptionBenefits.map(([icon, label]) => (
-                  <li key={label}>
-                    <img src={asset(icon)} alt="" />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="comparison-feature comparison-feature-list comparison-feature-financing">
-              <h4>Financiamento</h4>
-              <ul>
-                {financingItems.map(([icon, label]) => (
-                  <li key={label}>
-                    <img src={asset(icon)} alt="" />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="comparison-layout">
+          <div className="comparison-hero">
+            <img src={asset("comparison-hero.jpg")} alt="Profissional Volkswagen ao lado da frota" />
           </div>
 
-          <a href="#catalogo" className="outline-cta centered">
-            Ver todos os caminhões disponíveis
-          </a>
+          <div className="comparison-content">
+            <div className="comparison-heading">
+              <h2>
+                Assinatura <span>vs compra de frota</span>
+              </h2>
+              <p>Veja como cada modelo impacta seu custo mensal e total ao longo do contrato.</p>
+            </div>
+
+            <div className="comparison-grid-wrap">
+              <div className="comparison-grid" aria-label="Comparativo entre assinatura e financiamento">
+                <div className="comparison-feature comparison-feature-header comparison-feature-subscription">
+                  <div className="comparison-feature-mark">
+                    <img className="comparison-wordmark" src={asset("comparison-wordmark.png")} alt="VW Truck Rental" />
+                  </div>
+                  <div className="comparison-feature-copy">
+                    <h3>
+                      Frota por Assinatura
+                      <img src={asset("comparison-icon-info.svg")} alt="" />
+                    </h3>
+                    <p>Gestão completa com previsibilidade de custos</p>
+                  </div>
+                </div>
+
+                <div className="comparison-feature comparison-feature-header comparison-feature-financing">
+                  <div className="comparison-feature-mark">
+                    <img className="comparison-vw-badge" src={asset("comparison-vw-badge.png")} alt="" />
+                  </div>
+                  <div className="comparison-feature-copy">
+                    <h3>
+                      Financia<wbr />mento
+                      <img src={asset("comparison-icon-info.svg")} alt="" />
+                    </h3>
+                    <p>Aquisição do ativo com gestão própria</p>
+                  </div>
+                </div>
+
+                <div className="comparison-feature comparison-feature-list comparison-feature-subscription">
+                  <h4>Assinatura</h4>
+                  <ul>
+                    {subscriptionBenefits.map(([icon, label]) => (
+                      <li key={label}>
+                        <img src={asset(icon)} alt="" />
+                        <span>{label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="comparison-feature comparison-feature-list comparison-feature-financing">
+                  <h4>Financiamento</h4>
+                  <ul>
+                    {financingItems.map(([icon, label]) => (
+                      <li key={label}>
+                        <img src={asset(icon)} alt="" />
+                        <span>{label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="comparison-divider-axis" aria-hidden="true">
+                <img src={asset("comparison-divider.svg")} alt="" />
+              </div>
+
+              <div className="comparison-vs" aria-hidden="true">
+                <img className="comparison-vs-ring comparison-vs-ring-outer" src={asset("comparison-vs-outer.svg")} alt="" />
+                <img className="comparison-vs-ring comparison-vs-ring-middle" src={asset("comparison-vs-middle.svg")} alt="" />
+                <img className="comparison-vs-ring comparison-vs-ring-inner" src={asset("comparison-vs-inner.svg")} alt="" />
+                <span className="comparison-vs-label">VS</span>
+              </div>
+            </div>
+
+            <a href="#catalogo" className="outline-cta centered comparison-cta">
+              Ver todos os caminhões disponíveis
+            </a>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
 function AssistanceSection() {
   const paths = [
     {
