@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type ChangeEvent, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   catalogFilterSections,
@@ -17,14 +17,10 @@ import {
   ProposalSummary,
   type ProposalItem,
 } from "@/components/LandingPage";
+import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
 const asset = (name: string) => `/assets/figma/${name}`;
 const defaultCapacityRange = { min: 10, max: 80 };
-
-function toPositiveQuantity(value: string) {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-}
 
 type CatalogFilters = Record<CatalogFilterKey, string[]> & {
   capacityMin: number;
@@ -39,6 +35,17 @@ const defaultFilters: CatalogFilters = {
   capacityMin: defaultCapacityRange.min,
   capacityMax: defaultCapacityRange.max,
 };
+
+const applicationFilterOptions =
+  catalogFilterSections.find((section) => section.key === "application")?.options ?? [];
+
+function getFiltersFromApplication(application?: string): CatalogFilters {
+  if (!application || !applicationFilterOptions.includes(application)) {
+    return defaultFilters;
+  }
+
+  return { ...defaultFilters, application: [application] };
+}
 
 function hasActiveFilters(filters: CatalogFilters) {
   return (
@@ -176,88 +183,12 @@ function CatalogFilterSidebar({
   );
 }
 
-function CatalogTruckCard({
-  truck,
-  selected,
-  quantity,
-  onToggle,
-  onQuantityChange,
-}: {
-  truck: CatalogTruck;
-  selected: boolean;
-  quantity: number;
-  onToggle: (truck: CatalogTruck) => void;
-  onQuantityChange: (id: string, quantity: number) => void;
-}) {
-  return (
-    <article className={`catalog-truck-card ${selected ? "selected" : ""}`}>
-      <div className="catalog-truck-media">
-        {truck.shadowImage ? <img src={truck.shadowImage} alt="" className="catalog-truck-shadow" /> : null}
-        <img src={truck.image} alt={`${truck.family} ${truck.model}`} className="catalog-truck-image" />
-      </div>
-      <div className="catalog-truck-content">
-        <div className="card-truck-heading">
-          <div className="card-truck-title">
-            <h3>{truck.family}</h3>
-            <p>{truck.model}</p>
-          </div>
-          <button
-            className="select-dot"
-            type="button"
-            onClick={() => onToggle(truck)}
-            aria-label={selected ? `Remover ${truck.family} ${truck.model} da proposta` : `Adicionar ${truck.family} ${truck.model} à proposta`}
-          />
-        </div>
-        <div className="badges" aria-label="Características">
-          {truck.badges.map((badge) => (
-            <span className={`badge ${badge.tone}`} key={badge.label}>
-              {badge.tone === "success" ? <img src={asset("icon-bolt.svg")} alt="" /> : null}
-              {badge.tone === "engine" ? <img src={asset("icon-engine.svg")} alt="" /> : null}
-              {badge.label}
-            </span>
-          ))}
-        </div>
-        {selected ? (
-          <div className="card-selection-row catalog-card-selection-row">
-            <label className="floating-field card-quantity-field catalog-card-quantity-field">
-              <input
-                type="number"
-                min="1"
-                step="1"
-                value={quantity}
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  onQuantityChange(truck.id, toPositiveQuantity(event.target.value))
-                }
-              />
-              <span>Qtd.</span>
-            </label>
-            <span className="card-selection-divider" aria-hidden="true" />
-            <button className="card-remove-link" type="button" onClick={() => onToggle(truck)}>
-              <span className="card-remove-label">Remover</span>
-              <span className="card-remove-icon" aria-hidden="true">×</span>
-            </button>
-          </div>
-        ) : (
-          <button className="text-link" type="button" onClick={() => onToggle(truck)}>
-            Adicionar à proposta
-            <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
-          </button>
-        )}
-        <Link className="text-link" href={`/caminhoes/${truck.slug}`}>
-          Ver detalhes
-          <img className="action-icon text-link-icon" src={asset("icon-arrow-right.svg")} alt="" />
-        </Link>
-
-      </div>
-    </article>
-  );
-}
-
-export function TruckCatalogPage() {
+export function TruckCatalogPage({ initialApplication }: { initialApplication?: string }) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
-  const [filters, setFilters] = useState<CatalogFilters>(defaultFilters);
+  const initialFilters = useMemo(() => getFiltersFromApplication(initialApplication), [initialApplication]);
+  const [filters, setFilters] = useState<CatalogFilters>(initialFilters);
 
   const selectedItems = useMemo<ProposalItem[]>(
     () =>
@@ -376,7 +307,7 @@ export function TruckCatalogPage() {
           <p className="catalog-count">{filteredTrucks.length} modelos encontrados</p>
           <div className="catalog-grid">
             {filteredTrucks.map((truck) => (
-              <CatalogTruckCard
+              <TruckSelectionCard
                 key={truck.id}
                 truck={truck}
                 selected={selectedIds.includes(truck.id)}
