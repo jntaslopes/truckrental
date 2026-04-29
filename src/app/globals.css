@@ -2598,10 +2598,9 @@ html.proposal-drawer-open body {
 
 .dealer-stat {
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: 64px 43px auto;
+  justify-items: center;
   min-height: 136px;
   padding: 0 36px;
   position: relative;
@@ -2620,17 +2619,20 @@ html.proposal-drawer-open body {
 }
 
 .dealer-stat img {
+  align-self: start;
   height: 64px;
   object-fit: contain;
   width: 64px;
 }
 
 .dealer-stat.brand-stat img {
-  height: 74px;
-  width: 74px;
+  align-self: center;
+  height: 43px;
+  width: 43px;
 }
 
 .dealer-stat strong {
+  align-self: start;
   color: var(--blue);
   font-family: "VW Head", Arial, sans-serif;
   font-size: 36px;
@@ -2643,6 +2645,7 @@ html.proposal-drawer-open body {
 }
 
 .dealer-stat span {
+  align-self: start;
   color: var(--blue);
   display: block;
   font-size: 18px;
@@ -2682,79 +2685,51 @@ html.proposal-drawer-open body {
 }
 
 .trusted-companies {
-  align-items: center;
-  display: grid;
-  gap: 36px;
-  grid-template-columns: minmax(168px, 252px) minmax(0, 1fr);
-  padding: 34px 48px 34px 44px;
+  height: 120px;
+  margin: 0 auto;
+  max-width: min(100%, 1322px);
+  overflow: hidden;
+  padding: 40px 0;
   position: relative;
+  width: 100%;
   z-index: 1;
 }
 
 .trusted-companies > p {
   color: var(--blue);
   font-size: 16px;
+  left: 0;
   line-height: 20px;
-  max-width: 220px;
+  max-width: 201px;
+  position: absolute;
+  top: 40px;
 }
 
 .trusted-companies-list {
-  align-items: center;
-  column-gap: 46px;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
+  height: 40px;
+  left: 0;
   list-style: none;
-  min-width: 0;
-  overflow: hidden;
+  position: absolute;
+  top: 40px;
   width: 100%;
 }
 
 .trusted-company-item {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: center;
-  min-width: 0;
+  height: 40px;
+  left: var(--trusted-company-left, var(--trusted-company-x));
+  position: absolute;
+  top: 0;
+  width: var(--trusted-company-width, auto);
 }
 
 .trusted-company-logo {
-  background-image: url("/assets/figma/trusted-companies-strip.jpg");
-  background-repeat: no-repeat;
-  background-size: 1650px 120px;
   display: block;
   flex: 0 0 auto;
-  height: 48px;
-}
-
-.trusted-company-logo.coca-cola {
-  background-position: -405px -36px;
-  width: 190px;
-}
-
-.trusted-company-logo.raizen {
-  background-position: -666px -36px;
-  width: 164px;
-}
-
-.trusted-company-logo.ambev {
-  background-position: -832px -36px;
-  width: 178px;
-}
-
-.trusted-company-logo.brf {
-  background-position: -1036px -36px;
-  width: 118px;
-}
-
-.trusted-company-logo.natura {
-  background-position: -1201px -36px;
-  width: 76px;
-}
-
-.trusted-company-logo.mercado-livre {
-  background-position: -1318px -36px;
-  width: 216px;
+  height: var(--trusted-company-height);
+  left: 0;
+  position: absolute;
+  top: var(--trusted-company-offset-top);
+  width: var(--trusted-company-width);
 }
 
 .faq-section {
@@ -3281,29 +3256,6 @@ html.proposal-drawer-open body {
 
 .proposal-submit {
   min-width: 168px;
-}
-
-.fab {
-  align-items: center;
-  background: var(--bright-blue);
-  border-radius: 50%;
-  bottom: 28px;
-  color: var(--white);
-  display: flex;
-  font-size: 28px;
-  font-weight: 700;
-  height: 64px;
-  justify-content: center;
-  position: fixed;
-  right: 40px;
-  width: 64px;
-  z-index: 31;
-}
-
-.fab img {
-  display: block;
-  height: 30px;
-  width: 30px;
 }
 
 .modal-backdrop {
@@ -4592,6 +4544,34 @@ html.proposal-drawer-open body {
   }
 }
 
+@media (max-width: 1100px) {
+  .comparison-layout {
+    gap: 32px;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    margin-left: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .comparison-hero {
+    display: none;
+  }
+
+  .comparison-content,
+  .comparison-heading,
+  .comparison-grid-wrap,
+  .comparison-grid {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(100%, var(--comparison-content-max));
+  }
+
+  .comparison-content {
+    min-height: 0;
+  }
+}
+
 @media (max-width: 640px) {
   .plans-section {
     padding: 64px 16px;
@@ -4685,10 +4665,6 @@ html.proposal-drawer-open body {
     line-height: 17px;
     padding-left: 12px;
     padding-right: 12px;
-  }
-
-  .catalog-page ~ .fab {
-    display: none;
   }
 
   .hero-copy {
@@ -4853,7 +4829,8 @@ html.proposal-drawer-open body {
   }
 
   .benefits-visual {
-    transform: translateX(-50%) scale(0.9);
+    justify-self: center;
+    transform: none;
   }
 
   .dealer-layout {
@@ -5060,7 +5037,7 @@ html.proposal-drawer-open body {
   }
 }
 
-@media (min-width: 1025px) and (max-width: 1260px) {
+@media (min-width: 1024px) and (max-width: 1366px) {
   .benefits-layout {
     gap: 20px;
     grid-template-columns: minmax(252px, 272px) minmax(0, 1fr);
@@ -5133,6 +5110,7 @@ html.proposal-drawer-open body {
 
 @media (max-width: 1023px) {
   .benefits-layout {
+    align-items: center;
     display: flex;
     flex-direction: column;
     grid-template-columns: 1fr;
@@ -5143,6 +5121,7 @@ html.proposal-drawer-open body {
   .benefits-visual {
     align-self: center;
     justify-self: center;
+    margin: 0 auto;
     order: -1;
   }
 
@@ -5214,6 +5193,44 @@ html.proposal-drawer-open body {
 
   .benefits-footer-highlight:nth-child(3) span {
     max-width: 165px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1321px) {
+  .trusted-companies {
+    max-width: calc(100vw - 80px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .trusted-companies > p {
+    margin-bottom: 24px;
+    max-width: none;
+    position: static;
+  }
+
+  .trusted-companies {
+    height: auto;
+    margin: 0;
+    padding: 28px 24px;
+    width: 100%;
+  }
+
+  .trusted-companies-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    gap: 20px 32px;
+    height: auto;
+    justify-content: flex-start;
+    position: relative;
+    top: auto;
+    overflow: visible;
+  }
+
+  .trusted-company-item {
+    left: auto;
+    position: relative;
+    top: auto;
   }
 }
 
@@ -5591,25 +5608,6 @@ html.proposal-drawer-open body {
   .dealer-stat:nth-child(2)::after {
     display: none;
   }
-
-  .trusted-companies {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 28px 24px;
-  }
-
-  .trusted-companies > p {
-    max-width: none;
-  }
-
-  .trusted-companies-list {
-    column-gap: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, max-content));
-    gap: 20px 32px;
-    justify-content: flex-start;
-    overflow: visible;
-  }
 }
 
 @media (max-width: 980px) {
@@ -5925,39 +5923,13 @@ html.proposal-drawer-open body {
     overflow: visible;
   }
 
+  .trusted-company-item {
+    width: var(--trusted-company-width, auto);
+  }
+
   .trusted-company-logo {
-    background-size: 1375px 100px;
-    height: 40px;
-  }
-
-  .trusted-company-logo.coca-cola {
-    background-position: -337px -30px;
-    width: 158px;
-  }
-
-  .trusted-company-logo.raizen {
-    background-position: -555px -30px;
-    width: 136px;
-  }
-
-  .trusted-company-logo.ambev {
-    background-position: -693px -30px;
-    width: 148px;
-  }
-
-  .trusted-company-logo.brf {
-    background-position: -863px -30px;
-    width: 98px;
-  }
-
-  .trusted-company-logo.natura {
-    background-position: -1000px -30px;
-    width: 62px;
-  }
-
-  .trusted-company-logo.mercado-livre {
-    background-position: -1098px -30px;
-    width: 180px;
+    height: var(--trusted-company-height);
+    width: var(--trusted-company-width);
   }
 }
 
