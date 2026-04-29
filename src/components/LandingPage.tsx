@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type CSSProperties, type ChangeEvent, type FormEvent, useEffect, useMemo, useState } from "react";
+import { type CSSProperties, type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   faqs,
