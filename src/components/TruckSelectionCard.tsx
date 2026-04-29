@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
+import { TruckImageStack } from "@/components/TruckImageStack";
 
 const asset = (name: string) => `/assets/figma/${name}`;
 
@@ -18,6 +19,7 @@ export type SharedTruckCardData = {
   family: string;
   model: string;
   image: string;
+  shadowImage?: string;
   badges: TruckCardBadge[];
 };
 
@@ -58,7 +60,13 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
   return (
     <article className={`catalog-truck-card ${selected ? "selected" : ""}`}>
       <div className="catalog-truck-media">
-        <img src={truck.image} alt={`${truck.family} ${truck.model}`} className="catalog-truck-image" />
+        <TruckImageStack
+          image={truck.image}
+          shadowImage={truck.shadowImage}
+          alt={`${truck.family} ${truck.model}`}
+          frontClassName="catalog-truck-image"
+          shadowClassName="catalog-truck-image"
+        />
       </div>
       <div className="catalog-truck-content">
         <div className="card-truck-heading">

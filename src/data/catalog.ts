@@ -49,6 +49,7 @@ export type TruckDetailComparisonItem = {
 
 export type TruckDetailData = CatalogTruck & {
   heroImage: string;
+  heroShadowImage?: string;
   heroCopy: string;
   specs: TruckDetailSpec[];
   details: string[];
@@ -420,6 +421,7 @@ export function getTruckDetailBySlug(slug: string): TruckDetailData | undefined 
   return {
     ...truck,
     heroImage: isMeteorReference ? asset("detail-meteor-hero.png") : truck.image,
+    heroShadowImage: isMeteorReference ? undefined : truck.shadowImage,
     heroCopy: isMeteorReference
       ? "O caminhão extrapesado ideal para operações rodoviárias de longa distância, com alta capacidade de carga, conforto e economia."
       : `${title} por assinatura para operações ${truck.application.toLowerCase()}, com previsibilidade de custos e suporte especializado.`,
