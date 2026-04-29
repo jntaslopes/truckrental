@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { type CSSProperties, type ChangeEvent, type FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   faqs,
@@ -61,10 +61,10 @@ export function Header({
           </span>
           <span className="ghost-action-label ghost-action-label-short">Concessionárias</span>
         </Link>
-        <Link href="/#proposta" className="cart-action" aria-label={`${proposalCount} itens na proposta`}>
+        <div className="cart-action" aria-label={`${proposalCount} itens na proposta`} role="img">
           <img src={asset("icon-cart.svg")} alt="" />
           <span>{proposalCount}</span>
-        </Link>
+        </div>
         <Link href="/#proposta" className="primary-action">
           Falar agora com um Especialista
         </Link>
@@ -639,64 +639,15 @@ function DealersSection() {
 
   const trustedCompanies = useMemo(
     () => [
-      { name: "Coca-Cola", className: "coca-cola", width: 190 },
-      { name: "Raízen", className: "raizen", width: 164 },
-      { name: "Ambev", className: "ambev", width: 178 },
-      { name: "BRF", className: "brf", width: 118 },
-      { name: "Natura", className: "natura", width: 76 },
-      { name: "Mercado Livre", className: "mercado-livre", width: 216 },
+      { name: "Coca-Cola", className: "coca-cola", asset: asset("trusted-company-coca-cola.png"), x: 313.33, width: 109, height: 34, offsetTop: 3 },
+      { name: "Raízen", className: "raizen", asset: asset("trusted-company-raizen.png"), x: 514.67, width: 83, height: 34, offsetTop: 3 },
+      { name: "Ambev", className: "ambev", asset: asset("trusted-company-ambev.png"), x: 690, width: 104, height: 26, offsetTop: 7 },
+      { name: "BRF", className: "brf", asset: asset("trusted-company-brf.png"), x: 886.33, width: 71, height: 34, offsetTop: 3 },
+      { name: "Natura", className: "natura", asset: asset("trusted-company-natura.png"), x: 1049.67, width: 44, height: 33, offsetTop: 3.5 },
+      { name: "Mercado Livre", className: "mercado-livre", asset: asset("trusted-company-mercado-livre.png"), x: 1186, width: 136, height: 34, offsetTop: 3 },
     ],
     [],
   );
-  const desktopCompaniesGap = 46;
-  const trustedCompaniesListRef = useRef<HTMLUListElement | null>(null);
-  const [visibleLogosCount, setVisibleLogosCount] = useState(trustedCompanies.length);
-
-  useEffect(() => {
-    const listElement = trustedCompaniesListRef.current;
-    if (!listElement) {
-      return;
-    }
-
-    const calculateVisibleLogos = (width: number) => {
-      if (window.matchMedia("(max-width: 1200px)").matches) {
-        setVisibleLogosCount(trustedCompanies.length);
-        return;
-      }
-
-      let consumedWidth = 0;
-      let visibleCount = 0;
-
-      for (const company of trustedCompanies) {
-        const nextWidth = consumedWidth + (visibleCount > 0 ? desktopCompaniesGap : 0) + company.width;
-        if (nextWidth > width) {
-          break;
-        }
-        consumedWidth = nextWidth;
-        visibleCount += 1;
-      }
-
-      setVisibleLogosCount(visibleCount);
-    };
-
-    const onWindowResize = () => calculateVisibleLogos(listElement.clientWidth);
-    calculateVisibleLogos(listElement.clientWidth);
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      const [entry] = entries;
-      if (entry) {
-        calculateVisibleLogos(entry.contentRect.width);
-      }
-    });
-
-    resizeObserver.observe(listElement);
-    window.addEventListener("resize", onWindowResize);
-
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", onWindowResize);
-    };
-  }, [trustedCompanies]);
 
   return (
     <section id="concessionarias" className="dealers-section page-band">
@@ -776,13 +727,23 @@ function DealersSection() {
           <div className="dealer-section-divider" />
           <div className="trusted-companies" aria-label="Empresas que confiam na frota">
             <p>Junte-se a empresas que confiam na nossa frota</p>
-            <ul className="trusted-companies-list" ref={trustedCompaniesListRef}>
-              {trustedCompanies.slice(0, visibleLogosCount).map((company) => (
-                <li className={`trusted-company-item ${company.className}`} key={company.name}>
-                  <span
+            <ul className="trusted-companies-list">
+              {trustedCompanies.map((company) => (
+                <li
+                  className={`trusted-company-item ${company.className}`}
+                  key={company.name}
+                  style={{
+                    "--trusted-company-x": `${company.x}px`,
+                    "--trusted-company-left": `${(company.x / 1322) * 100}%`,
+                    "--trusted-company-width": `${company.width}px`,
+                    "--trusted-company-height": `${company.height}px`,
+                    "--trusted-company-offset-top": `${company.offsetTop}px`,
+                  } as CSSProperties}
+                >
+                  <img
                     className={`trusted-company-logo ${company.className}`}
-                    role="img"
-                    aria-label={company.name}
+                    src={company.asset}
+                    alt={company.name}
                   />
                 </li>
               ))}
@@ -1113,14 +1074,6 @@ export function ProposalDrawer({
   );
 }
 
-function FloatingActionButton() {
-  return (
-    <a href="#faq" className="fab" aria-label="Abrir WhatsApp">
-      <img src={asset("icon-whatsapp.svg")} alt="" />
-    </a>
-  );
-}
-
 export function LandingPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
@@ -1204,7 +1157,6 @@ export function LandingPage() {
         }}
         onContinue={() => setIsProposalDrawerOpen(true)}
       />
-      <FloatingActionButton />
       {isProposalDrawerOpen ? (
         <ProposalDrawer
           selectedItems={selectedItems}
