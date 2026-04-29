@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type ChangeEvent, type FormEvent, useEffect, useMemo, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   faqs,
@@ -597,6 +597,67 @@ function DealersSection() {
     },
   ];
 
+  const trustedCompanies = useMemo(
+    () => [
+      { name: "Coca-Cola", className: "coca-cola", width: 190 },
+      { name: "Raízen", className: "raizen", width: 164 },
+      { name: "Ambev", className: "ambev", width: 178 },
+      { name: "BRF", className: "brf", width: 118 },
+      { name: "Natura", className: "natura", width: 76 },
+      { name: "Mercado Livre", className: "mercado-livre", width: 216 },
+    ],
+    [],
+  );
+  const desktopCompaniesGap = 46;
+  const trustedCompaniesListRef = useRef<HTMLUListElement | null>(null);
+  const [visibleLogosCount, setVisibleLogosCount] = useState(trustedCompanies.length);
+
+  useEffect(() => {
+    const listElement = trustedCompaniesListRef.current;
+    if (!listElement) {
+      return;
+    }
+
+    const calculateVisibleLogos = (width: number) => {
+      if (window.matchMedia("(max-width: 1200px)").matches) {
+        setVisibleLogosCount(trustedCompanies.length);
+        return;
+      }
+
+      let consumedWidth = 0;
+      let visibleCount = 0;
+
+      for (const company of trustedCompanies) {
+        const nextWidth = consumedWidth + (visibleCount > 0 ? desktopCompaniesGap : 0) + company.width;
+        if (nextWidth > width) {
+          break;
+        }
+        consumedWidth = nextWidth;
+        visibleCount += 1;
+      }
+
+      setVisibleLogosCount(visibleCount);
+    };
+
+    const onWindowResize = () => calculateVisibleLogos(listElement.clientWidth);
+    calculateVisibleLogos(listElement.clientWidth);
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      const [entry] = entries;
+      if (entry) {
+        calculateVisibleLogos(entry.contentRect.width);
+      }
+    });
+
+    resizeObserver.observe(listElement);
+    window.addEventListener("resize", onWindowResize);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", onWindowResize);
+    };
+  }, [trustedCompanies]);
+
   return (
     <section id="concessionarias" className="dealers-section page-band">
       <div className="page-inner">
@@ -670,6 +731,24 @@ function DealersSection() {
               </div>
             ))}
           </div>
+        </div>
+        <div className="trusted-companies-shell">
+          <div className="dealer-section-divider" />
+          <div className="trusted-companies" aria-label="Empresas que confiam na frota">
+            <p>Junte-se a empresas que confiam na nossa frota</p>
+            <ul className="trusted-companies-list" ref={trustedCompaniesListRef}>
+              {trustedCompanies.slice(0, visibleLogosCount).map((company) => (
+                <li className={`trusted-company-item ${company.className}`} key={company.name}>
+                  <span
+                    className={`trusted-company-logo ${company.className}`}
+                    role="img"
+                    aria-label={company.name}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="dealer-section-divider" />
         </div>
       </div>
     </section>
