@@ -32,6 +32,9 @@ export function Header({
   proposalCount: number;
   activePath?: string;
 }) {
+  const disableSectionLinks = Boolean(activePath);
+  const disabledNavHrefs = new Set(["/#como-funciona", "/#faq"]);
+
   return (
     <header className="site-header">
       <Link className="brand" href="/#top" aria-label="VW Truck Rental">
@@ -39,16 +42,30 @@ export function Header({
         <img src={asset("logo-word-blue.png")} alt="VW Truck Rental" className="brand-word" />
       </Link>
 
-      <nav className="main-nav" aria-label={"Navega\u00E7\u00E3o principal"}>
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={activePath === item.href ? "active" : undefined}
-          >
-            {item.label}
-          </Link>
-        ))}
+      <nav className="main-nav" aria-label="Navegação principal">
+        {navItems.map((item) => {
+          const isDisabled = disableSectionLinks && disabledNavHrefs.has(item.href);
+          const className = [
+            activePath === item.href ? "active" : "",
+            isDisabled ? "nav-link-disabled" : "",
+          ]
+            .filter(Boolean)
+            .join(" ") || undefined;
+
+          if (isDisabled) {
+            return (
+              <span key={item.href} className={className} aria-disabled="true">
+                {item.label}
+              </span>
+            );
+          }
+
+          return (
+            <Link key={item.href} href={item.href} className={className}>
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
 
       <div className="header-actions">
@@ -222,6 +239,14 @@ function TruckCatalogue({
   onToggle: (truck: Truck) => void;
   onQuantityChange: (id: string, quantity: number) => void;
 }) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isRevealed, setIsRevealed] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return window.location.hash === "#catalogo";
+  });
   const operationCards = [
     {
       slug: "road",
@@ -235,7 +260,7 @@ function TruckCatalogue({
       title: "Urbano",
       application: "Urbano",
       description: "Agilidade e segurança para o dia a dia da cidade.",
-      image: "/assets/figma/catalog-banner-urban.jpg",
+      image: "/assets/figma/catalog-banner-urban-figma-362-1278.png",
     },
     {
       slug: "construction",
@@ -253,16 +278,71 @@ function TruckCatalogue({
     },
   ] as const;
 
+  useEffect(() => {
+    const sectionElement = sectionRef.current;
+
+    if (!sectionElement || isRevealed) {
+      return;
+    }
+
+    const revealIfVisible = () => {
+      const rect = sectionElement.getBoundingClientRect();
+
+      if (rect.top < window.innerHeight * 0.92 && rect.bottom > window.innerHeight * 0.08) {
+        setIsRevealed(true);
+        return true;
+      }
+
+      return false;
+    };
+
+    if (revealIfVisible()) {
+      return;
+    }
+
+    const fallbackReveal = window.setTimeout(() => {
+      revealIfVisible();
+    }, 180);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+
+        if (!entry?.isIntersecting) {
+          return;
+        }
+
+        setIsRevealed(true);
+        observer.disconnect();
+      },
+      {
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.05,
+      },
+    );
+
+    observer.observe(sectionElement);
+
+    return () => {
+      window.clearTimeout(fallbackReveal);
+      observer.disconnect();
+    };
+  }, [isRevealed]);
+
   return (
-    <section id="catalogo" className="catalogue-section page-band">
+    <section
+      id="catalogo"
+      ref={sectionRef}
+      className={`catalogue-section page-band${isRevealed ? " catalogue-section-visible" : ""}`}
+    >
       <div className="page-inner">
         <SectionTitle
-          className="section-title-catalog"
+          className="section-title-catalog catalogue-reveal catalogue-reveal-title"
           eyebrow="Caminhões disponíveis para assinatura"
           title="Explore os modelos"
           light="e solicite uma proposta"
         />
-        <div className="catalog-operation-grid">
+        <div className="catalog-operation-grid catalogue-reveal catalogue-reveal-operations">
           <article className="catalog-operation-intro">
             <h3>
               Caminhões para cada
@@ -284,7 +364,7 @@ function TruckCatalogue({
             </Link>
           ))}
         </div>
-        <div className="truck-grid">
+        <div className="truck-grid catalogue-reveal catalogue-reveal-grid">
           {trucks.map((truck) => (
             <TruckSelectionCard
               key={truck.id}
