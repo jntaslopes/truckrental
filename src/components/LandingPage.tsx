@@ -555,37 +555,41 @@ function AssistanceSection() {
   return (
     <section className="assistance-section page-band soft">
       <div className="page-inner assistance-grid">
-        <div className="assistance-content">
-          <div className="assistance-copy">
-            <p className="eyebrow">Dê o próximo passo agora mesmo</p>
-            <h2>
-              <span>Três formas de</span>{" "}
-              montar a sua frota Volkswagen
-            </h2>
-            <p>
-              Você pode simular online, falar com um especialista ou visitar uma concessionária.
-              Escolha o caminho mais conveniente para sua operação.
-            </p>
+        <div className="assistance-shell">
+          <div className="assistance-panel">
+            <div className="assistance-content">
+              <div className="assistance-copy">
+                <p className="eyebrow">Dê o próximo passo agora mesmo</p>
+                <h2>
+                  <span>Três formas de</span>{" "}
+                  montar a sua frota Volkswagen
+                </h2>
+                <p>
+                  Você pode simular online, falar com um especialista ou visitar uma concessionária.
+                  Escolha o caminho mais conveniente para sua operação.
+                </p>
+              </div>
+
+              <div className="assistance-cards">
+                {paths.map((path) => (
+                  <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title}>
+                    <div className="assistance-card-copy">
+                      <img src={asset(path.icon)} alt="" />
+                      <h3>{path.title}</h3>
+                      <p>{path.copy}</p>
+                    </div>
+                    <a href={path.href} className="outline-cta">
+                      {path.cta}
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="assistance-cards">
-            {paths.map((path) => (
-              <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title}>
-                <div className="assistance-card-copy">
-                  <img src={asset(path.icon)} alt="" />
-                  <h3>{path.title}</h3>
-                  <p>{path.copy}</p>
-                </div>
-                <a href={path.href} className="outline-cta">
-                  {path.cta}
-                </a>
-              </article>
-            ))}
+          <div className="assistance-photo">
+            <img src={asset("assistance-fleet.png")} alt="Atendimento Volkswagen Caminhões" />
           </div>
-        </div>
-
-        <div className="assistance-photo">
-          <img src={asset("assistance-fleet.png")} alt="Atendimento Volkswagen Caminhões" />
         </div>
       </div>
     </section>

@@ -31,6 +31,13 @@ yarn-error.log*
 .pnpm-debug.log*
 .codex-dev-*.log
 
+# local QA / agent artifacts
+.codex-artifacts/
+.playwright-cli/
+.playwright/
+playwright-report/
+test-results/
+
 # env files (can opt-in for committing if needed)
 .env*
 
