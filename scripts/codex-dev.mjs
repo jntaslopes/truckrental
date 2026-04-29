@@ -25,16 +25,16 @@ async function main() {
 
     const runtime = await readRuntimeIdentity(port);
     if (runtime && matchesCurrentRuntime(runtime, port)) {
-      console.log(
-        `[codex-dev] Reusing validated dev server at http://127.0.0.1:${port} (${runtime.gitBranch}@${runtime.gitCommit}).`,
+      logReusedServer(
+        port,
+        owner,
+        `validated by runtime identity (${runtime.gitBranch}@${runtime.gitCommit})`,
       );
       return;
     }
 
     if (owner.commandLine && containsWorkspace(owner.commandLine)) {
-      console.log(
-        `[codex-dev] Reusing dev server at http://127.0.0.1:${port} based on process ownership for this worktree.`,
-      );
+      logReusedServer(port, owner, "matched by process ownership for this worktree");
       return;
     }
 
@@ -45,6 +45,21 @@ async function main() {
   }
 
   throw new Error(`No free or reusable port found between ${requestedPort} and ${requestedPort + 24}.`);
+}
+
+function logReusedServer(port, owner, reason) {
+  const url = `http://127.0.0.1:${port}`;
+  const pidLabel = Number.isFinite(owner?.pid) ? ` PID ${owner.pid}.` : "";
+
+  console.log(`[codex-dev] Reusing dev server at ${url}; automatic reuse ${reason}.${pidLabel}`);
+
+  if (Number.isFinite(owner?.pid)) {
+    console.log(
+      `[codex-dev] If you want to restart it, stop the current process first: Stop-Process -Id ${owner.pid}`,
+    );
+  } else {
+    console.log("[codex-dev] If you want to restart it, stop the current process first.");
+  }
 }
 
 function startDevServer(port) {
