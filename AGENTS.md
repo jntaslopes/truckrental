@@ -32,6 +32,21 @@ Antes de executar qualquer plano, atualize o contexto real do projeto:
 - Resolva merges e conflitos de forma autônoma, preservando a intenção local e remota sempre que possível. O usuário não fará resolução manual.
 - Preserve texto em PT-BR como UTF-8. Não introduza mojibake; se tocar em um arquivo com mojibake, corrija o trecho afetado.
 
+## Browser Automation Policy
+
+Para qualquer tarefa de navegação, inspeção, validação visual, clique, digitação, captura de tela ou teste manual de UI em ambiente local:
+
+- Use obrigatoriamente a skill/plugin `Browser Use` para `localhost`, `127.0.0.1`, `::1`, `file://` e aba atual do app.
+- `Playwright` está proibido para UI QA, inspeção visual, cliques, digitação e navegação local no fluxo normal do projeto.
+- Em pedidos explícitos de browser, não substituir `Browser Use` por shell, Playwright ou navegação web genérica.
+
+### Multi-agent Port Isolation
+
+- Em execução paralela com múltiplos agents, cada agent deve usar porta local exclusiva para servidor de desenvolvimento.
+- Não iniciar servidor em porta já ocupada; escolher outra porta livre e registrar a porta usada no resumo.
+- Ordem padrão sugerida para alocação sem conflito: `3000`, `3001`, `3002`, `3003` e assim por diante.
+- Se já existir servidor ativo para o mesmo escopo do agent, reutilizar esse servidor na porta já alocada em vez de subir outro na mesma porta.
+
 ## Project Figma Source
 
 Official design source:
@@ -61,8 +76,8 @@ For any UI implementation or visual update, Figma is mandatory and non-negotiabl
 
 ### Browser Validation Gate
 
-- Browser visual validation is mandatory for 100% of UI tasks.
-- A UI task can only be marked as complete after opening the implemented screen in the browser and comparing it against the corresponding Figma node/frame screenshot.
+- Browser visual validation is mandatory for 100% of UI tasks and must be executed via `Browser Use`.
+- A UI task can only be marked as complete after opening the implemented screen in the browser via `Browser Use` and comparing it against the corresponding Figma node/frame screenshot.
 - The agent must iterate on fixes until visual divergences are zero.
 - Validation evidence is textual by default (no mandatory screenshot or pixel-diff artifact unless explicitly requested).
 
@@ -74,11 +89,13 @@ For every UI task, follow this operational SOP before declaring completion:
   - Check whether a local dev server for the target URL/port is already active before visual QA.
   - If already running, reuse it (do not restart by default).
   - If not running, start it with `npm run dev -- --port <default-port>` and confirm HTTP access before visual comparison.
+  - Execute visual QA in browser via `Browser Use`.
 - **Port policy and fallback:**
-  - Default attempt order: `3000`, then any explicit port present in user context/comments (for example `3017`).
+  - Em modo multi-agent, cada agent deve alocar porta exclusiva antes de iniciar o dev server.
+  - Ordem padrão de alocação: `3000`, `3001`, `3002`, `3003` e seguintes; se houver porta explícita no contexto do agent (por exemplo `3017`), priorizá-la desde que esteja livre.
   - If the current in-app browser URL is valid for the requested screen, treat it as the primary source.
 - **Visual comparison protocol:**
-  - Always compare browser rendering against the target Figma node/frame or user-approved print before closing the task.
+  - Always compare browser rendering via `Browser Use` against the target Figma node/frame or user-approved print before closing the task.
   - After each CSS/TSX visual adjustment, reload and revalidate the same crop/area.
 - **Viewport and breakpoint policy:**
   - For responsive UI, validate at least desktop, tablet, and mobile.
@@ -88,7 +105,7 @@ For every UI task, follow this operational SOP before declaring completion:
   - Browser width/height materially changes layout and comparison outcomes; treat viewport as part of the acceptance criteria.
   - Report which viewports were validated in the completion summary.
 - **UI done criteria (blocking):**
-  - Do not mark complete before all are true: visual validation passed, `npm run lint` passed, `npm run build` passed, and breakpoint checks are listed objectively.
+  - Do not mark complete before all are true: visual validation passed via `Browser Use`, `npm run lint` passed, `npm run build` passed, and breakpoint checks are listed objectively.
 
 ### Reference Fallback Policy
 
@@ -137,5 +154,6 @@ For every UI task, follow this operational SOP before declaring completion:
   - Validate spacing and positioning against Figma frame geometry: gaps, paddings, alignments, dimensions, and positions.
   - Verify visibility for all relevant layers/properties and confirm no `border`, `shadow`, `background`, or text style was derived from hidden layers.
   - Verify that every rendered image has traceable origin to Figma and matches screenshot/content/crop/scale/placement.
+  - Confirm compliance: UI task is only complete after browser validation via `Browser Use`.
 - **Tolerance:**
   - Zero tolerance. No visual deviation is allowed.
