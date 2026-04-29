@@ -48,13 +48,20 @@ Document any intentional deviation from the Figma design in the change summary.
 For any UI implementation or visual update, Figma is mandatory and non-negotiable. Agents are not authorized to reinterpret design decisions when Figma already defines them.
 
 - **Precedence order (must be followed exactly):**
-  1. Figma `Text Style` and tokens: `font-family`, `font-weight`, `font-size`, `line-height`, `letter-spacing`, `color`.
-  2. Frame geometry and layout: spacing, gaps, paddings, alignment, dimensions, and positioning.
-  3. Node screenshot/print from Figma as mandatory visual reference for final pixel-perfect matching.
+  1. Visual match between browser rendering and the target Figma node/frame screenshot (approval gate).
+  2. Figma `Text Style` and tokens: `font-family`, `font-weight`, `font-size`, `line-height`, `letter-spacing`, `color`.
+  3. Frame geometry and layout: spacing, gaps, paddings, alignment, dimensions, and positioning.
 - **Prohibited behaviors:**
   - Do not replace typography, colors, or spacing values when they already exist in Figma.
   - Do not make "approximate" style adjustments.
   - Do not introduce unsolicited visual "improvements".
+
+### Browser Validation Gate
+
+- Browser visual validation is mandatory for 100% of UI tasks.
+- A UI task can only be marked as complete after opening the implemented screen in the browser and comparing it against the corresponding Figma node/frame screenshot.
+- The agent must iterate on fixes until visual divergences are zero.
+- Validation evidence is textual by default (no mandatory screenshot or pixel-diff artifact unless explicitly requested).
 
 ### Visibility Contract
 
@@ -73,14 +80,15 @@ For any UI implementation or visual update, Figma is mandatory and non-negotiabl
 
 - **Blocking delivery policy:**
   - If any visual divergence exists between implementation and Figma/print, the task must not be marked as complete.
+  - If any structural divergence exists from Figma tokens or geometry/layout, the task must not be marked as complete.
   - If any hidden element is implemented in the target state, the task must not be marked as complete.
   - If a defined Figma image asset is not used or is replaced by invented imagery, the task must not be marked as complete.
   - The agent must report objective pending items, including the exact divergent property and where it occurs.
 - **Mandatory pre-completion checklist for UI changes:**
+  - Compare browser rendering versus Figma node/frame screenshot.
   - Validate: `font-family`, `font-size`, `font-weight`, `line-height`, `letter-spacing`, `color`.
-  - Validate spacing and positioning against Figma frame geometry.
+  - Validate spacing and positioning against Figma frame geometry: gaps, paddings, alignments, dimensions, and positions.
   - Verify visibility for all relevant layers/properties and confirm no `border`, `shadow`, `background`, or text style was derived from hidden layers.
   - Verify that every rendered image has traceable origin to Figma and matches screenshot/content/crop/scale/placement.
-  - Compare implementation screenshot vs Figma node screenshot before finalizing.
 - **Tolerance:**
   - Zero tolerance. No visual deviation is allowed.
