@@ -338,6 +338,7 @@ html.proposal-drawer-open body {
 }
 
 .main-nav a,
+.main-nav .nav-link-disabled,
 .text-link,
 .ghost-action,
 .primary-action,
@@ -533,13 +534,19 @@ html.proposal-drawer-open body {
   width: 20px;
 }
 
-.main-nav a {
+.main-nav a,
+.main-nav .nav-link-disabled {
   color: var(--blue);
   font-size: 16px;
   gap: 8px;
   line-height: 19px;
   min-height: 30px;
   position: relative;
+}
+
+.main-nav .nav-link-disabled {
+  cursor: default;
+  pointer-events: none;
 }
 
 .main-nav a.active {
@@ -812,6 +819,7 @@ html.proposal-drawer-open body {
 }
 
 .truck-grid {
+  align-items: start;
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -876,10 +884,29 @@ html.proposal-drawer-open body {
   background: var(--white);
 }
 
+.catalogue-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.catalogue-reveal.catalogue-reveal-operations {
+  transition-delay: 40ms;
+}
+
+.catalogue-reveal.catalogue-reveal-grid {
+  transition-delay: 80ms;
+}
+
+.catalogue-section-visible .catalogue-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .catalog-operation-grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: 268.8px repeat(4, minmax(0, 268.8px));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin-bottom: 24px;
 }
 
@@ -899,7 +926,6 @@ html.proposal-drawer-open body {
 }
 
 .catalog-operation-intro h3 span {
-  display: block;
   font-family: "VW Head Bold", "VW Head", Arial, sans-serif;
   font-weight: 700;
 }
@@ -916,6 +942,7 @@ html.proposal-drawer-open body {
 .catalog-operation-card {
   background: #e5e9eb;
   border: 1px solid #dadfe2;
+  border-radius: 8px;
   color: inherit;
   cursor: pointer;
   display: block;
@@ -923,6 +950,7 @@ html.proposal-drawer-open body {
   overflow: hidden;
   position: relative;
   text-decoration: none;
+  transition: border-color 180ms ease;
 }
 
 .catalog-operation-card:focus-visible {
@@ -937,6 +965,9 @@ html.proposal-drawer-open body {
   left: var(--catalog-image-left, 0);
   max-width: none;
   position: absolute;
+  top: var(--catalog-image-top, auto);
+  transform-origin: center center;
+  transition: transform 220ms ease;
   width: var(--catalog-image-width, 100%);
   z-index: 0;
 }
@@ -954,6 +985,7 @@ html.proposal-drawer-open body {
   position: absolute;
   right: -1px;
   top: -1px;
+  transition: opacity 180ms ease;
   z-index: 1;
 }
 
@@ -998,10 +1030,11 @@ html.proposal-drawer-open body {
 
 .catalog-operation-card.urban {
   --catalog-overlay-top: 0.6;
-  --catalog-image-bottom: -43px;
-  --catalog-image-height: 486px;
+  --catalog-image-bottom: auto;
+  --catalog-image-height: 407px;
   --catalog-image-left: -90px;
-  --catalog-image-width: 357px;
+  --catalog-image-top: -15px;
+  --catalog-image-width: 392px;
 }
 
 .catalog-operation-card.construction {
@@ -1021,24 +1054,28 @@ html.proposal-drawer-open body {
 }
 
 .catalogue-section .truck-grid {
+  align-items: start;
   gap: 24px;
-  grid-template-columns: repeat(5, minmax(0, 268.8px));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .catalog-all-models-card {
   align-items: center;
-  align-self: stretch;
-  background: #001e50;
+  align-self: start;
+  background: var(--button-primary-bg);
   border: 1px solid #dadfe2;
-  color: #f4f5f6;
+  border-radius: 8px;
+  color: var(--button-primary-content);
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 407px;
   justify-content: flex-end;
   min-height: 407px;
   padding: 40px;
   text-align: center;
   text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
 .catalog-all-models-card span {
@@ -1055,7 +1092,19 @@ html.proposal-drawer-open body {
 .catalog-all-models-card img {
   display: block;
   height: 72px;
+  transition: transform 180ms ease;
   width: 72px;
+}
+
+.catalog-all-models-card:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.catalog-all-models-card:active {
+  background: var(--button-primary-bg-active);
+  border-color: var(--button-primary-bg-active);
+  color: var(--button-primary-content);
 }
 
 .truck-media {
@@ -3559,34 +3608,28 @@ html.proposal-drawer-open body {
 }
 
 .catalog-truck-card {
-  background: linear-gradient(to bottom, #e5e9eb 0 119px, var(--white) 119px 100%);
+  background: #e5e9eb;
   border: 1px solid #dadfe2;
   border-radius: 8px;
-  min-height: 407px;
-  overflow: hidden;
-  position: relative;
-  transition: border 160ms ease;
-}
-
-.catalog-truck-card:hover {
   box-shadow: none;
-  transform: none;
+  box-sizing: border-box;
+  height: 407px;
+  overflow: hidden;
+  padding-top: 161px;
+  position: relative;
 }
 
 .catalog-truck-card.selected {
-  border-color: var(--bright-blue);
-  border-width: 2px;
-  min-height: 428px;
-}
-
-.catalog-truck-card.selected:hover {
+  background: #f0f5f9;
+  border: 2px solid var(--bright-blue);
   box-shadow: none;
-  transform: none;
+  height: 426px;
 }
 
 .catalog-truck-card .select-dot {
   height: 20px;
   margin-top: 6px;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
   width: 20px;
 }
 
@@ -3595,28 +3638,52 @@ html.proposal-drawer-open body {
   width: 4px;
 }
 
+.catalog-truck-surface {
+  background: var(--white);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  height: 288px;
+  z-index: 0;
+}
+
+.catalog-truck-card.selected .catalog-truck-surface {
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  height: 303px;
+}
+
 .catalog-truck-media {
-  align-items: flex-start;
-  background: transparent;
-  display: flex;
   height: 161px;
-  justify-content: center;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
 }
 
 .catalog-truck-image {
   height: 136px;
+  left: 50%;
   max-width: none;
   object-fit: contain;
   position: absolute;
   top: 30px;
+  transform: translateX(-50%);
   width: 272px;
 }
 
 .catalog-truck-content {
-  background: transparent;
   padding: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.catalog-truck-card.selected .badge.engine {
+  background: #d1d9f2;
 }
 
 .catalog-truck-content h3 {
@@ -4299,6 +4366,30 @@ html.proposal-drawer-open body {
   margin-top: 15px;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .catalog-operation-card:hover {
+    border-color: #b8c7d4;
+  }
+
+  .catalog-operation-card:hover::after {
+    opacity: 0.9;
+  }
+
+  .catalog-operation-card:hover .catalog-operation-banner {
+    transform: scale(1.08);
+  }
+
+  .catalog-all-models-card:hover {
+    background: var(--button-primary-bg-hover);
+    border-color: var(--button-primary-bg-hover);
+    color: var(--button-primary-content-hover);
+  }
+
+  .catalog-all-models-card:hover img {
+    transform: translateX(4px);
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -4562,7 +4653,8 @@ html.proposal-drawer-open body {
     padding-left: 16px;
   }
 
-  .main-nav a {
+  .main-nav a,
+  .main-nav .nav-link-disabled {
     font-size: 14px;
     line-height: 17px;
   }
@@ -4866,7 +4958,8 @@ html.proposal-drawer-open body {
     padding-left: 14px;
   }
 
-  .main-nav a {
+  .main-nav a,
+  .main-nav .nav-link-disabled {
     font-size: 13px;
     line-height: 16px;
   }
@@ -5321,23 +5414,10 @@ html.proposal-drawer-open body {
   .catalog-operation-intro h3 {
     margin-bottom: 14px;
     max-width: none;
-    white-space: nowrap;
   }
 
   .catalog-operation-intro p {
     max-width: 560px;
-  }
-
-  .catalog-operation-intro h3 span {
-    display: inline;
-    white-space: nowrap;
-  }
-
-  .catalog-operation-card.urban {
-    --catalog-image-bottom: -43px;
-    --catalog-image-height: auto;
-    --catalog-image-left: -90px;
-    --catalog-image-width: calc(100% + 90px);
   }
 
   .catalog-operation-card.construction {
@@ -5364,10 +5444,7 @@ html.proposal-drawer-open body {
 
 @media (max-width: 1100px) and (min-width: 901px) {
   .catalog-operation-card.urban {
-    --catalog-image-bottom: -58px;
-    --catalog-image-height: 480px;
-    --catalog-image-left: -96px;
-    --catalog-image-width: 354px;
+    --catalog-image-left: -118px;
   }
 
   .catalog-operation-card.construction {
