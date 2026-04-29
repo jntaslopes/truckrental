@@ -1,7 +1,7 @@
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+This version has breaking changes - APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
 ## Agent Work Sync
@@ -42,3 +42,35 @@ Always use the screens in this Figma file as the source of truth before changing
 When Figma MCP is available, fetch the relevant node with `get_design_context` and capture a screenshot before implementing visual changes. If the design uses assets, download them from Figma or reuse existing files in `public/assets/figma/`.
 
 Document any intentional deviation from the Figma design in the change summary.
+
+## Figma Fidelity Contract (Pixel-Perfect Mandatory)
+
+For any UI implementation or visual update, Figma is mandatory and non-negotiable. Agents are not authorized to reinterpret design decisions when Figma already defines them.
+
+- **Precedence order (must be followed exactly):**
+  1. Figma `Text Style` and tokens: `font-family`, `font-weight`, `font-size`, `line-height`, `letter-spacing`, `color`.
+  2. Frame geometry and layout: spacing, gaps, paddings, alignment, dimensions, and positioning.
+  3. Node screenshot/print from Figma as mandatory visual reference for final pixel-perfect matching.
+- **Prohibited behaviors:**
+  - Do not replace typography, colors, or spacing values when they already exist in Figma.
+  - Do not make "approximate" style adjustments.
+  - Do not introduce unsolicited visual "improvements".
+
+### Visibility Contract
+
+- If a node (or any visual property in it) is invisible in Figma (`visible=false`), it must not be implemented in the target state.
+- The same rule applies to invisible `fill`, `stroke`, `effect`, `text decoration`, or equivalent style properties: do not implement them.
+- Do not add preventive/placeholder markup or CSS for hidden parts.
+- Implement only the requested target frame/state. Hidden elements from non-requested variants remain out of scope.
+
+- **Blocking delivery policy:**
+  - If any visual divergence exists between implementation and Figma/print, the task must not be marked as complete.
+  - If any hidden element is implemented in the target state, the task must not be marked as complete.
+  - The agent must report objective pending items, including the exact divergent property and where it occurs.
+- **Mandatory pre-completion checklist for UI changes:**
+  - Validate: `font-family`, `font-size`, `font-weight`, `line-height`, `letter-spacing`, `color`.
+  - Validate spacing and positioning against Figma frame geometry.
+  - Verify visibility for all relevant layers/properties and confirm no `border`, `shadow`, `background`, or text style was derived from hidden layers.
+  - Compare implementation screenshot vs Figma node screenshot before finalizing.
+- **Tolerance:**
+  - Zero tolerance. No visual deviation is allowed.
