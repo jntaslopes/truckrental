@@ -36,18 +36,17 @@ Antes de executar qualquer plano, atualize o contexto real do projeto:
 
 Para qualquer tarefa de navegação, inspeção, validação visual, clique, digitação, captura de tela ou teste manual de UI em ambiente local:
 
-- Prefira a skill/plugin `Browser Use` para `localhost`, `127.0.0.1`, `::1`, `file://` e aba atual do app quando a tarefa exigir navegação manual, inspeção visual interativa, clique, digitação, captura de tela ou uso explícito do browser no app.
-- `Playwright` está permitido no fluxo normal do projeto para QA automatizado local, regressão visual assistida, coleta de logs e verificação repetível de UI, desde que não substitua pedidos explícitos de uso do browser no app.
-- Em pedidos explícitos de browser, não substituir `Browser Use` por shell, Playwright ou navegação web genérica.
+- O agent pode usar a ferramenta de browser disponível mais adequada ao caso.
+- A escolha da ferramenta de browser é responsabilidade do agent.
+- O critério principal não é a ferramenta; é validar no browser e continuar iterando até o resultado ficar idêntico à referência aprovada.
 - Toda saída local de QA deve ficar em diretórios temporários ignorados pelo Git, preferencialmente `.playwright-cli/`, `.playwright/`, `playwright-report/`, `test-results/` e `.codex-artifacts/`. Não gravar evidências temporárias em caminhos versionados.
 
 ### Multi-agent Port Isolation
 
 - Em execução paralela com múltiplos agents, cada agent deve usar porta local exclusiva para servidor de desenvolvimento.
 - Porta ocupada não implica reutilização. Só reutilize após confirmar por processo e por HTTP que o servidor pertence à mesma worktree.
-- Não iniciar servidor em porta ocupada por outra worktree; bloquear a porta conflitante, escolher outra livre e registrar a porta usada no resumo.
+- Não iniciar servidor em porta ocupada por outra worktree; escolha outra porta livre e registre a porta usada no resumo.
 - Ordem padrão sugerida para alocação sem conflito: `3000`, `3001`, `3002`, `3003` e assim por diante.
-- Se já existir servidor ativo para o mesmo escopo do agent, reutilizar esse servidor na porta já alocada em vez de subir outro na mesma porta.
 
 ## Project Figma Source
 
@@ -78,9 +77,9 @@ For any UI implementation or visual update, Figma is mandatory and non-negotiabl
 
 ### Browser Validation Gate
 
-- Browser visual validation is mandatory for 100% of UI tasks, but the tool is not fixed. Prefer `Browser Use` when manual inspection helps and use `Playwright` when automation is more effective.
-- A UI task can only be marked as complete after rendering the implemented screen in a browser and comparing it against the corresponding Figma node/frame screenshot, regardless of whether the validation used `Browser Use`, `Playwright`, or both.
-- The agent must iterate on fixes until visual divergences are zero.
+- Toda tarefa de UI deve ser validada em browser.
+- A comparação deve ser feita contra o frame/node do Figma ou contra a imagem de referência aprovada para aquela tarefa.
+- Se houver qualquer diferença visual, a tarefa não está concluída e o agent deve continuar iterando até zerar as divergências.
 - Validation evidence is textual by default (no mandatory screenshot or pixel-diff artifact unless explicitly requested).
 
 ### UI Execution SOP (Mandatory)
@@ -89,34 +88,24 @@ For every UI task, follow this operational SOP before declaring completion:
 
 - **UI preflight (mandatory):**
   - Identifique a worktree atual antes de escolher a URL de QA.
-  - Liste portas candidatas a partir de `3000` e inspecione qualquer porta ocupada antes de reutilizar.
-  - Se a porta estiver ocupada, inspecione o processo dono e o `CommandLine`.
-  - Reutilize a porta apenas se o processo pertencer à mesma worktree e se `http://127.0.0.1:<porta>/api/codex-runtime` confirmar a mesma identidade (`workspaceRoot`, `gitBranch`, `gitCommit`, `port`).
-  - Se a porta pertencer a outra worktree, bloqueie essa URL, escolha outra porta livre e siga para a próxima candidata.
-  - Se não houver servidor válido para a worktree atual, inicie com `npm run dev -- --port <default-port>` e confirme a identidade HTTP antes da comparação visual.
-  - Execute visual QA in a browser using the method that best supports pixel-perfect validation; prefer `Browser Use` for manual inspection and `Playwright` for automated verification.
-- **Port policy and fallback:**
-  - Em modo multi-agent, cada agent deve alocar porta exclusiva antes de iniciar o dev server.
-  - Ordem padrão de alocação: `3000`, `3001`, `3002`, `3003` e seguintes; se houver porta explícita no contexto do agent (por exemplo `3017`), priorizá-la desde que esteja livre.
-  - Não trate a aba atual ou a URL atual do in-app browser como fonte primária por si só. Só reutilize a aba atual depois de validar a identidade HTTP do runtime da worktree corrente.
+  - Verifique a porta que será usada e só reutilize porta ocupada após confirmar por processo e por HTTP que ela pertence à mesma worktree.
+  - Se não houver servidor válido para a worktree atual, inicie um servidor local em porta livre e confirme a identidade antes da comparação visual.
 - **Visual comparison protocol:**
-  - Always compare browser rendering against the target Figma node/frame or user-approved print before closing the task, using `Browser Use`, `Playwright`, or both as needed.
-  - Use URL explícita validada no preflight; não dependa de URL residual de outra worktree.
-  - After each CSS/TSX visual adjustment, reload and revalidate the same crop/area.
+  - Sempre compare o browser com o frame/node do Figma ou com a imagem de referência aprovada antes de encerrar a tarefa.
+  - Use uma URL explicitamente validada para a worktree corrente.
+  - Após cada ajuste visual relevante, recarregue e revalide a mesma área.
 - **Viewport and breakpoint policy:**
-  - For responsive UI, validate at least desktop, tablet, and mobile.
-  - If the user provides a print from a specific breakpoint, that breakpoint becomes an approval gate.
-  - If the user provides multiple breakpoint prints, validate each one explicitly.
+  - Para UI responsiva, valide ao menos desktop, tablet e mobile, salvo se a tarefa definir outro conjunto de breakpoints.
+  - Se o usuário fornecer uma imagem de um breakpoint específico, esse breakpoint vira critério de aprovação.
 - **Browser-size awareness:**
-  - Browser width/height materially changes layout and comparison outcomes; treat viewport as part of the acceptance criteria.
-  - Report which viewports were validated in the completion summary.
+  - O viewport faz parte do critério de aceitação e deve ser reportado no resumo de conclusão.
 - **UI done criteria (blocking):**
   - Do not mark complete before all are true: visual validation passed in a browser, `npm run lint` passed, `npm run build` passed, and breakpoint checks are listed objectively.
 
 ### Reference Fallback Policy
 
 - If Figma MCP is available, use target node/frame context plus screenshot as the primary reference.
-- If Figma MCP is unavailable, use the user-provided print as temporary source of truth and state this explicitly in the completion summary.
+- If Figma MCP is unavailable, use the user-provided print/image as temporary source of truth and state this explicitly in the completion summary.
 - Default responsive validation set (when user does not specify): desktop `1440x900`, tablet `1024x768`, mobile `390x844`.
 - The agent may resize viewport autonomously to cover required breakpoints without waiting for extra user instruction.
 
@@ -153,13 +142,14 @@ For every UI task, follow this operational SOP before declaring completion:
   - If any structural divergence exists from Figma tokens or geometry/layout, the task must not be marked as complete.
   - If any hidden element is implemented in the target state, the task must not be marked as complete.
   - If a defined Figma image asset is not used or is replaced by invented imagery, the task must not be marked as complete.
+  - If the browser result differs from the approved reference in any way, the task is not finished and the agent must keep working until the difference is resolved.
   - The agent must report objective pending items, including the exact divergent property and where it occurs.
 - **Mandatory pre-completion checklist for UI changes:**
-  - Compare browser rendering versus Figma node/frame screenshot.
+  - Compare browser rendering versus Figma node/frame screenshot or approved reference image.
   - Validate: `font-family`, `font-size`, `font-weight`, `line-height`, `letter-spacing`, `color`.
   - Validate spacing and positioning against Figma frame geometry: gaps, paddings, alignments, dimensions, and positions.
   - Verify visibility for all relevant layers/properties and confirm no `border`, `shadow`, `background`, or text style was derived from hidden layers.
   - Verify that every rendered image has traceable origin to Figma and matches screenshot/content/crop/scale/placement.
-  - Confirm compliance: UI task is only complete after browser validation achieves pixel-perfect fidelity, with `Browser Use` recommended for explicit in-app browser requests and `Playwright` allowed when it is the more effective path.
+  - Confirm compliance: UI task is only complete after browser validation achieves pixel-perfect fidelity and full visual match with the approved reference.
 - **Tolerance:**
   - Zero tolerance. No visual deviation is allowed.
