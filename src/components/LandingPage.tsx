@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   faqs,
@@ -41,7 +41,7 @@ export function Header({
         <img src={asset("logo-word-blue.png")} alt="VW Truck Rental" className="brand-word" />
       </Link>
 
-      <nav className="main-nav" aria-label="Navegação principal">
+      <nav className="main-nav" aria-label={"Navega\u00E7\u00E3o principal"}>
         {navItems.map((item) => (
           <Link
             key={item.href}
@@ -57,13 +57,13 @@ export function Header({
         <Link
           href="/#concessionarias"
           className="ghost-action"
-          aria-label="Encontrar uma Concessionária"
+          aria-label={"Encontrar uma Concession\u00E1ria"}
         >
           <img src={asset("icon-pin.svg")} alt="" />
           <span className="ghost-action-label ghost-action-label-full">
-            Encontrar uma Concessionária
+            {"Encontrar uma Concession\u00E1ria"}
           </span>
-          <span className="ghost-action-label ghost-action-label-short">Concessionárias</span>
+          <span className="ghost-action-label ghost-action-label-short">{"Concession\u00E1rias"}</span>
         </Link>
         <Link href="/#proposta" className="cart-action" aria-label={`${proposalCount} itens na proposta`}>
           <img src={asset("icon-cart.svg")} alt="" />
@@ -79,50 +79,113 @@ export function Header({
 
 function Hero() {
   const benefits = [
-    ["benefit-sign.svg", "Assinatura", "100% digital ou presencial"],
+    ["benefit-sign.svg", "Assinatura", "mensal"],
     ["benefit-calendar.svg", "Planos", "de 36 ou 60 meses"],
     ["benefit-doc.svg", "Sem entrada", "e valor fixo mensal"],
-    ["benefit-truck.svg", "Gestão", "completa da frota"],
-  ];
+    ["benefit-truck.svg", "Gest\u00E3o", "completa da frota"],
+  ] as const;
+
+  const visualBenefits = [
+    "Prote\u00E7\u00E3o e seguro",
+    "Documenta\u00E7\u00E3o completa",
+    "Assist\u00EAncia 24 horas em todo o Brasil",
+    "Manuten\u00E7\u00E3o preventiva",
+    "Assinatura mensal",
+    "Mais previsibilidade para o seu neg\u00F3cio",
+  ] as const;
+
+  const visualLabels = [
+    { text: ["Prote\u00E7\u00E3o e seguro"], left: 21, top: 65, centered: false },
+    { text: ["Documenta\u00E7\u00E3o", "Completa"], left: 52.5, top: 222, centered: true },
+    { text: ["Assist\u00EAncia 24 horas", "em todo o Brasil"], left: 53, top: 390, centered: true },
+    { text: ["Manuten\u00E7\u00E3o Preventiva"], left: 753.5, top: 145, centered: true },
+    { text: ["Mais previsibilidade", "para o seu neg\u00F3cio"], left: 792, top: 429, centered: true },
+  ] as const;
+
+  const visualIcons = [
+    ["hero-icon-shield.svg", "hero-icon-shield"],
+    ["hero-icon-document.svg", "hero-icon-document"],
+    ["hero-icon-support.svg", "hero-icon-support"],
+    ["hero-icon-wrench.svg", "hero-icon-wrench"],
+    ["hero-icon-data.svg", "hero-icon-data"],
+  ] as const;
 
   return (
     <section id="top" className="hero-section">
-      <div className="hero-copy">
-        <p className="eyebrow">ASSINATURA DE CAMINHÕES</p>
-        <h1>
-          Sua frota,
-          <br />
-          sem burocracia e
-          <br />
-          <span className="accent-line">com tudo incluso</span>
-        </h1>
-        <p>
-          Assine a frota ideal para o seu negócio e tenha mais controle,
-          previsibilidade e eficiência na sua operação.
-        </p>
-        <a href="#catalogo" className="secondary-action">
-          Ver todos os caminhões para assinatura
-        </a>
-      </div>
+      <div className="hero-inner">
+        <div className="hero-copy">
+          <p className="eyebrow">{"ASSINATURA DE CAMINH\u00D5ES"}</p>
+          <h1>
+            {"Sua frota, sem burocracia e "}
+            <span className="accent-line">com tudo incluso</span>
+          </h1>
+          <p>
+            {"Assine a frota ideal para o seu neg\u00F3cio e tenha mais controle,"}
+            {" previsibilidade e efici\u00EAncia na sua opera\u00E7\u00E3o."}
+          </p>
+          <a href="#catalogo" className="secondary-action">
+            {"Ver todos os caminh\u00F5es para assinatura"}
+          </a>
+        </div>
 
-      <div className="hero-visual" aria-label="Caminhão Volkswagen Meteor">
-        <img className="hero-composite" src={asset("hero-truck.png")} alt="Caminhão Volkswagen Meteor" />
-        <div className="hero-badge">
-          <img src={asset("benefit-money.svg")} alt="" />
-          <span>Assinatura mensal</span>
+        <div className="hero-visual" aria-label={"Composi\u00E7\u00E3o com caminh\u00F5es Volkswagen para assinatura"}>
+          <div className="hero-visual-stage">
+            <img className="hero-vectors" src={asset("hero-vectors.svg")} alt="" aria-hidden="true" />
+            <img
+              className="hero-trucks"
+              src={asset("hero-trucks-composite.png")}
+              alt={"Caminh\u00F5es Volkswagen e-Delivery e Meteor"}
+            />
+            {visualIcons.map(([icon, className]) => (
+              <img
+                key={icon}
+                className={`hero-visual-icon ${className}`}
+                src={asset(icon)}
+                alt=""
+                aria-hidden="true"
+              />
+            ))}
+            <div className="hero-badge" aria-hidden="true">
+              <img src={asset("hero-badge-money.svg")} alt="" />
+              <span>Assinatura mensal</span>
+            </div>
+            <div className="hero-visual-labels" aria-hidden="true">
+              {visualLabels.map((label) => (
+                <div
+                  key={`${label.left}-${label.top}-${label.text[0]}`}
+                  className={`hero-visual-label${label.centered ? " centered" : ""}`}
+                  style={{ left: `${label.left}px`, top: `${label.top}px` }}
+                >
+                  {label.text.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <ul className="visually-hidden">
+            {visualBenefits.map((benefit) => (
+              <li key={benefit}>{benefit}</li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <div className="benefits-bar">
-        {benefits.map(([icon, title, copy]) => (
-          <div className="benefit" key={title}>
-            <img src={asset(icon)} alt="" />
-            <div>
-              <strong>{title}</strong>
-              <span>{copy}</span>
-            </div>
-          </div>
-        ))}
+      <div className="hero-benefits-bar">
+        <div className="hero-benefits-inner">
+          {benefits.map(([icon, title, copy], index) => (
+            <Fragment key={title}>
+              <div className="hero-benefit">
+                <img src={asset(icon)} alt="" />
+                <div>
+                  <strong>{title}</strong>
+                  <span>{copy}</span>
+                </div>
+              </div>
+              {index < benefits.length - 1 ? <span className="hero-benefit-divider" aria-hidden="true" /> : null}
+            </Fragment>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -113,6 +113,18 @@ button {
   cursor: pointer;
 }
 
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 html.proposal-drawer-open,
 html.proposal-drawer-open body {
   overflow: hidden;
@@ -600,7 +612,6 @@ html.proposal-drawer-open body {
 .landing-page {
   display: block;
   overflow: visible;
-  padding-top: 88px;
   position: static;
 }
 
@@ -611,20 +622,37 @@ html.proposal-drawer-open body {
 }
 
 .hero-section {
+  --site-header-height: 88px;
   --hero-benefits-height: 124px;
 
   background: var(--white);
+  box-sizing: border-box;
   height: auto;
-  min-height: 747px;
+  min-height: 835px;
   overflow: hidden;
+  padding-top: var(--site-header-height);
+  position: relative;
+}
+
+.hero-inner {
+  align-items: center;
+  column-gap: 10px;
+  display: grid;
+  grid-template-columns: 534px 891px;
+  margin: 0 auto;
+  max-width: 1651px;
+  min-height: calc(835px - var(--hero-benefits-height) - var(--site-header-height));
+  padding: 0 110px 0 106px;
   position: relative;
 }
 
 .hero-copy {
   animation: rise 600ms ease both;
-  left: calc(50% - 720px);
-  position: absolute;
-  top: 168px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 478px;
+  position: relative;
   width: 534px;
   z-index: 3;
 }
@@ -646,6 +674,7 @@ html.proposal-drawer-open body {
   font-weight: 700;
   line-height: 48px;
   margin: 0;
+  width: 453px;
 }
 
 .hero-copy h1 span,
@@ -657,7 +686,7 @@ html.proposal-drawer-open body {
 }
 
 .hero-copy h1 .accent-line {
-  display: inline-block;
+  display: inline;
 }
 
 .hero-copy > p:not(.eyebrow) {
@@ -669,87 +698,218 @@ html.proposal-drawer-open body {
 }
 
 .hero-visual {
-  height: 652px;
-  left: calc(50% - 257px);
-  position: absolute;
-  top: 0;
-  width: 977px;
+  --hero-visual-scale: 1;
+
+  height: calc(478px * var(--hero-visual-scale));
+  justify-self: end;
+  position: relative;
+  width: calc(891px * var(--hero-visual-scale));
   z-index: 1;
 }
 
-.hero-composite {
+.hero-visual-stage {
+  height: 478px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: scale(var(--hero-visual-scale));
+  transform-origin: left top;
+  width: 891px;
+}
+
+.hero-vectors,
+.hero-trucks,
+.hero-visual-icon,
+.hero-badge {
+  position: absolute;
+}
+
+.hero-vectors {
   display: block;
-  height: 652px;
+  height: 478px;
+  left: 21px;
   max-width: none;
-  mix-blend-mode: multiply;
-  object-fit: cover;
-  width: 977px;
+  top: 0;
+  width: 798.374px;
+  z-index: 1;
+}
+
+.hero-trucks {
+  display: block;
+  height: 356px;
+  left: 94px;
+  max-width: none;
+  top: 67px;
+  width: 796px;
+  z-index: 2;
+}
+
+.hero-visual-icon {
+  display: block;
+  max-width: none;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hero-icon-shield {
+  height: 28.5px;
+  left: 53.75px;
+  top: 15.75px;
+  width: 28.5px;
+}
+
+.hero-icon-document {
+  height: 36px;
+  left: 36px;
+  top: 170px;
+  width: 36px;
+}
+
+.hero-icon-support {
+  height: 27px;
+  left: 35.75px;
+  top: 342.5px;
+  width: 28.5px;
+}
+
+.hero-icon-wrench {
+  height: 24px;
+  left: 729px;
+  top: 97px;
+  width: 24px;
+}
+
+.hero-icon-data {
+  height: 36px;
+  left: 774px;
+  top: 376px;
+  width: 36px;
 }
 
 .hero-badge {
   align-items: center;
   background: var(--bright-blue);
-  border-radius: 999px 999px 999px 127px;
-  color: var(--white);
-  display: flex;
-  font-family: "VW Head", Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 700;
+  border-radius: 127px 1009px 999px 0;
+  display: inline-flex;
   gap: 10px;
-  left: 528px;
-  min-height: 59px;
-  padding: 10px 24px 10px 20px;
-  position: absolute;
-  top: 267px;
+  justify-content: center;
+  left: 587px;
+  min-height: 56px;
+  padding: 10px 20px;
+  top: 196px;
   z-index: 4;
 }
 
 .hero-badge img {
-  filter: brightness(0) invert(1);
-  height: 39px;
-  width: 39px;
+  display: block;
+  height: 36px;
+  width: 36px;
 }
 
-.benefits-bar {
+.hero-badge span {
+  color: var(--button-primary-content);
+  display: block;
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hero-visual-labels {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 5;
+}
+
+.hero-visual-label {
+  color: var(--blue);
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  left: 0;
+  line-height: 14px;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.hero-visual-label.centered {
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.hero-visual-label span {
+  display: block;
+}
+
+
+.hero-benefits-bar {
   align-items: center;
   background: var(--blue);
-  border-bottom: 9px solid var(--cyan);
+  border-bottom: 4px solid var(--cyan);
   bottom: 0;
-  display: grid;
-  gap: 0;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   height: 124px;
   left: 0;
-  padding: 0 max(64px, calc((100vw - 1440px) / 2));
+  justify-content: center;
   position: absolute;
   right: 0;
   z-index: 4;
 }
 
-.benefit {
+.hero-benefits-inner {
   align-items: center;
-  border-right: 1px solid rgba(76, 199, 244, 0.5);
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1440px;
+  padding: 0 10px 9px;
+  width: 100%;
+}
+
+.hero-benefit {
+  align-items: center;
   color: var(--white);
   display: flex;
+  flex: 0 0 auto;
   gap: 16px;
   justify-content: center;
+  min-height: 100%;
   min-width: 0;
+  padding: 20px 10px;
 }
 
-.benefit:last-child {
-  border-right: 0;
-}
-
-.benefit img {
+.hero-benefit img {
   height: 48px;
   width: 48px;
 }
 
-.benefit strong,
-.benefit span {
+.hero-benefit > div {
+  min-width: 0;
+}
+
+.hero-benefit-divider {
+  background: rgba(76, 199, 244, 0.35);
   display: block;
-  font-size: 16px;
-  line-height: 19px;
+  flex: 0 0 auto;
+  height: 30px;
+  width: 1px;
+}
+
+.hero-benefit strong {
+  display: block;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.hero-benefit span {
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
 }
 
 .page-band {
@@ -3936,15 +4096,23 @@ html.proposal-drawer-open body {
     display: none;
   }
 
+  .hero-inner {
+    align-items: center;
+    column-gap: 20px;
+    grid-template-columns: minmax(320px, 420px) minmax(0, 760px);
+    min-height: 560px;
+    padding: 20px 20px 0;
+  }
+
   .hero-copy {
-    left: 24px;
-    top: 144px;
-    width: clamp(360px, 40vw, 460px);
+    min-height: 0;
+    width: 100%;
   }
 
   .hero-copy h1 {
     font-size: 40px;
     line-height: 42px;
+    width: auto;
   }
 
   .hero-copy > p:not(.eyebrow) {
@@ -3952,32 +4120,7 @@ html.proposal-drawer-open body {
   }
 
   .hero-visual {
-    left: auto;
-    right: -16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(620px, 58vw, 760px);
-    height: auto;
-  }
-
-  .hero-composite {
-    width: 100%;
-    height: auto;
-  }
-
-  .hero-badge {
-    font-size: 17px;
-    gap: 8px;
-    left: clamp(292px, 49%, 446px);
-    min-height: 54px;
-    padding: 8px 20px 8px 16px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .hero-badge img {
-    height: 34px;
-    width: 34px;
+    --hero-visual-scale: 0.853;
   }
 
   .truck-grid {
@@ -4103,6 +4246,14 @@ html.proposal-drawer-open body {
 }
 
 @media (max-width: 1440px) and (min-width: 1281px) {
+  .hero-inner {
+    align-items: center;
+    column-gap: clamp(20px, 2vw, 28px);
+    grid-template-columns: minmax(360px, 500px) minmax(0, 804px);
+    min-height: calc(clamp(660px, 54vw, 747px) - var(--hero-benefits-height) - var(--site-header-height));
+    padding: 0 clamp(24px, 2.4vw, 40px) 0;
+  }
+
   .site-header {
     padding-left: clamp(20px, 2.4vw, 40px);
     padding-right: clamp(20px, 2.4vw, 40px);
@@ -4131,17 +4282,18 @@ html.proposal-drawer-open body {
 
   .hero-section {
     min-height: clamp(660px, 54vw, 747px);
+    padding-top: var(--site-header-height);
   }
 
   .hero-copy {
-    left: max(24px, calc((100vw - 1312px) / 2));
-    top: clamp(136px, 11vw, 168px);
-    width: clamp(380px, 37vw, 534px);
+    min-height: 0;
+    width: 100%;
   }
 
   .hero-copy h1 {
     font-size: clamp(38px, 3.5vw, 50px);
     line-height: clamp(40px, 3.4vw, 48px);
+    width: min(100%, 453px);
   }
 
   .hero-copy > p:not(.eyebrow) {
@@ -4149,33 +4301,62 @@ html.proposal-drawer-open body {
   }
 
   .hero-visual {
-    left: auto;
-    right: max(-12px, calc((100vw - 1440px) / 2));
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(640px, 60vw, 977px);
-    height: auto;
+    --hero-visual-scale: 0.902;
   }
 
-  .hero-composite {
+}
+
+@media (max-width: 1280px) and (min-width: 1025px) {
+  .hero-section {
+    min-height: 620px;
+    padding-top: var(--site-header-height);
+  }
+
+  .hero-inner {
+    align-items: center;
+    column-gap: 16px;
+    grid-template-columns: minmax(300px, 390px) minmax(0, 700px);
+    min-height: calc(620px - var(--hero-benefits-height) - var(--site-header-height));
+    padding: 0 20px 0;
+  }
+
+  .hero-copy {
+    min-height: 0;
     width: 100%;
-    height: auto;
   }
 
-  .hero-badge {
-    font-size: clamp(15px, 1.5vw, 18px);
+  .hero-copy h1 {
+    font-size: 38px;
+    line-height: 40px;
+    width: auto;
+  }
+
+  .hero-copy > p:not(.eyebrow) {
+    width: min(100%, 360px);
+  }
+
+  .hero-visual {
+    --hero-visual-scale: 0.772;
+  }
+
+  .hero-benefits-inner {
+    padding: 0 12px 9px;
+  }
+
+  .hero-benefit {
     gap: 8px;
-    left: clamp(300px, 50%, 528px);
-    min-height: clamp(50px, 4.3vw, 59px);
-    padding: clamp(8px, 0.7vw, 10px) clamp(18px, 1.4vw, 24px) clamp(8px, 0.7vw, 10px)
-      clamp(16px, 1.2vw, 20px);
-    top: 50%;
-    transform: translateY(-50%);
+    padding: 20px 6px;
   }
 
-  .hero-badge img {
-    height: clamp(30px, 2.8vw, 39px);
-    width: clamp(30px, 2.8vw, 39px);
+  .hero-benefit img {
+    height: 36px;
+    width: 36px;
+  }
+
+  .hero-benefit strong,
+  .hero-benefit span {
+    font-size: 12px;
+    line-height: 15px;
   }
 }
 
@@ -4230,19 +4411,22 @@ html.proposal-drawer-open body {
     width: 24px;
   }
 
-  .hero-section {
-    min-height: 640px;
+  .hero-inner {
+    align-items: center;
+    column-gap: 16px;
+    grid-template-columns: minmax(280px, 340px) minmax(0, 560px);
+    min-height: calc(620px - var(--hero-benefits-height) - var(--site-header-height));
+    padding: 0 24px 0;
   }
 
   .hero-copy {
-    left: 24px;
-    top: 128px;
-    width: 360px;
+    width: 100%;
   }
 
   .hero-copy h1 {
     font-size: 36px;
     line-height: 38px;
+    width: auto;
   }
 
   .hero-copy > p:not(.eyebrow) {
@@ -4251,24 +4435,42 @@ html.proposal-drawer-open body {
   }
 
   .hero-visual {
-    right: -24px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(540px, 57vw, 620px);
+    --hero-visual-scale: 0.628;
   }
 
-  .hero-badge {
+  .hero-benefits-bar {
+    display: grid;
+    height: auto;
+    margin-top: 24px;
+    position: relative;
+  }
+
+  .hero-benefits-inner {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
+    padding: 16px 20px 20px;
+  }
+
+  .hero-benefit {
+    justify-content: flex-start;
+    min-height: 88px;
+    padding: 12px 8px;
+  }
+
+  .hero-benefit img {
+    height: 42px;
+    width: 42px;
+  }
+
+  .hero-benefit strong,
+  .hero-benefit span {
     font-size: 16px;
-    left: clamp(252px, 50%, 320px);
-    top: 50%;
-    transform: translateY(-50%);
+    line-height: 19px;
   }
-}
 
-@media (max-width: 1440px) and (min-width: 1024px) {
-  .hero-visual {
-    top: calc((100% - var(--hero-benefits-height)) / 2);
-    transform: translateY(-50%);
+  .hero-benefit-divider {
+    display: none;
   }
 }
 
@@ -4841,6 +5043,89 @@ html.proposal-drawer-open body {
 }
 
 @media (max-width: 640px) {
+  .hero-section {
+    min-height: 0;
+    padding: 120px 16px 0;
+    position: relative;
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .hero-copy {
+    left: auto;
+    min-height: 0;
+    position: relative;
+    top: auto;
+    transform: none;
+    width: 100%;
+  }
+
+  .hero-copy h1 {
+    font-size: 30px;
+    line-height: 34px;
+    width: 100%;
+  }
+
+  .hero-copy > p:not(.eyebrow) {
+    margin: 14px 0 24px;
+    width: 100%;
+  }
+
+  .hero-copy .secondary-action {
+    width: 100%;
+  }
+
+  .hero-visual {
+    left: 50%;
+    margin-top: 0;
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: translateX(-50%);
+    --hero-visual-scale: 0.516;
+  }
+
+  .hero-visual-label {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .hero-benefits-bar {
+    margin-top: 16px;
+  }
+
+  .hero-benefits-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 16px;
+  }
+
+  .hero-benefit {
+    justify-content: flex-start;
+    min-height: 88px;
+    padding: 12px 8px;
+  }
+
+  .hero-benefit::after {
+    content: none;
+  }
+
+  .hero-benefit img {
+    height: 36px;
+    width: 36px;
+  }
+
+  .hero-benefit strong,
+  .hero-benefit span {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
   .page-band {
     padding: 64px 16px;
   }
