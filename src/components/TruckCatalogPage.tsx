@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
@@ -19,7 +17,6 @@ import {
 } from "@/components/LandingPage";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
-const asset = (name: string) => `/assets/figma/${name}`;
 const defaultCapacityRange = { min: 10, max: 80 };
 
 type CatalogFilters = Record<CatalogFilterKey, string[]> & {
@@ -320,9 +317,6 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
         </section>
       </main>
       <Footer />
-      <Link href="/#faq" className="fab" aria-label="Abrir WhatsApp">
-        <img src={asset("icon-whatsapp.svg")} alt="" />
-      </Link>
       <ProposalSummary
         selectedItems={selectedItems}
         onClear={() => {
