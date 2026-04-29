@@ -20,6 +20,7 @@ import {
   type ProposalItem,
 } from "@/components/LandingPage";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
+import { TruckImageStack } from "@/components/TruckImageStack";
 
 const asset = (name: string) => `/assets/figma/${name}`;
 
@@ -107,6 +108,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           family: item.family,
           model: item.model,
           image: item.image,
+          shadowImage: item.shadowImage,
           quantity: quantities[item.id] ?? 1,
         })),
     [quantities, selectedIds],
@@ -317,7 +319,13 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
               </div>
             </div>
             <div className="truck-detail-hero-media">
-              <img src={truck.heroImage} alt={`${truck.family} ${truck.model}`} />
+              <TruckImageStack
+                image={truck.heroImage}
+                shadowImage={truck.heroShadowImage}
+                alt={`${truck.family} ${truck.model}`}
+                frontClassName="truck-detail-hero-image truck-detail-hero-image-front"
+                shadowClassName="truck-detail-hero-image truck-detail-hero-image-shadow"
+              />
             </div>
           </div>
         </section>
