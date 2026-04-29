@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -11,13 +11,9 @@ import {
   trucks,
   type Truck,
 } from "@/data/landing";
+import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
 const asset = (name: string) => `/assets/figma/${name}`;
-
-function toPositiveQuantity(value: string) {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-}
 
 export type ProposalItem = {
   id: string;
@@ -132,95 +128,21 @@ function SectionTitle({
   eyebrow,
   title,
   light,
+  className,
 }: {
   eyebrow: string;
   title: string;
   light?: string;
+  className?: string;
 }) {
   return (
-    <div className="section-title">
+    <div className={`section-title${className ? ` ${className}` : ""}`}>
       <p>{eyebrow}</p>
       <h2>
         {title}
         {light ? <span> {light}</span> : null}
       </h2>
     </div>
-  );
-}
-
-function TruckCard({
-  truck,
-  selected,
-  quantity,
-  onToggle,
-  onQuantityChange,
-}: {
-  truck: Truck;
-  selected: boolean;
-  quantity: number;
-  onToggle: (truck: Truck) => void;
-  onQuantityChange: (id: string, quantity: number) => void;
-}) {
-  return (
-    <article className={`truck-card ${selected ? "selected" : ""}`}>
-      <div className="truck-media">
-        {truck.shadowImage ? <img src={truck.shadowImage} alt="" className="truck-shadow" /> : null}
-        <img src={truck.image} alt={`${truck.family} ${truck.model}`} className="truck-image" />
-      </div>
-      <div className="truck-content">
-        <div className="card-truck-heading">
-          <div className="card-truck-title">
-            <h3>{truck.family}</h3>
-            <p>{truck.model}</p>
-          </div>
-          <button
-            className="select-dot"
-            type="button"
-            onClick={() => onToggle(truck)}
-            aria-label={selected ? `Remover ${truck.family} da proposta` : `Adicionar ${truck.family} à proposta`}
-          />
-        </div>
-        <div className="badges" aria-label="Características">
-          {truck.badges.map((badge) => (
-            <span className={`badge ${badge.tone}`} key={badge.label}>
-              {badge.icon ? <img src={badge.icon} alt="" /> : null}
-              {badge.label}
-            </span>
-          ))}
-        </div>
-        {selected ? (
-          <div className="card-selection-row">
-            <label className="floating-field card-quantity-field">
-              <input
-                type="number"
-                min="1"
-                step="1"
-                value={quantity}
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  onQuantityChange(truck.id, toPositiveQuantity(event.target.value))
-                }
-              />
-              <span>Qtd.</span>
-            </label>
-            <span className="card-selection-divider" aria-hidden="true" />
-            <button className="card-remove-link" type="button" onClick={() => onToggle(truck)}>
-              <span className="card-remove-label">Remover</span>
-              <span className="card-remove-icon" aria-hidden="true">×</span>
-            </button>
-          </div>
-        ) : (
-          <button className="text-link" onClick={() => onToggle(truck)}>
-            Adicionar à proposta
-            <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
-          </button>
-        )}
-        <Link className="text-link" href={`/caminhoes/${truck.slug}`}>
-          Ver detalhes
-          <img className="action-icon text-link-icon" src={asset("icon-arrow-right.svg")} alt="" />
-        </Link>
-
-      </div>
-    </article>
   );
 }
 
@@ -235,17 +157,71 @@ function TruckCatalogue({
   onToggle: (truck: Truck) => void;
   onQuantityChange: (id: string, quantity: number) => void;
 }) {
+  const operationCards = [
+    {
+      slug: "road",
+      title: "Rodoviário",
+      application: "Rodoviário",
+      description: "Desempenho e eficiência para longas distâncias",
+      image: "/assets/figma/catalog-banner-road.jpg",
+    },
+    {
+      slug: "urban",
+      title: "Urbano",
+      application: "Urbano",
+      description: "Agilidade e segurança para o dia a dia da cidade.",
+      image: "/assets/figma/catalog-banner-urban.jpg",
+    },
+    {
+      slug: "construction",
+      title: "Construção",
+      application: "Construção",
+      description: "Robustez e força para os trabalhos mais exigentes.",
+      image: "/assets/figma/catalog-banner-construction.jpg",
+    },
+    {
+      slug: "distribution",
+      title: "Distribuição",
+      application: "Distribuição",
+      description: "Versatilidade e economia para suas entregas.",
+      image: "/assets/figma/catalog-banner-distribution.jpg",
+    },
+  ] as const;
+
   return (
     <section id="catalogo" className="catalogue-section page-band">
       <div className="page-inner">
         <SectionTitle
+          className="section-title-catalog"
           eyebrow="Caminhões disponíveis para assinatura"
           title="Explore os modelos"
           light="e solicite uma proposta"
         />
+        <div className="catalog-operation-grid">
+          <article className="catalog-operation-intro">
+            <h3>
+              Caminhões para cada
+              <span> tipo de operação</span>
+            </h3>
+            <p>Explore por tipo de uso e descubra os modelos ideais</p>
+          </article>
+          {operationCards.map((item) => (
+            <Link
+              className={`catalog-operation-card ${item.slug}`}
+              href={`/caminhoes?application=${encodeURIComponent(item.application)}`}
+              key={item.title}
+            >
+              <img src={item.image} alt="" className="catalog-operation-banner" />
+              <div className="catalog-operation-content">
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
         <div className="truck-grid">
           {trucks.map((truck) => (
-            <TruckCard
+            <TruckSelectionCard
               key={truck.id}
               truck={truck}
               selected={selectedIds.includes(truck.id)}
@@ -254,11 +230,17 @@ function TruckCatalogue({
               onQuantityChange={onQuantityChange}
             />
           ))}
+          <Link href="/caminhoes" className="catalog-all-models-card">
+            <span>
+              <strong>Ver todos</strong> os
+              <br />
+              modelos
+              <br />
+              disponíveis
+            </span>
+            <img src={asset("catalog-all-models-arrow-72.svg")} alt="" />
+          </Link>
         </div>
-        <a href="#proposta" className="outline-cta centered">
-          Explorar todos os modelos
-          <img className="action-icon button-icon" src={asset("icon-add.svg")} alt="" />
-        </a>
       </div>
     </section>
   );
@@ -268,9 +250,9 @@ type BenefitCard = {
   cardClassName?: string;
   icon: string;
   iconClassName?: string;
-  light: string;
-  title: string;
   titleClassName?: string;
+  title: string;
+  light?: string;
   copy: string;
 };
 
