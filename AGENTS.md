@@ -43,7 +43,8 @@ Para qualquer tarefa de navegação, inspeção, validação visual, clique, dig
 ### Multi-agent Port Isolation
 
 - Em execução paralela com múltiplos agents, cada agent deve usar porta local exclusiva para servidor de desenvolvimento.
-- Não iniciar servidor em porta já ocupada; escolher outra porta livre e registrar a porta usada no resumo.
+- Porta ocupada não implica reutilização. Só reutilize após confirmar por processo e por HTTP que o servidor pertence à mesma worktree.
+- Não iniciar servidor em porta ocupada por outra worktree; bloquear a porta conflitante, escolher outra livre e registrar a porta usada no resumo.
 - Ordem padrão sugerida para alocação sem conflito: `3000`, `3001`, `3002`, `3003` e assim por diante.
 - Se já existir servidor ativo para o mesmo escopo do agent, reutilizar esse servidor na porta já alocada em vez de subir outro na mesma porta.
 
@@ -86,16 +87,20 @@ For any UI implementation or visual update, Figma is mandatory and non-negotiabl
 For every UI task, follow this operational SOP before declaring completion:
 
 - **UI preflight (mandatory):**
-  - Check whether a local dev server for the target URL/port is already active before visual QA.
-  - If already running, reuse it (do not restart by default).
-  - If not running, start it with `npm run dev -- --port <default-port>` and confirm HTTP access before visual comparison.
+  - Identifique a worktree atual antes de escolher a URL de QA.
+  - Liste portas candidatas a partir de `3000` e inspecione qualquer porta ocupada antes de reutilizar.
+  - Se a porta estiver ocupada, inspecione o processo dono e o `CommandLine`.
+  - Reutilize a porta apenas se o processo pertencer à mesma worktree e se `http://127.0.0.1:<porta>/api/codex-runtime` confirmar a mesma identidade (`workspaceRoot`, `gitBranch`, `gitCommit`, `port`).
+  - Se a porta pertencer a outra worktree, bloqueie essa URL, escolha outra porta livre e siga para a próxima candidata.
+  - Se não houver servidor válido para a worktree atual, inicie com `npm run dev -- --port <default-port>` e confirme a identidade HTTP antes da comparação visual.
   - Execute visual QA in browser via `Browser Use`.
 - **Port policy and fallback:**
   - Em modo multi-agent, cada agent deve alocar porta exclusiva antes de iniciar o dev server.
   - Ordem padrão de alocação: `3000`, `3001`, `3002`, `3003` e seguintes; se houver porta explícita no contexto do agent (por exemplo `3017`), priorizá-la desde que esteja livre.
-  - If the current in-app browser URL is valid for the requested screen, treat it as the primary source.
+  - Não trate a aba atual ou a URL atual do in-app browser como fonte primária por si só. Só reutilize a aba atual depois de validar a identidade HTTP do runtime da worktree corrente.
 - **Visual comparison protocol:**
   - Always compare browser rendering via `Browser Use` against the target Figma node/frame or user-approved print before closing the task.
+  - Use URL explícita validada no preflight; não dependa de URL residual de outra worktree.
   - After each CSS/TSX visual adjustment, reload and revalidate the same crop/area.
 - **Viewport and breakpoint policy:**
   - For responsive UI, validate at least desktop, tablet, and mobile.
