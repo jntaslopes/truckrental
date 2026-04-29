@@ -6,11 +6,11 @@ This version has breaking changes - APIs, conventions, and file structure may al
 
 ## Agent Work Sync
 
-Antes de executar qualquer plano, atualize o contexto real do projeto:
+Before executing any plan, update yourself on the real project context:
 
-- Rode `git status --short --branch`, confira a branch/worktree atual e veja se há commits ahead/behind.
-- Confira se está no worktree principal (`C:\projects\truckrental`) ou em uma worktree auxiliar. Em worktree auxiliar, trabalhe em branch com prefixo `codex/`; ao criar uma branch nova, use o maior número existente + 1 no formato `codex/codex-1`, `codex/codex-2`, `codex/codex-3`, etc., considerando branches locais e remotas (sem reutilizar lacunas). Se não houver branch com upstream, crie uma e publique com `git push -u origin <branch>`. No worktree principal em `main`, branch não é obrigatória.
-- Comando canônico (PowerShell) para calcular, criar e publicar a próxima branch `codex/codex-*`:
+- Run `git status --short --branch`, confirm the current branch/worktree, and check whether there are commits ahead/behind.
+- Confirm whether you are in the main worktree (`C:\projects\truckrental`) or in an auxiliary worktree. In an auxiliary worktree, work on a branch with the `codex/` prefix; when creating a new branch, use the highest existing number + 1 in the format `codex/codex-1`, `codex/codex-2`, `codex/codex-3`, etc., considering both local and remote branches, without reusing gaps. If there is no branch with an upstream, create one and publish it with `git push -u origin <branch>`. In the main worktree on `main`, a branch is not required.
+- Canonical PowerShell command to calculate, create, and publish the next `codex/codex-*` branch:
   ```powershell
   $refs = git for-each-ref --format='%(refname:short)' `
     refs/heads/codex/codex-* `
@@ -23,30 +23,30 @@ Antes de executar qualquer plano, atualize o contexto real do projeto:
   git switch -c $next
   git push -u origin $next
   ```
-- Rode `git fetch origin` e verifique se `origin/main` mudou; incorpore essas mudanças antes de implementar quando isso for necessário para trabalhar sobre a base atual.
-- Releia os arquivos relevantes depois do fetch/merge e antes de editar. O usuário pode alterar arquivos localmente em paralelo, com ou sem commit.
-- Não presuma que o Git contém todo o contexto: mudanças locais não commitadas também são fonte de verdade.
-- Nunca descarte mudanças locais do usuário. Antes de pull/merge/rebase que possa sobrescrever arquivos, preserve o estado atual com commit temporário, stash seletivo ou branch de segurança.
-- Nunca crie ou troque branch descartando mudanças locais; preserve o estado primeiro.
-- Se o plano ficar desatualizado por mudanças locais ou remotas, ajuste o plano antes de executar.
-- Resolva merges e conflitos de forma autônoma, preservando a intenção local e remota sempre que possível. O usuário não fará resolução manual.
-- Preserve texto em PT-BR como UTF-8. Não introduza mojibake; se tocar em um arquivo com mojibake, corrija o trecho afetado.
+- Run `git fetch origin` and check whether `origin/main` changed; incorporate those changes before implementing when necessary to work from the current base.
+- Re-read the relevant files after any fetch/merge and before editing. The user may change files locally in parallel, with or without a commit.
+- Do not assume Git contains the full context: uncommitted local changes are also a source of truth.
+- Never discard the user's local changes. Before any pull/merge/rebase that could overwrite files, preserve the current state with a temporary commit, selective stash, or safety branch.
+- Never create or switch branches in a way that discards local changes; preserve the state first.
+- If the plan becomes outdated because of local or remote changes, adjust the plan before executing.
+- Resolve merges and conflicts autonomously, preserving both local and remote intent whenever possible. The user will not resolve conflicts manually.
+- Preserve Brazilian Portuguese text as UTF-8. Do not introduce mojibake; if you touch a file with mojibake, fix the affected text.
 
 ## Browser Automation Policy
 
-Para qualquer tarefa de navegação, inspeção, validação visual, clique, digitação, captura de tela ou teste manual de UI em ambiente local:
+For any local navigation, inspection, visual validation, clicking, typing, screenshot capture, or manual UI testing task:
 
-- O agent pode usar a ferramenta de browser disponível mais adequada ao caso.
-- A escolha da ferramenta de browser é responsabilidade do agent.
-- O critério principal não é a ferramenta; é validar no browser e continuar iterando até o resultado ficar idêntico à referência aprovada.
-- Toda saída local de QA deve ficar em diretórios temporários ignorados pelo Git, preferencialmente `.playwright-cli/`, `.playwright/`, `playwright-report/`, `test-results/` e `.codex-artifacts/`. Não gravar evidências temporárias em caminhos versionados.
+- The agent may use whichever available browser tool is most appropriate for the case.
+- Choosing the browser tool is the agent's responsibility.
+- The primary criterion is not the tool; it is validating in the browser and continuing to iterate until the result is identical to the approved reference.
+- All local QA output must stay in temporary directories ignored by Git, preferably `.playwright-cli/`, `.playwright/`, `playwright-report/`, `test-results/`, and `.codex-artifacts/`. Do not write temporary evidence to versioned paths.
 
 ### Multi-agent Port Isolation
 
-- Em execução paralela com múltiplos agents, cada agent deve usar porta local exclusiva para servidor de desenvolvimento.
-- Porta ocupada não implica reutilização. Só reutilize após confirmar por processo e por HTTP que o servidor pertence à mesma worktree.
-- Não iniciar servidor em porta ocupada por outra worktree; escolha outra porta livre e registre a porta usada no resumo.
-- Ordem padrão sugerida para alocação sem conflito: `3000`, `3001`, `3002`, `3003` e assim por diante.
+- In parallel execution with multiple agents, each agent must use an exclusive local port for its development server.
+- An occupied port does not imply reuse. Only reuse it after confirming by process and by HTTP that the server belongs to the same worktree.
+- Do not start a server on a port already occupied by another worktree; choose a different free port and record the port used in the summary.
+- Suggested default allocation order without conflicts: `3000`, `3001`, `3002`, `3003`, and so on.
 
 ## Project Figma Source
 
@@ -77,37 +77,53 @@ For any UI implementation or visual update, Figma is mandatory and non-negotiabl
 
 ### Browser Validation Gate
 
-- Toda tarefa de UI deve ser validada em browser.
-- A comparação deve ser feita contra o frame/node do Figma ou contra a imagem de referência aprovada para aquela tarefa.
-- Se houver qualquer diferença visual, a tarefa não está concluída e o agent deve continuar iterando até zerar as divergências.
-- Validation evidence is textual by default (no mandatory screenshot or pixel-diff artifact unless explicitly requested).
+- Every UI task must be validated in a browser.
+- The comparison must be made against the relevant Figma frame/node or against the approved reference image for that task.
+- Visual approval is viewport-specific. Pixel-perfect validation at one viewport does not validate any other breakpoint.
+- If any visual difference remains, the task is not complete and the agent must keep iterating until the divergences are eliminated.
+- Validation evidence is textual by default, with no mandatory screenshot or pixel-diff artifact unless explicitly requested.
 
 ### UI Execution SOP (Mandatory)
 
 For every UI task, follow this operational SOP before declaring completion:
 
 - **UI preflight (mandatory):**
-  - Identifique a worktree atual antes de escolher a URL de QA.
-  - Verifique a porta que será usada e só reutilize porta ocupada após confirmar por processo e por HTTP que ela pertence à mesma worktree.
-  - Se não houver servidor válido para a worktree atual, inicie um servidor local em porta livre e confirme a identidade antes da comparação visual.
+  - Identify the current worktree before choosing the QA URL.
+  - Verify the port that will be used and only reuse an occupied port after confirming by process and by HTTP that it belongs to the same worktree.
+  - If there is no valid server for the current worktree, start a local server on a free port and confirm its identity before visual comparison.
 - **Visual comparison protocol:**
-  - Sempre compare o browser com o frame/node do Figma ou com a imagem de referência aprovada antes de encerrar a tarefa.
-  - Use uma URL explicitamente validada para a worktree corrente.
-  - Após cada ajuste visual relevante, recarregue e revalide a mesma área.
+  - Always compare the browser against the relevant Figma frame/node or the approved reference image before closing the task.
+  - Use a URL explicitly validated for the current worktree.
+  - After each relevant visual adjustment, reload and revalidate the same area.
 - **Viewport and breakpoint policy:**
-  - Para UI responsiva, valide ao menos desktop, tablet e mobile, salvo se a tarefa definir outro conjunto de breakpoints.
-  - Se o usuário fornecer uma imagem de um breakpoint específico, esse breakpoint vira critério de aprovação.
+  - For responsive UI, validate at least desktop, tablet, and mobile unless the task defines a different breakpoint set.
+  - If the user provides an image for a specific breakpoint, that breakpoint becomes the approval criterion.
+  - Required breakpoint checks must be executed at explicit dimensions, never inferred from approximate window size or the current tab size.
+  - When the task requires objective responsive validation, the agent must use a tool or surface that can explicitly set the viewport.
+  - If the active browser surface cannot set viewport dimensions, the agent must switch to one that can or report breakpoint validation as blocked.
+  - It is not allowed to claim desktop, tablet, or mobile as validated based only on inspection at the current tab size.
 - **Browser-size awareness:**
-  - O viewport faz parte do critério de aceitação e deve ser reportado no resumo de conclusão.
+  - The viewport is part of the acceptance criteria and must be reported in the completion summary.
+  - The final summary must state which tool was used for validation.
+  - The final summary must record the exact viewport for each approved check.
+  - The final summary must list which breakpoints were actually validated and which were not, if any.
 - **UI done criteria (blocking):**
-  - Do not mark complete before all are true: visual validation passed in a browser, `npm run lint` passed, `npm run build` passed, and breakpoint checks are listed objectively.
+  - Do not mark the task complete until all of the following are true: visual validation passed in a browser, `npm run lint` passed, `npm run build` passed, and breakpoint checks are listed objectively.
+  - The task cannot be marked complete if any required breakpoint has not been validated at the exact size.
+  - Lack of a resize API or explicit viewport control does not justify partial completion unless the item is recorded as an objective pending item or blocker.
 
 ### Reference Fallback Policy
 
-- If Figma MCP is available, use target node/frame context plus screenshot as the primary reference.
-- If Figma MCP is unavailable, use the user-provided print/image as temporary source of truth and state this explicitly in the completion summary.
-- Default responsive validation set (when user does not specify): desktop `1440x900`, tablet `1024x768`, mobile `390x844`.
-- The agent may resize viewport autonomously to cover required breakpoints without waiting for extra user instruction.
+- If Figma MCP is available, use the target node/frame context plus a screenshot as the primary reference.
+- If Figma MCP is unavailable, use the user-provided image/screenshot as the temporary source of truth and state this explicitly in the completion summary.
+- Default responsive validation set when the user does not specify another one: desktop `1440x900`, tablet `1024x768`, mobile `390x844`.
+- The agent may autonomously choose any browser automation surface that exposes explicit viewport control.
+- If the current surface does not expose viewport control, fallback is not "validate at the current tab size"; fallback is to switch tools or report the missing capability as a blocker.
+
+### Browser Capability Note
+
+- Browser Use/in-app browser may only be used for breakpoint approval when the session actually exposes viewport control.
+- A limited Playwright surface without `setViewportSize` or equivalent does not satisfy the requirement for objective responsive breakpoint validation.
 
 ### MCP Connectivity Retry Gate
 
@@ -143,6 +159,7 @@ For every UI task, follow this operational SOP before declaring completion:
   - If any hidden element is implemented in the target state, the task must not be marked as complete.
   - If a defined Figma image asset is not used or is replaced by invented imagery, the task must not be marked as complete.
   - If the browser result differs from the approved reference in any way, the task is not finished and the agent must keep working until the difference is resolved.
+  - The agent must not claim desktop, tablet, or mobile validation without recording the exact viewport used for each approved check.
   - The agent must report objective pending items, including the exact divergent property and where it occurs.
 - **Mandatory pre-completion checklist for UI changes:**
   - Compare browser rendering versus Figma node/frame screenshot or approved reference image.
