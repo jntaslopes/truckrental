@@ -507,9 +507,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
         <DetailFaq />
       </main>
       <Footer />
-      <a href="#faq" className="fab" aria-label="Abrir central de ajuda">
-        
-      </a>
       <ProposalSummary
         selectedItems={selectedItems}
         onClear={clearProposal}
