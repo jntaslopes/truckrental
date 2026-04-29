@@ -11,6 +11,7 @@ import {
   trucks,
   type Truck,
 } from "@/data/landing";
+import { TruckImageStack } from "@/components/TruckImageStack";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
 const asset = (name: string) => `/assets/figma/${name}`;
@@ -20,6 +21,7 @@ export type ProposalItem = {
   family: string;
   model: string;
   image: string;
+  shadowImage?: string;
   quantity: number;
 };
 
@@ -1023,7 +1025,13 @@ export function ProposalDrawer({
               {selectedItems.map((truck) => (
                 <article className="proposal-selected-card" key={truck.id}>
                   <div className="proposal-selected-media">
-                    <img src={truck.image} alt="" />
+                    <TruckImageStack
+                      image={truck.image}
+                      shadowImage={truck.shadowImage}
+                      alt={`${truck.family} ${truck.model}`}
+                      frontClassName="proposal-selected-image"
+                      shadowClassName="proposal-selected-image"
+                    />
                   </div>
                   <div className="proposal-selected-details">
                     <strong>{truck.family}</strong>
@@ -1135,6 +1143,7 @@ export function LandingPage() {
           family: truck.family,
           model: truck.model,
           image: truck.image,
+          shadowImage: truck.shadowImage,
           quantity: quantities[truck.id] ?? 1,
         })),
     [quantities, selectedIds],
