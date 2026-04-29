@@ -57,6 +57,7 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
 }) {
   return (
     <article className={`catalog-truck-card ${selected ? "selected" : ""}`}>
+      <div className="catalog-truck-surface" aria-hidden="true" />
       <div className="catalog-truck-media">
         <img src={truck.image} alt={`${truck.family} ${truck.model}`} className="catalog-truck-image" />
       </div>
