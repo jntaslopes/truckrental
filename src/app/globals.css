@@ -1237,6 +1237,21 @@ html.proposal-drawer-open body {
   width: 404px;
 }
 
+.truck-image-stack {
+  display: block;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.truck-image-layer {
+  display: block;
+}
+
+.truck-image-layer-shadow {
+  mix-blend-mode: multiply;
+}
+
 .truck-content {
   background: transparent;
   padding: 32px;
@@ -3913,15 +3928,36 @@ html.proposal-drawer-open body {
   position: absolute;
   right: -136px;
   width: 886px;
-  z-index: 3;
 }
 
-.truck-detail-hero-media img {
+.truck-detail-hero-image {
   display: block;
   height: 100%;
+  inset: 0;
   max-width: none;
-  mix-blend-mode: multiply;
   object-fit: contain;
+  position: absolute;
+  width: 100%;
+}
+
+.truck-detail-hero-image-shadow {
+  mix-blend-mode: multiply;
+}
+
+.proposal-selected-media .truck-image-stack {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.proposal-selected-image {
+  height: 100%;
+  inset: 0;
+  margin: auto;
+  max-height: 54px;
+  max-width: 96px;
+  object-fit: contain;
+  position: absolute;
   width: 100%;
 }
 
@@ -4027,11 +4063,11 @@ html.proposal-drawer-open body {
   transition: none;
 }
 
-.gallery-arrow {
-  background: transparent;
-  border: 1px solid var(--button-secondary-content);
+.truck-detail-gallery .gallery-arrow {
+  background: var(--button-primary-bg);
+  border: 0;
   border-radius: 50%;
-  color: var(--button-secondary-content);
+  color: var(--white);
   cursor: pointer;
   display: grid;
   font: inherit;
@@ -4045,21 +4081,21 @@ html.proposal-drawer-open body {
   z-index: 2;
 }
 
-.gallery-arrow:hover {
-  border-color: var(--button-secondary-content-hover);
-  color: var(--button-secondary-content-hover);
+.truck-detail-gallery .gallery-arrow:hover {
+  background: var(--button-primary-bg-hover);
+  color: var(--white);
 }
 
-.gallery-arrow:active {
-  border-color: var(--button-secondary-content-active);
-  color: var(--button-secondary-content-active);
+.truck-detail-gallery .gallery-arrow:active {
+  background: var(--button-primary-bg-active);
+  color: var(--white);
 }
 
-.gallery-arrow span {
+.truck-detail-gallery .gallery-arrow span {
   display: block;
-  font-size: 30px;
+  font-size: 32px;
   height: 24px;
-  line-height: 20px;
+  line-height: 18px;
   text-align: center;
   width: 24px;
 }
