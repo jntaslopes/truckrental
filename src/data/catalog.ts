@@ -376,7 +376,7 @@ const detailCtas: TruckDetailCta[] = [
     title: "Ver em uma concessionária",
     copy: "Encontre uma unidade próxima e conheça este modelo pessoalmente",
     cta: "Encontrar concessionária",
-    href: "/#concessionarias",
+    href: "",
   },
 ];
 

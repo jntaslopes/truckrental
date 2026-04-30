@@ -332,7 +332,6 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
           onClose={() => setIsProposalDrawerOpen(false)}
           onRemoveItem={removeProposalItem}
           onQuantityChange={changeProposalQuantity}
-          onSubmit={() => setIsProposalDrawerOpen(false)}
         />
       ) : null}
     </>

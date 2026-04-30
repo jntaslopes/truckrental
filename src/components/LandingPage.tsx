@@ -475,9 +475,9 @@ function OperationSection() {
             ))}
           </div>
 
-          <a className="outline-cta benefits-cta" href="#faq">
+          <button className="outline-cta benefits-cta" type="button">
             Entender tudo que está incluso
-          </a>
+          </button>
         </div>
       </div>
     </section>
@@ -581,9 +581,9 @@ function PlansSection() {
               </div>
             </div>
 
-            <a href="#catalogo" className="outline-cta centered comparison-cta">
+            <Link href="/caminhoes" className="outline-cta centered comparison-cta">
               Ver todos os caminhões disponíveis
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -597,14 +597,14 @@ function AssistanceSection() {
       title: "Simule sua frota online",
       copy: "Selecione os modelos e receba uma proposta personalizada",
       cta: "Ver caminhões disponíveis",
-      href: "#catalogo",
+      href: "/caminhoes",
     },
     {
       icon: "icon-specialist.svg",
       title: "Fale com um especialista",
       copy: "Nossa equipe ajuda a montar a melhor solução para sua operação",
       cta: "Falar com um especialista",
-      href: "#proposta",
+      href: "",
     },
     {
       icon: "icon-dealer-pin.svg",
@@ -642,9 +642,19 @@ function AssistanceSection() {
                       <h3>{path.title}</h3>
                       <p>{path.copy}</p>
                     </div>
-                    <a href={path.href} className="outline-cta">
-                      {path.cta}
-                    </a>
+                    {path.href.startsWith("/") ? (
+                      <Link href={path.href} className="outline-cta">
+                        {path.cta}
+                      </Link>
+                    ) : path.href ? (
+                      <a href={path.href} className="outline-cta">
+                        {path.cta}
+                      </a>
+                    ) : (
+                      <button type="button" className="outline-cta">
+                        {path.cta}
+                      </button>
+                    )}
                   </article>
                 ))}
               </div>
@@ -984,19 +994,16 @@ export function ProposalDrawer({
   onClose,
   onRemoveItem,
   onQuantityChange,
-  onSubmit,
 }: {
   selectedItems: ProposalItem[];
   onClose: () => void;
   onRemoveItem: (id: string) => void;
   onQuantityChange: (id: string, quantity: number) => void;
-  onSubmit: () => void;
 }) {
   const selectedLabel = selectedItems.length === 1 ? "1 modelo selecionado" : `${selectedItems.length} modelos selecionados`;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    onSubmit();
   }
 
   function handleQuantityChange(id: string, event: ChangeEvent<HTMLInputElement>) {
@@ -1152,7 +1159,7 @@ export function ProposalDrawer({
           <button type="button" className="proposal-cancel" onClick={onClose}>
             Cancelar
           </button>
-          <button type="submit" className="proposal-submit">
+          <button type="button" className="proposal-submit">
             Solicitar Proposta
             <img className="action-icon button-icon button-icon-on-dark" src={asset("icon-arrow-right.svg")} alt="" />
           </button>
@@ -1252,7 +1259,6 @@ export function LandingPage() {
           onClose={() => setIsProposalDrawerOpen(false)}
           onRemoveItem={removeProposalItem}
           onQuantityChange={changeProposalQuantity}
-          onSubmit={() => setIsProposalDrawerOpen(false)}
         />
       ) : null}
     </>
