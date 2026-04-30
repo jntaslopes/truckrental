@@ -147,6 +147,7 @@ function CatalogFilterSidebar({
             max={defaultCapacityRange.max}
             step="1"
             value={filters.capacityMin}
+            onInput={(event) => onCapacityChange("min", Number(event.currentTarget.value))}
             onChange={(event) => onCapacityChange("min", Number(event.target.value))}
           />
           <input
@@ -156,32 +157,19 @@ function CatalogFilterSidebar({
             max={defaultCapacityRange.max}
             step="1"
             value={filters.capacityMax}
+            onInput={(event) => onCapacityChange("max", Number(event.currentTarget.value))}
             onChange={(event) => onCapacityChange("max", Number(event.target.value))}
           />
         </div>
         <div className="capacity-scale">
-          <label>
-            <input
-              aria-label="Capacidade mínima em toneladas"
-              type="number"
-              min={defaultCapacityRange.min}
-              max={filters.capacityMax}
-              value={filters.capacityMin}
-              onChange={(event) => onCapacityChange("min", Number(event.target.value))}
-            />
+          <span className="capacity-scale-mark" aria-label="Capacidade mínima em toneladas">
+            <span className="capacity-scale-value">{filters.capacityMin}</span>
             <span>t</span>
-          </label>
-          <label>
-            <input
-              aria-label="Capacidade máxima em toneladas"
-              type="number"
-              min={filters.capacityMin}
-              max={defaultCapacityRange.max}
-              value={filters.capacityMax}
-              onChange={(event) => onCapacityChange("max", Number(event.target.value))}
-            />
+          </span>
+          <span className="capacity-scale-mark" aria-label="Capacidade máxima em toneladas">
+            <span className="capacity-scale-value">{filters.capacityMax}</span>
             <span>t</span>
-          </label>
+          </span>
         </div>
       </section>
     </aside>
