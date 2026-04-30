@@ -65,21 +65,29 @@ function clampCapacity(value: number) {
   return Math.max(defaultCapacityRange.min, Math.min(defaultCapacityRange.max, value));
 }
 
+function getSelectedFilterCount(filters: CatalogFilters) {
+  return catalogFilterSections.reduce((total, section) => total + filters[section.key].length, 0);
+}
+
 function CatalogFilterSidebar({
   filters,
   active,
   onToggleOption,
   onCapacityChange,
   onClear,
+  className,
+  id,
 }: {
   filters: CatalogFilters;
   active: boolean;
   onToggleOption: (key: CatalogFilterKey, option: string) => void;
   onCapacityChange: (edge: "min" | "max", value: number) => void;
   onClear: () => void;
+  className?: string;
+  id?: string;
 }) {
   return (
-    <aside className="catalog-sidebar" aria-label="Filtros de caminhões">
+    <aside className={["catalog-sidebar", className].filter(Boolean).join(" ")} id={id} aria-label="Filtros de caminhões">
       <div className="catalog-filter-header">
         <h2>Filtros</h2>
         {active ? (
@@ -184,6 +192,7 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const initialFilters = useMemo(() => getFiltersFromApplication(initialApplication), [initialApplication]);
   const [filters, setFilters] = useState<CatalogFilters>(initialFilters);
 
@@ -203,6 +212,7 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
   );
 
   const filtersActive = hasActiveFilters(filters);
+  const selectedFilterCount = getSelectedFilterCount(filters);
   const filteredTrucks = useMemo(
     () =>
       catalogTrucks.filter(
@@ -278,6 +288,10 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
     });
   }
 
+  function clearFilters() {
+    setFilters(defaultFilters);
+  }
+
   return (
     <>
       <Header proposalCount={selectedIds.length} activePath="/caminhoes" />
@@ -287,7 +301,7 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
           active={filtersActive}
           onToggleOption={toggleFilterOption}
           onCapacityChange={updateCapacityFilter}
-          onClear={() => setFilters(defaultFilters)}
+          onClear={clearFilters}
         />
         <section className="catalog-main">
           <nav className="catalog-breadcrumb" aria-label="Breadcrumb">
@@ -302,6 +316,18 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
             <p>Selecione diferentes caminhões e solicite uma proposta personalizada para sua operação.</p>
           </div>
           <div className="catalog-divider" />
+          <div className="catalog-mobile-toolbar">
+            <button
+              className="catalog-filter-trigger"
+              type="button"
+              aria-controls="catalog-mobile-filters"
+              aria-expanded={isMobileFilterOpen}
+              onClick={() => setIsMobileFilterOpen(true)}
+            >
+              <span>Filtros</span>
+              {filtersActive ? <strong>{selectedFilterCount}</strong> : null}
+            </button>
+          </div>
           <p className="catalog-count">{filteredTrucks.length} modelos encontrados</p>
           <div className="catalog-grid">
             {filteredTrucks.map((truck) => (
@@ -317,6 +343,41 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
           </div>
         </section>
       </main>
+      {isMobileFilterOpen ? (
+        <div className="catalog-filter-dialog" role="dialog" aria-modal="true" aria-label="Filtros de caminhões">
+          <button
+            className="catalog-filter-backdrop"
+            type="button"
+            aria-label="Fechar filtros"
+            onClick={() => setIsMobileFilterOpen(false)}
+          />
+          <div className="catalog-filter-sheet">
+            <div className="catalog-filter-sheet-top">
+              <p>Filtrar modelos</p>
+              <button type="button" aria-label="Fechar filtros" onClick={() => setIsMobileFilterOpen(false)}>
+                ×
+              </button>
+            </div>
+            <CatalogFilterSidebar
+              id="catalog-mobile-filters"
+              className="catalog-sidebar-mobile"
+              filters={filters}
+              active={filtersActive}
+              onToggleOption={toggleFilterOption}
+              onCapacityChange={updateCapacityFilter}
+              onClear={clearFilters}
+            />
+            <div className="catalog-filter-sheet-actions">
+              <button className="secondary-action" type="button" onClick={clearFilters}>
+                Limpar
+              </button>
+              <button className="primary-action" type="button" onClick={() => setIsMobileFilterOpen(false)}>
+                Aplicar filtros
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <Footer />
       <ProposalSummary
         selectedItems={selectedItems}
