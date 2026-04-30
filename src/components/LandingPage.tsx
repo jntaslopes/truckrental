@@ -2,7 +2,16 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type CSSProperties, type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Fragment,
+  type CSSProperties,
+  type ChangeEvent,
+  type FormEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import {
   faqs,
@@ -72,13 +81,13 @@ export function Header({
         <Link
           href="/#concessionarias"
           className="ghost-action"
-          aria-label="Encontrar uma Concessionária"
+          aria-label={"Encontrar uma Concession\u00E1ria"}
         >
           <img src={asset("icon-pin.svg")} alt="" />
           <span className="ghost-action-label ghost-action-label-full">
-            Encontrar uma Concessionária
+            {"Encontrar uma Concession\u00E1ria"}
           </span>
-          <span className="ghost-action-label ghost-action-label-short">Concessionárias</span>
+          <span className="ghost-action-label ghost-action-label-short">{"Concession\u00E1rias"}</span>
         </Link>
         <div className="cart-action" aria-label={`${proposalCount} itens na proposta`} role="img">
           <img src={asset("icon-cart.svg")} alt="" />
@@ -94,50 +103,108 @@ export function Header({
 
 function Hero() {
   const benefits = [
-    ["benefit-sign.svg", "Assinatura", "100% digital ou presencial"],
+    ["benefit-sign.svg", "Assinatura", "mensal"],
     ["benefit-calendar.svg", "Planos", "de 36 ou 60 meses"],
     ["benefit-doc.svg", "Sem entrada", "e valor fixo mensal"],
-    ["benefit-truck.svg", "Gestão", "completa da frota"],
-  ];
+    ["benefit-truck.svg", "Gest\u00E3o", "completa da frota"],
+  ] as const;
+
+  const visualLabels = [
+    { text: ["Prote\u00E7\u00E3o e seguro"], className: "hero-label-protection" },
+    { text: ["Documenta\u00E7\u00E3o", "Completa"], className: "hero-label-documentation" },
+    { text: ["Assist\u00EAncia 24 horas", "em todo o Brasil"], className: "hero-label-support" },
+    { text: ["Manuten\u00E7\u00E3o Preventiva"], className: "hero-label-maintenance" },
+    { text: ["Mais previsibilidade", "para o seu neg\u00F3cio"], className: "hero-label-visibility" },
+  ] as const;
+
+  const visualIcons = [
+    ["hero-icon-shield.svg", "hero-icon-frame-shield", "hero-icon-shield"],
+    ["hero-icon-document.svg", "hero-icon-frame-document", "hero-icon-document"],
+    ["hero-icon-support.svg", "hero-icon-frame-support", "hero-icon-support"],
+    ["hero-icon-wrench.svg", "hero-icon-frame-wrench", "hero-icon-wrench"],
+    ["hero-icon-data.svg", "hero-icon-frame-data", "hero-icon-data"],
+  ] as const;
 
   return (
     <section id="top" className="hero-section">
-      <div className="hero-copy">
-        <p className="eyebrow">ASSINATURA DE CAMINHÕES</p>
-        <h1>
-          Sua frota,
-          <br />
-          sem burocracia e
-          <br />
-          <span className="accent-line">com tudo incluso</span>
-        </h1>
-        <p>
-          Assine a frota ideal para o seu negócio e tenha mais controle,
-          previsibilidade e eficiência na sua operação.
-        </p>
-        <a href="#catalogo" className="secondary-action">
-              Ver todos os caminhões disponíveis
-        </a>
-      </div>
+      <div className="hero-surface-shell">
+        <div className="hero-surface">
+          <div className="hero-inner">
+            <div className="hero-copy">
+              <p className="eyebrow">{"ASSINATURA DE CAMINH\u00D5ES"}</p>
+              <h1>
+                <span className="hero-copy-line">Sua frota,</span>
+                <span className="hero-copy-line">sem burocracia e</span>
+                <span className="hero-copy-line accent-line">com tudo incluso</span>
+              </h1>
+              <p>
+                {"Assine a frota ideal para o seu neg\u00F3cio e tenha mais controle,"}
+                {" previsibilidade e efici\u00EAncia na sua opera\u00E7\u00E3o."}
+              </p>
+              <a href="#catalogo" className="hero-cta">
+                {"Ver todos os caminh\u00F5es para assinatura"}
+              </a>
+            </div>
 
-      <div className="hero-visual" aria-label="Caminhão Volkswagen Meteor">
-        <img className="hero-composite" src={asset("hero-truck.png")} alt="Caminhão Volkswagen Meteor" />
-        <div className="hero-badge">
-          <img src={asset("benefit-money.svg")} alt="" />
-          <span>Assinatura mensal</span>
+            <div className="hero-visual">
+              <div className="hero-visual-stage">
+                <img className="hero-vectors" src={asset("hero-vectors.svg")} alt="" aria-hidden="true" />
+                <div className="hero-trucks" aria-hidden="true">
+                  <img className="hero-truck-small-shadow" src={asset("hero-truck-small-shadow.png")} alt="" />
+                  <img className="hero-truck-large" src={asset("hero-truck-large.png")} alt="" />
+                </div>
+                <div className="hero-icons" aria-hidden="true">
+                  {visualIcons.map(([icon, frameClassName, iconClassName]) => (
+                    <div key={icon} className={`hero-visual-icon-frame ${frameClassName}`}>
+                      <img
+                        className={`hero-visual-icon ${iconClassName}`}
+                        src={asset(icon)}
+                        alt=""
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="hero-badge">
+                  <div className="hero-badge-icon" aria-hidden="true">
+                    <img src={asset("hero-badge-money.svg")} alt="" />
+                  </div>
+                  <span>Assinatura mensal</span>
+                </div>
+                <div className="hero-visual-texts">
+                  <div className="hero-visual-labels">
+                    {visualLabels.map((label) => (
+                      <div
+                        key={`${label.className}-${label.text[0]}`}
+                        className={`hero-visual-label ${label.className}`}
+                      >
+                        {label.text.map((line) => (
+                          <span key={line}>{line}</span>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="benefits-bar">
-        {benefits.map(([icon, title, copy]) => (
-          <div className="benefit" key={title}>
-            <img src={asset(icon)} alt="" />
-            <div>
-              <strong>{title}</strong>
-              <span>{copy}</span>
-            </div>
-          </div>
-        ))}
+      <div className="hero-benefits-bar">
+        <div className="hero-benefits-inner">
+          {benefits.map(([icon, title, copy], index) => (
+            <Fragment key={title}>
+              <div className="hero-benefit">
+                <img src={asset(icon)} alt="" />
+                <div>
+                  <strong>{title}</strong>
+                  <span>{copy}</span>
+                </div>
+              </div>
+              {index < benefits.length - 1 ? <span className="hero-benefit-divider" aria-hidden="true" /> : null}
+            </Fragment>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -880,7 +947,7 @@ function FaqSection() {
             );
           })}
         </div>
-        <a href="#top" className="outline-cta centered">Ver todas as perguntas frequentes (+50)</a>
+        <span className="outline-cta centered static-link">Ver todas as perguntas frequentes (+50)</span>
       </div>
     </section>
   );
@@ -890,11 +957,13 @@ function FooterColumn({
   title,
   links,
   twoColumns,
+  disabledLinks,
   children,
 }: {
   title: string;
   links: string[];
   twoColumns?: boolean;
+  disabledLinks?: boolean;
   children?: React.ReactNode;
 }) {
   return (
@@ -902,7 +971,11 @@ function FooterColumn({
       <h3>{title}</h3>
       <div className={twoColumns ? "footer-list two-columns" : "footer-list"}>
         {links.map((link, index) => (
-          <a href="#top" key={`${link}-${index}`}>{link}</a>
+          disabledLinks ? (
+            <span className="static-link" key={`${link}-${index}`}>{link}</span>
+          ) : (
+            <a href="#top" key={`${link}-${index}`}>{link}</a>
+          )
         ))}
       </div>
       {children}
@@ -928,19 +1001,20 @@ export function Footer() {
           <FooterColumn
             title="VW Truck Rental"
             links={["O que é o VW Truck Rental", "Como Funciona", "Perguntas Frequentes"]}
+            disabledLinks
           />
           <FooterColumn title="Caminhões por assinatura" links={footerTruckLinks} twoColumns />
-          <FooterColumn title="Atendimento" links={["Central de Ajuda"]}>
-            <a className="footer-button" href="#proposta">Falar com um especialista</a>
+          <FooterColumn title="Atendimento" links={["Central de Ajuda"]} disabledLinks>
+            <span className="footer-button static-link">Falar com um especialista</span>
           </FooterColumn>
         </div>
       </div>
       <div className="footer-bottom">
         <div>
-          <a href="#top">Aviso de Privacidade</a>
-          <a href="#top">Política de Cookies</a>
-          <a href="#top">Termos de Uso</a>
-          <a href="#top">Condições Legais</a>
+          <span className="static-link">Aviso de Privacidade</span>
+          <span className="static-link">Política de Cookies</span>
+          <span className="static-link">Termos de Uso</span>
+          <span className="static-link">Condições Legais</span>
         </div>
         <span>© Volkswagen Financial Services 2025</span>
       </div>
