@@ -5224,6 +5224,22 @@ html.proposal-drawer-open body {
   }
 }
 
+@media (max-width: 1440px) and (min-width: 1281px) {
+  .catalog-page {
+    grid-template-columns: 288px minmax(0, 1fr);
+  }
+
+  .catalog-grid {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1387px) and (min-width: 1281px) {
+  .catalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 1520px) and (min-width: 1281px) {
   .site-header {
     padding-left: clamp(20px, 2.4vw, 40px);
