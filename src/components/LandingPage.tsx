@@ -19,6 +19,7 @@ import {
   trucks,
   type Truck,
 } from "@/data/landing";
+import { useMotionObserver } from "@/lib/useMotionObserver";
 import { TruckImageStack } from "@/components/TruckImageStack";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
@@ -227,7 +228,7 @@ function Hero() {
   ] as const;
 
   return (
-    <section id="top" className="hero-section">
+    <section id="top" className="hero-section" data-motion="fade">
       <div className="hero-surface-shell">
         <div className="hero-surface">
           <div className="hero-inner">
@@ -258,7 +259,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-            <a href="#catalogo" className="hero-cta">
+            <a href="#catalogo" className="hero-cta" data-motion="fade">
               {"Ver todos os caminh\u00F5es para assinatura"}
             </a>
             <p className="hero-disclaimer">
@@ -271,7 +272,7 @@ function Hero() {
       <div className="hero-benefits-bar">
         <div className="hero-benefits-inner">
           {benefits.map(([icon, title, copy]) => (
-            <div className="hero-benefit" key={title}>
+            <div className="hero-benefit" key={title} data-motion="card">
               <img src={asset(icon)} alt="" />
               <div>
                 <strong>{title}</strong>{" "}
@@ -454,7 +455,7 @@ function TruckCatalogue({
               onQuantityChange={onQuantityChange}
             />
           ))}
-          <Link href="/caminhoes" className="catalog-all-models-card">
+          <Link href="/caminhoes" className="catalog-all-models-card" data-motion="card">
             <span>
               <strong>Ver todos</strong> os
               <br />
@@ -482,7 +483,7 @@ type BenefitCard = {
 
 function BenefitCard({ item }: { item: BenefitCard }) {
   return (
-    <article className={`benefits-card${item.cardClassName ? ` ${item.cardClassName}` : ""}`}>
+    <article className={`benefits-card${item.cardClassName ? ` ${item.cardClassName}` : ""}`} data-motion="card">
       <div className="benefits-card-icon-surface" aria-hidden="true">
         <img
           className={`benefits-card-icon${item.iconClassName ? ` ${item.iconClassName}` : ""}`}
@@ -559,7 +560,7 @@ function OperationSection() {
   ];
 
   return (
-    <section id="como-funciona" className="benefits-section">
+    <section id="como-funciona" className="benefits-section" data-motion="section">
       <div className="benefits-inner">
         <div className="benefits-heading">
           <p>Tudo incluso para você não se preocupar</p>
@@ -599,7 +600,7 @@ function OperationSection() {
           </div>
         </div>
 
-        <div className="benefits-footer">
+        <div className="benefits-footer" data-motion="section">
           <div className="benefits-footer-copy">
             <h3>
               Tudo incluso. <span>Um só contrato.</span>
@@ -643,14 +644,14 @@ function PlansSection() {
   ];
 
   return (
-    <section id="proposta" className="plans-section page-band">
+    <section id="proposta" className="plans-section page-band" data-motion="section">
       <div className="page-inner">
         <div className="comparison-layout">
-          <div className="comparison-hero">
+          <div className="comparison-hero" data-motion="fade">
             <img src={asset("comparison-hero.jpg")} alt="Profissional Volkswagen ao lado da frota" />
           </div>
 
-          <div className="comparison-content">
+          <div className="comparison-content" data-motion="section">
             <div className="comparison-heading">
               <h2>
                 Assinatura <span>vs compra de frota</span>
@@ -759,7 +760,7 @@ function AssistanceSection() {
   ];
 
   return (
-    <section className="assistance-section page-band soft">
+    <section className="assistance-section page-band soft" data-motion="section">
       <div className="page-inner assistance-grid">
         <div className="assistance-shell">
           <div className="assistance-panel">
@@ -778,7 +779,7 @@ function AssistanceSection() {
 
               <div className="assistance-cards">
                 {paths.map((path) => (
-                  <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title}>
+                  <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title} data-motion="card">
                     <div className="assistance-card-copy">
                       <img src={asset(path.icon)} alt="" />
                       <h3>{path.title}</h3>
@@ -803,7 +804,7 @@ function AssistanceSection() {
             </div>
           </div>
 
-          <div className="assistance-photo">
+          <div className="assistance-photo" data-motion="fade">
             <img src={asset("assistance-fleet.png")} alt="Atendimento Volkswagen Caminhões" />
           </div>
         </div>
@@ -884,7 +885,7 @@ function DealersSection() {
   );
 
   return (
-    <section id="concessionarias" className="dealers-section page-band">
+    <section id="concessionarias" className="dealers-section page-band" data-motion="section">
       <div className="page-inner">
         <div className="dealer-section-header">
           <p>Por todo o Brasil</p>
@@ -897,7 +898,7 @@ function DealersSection() {
           </p>
         </div>
         <div className="dealer-layout">
-          <aside className="dealer-search" aria-label="Busca demonstrativa de concessionária">
+          <aside className="dealer-search" aria-label="Busca demonstrativa de concessionária" data-motion="card">
             <h3>Encontre uma Concessionária</h3>
             <div className="dealer-controls">
               <label className="dealer-field" htmlFor="dealer-city">
@@ -938,7 +939,7 @@ function DealersSection() {
               </div>
             </article>
           </aside>
-          <div className="map-panel" aria-label="Mapa ilustrativo de concessionárias">
+          <div className="map-panel" aria-label="Mapa ilustrativo de concessionárias" data-motion="fade">
             <img className="dealer-map-image" src={asset("dealer-map-figma.png")} alt="" aria-hidden="true" />
             <button className="map-card" type="button">
               Ver todas as concessionárias
@@ -949,7 +950,7 @@ function DealersSection() {
           <div className="dealer-section-divider" />
           <div className="dealer-stats">
             {dealerStats.map((item) => (
-              <div className={`dealer-stat ${item.brand ? "brand-stat" : ""}`} key={item.title}>
+              <div className={`dealer-stat ${item.brand ? "brand-stat" : ""}`} key={item.title} data-motion="card">
                 <img src={asset(item.icon)} alt="" />
                 <strong>{item.title}</strong>
                 <span>{item.copy}</span>
@@ -994,7 +995,7 @@ function FaqSection() {
   const [openIndex, setOpenIndex] = useState(-1);
 
   return (
-    <section id="faq" className="faq-section">
+    <section id="faq" className="faq-section" data-motion="section">
       <div className="faq-panel">
         <div className="faq-heading">
           <p>Respostas rápidas para seguir com mais clareza</p>
@@ -1060,7 +1061,7 @@ function FooterColumn({
 
 export function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" data-motion="fade">
       <div className="footer-top">
         <div className="footer-brand">
           <a className="footer-logo" href="#top" aria-label="VW Truck Rental">
@@ -1319,6 +1320,8 @@ export function ProposalDrawer({
 }
 
 export function LandingPage() {
+  useMotionObserver();
+
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
