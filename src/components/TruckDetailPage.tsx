@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { faqs } from "@/data/landing";
 import { catalogTrucks, type CatalogTruck, type TruckDetailData } from "@/data/catalog";
+import { useMotionObserver } from "@/lib/useMotionObserver";
 import {
   Footer,
   Header,
@@ -83,6 +84,8 @@ function DetailFaq() {
 }
 
 export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
+  useMotionObserver();
+
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
@@ -292,9 +295,9 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
     <>
       <Header proposalCount={selectedIds.length} activePath="/caminhoes" />
       <main id="top" className="truck-detail-page">
-        <section className="truck-detail-hero">
+        <section className="truck-detail-hero" data-motion="fade">
           <div className="page-inner truck-detail-hero-inner">
-            <div className="truck-detail-hero-copy">
+            <div className="truck-detail-hero-copy" data-motion="section">
               <nav className="catalog-breadcrumb" aria-label="Breadcrumb">
                 <Link href="/">Página inicial</Link>
                 <span aria-hidden="true">›</span>
@@ -310,7 +313,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
               <div className="truck-detail-rule" />
               <div className="truck-detail-specs" aria-label="Especificações principais">
                 {truck.specs.map((spec) => (
-                  <div className="truck-detail-spec" key={spec.label}>
+                  <div className="truck-detail-spec" key={spec.label} data-motion="card">
                     <img src={spec.icon} alt="" />
                     <strong>{spec.value}</strong>
                     <span>{spec.label}</span>
@@ -318,7 +321,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                 ))}
               </div>
             </div>
-            <div className="truck-detail-hero-media">
+            <div className="truck-detail-hero-media" data-motion="fade">
               <TruckImageStack
                 image={truck.heroImage}
                 shadowImage={truck.heroShadowImage}
@@ -330,7 +333,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           </div>
         </section>
 
-        <section id="proposta" className="truck-detail-actions">
+        <section id="proposta" className="truck-detail-actions" data-motion="fade">
           <div className="page-inner detail-action-row">
             <button className="primary-action" type="button" onClick={() => toggleTruck(truck)}>
               {selectedIds.includes(truck.id) ? "Remover da proposta" : "Solicitar proposta"}
@@ -340,12 +343,12 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           </div>
         </section>
 
-        <section className="truck-detail-info page-band">
+        <section className="truck-detail-info page-band" data-motion="section">
           <div className="page-inner">
             <h2>Detalhes do caminhão</h2>
             <div className="truck-detail-list">
               {truck.details.map((item) => (
-                <div className="truck-detail-list-item" key={item}>
+                <div className="truck-detail-list-item" key={item} data-motion="fade">
                   <img src={asset("detail-icon-check.svg")} alt="" />
                   <span>{item}</span>
                 </div>
@@ -367,6 +370,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
               }
             }}
             style={{ "--gallery-drag-offset": `${galleryDragOffset}px` } as CSSProperties}
+            data-motion="fade"
           >
             {visibleGalleryPhotos.map((photo) => (
               <img
@@ -386,7 +390,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           </div>
         </section>
 
-        <section className="detail-comparison-section page-band">
+        <section className="detail-comparison-section page-band" data-motion="section">
           <div className="page-inner">
             <DetailTitle
               title="Assinatura"
@@ -433,7 +437,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           </div>
         </section>
 
-        <section className="detail-next-section page-band">
+        <section className="detail-next-section page-band" data-motion="section">
           <div className="page-inner">
             <DetailTitle
               eyebrow="Dê o próximo agora mesmo"
@@ -443,7 +447,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
             <p className="detail-section-copy">Selecione a melhor forma de avançar com este modelo e receber uma proposta para sua operação.</p>
             <div className="detail-cta-grid">
               {truck.ctas.map((item) => (
-                <article className="detail-cta-card" key={item.title}>
+                <article className="detail-cta-card" key={item.title} data-motion="card">
                   <img src={item.icon} alt="" />
                   <h3>{item.title}</h3>
                   <p>{item.copy}</p>
@@ -462,7 +466,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           </div>
         </section>
 
-        <section className="detail-related-section page-band">
+        <section className="detail-related-section page-band" data-motion="section">
           <div className="page-inner">
             <DetailTitle
               eyebrow="Caminhões disponíveis para assinatura"
