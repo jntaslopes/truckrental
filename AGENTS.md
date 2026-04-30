@@ -32,6 +32,21 @@ Before executing any plan, update yourself on the real project context:
 - Resolve merges and conflicts autonomously, preserving both local and remote intent whenever possible. The user will not resolve conflicts manually.
 - Preserve Brazilian Portuguese text as UTF-8. Do not introduce mojibake; if you touch a file with mojibake, fix the affected text.
 
+### Mandatory Sync Baseline
+
+- The canonical source of updates is always `origin/main`.
+- The updates to incorporate are always the ones from `origin/main`, not merely the current local branch or its upstream.
+- In the main worktree on `main`, incorporate `origin/main` into the local `main` before implementing.
+- In an auxiliary worktree on a working branch, incorporate `origin/main` into that working branch before implementing.
+- In `detached HEAD`, do not continue into implementation from the detached commit. Create or attach a working branch first, then incorporate `origin/main` before continuing. `detached HEAD` is acceptable only for temporary inspection.
+- `git fetch origin` only updates remote refs; it does not move the currently checked out worktree. Treat the worktree as updated only after `origin/main` has been incorporated into the checked out state without discarding local changes.
+- Never use the generic instruction "update the worktree" without naming `origin/main` as the baseline to incorporate.
+
+Decision rule:
+- "Which updates should I pull in?" -> always `origin/main`.
+- "What is the base for current work?" -> always `origin/main`.
+- "Can I keep implementing in `detached HEAD` after fetch?" -> no; only temporary inspection is allowed.
+
 ## Browser Automation Policy
 
 For any local navigation, inspection, visual validation, clicking, typing, screenshot capture, or manual UI testing task:
