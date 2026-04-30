@@ -76,7 +76,7 @@ function DetailFaq() {
             );
           })}
         </div>
-        <a href="#top" className="outline-cta centered">Ver todas as perguntas frequentes (+50)</a>
+        <span className="outline-cta centered static-link">Ver todas as perguntas frequentes (+50)</span>
       </div>
     </section>
   );
