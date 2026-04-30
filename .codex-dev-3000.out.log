@@ -1,0 +1,12 @@
+
+> truckrental-2@0.1.0 dev
+> next dev --webpack --port 3000
+
+▲ Next.js 16.2.4 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.18.12:3000
+✓ Ready in 903ms
+
+○ Compiling / ...
+ GET / 200 in 345ms (next.js: 10ms, application-code: 334ms)
+[?25h
