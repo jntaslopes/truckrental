@@ -4072,6 +4072,7 @@ html.proposal-drawer-open body {
 
 .truck-detail-page {
   background: var(--white);
+  overflow-x: clip;
   padding-top: 88px;
 }
 
@@ -4086,10 +4087,13 @@ html.proposal-drawer-open body {
 .truck-detail-hero-inner {
   display: grid;
   grid-template-columns: minmax(0, 647px) minmax(480px, 1fr);
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
   min-height: 0;
   padding-bottom: 40px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: max(40px, calc((100vw - 1440px) / 2));
+  padding-right: max(40px, calc((100vw - 1440px) / 2));
   position: relative;
 }
 
@@ -4191,7 +4195,7 @@ html.proposal-drawer-open body {
   bottom: -88px;
   height: 443px;
   position: absolute;
-  right: -136px;
+  right: calc((100vw - 1440px) / 2 - 136px);
   width: 886px;
 }
 
