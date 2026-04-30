@@ -2737,7 +2737,7 @@ html.proposal-drawer-open body {
   flex-direction: column;
   gap: 40px;
   justify-content: center;
-  padding: 100px 105px;
+  padding: 100px 40px;
   scroll-margin-top: 88px;
   width: 100%;
 }
@@ -2746,6 +2746,8 @@ html.proposal-drawer-open body {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  margin: 0 auto;
+  max-width: 1440px;
   width: 100%;
 }
 
@@ -2860,7 +2862,10 @@ html.proposal-drawer-open body {
 .footer-top {
   display: flex;
   gap: 32px;
+  margin: 0 auto;
+  max-width: 1440px;
   padding: 40px;
+  width: 100%;
 }
 
 .footer-brand {
@@ -2931,7 +2936,10 @@ html.proposal-drawer-open body {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1440px;
   padding: 20px 40px;
+  width: 100%;
 }
 
 .footer-bottom div {
