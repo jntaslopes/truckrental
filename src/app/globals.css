@@ -1454,9 +1454,7 @@ html.proposal-drawer-open body {
 .benefits-card {
   align-items: center;
   background: var(--white);
-  border: 1px solid #d8e1ea;
   border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 30, 80, 0.04);
   display: flex;
   gap: 24px;
   justify-content: flex-start;
@@ -1745,7 +1743,7 @@ html.proposal-drawer-open body {
   height: 100%;
   inset: 0;
   object-fit: cover;
-  object-position: 34% center;
+  object-position: center top;
   position: absolute;
   width: 100%;
 }
@@ -4358,10 +4356,6 @@ html.proposal-drawer-open body {
     padding: 96px clamp(16px, 3vw, 32px) 84px;
   }
 
-  .comparison-hero img {
-    object-position: 38% center;
-  }
-
   .comparison-layout {
     --comparison-side-space: clamp(16px, 3vw, 32px);
     --comparison-gap: var(--comparison-side-space);
@@ -4395,10 +4389,6 @@ html.proposal-drawer-open body {
 }
 
 @media (max-width: 1280px) {
-  .comparison-hero img {
-    object-position: 44% center;
-  }
-
   .comparison-layout {
     --comparison-gap: var(--comparison-side-space);
     --comparison-content-max: 752px;
