@@ -8,6 +8,7 @@ import {
   type CatalogFilterKey,
   type CatalogTruck,
 } from "@/data/catalog";
+import { useMotionObserver } from "@/lib/useMotionObserver";
 import {
   Header,
   Footer,
@@ -87,7 +88,12 @@ function CatalogFilterSidebar({
   id?: string;
 }) {
   return (
-    <aside className={["catalog-sidebar", className].filter(Boolean).join(" ")} id={id} aria-label="Filtros de caminhões">
+    <aside
+      className={["catalog-sidebar", className].filter(Boolean).join(" ")}
+      id={id}
+      aria-label="Filtros de caminhões"
+      data-motion="section"
+    >
       <div className="catalog-filter-header">
         <h2>Filtros</h2>
         {active ? (
@@ -177,6 +183,8 @@ function CatalogFilterSidebar({
 }
 
 export function TruckCatalogPage({ initialApplication }: { initialApplication?: string }) {
+  useMotionObserver();
+
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
@@ -291,13 +299,13 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
           onCapacityChange={updateCapacityFilter}
           onClear={clearFilters}
         />
-        <section className="catalog-main">
-          <nav className="catalog-breadcrumb" aria-label="Breadcrumb">
+        <section className="catalog-main" data-motion="section">
+          <nav className="catalog-breadcrumb" aria-label="Breadcrumb" data-motion="fade">
             <Link href="/">Página inicial</Link>
             <span aria-hidden="true">›</span>
             <span>Caminhões</span>
           </nav>
-          <div className="catalog-heading">
+          <div className="catalog-heading" data-motion="section">
             <h1>
               Explore os modelos <span>e monte sua frota</span>
             </h1>
@@ -316,8 +324,8 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
               {filtersActive ? <strong>{selectedFilterCount}</strong> : null}
             </button>
           </div>
-          <p className="catalog-count">{filteredTrucks.length} modelos encontrados</p>
-          <div className="catalog-grid">
+          <p className="catalog-count" data-motion="fade">{filteredTrucks.length} modelos encontrados</p>
+          <div className="catalog-grid" data-motion="section">
             {filteredTrucks.map((truck) => (
               <TruckSelectionCard
                 key={truck.id}
