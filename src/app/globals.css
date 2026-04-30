@@ -3850,8 +3850,8 @@ html.proposal-drawer-open body {
   border: 2px solid var(--bright-blue);
   border-radius: 50%;
   cursor: pointer;
-  height: 12px;
-  width: 12px;
+  height: 16px;
+  width: 16px;
 }
 
 .capacity-slider input[type="range"]::-moz-range-thumb {
@@ -3859,8 +3859,8 @@ html.proposal-drawer-open body {
   border: 2px solid var(--bright-blue);
   border-radius: 50%;
   cursor: pointer;
-  height: 12px;
-  width: 12px;
+  height: 16px;
+  width: 16px;
 }
 
 .capacity-slider input[type="range"]:focus-visible::-webkit-slider-thumb {
@@ -3878,7 +3878,7 @@ html.proposal-drawer-open body {
   justify-content: space-between;
 }
 
-.capacity-scale label {
+.capacity-scale-mark {
   align-items: center;
   color: var(--ink);
   display: inline-flex;
@@ -3887,24 +3887,8 @@ html.proposal-drawer-open body {
   line-height: 17px;
 }
 
-.capacity-scale input {
-  background: transparent;
-  border: 0;
-  color: var(--ink);
-  font-size: 14px;
-  line-height: 17px;
-  padding: 0;
-  text-align: inherit;
-  width: 24px;
-}
-
-.capacity-scale label:last-child input {
-  text-align: right;
-}
-
-.capacity-scale input:focus-visible {
-  outline: 2px solid var(--bright-blue);
-  outline-offset: 2px;
+.capacity-scale-value {
+  min-width: 15px;
 }
 
 .catalog-main {
