@@ -4940,6 +4940,22 @@ html.proposal-drawer-open body {
     gap: 20px;
   }
 
+  .comparison-feature-subscription.comparison-feature-header {
+    order: 1;
+  }
+
+  .comparison-feature-subscription.comparison-feature-list {
+    order: 2;
+  }
+
+  .comparison-feature-financing.comparison-feature-header {
+    order: 3;
+  }
+
+  .comparison-feature-financing.comparison-feature-list {
+    order: 4;
+  }
+
   .comparison-divider-axis,
   .comparison-vs {
     display: none;
@@ -5893,6 +5909,7 @@ html.proposal-drawer-open body {
     grid-template-columns: repeat(3, minmax(0, max-content));
     gap: 20px 32px;
     height: auto;
+    align-items: center;
     justify-content: flex-start;
     position: relative;
     top: auto;
@@ -5900,8 +5917,17 @@ html.proposal-drawer-open body {
   }
 
   .trusted-company-item {
+    align-items: center;
+    display: flex;
+    justify-content: center;
     left: auto;
     position: relative;
+    top: auto;
+  }
+
+  .trusted-company-logo {
+    left: auto;
+    position: static;
     top: auto;
   }
 }
@@ -6328,6 +6354,20 @@ html.proposal-drawer-open body {
 
   .catalog-operation-card {
     height: 300px;
+  }
+
+  .catalog-operation-card.urban,
+  .catalog-operation-card.construction {
+    --catalog-image-bottom: auto;
+    --catalog-image-height: 100%;
+    --catalog-image-left: 0;
+    --catalog-image-top: 0;
+    --catalog-image-width: 100%;
+  }
+
+  .catalog-operation-card.urban .catalog-operation-banner,
+  .catalog-operation-card.construction .catalog-operation-banner {
+    object-fit: cover;
   }
 
   .catalog-operation-intro h3 {
