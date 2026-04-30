@@ -3401,6 +3401,34 @@ html.proposal-drawer-open body {
   width: 240px;
 }
 
+.footer-logo {
+  display: block;
+  height: 38px;
+  position: relative;
+  width: 196px;
+}
+
+.footer-logo-symbol,
+.footer-logo-word {
+  display: block;
+  object-fit: contain;
+  position: absolute;
+}
+
+.footer-logo-symbol {
+  height: 38px;
+  left: 0;
+  top: 0;
+  width: 38.309px;
+}
+
+.footer-logo-word {
+  height: 12.461px;
+  left: 53.457px;
+  top: 12.769px;
+  width: 144.086px;
+}
+
 .social-links {
   align-items: center;
   display: flex;

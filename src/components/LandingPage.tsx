@@ -1106,9 +1106,9 @@ export function Footer() {
     <footer className="site-footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <a className="brand inverse" href="#top">
-            <img src={asset("logo-symbol-white.svg")} alt="" className="brand-symbol" />
-            <img src={asset("logo-word-white.png")} alt="VW Truck Rental" className="brand-word" />
+          <a className="footer-logo" href="#top" aria-label="VW Truck Rental">
+            <img src={asset("footer-logo-symbol-white.svg")} alt="" className="footer-logo-symbol" />
+            <img src={asset("footer-logo-word-white.png")} alt="" className="footer-logo-word" />
           </a>
           <div className="social-links">
             <img src={asset("icon-facebook.svg")} alt="Facebook" />
