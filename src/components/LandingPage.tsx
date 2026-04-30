@@ -41,8 +41,36 @@ export function Header({
   proposalCount: number;
   activePath?: string;
 }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const disableSectionLinks = Boolean(activePath);
   const disabledNavHrefs = new Set(["/#como-funciona", "/#faq"]);
+  const mobileMenuId = "mobile-navigation-drawer";
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    const mediaQuery = window.matchMedia("(min-width: 641px)");
+    const handleViewportChange = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    mediaQuery.addEventListener("change", handleViewportChange);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      mediaQuery.removeEventListener("change", handleViewportChange);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="site-header">
@@ -96,7 +124,97 @@ export function Header({
         <Link href="/#proposta" className="primary-action">
           Falar agora com um Especialista
         </Link>
+        <button
+          type="button"
+          className="mobile-menu-toggle"
+          aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-controls={mobileMenuId}
+          aria-expanded={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
+        >
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </button>
       </div>
+
+      {isMobileMenuOpen ? (
+        <>
+          <button
+            type="button"
+            className="mobile-menu-backdrop"
+            aria-label="Fechar menu"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          <aside
+            id={mobileMenuId}
+            className="mobile-menu-drawer"
+            aria-label="Menu principal"
+          >
+            <div className="mobile-menu-drawer-header">
+              <span>Menu</span>
+              <button
+                type="button"
+                className="mobile-menu-close"
+                aria-label="Fechar menu"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <span aria-hidden="true" />
+                <span aria-hidden="true" />
+              </button>
+            </div>
+
+            <nav className="mobile-menu-nav" aria-label="Navegação mobile">
+              {navItems.map((item) => {
+                const isDisabled = disableSectionLinks && disabledNavHrefs.has(item.href);
+                const className = [
+                  activePath === item.href ? "active" : "",
+                  isDisabled ? "nav-link-disabled" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ") || undefined;
+
+                if (isDisabled) {
+                  return (
+                    <span key={item.href} className={className} aria-disabled="true">
+                      {item.label}
+                    </span>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={className}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="mobile-menu-actions">
+              <Link
+                href="/#concessionarias"
+                className="mobile-menu-ghost-action"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <img src={asset("icon-pin.svg")} alt="" />
+                <span>{"Encontrar uma Concession\u00E1ria"}</span>
+              </Link>
+              <Link
+                href="/#proposta"
+                className="mobile-menu-primary-action"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Falar agora com um Especialista
+              </Link>
+            </div>
+          </aside>
+        </>
+      ) : null}
     </header>
   );
 }

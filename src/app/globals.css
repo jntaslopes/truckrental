@@ -616,6 +616,178 @@ html.proposal-drawer-open body {
   width: 20px;
 }
 
+.mobile-menu-toggle {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  cursor: pointer;
+  display: none;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+  height: 40px;
+  justify-content: center;
+  padding: 0;
+  transition: border-color 160ms ease, color 160ms ease;
+  width: 40px;
+}
+
+.mobile-menu-toggle span {
+  background: var(--blue);
+  border-radius: 999px;
+  display: block;
+  height: 2px;
+  transition: background-color 160ms ease, transform 160ms ease;
+  width: 18px;
+}
+
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle[aria-expanded="true"] {
+  border-color: var(--bright-blue);
+}
+
+.mobile-menu-toggle:hover span,
+.mobile-menu-toggle[aria-expanded="true"] span {
+  background: var(--bright-blue);
+}
+
+.mobile-menu-backdrop {
+  background: rgba(0, 30, 80, 0.28);
+  border: 0;
+  cursor: pointer;
+  inset: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 21;
+}
+
+.mobile-menu-drawer {
+  background: var(--white);
+  box-shadow: -12px 0 32px rgba(0, 30, 80, 0.18);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  inset: 0 0 auto auto;
+  min-height: 100svh;
+  padding: 24px 20px 28px;
+  position: fixed;
+  width: min(328px, 88vw);
+  z-index: 22;
+}
+
+.mobile-menu-drawer-header {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  justify-content: space-between;
+  line-height: 19px;
+  padding-bottom: 18px;
+}
+
+.mobile-menu-close {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  height: 36px;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  width: 36px;
+}
+
+.mobile-menu-close span {
+  background: var(--blue);
+  border-radius: 999px;
+  display: block;
+  height: 2px;
+  position: absolute;
+  width: 16px;
+}
+
+.mobile-menu-close span:first-child {
+  transform: rotate(45deg);
+}
+
+.mobile-menu-close span:last-child {
+  transform: rotate(-45deg);
+}
+
+.mobile-menu-nav,
+.mobile-menu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-menu-nav a,
+.mobile-menu-nav .nav-link-disabled {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  justify-content: space-between;
+  letter-spacing: 0;
+  line-height: 19px;
+  min-height: 48px;
+  padding: 0 0 12px;
+}
+
+.mobile-menu-nav a.active {
+  color: var(--bright-blue);
+}
+
+.mobile-menu-nav .nav-link-disabled {
+  color: var(--button-secondary-content-disabled);
+  cursor: default;
+}
+
+.mobile-menu-ghost-action,
+.mobile-menu-primary-action {
+  align-items: center;
+  border-radius: 24px;
+  display: inline-flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 8px;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 19px;
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.mobile-menu-ghost-action {
+  border: 1px solid var(--button-secondary-content);
+  color: var(--button-secondary-content);
+}
+
+.mobile-menu-ghost-action img {
+  box-sizing: border-box;
+  height: 24px;
+  padding: 3px;
+  width: 24px;
+}
+
+.mobile-menu-primary-action {
+  background: var(--button-primary-bg);
+  border: 1px solid var(--button-primary-bg);
+  color: var(--button-primary-content);
+}
+
 .landing-page {
   display: block;
   overflow: visible;
@@ -6770,6 +6942,10 @@ html.proposal-drawer-open body {
 
   .header-actions {
     margin-left: auto;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
   }
 
   .hero-section {
