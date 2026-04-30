@@ -1235,10 +1235,9 @@ html.proposal-drawer-open body {
 
 .hero-benefits-inner {
   align-items: center;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr);
+  display: flex;
   height: 100%;
-  justify-content: center;
+  justify-content: space-between;
   max-width: 1440px;
   padding: 0 0 9px;
   width: min(1440px, 100vw);
@@ -1262,24 +1261,17 @@ html.proposal-drawer-open body {
 
 .hero-benefit > div {
   min-width: 0;
-}
-
-.hero-benefit-divider {
-  align-self: center;
-  background: rgba(76, 199, 244, 0.35);
-  display: block;
-  height: 30px;
-  width: 1px;
+  white-space: nowrap;
 }
 
 .hero-benefit strong {
-  display: block;
+  display: inline;
   font-size: 18px;
   line-height: 22px;
 }
 
 .hero-benefit span {
-  display: block;
+  display: inline;
   font-size: 18px;
   font-weight: 400;
   line-height: 22px;
@@ -5626,9 +5618,16 @@ html.proposal-drawer-open body {
   }
 }
 
-@media (max-width: 1649px) and (min-width: 1521px) {
+@media (max-width: 1649px) and (min-width: 1440px) {
   .hero-visual {
     --hero-visual-scale: 1.06;
+  }
+
+  .hero-benefits-inner {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: none;
+    width: 100vw;
   }
 }
 
@@ -5640,7 +5639,6 @@ html.proposal-drawer-open body {
 
 @media (min-width: 1650px) {
   .hero-benefits-inner {
-    display: flex;
     justify-content: space-between;
     width: 1440px;
   }
@@ -5650,9 +5648,6 @@ html.proposal-drawer-open body {
     padding: 10px 20px;
   }
 
-  .hero-benefit-divider {
-    flex: 0 0 auto;
-  }
 }
 
 @media (max-width: 1280px) and (min-width: 1025px) {
@@ -5752,6 +5747,12 @@ html.proposal-drawer-open body {
   }
 }
 
+@media (max-width: 1439px) and (min-width: 1025px) {
+  .hero-benefits-inner {
+    width: calc(100vw - 128px);
+  }
+}
+
 @media (max-width: 1200px) and (min-width: 1025px) {
   .hero-section {
     --hero-label-font-size: 14px;
@@ -5813,6 +5814,22 @@ html.proposal-drawer-open body {
     position: relative;
     top: auto;
     transform: translateX(20px);
+  }
+
+  .hero-benefits-inner {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: none;
+    width: calc(100vw - 32px);
+  }
+
+  .hero-benefit > div {
+    white-space: normal;
+  }
+
+  .hero-benefit strong,
+  .hero-benefit span {
+    display: block;
   }
 }
 
@@ -5956,6 +5973,7 @@ html.proposal-drawer-open body {
   }
 
   .hero-benefits-inner {
+    display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     max-width: none;
     padding: 0 0 9px;
@@ -5974,14 +5992,15 @@ html.proposal-drawer-open body {
     width: 42px;
   }
 
-  .hero-benefit strong,
-  .hero-benefit span {
-    font-size: 16px;
-    line-height: 19px;
+  .hero-benefit > div {
+    white-space: normal;
   }
 
-  .hero-benefit-divider {
-    display: none;
+  .hero-benefit strong,
+  .hero-benefit span {
+    display: block;
+    font-size: 16px;
+    line-height: 19px;
   }
 }
 
@@ -6001,6 +6020,7 @@ html.proposal-drawer-open body {
   }
 
   .hero-benefits-inner {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 16px;
     width: 100%;
@@ -6012,9 +6032,6 @@ html.proposal-drawer-open body {
     padding: 12px 8px;
   }
 
-  .hero-benefit-divider {
-    display: none;
-  }
 }
 
 @media (max-width: 1140px) {
@@ -7041,6 +7058,7 @@ html.proposal-drawer-open body {
   }
 
   .hero-benefits-inner {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 16px;
   }
