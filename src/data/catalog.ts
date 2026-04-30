@@ -94,7 +94,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityTons: 58.5,
     capacityMetric: "PBTC",
     capacitySourceUrl: sources.fenatran2024,
-    image: asset("truck-meteor-gray.png"),
+    image: asset("truck-meteor-gray-trimmed.png"),
     badges: [boltBadge, manBadge],
   },
   {
@@ -109,7 +109,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityTons: 60,
     capacityMetric: "CMT",
     capacitySourceUrl: sources.fenatran2024,
-    image: asset("truck-meteor-blue.png"),
+    image: asset("truck-meteor-blue-trimmed.png"),
     badges: [manBadge],
   },
   {
@@ -125,7 +125,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
-    shadowImage: asset("truck-constellation-shadow.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [],
   },
   {
@@ -141,7 +141,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.eDelivery,
     image: asset("truck-edelivery.png"),
-    shadowImage: asset("truck-edelivery-shadow.png"),
+    shadowImage: asset("truck-edelivery-shadow-transparent.png"),
     badges: [boltBadge, electricBadge],
   },
   {
@@ -157,7 +157,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.eDelivery,
     image: asset("truck-edelivery.png"),
-    shadowImage: asset("truck-edelivery-shadow.png"),
+    shadowImage: asset("truck-edelivery-shadow-transparent.png"),
     badges: [electricBadge],
   },
   {
@@ -173,7 +173,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.delivery11180,
     image: asset("truck-constellation.png"),
-    shadowImage: asset("truck-constellation-shadow.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [boltBadge],
   },
   {
@@ -189,7 +189,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
-    shadowImage: asset("truck-constellation-shadow.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [],
   },
   {
@@ -204,7 +204,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityTons: 30,
     capacityMetric: "PBT",
     capacitySourceUrl: sources.novosCaminhoes,
-    image: asset("truck-meteor-gray.png"),
+    image: asset("truck-meteor-gray-trimmed.png"),
     badges: [],
   },
   {
@@ -220,7 +220,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.delivery11180,
     image: asset("truck-constellation.png"),
-    shadowImage: asset("truck-constellation-shadow.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [],
   },
   {
@@ -235,8 +235,8 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityTons: 14,
     capacityMetric: "PBT",
     capacitySourceUrl: sources.delivery11180,
-    image: asset("truck-edelivery.png"),
-    shadowImage: asset("truck-edelivery-shadow.png"),
+    image: asset("truck-constellation.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [boltBadge],
   },
   {
@@ -252,7 +252,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
-    shadowImage: asset("truck-constellation-shadow.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [],
   },
   {
@@ -268,7 +268,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
-    shadowImage: asset("truck-constellation-shadow.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [],
   },
   {
@@ -283,7 +283,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityTons: 25,
     capacityMetric: "PBT",
     capacitySourceUrl: sources.novosCaminhoes,
-    image: asset("truck-meteor-gray.png"),
+    image: asset("truck-meteor-gray-trimmed.png"),
     badges: [],
   },
   {
@@ -298,7 +298,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityTons: 70,
     capacityMetric: "CMT",
     capacitySourceUrl: sources.constellation20480,
-    image: asset("truck-meteor-blue.png"),
+    image: asset("truck-meteor-blue-trimmed.png"),
     badges: [manBadge],
   },
   {
@@ -313,7 +313,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityTons: 60,
     capacityMetric: "CMT",
     capacitySourceUrl: sources.constellation20480,
-    image: asset("truck-meteor-blue.png"),
+    image: asset("truck-meteor-blue-trimmed.png"),
     badges: [manBadge],
   },
   {
@@ -329,7 +329,7 @@ export const catalogTrucks: CatalogTruck[] = [
     capacityMetric: "PBT",
     capacitySourceUrl: sources.novosCaminhoes,
     image: asset("truck-constellation.png"),
-    shadowImage: asset("truck-constellation-shadow.png"),
+    shadowImage: asset("truck-constellation-shadow-transparent.png"),
     badges: [customBadge],
   },
 ];

@@ -37,7 +37,7 @@ export const trucks: Truck[] = [
     slug: "meteor-28480",
     family: "Meteor",
     model: "28.480HD 6x2 Highline",
-    image: "/assets/figma/truck-meteor-gray.png",
+    image: "/assets/figma/truck-meteor-gray-trimmed.png",
     badges: [
       {
         label: "Entrega em até 7 dias",
@@ -58,7 +58,7 @@ export const trucks: Truck[] = [
     slug: "meteor-29530",
     family: "Meteor",
     model: "29.530 6x4 Highline",
-    image: "/assets/figma/truck-meteor-blue.png",
+    image: "/assets/figma/truck-meteor-blue-trimmed.png",
     badges: [
       {
         label: "Motor MAN D26",
@@ -75,7 +75,7 @@ export const trucks: Truck[] = [
     family: "Constellation",
     model: "33.480 6x4",
     image: "/assets/figma/truck-constellation.png",
-    shadowImage: "/assets/figma/truck-constellation-shadow.png",
+    shadowImage: "/assets/figma/truck-constellation-shadow-transparent.png",
     badges: [],
     detail:
       "Modelo versátil para aplicações severas, transporte regional e operações com carga elevada.",
@@ -86,7 +86,7 @@ export const trucks: Truck[] = [
     family: "e-Delivery",
     model: "14",
     image: "/assets/figma/truck-edelivery.png",
-    shadowImage: "/assets/figma/truck-edelivery-shadow.png",
+    shadowImage: "/assets/figma/truck-edelivery-shadow-transparent.png",
     badges: [
       {
         label: "Entrega em até 7 dias",
