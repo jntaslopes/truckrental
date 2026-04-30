@@ -253,14 +253,26 @@ function Hero() {
                   alt=""
                   aria-hidden="true"
                 />
-                <div className="hero-badge">
+                <div className="hero-badge hero-price-badge">
                   <span>Plano a partir</span>
                   <span>de R$5mil/mês*</span>
                 </div>
+                <div className="hero-badge hero-subscription-badge">
+                  <img src={asset("hero-badge-subscription.svg")} alt="" aria-hidden="true" />
+                  <span>Assinatura mensal</span>
+                </div>
               </div>
             </div>
-            <a href="#catalogo" className="hero-cta" data-motion="fade">
-              {"Ver todos os caminh\u00F5es para assinatura"}
+            <a
+              href="#catalogo"
+              className="hero-cta"
+              data-motion="fade"
+              aria-label="Ver todos os caminhões para assinatura"
+            >
+              <span className="hero-cta-label-full">{"Ver todos os caminh\u00F5es para assinatura"}</span>
+              <span className="hero-cta-label-short" aria-hidden="true">
+                {"Ver caminh\u00F5es"}
+              </span>
             </a>
             <p className="hero-disclaimer">
               Valor referente a modelos de entrada, sujeito a disponibilidade, região e análise de crédito
