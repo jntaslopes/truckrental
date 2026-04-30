@@ -19,16 +19,11 @@ export function TruckImageStack({
 }: TruckImageStackProps) {
   const stackClassName = ["truck-image-stack", className].filter(Boolean).join(" ");
   const composedFrontClassName = ["truck-image-layer", "truck-image-layer-front", frontClassName].filter(Boolean).join(" ");
-
-  if (!shadowImage) {
-    return <img src={image} alt={alt} className={composedFrontClassName} />;
-  }
-
   const backClassName = ["truck-image-layer", "truck-image-layer-shadow", shadowClassName].filter(Boolean).join(" ");
 
   return (
     <div className={stackClassName}>
-      <img src={shadowImage} alt="" aria-hidden="true" className={backClassName} />
+      {shadowImage ? <img src={shadowImage} alt="" aria-hidden="true" className={backClassName} /> : null}
       <img src={image} alt={alt} className={composedFrontClassName} />
     </div>
   );
