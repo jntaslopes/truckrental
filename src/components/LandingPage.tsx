@@ -226,22 +226,6 @@ function Hero() {
     ["benefit-truck.svg", "Gest\u00E3o", "completa da frota"],
   ] as const;
 
-  const visualLabels = [
-    { text: ["Prote\u00E7\u00E3o e seguro"], className: "hero-label-protection" },
-    { text: ["Documenta\u00E7\u00E3o", "Completa"], className: "hero-label-documentation" },
-    { text: ["Assist\u00EAncia 24 horas", "em todo o Brasil"], className: "hero-label-support" },
-    { text: ["Manuten\u00E7\u00E3o Preventiva"], className: "hero-label-maintenance" },
-    { text: ["Mais previsibilidade", "para o seu neg\u00F3cio"], className: "hero-label-visibility" },
-  ] as const;
-
-  const visualIcons = [
-    ["hero-icon-shield.svg", "hero-icon-frame-shield", "hero-icon-shield"],
-    ["hero-icon-document.svg", "hero-icon-frame-document", "hero-icon-document"],
-    ["hero-icon-support.svg", "hero-icon-frame-support", "hero-icon-support"],
-    ["hero-icon-wrench.svg", "hero-icon-frame-wrench", "hero-icon-wrench"],
-    ["hero-icon-data.svg", "hero-icon-frame-data", "hero-icon-data"],
-  ] as const;
-
   return (
     <section id="top" className="hero-section">
       <div className="hero-surface-shell">
@@ -258,51 +242,28 @@ function Hero() {
                 {"Assine a frota ideal para o seu neg\u00F3cio e tenha mais controle,"}
                 {" previsibilidade e efici\u00EAncia na sua opera\u00E7\u00E3o."}
               </p>
-              <a href="#catalogo" className="hero-cta">
-                {"Ver todos os caminh\u00F5es para assinatura"}
-              </a>
             </div>
 
             <div className="hero-visual">
               <div className="hero-visual-stage">
-                <img className="hero-vectors" src={asset("hero-vectors.svg")} alt="" aria-hidden="true" />
-                <div className="hero-trucks" aria-hidden="true">
-                  <img className="hero-truck-small-shadow" src={asset("hero-truck-small-shadow.png")} alt="" />
-                  <img className="hero-truck-large" src={asset("hero-truck-large.png")} alt="" />
-                </div>
-                <div className="hero-icons" aria-hidden="true">
-                  {visualIcons.map(([icon, frameClassName, iconClassName]) => (
-                    <div key={icon} className={`hero-visual-icon-frame ${frameClassName}`}>
-                      <img
-                        className={`hero-visual-icon ${iconClassName}`}
-                        src={asset(icon)}
-                        alt=""
-                      />
-                    </div>
-                  ))}
-                </div>
+                <img
+                  className="hero-banner-image"
+                  src={asset("hero-banner-visual.png")}
+                  alt=""
+                  aria-hidden="true"
+                />
                 <div className="hero-badge">
-                  <div className="hero-badge-icon" aria-hidden="true">
-                    <img src={asset("hero-badge-money.svg")} alt="" />
-                  </div>
-                  <span>Assinatura mensal</span>
-                </div>
-                <div className="hero-visual-texts">
-                  <div className="hero-visual-labels">
-                    {visualLabels.map((label) => (
-                      <div
-                        key={`${label.className}-${label.text[0]}`}
-                        className={`hero-visual-label ${label.className}`}
-                      >
-                        {label.text.map((line) => (
-                          <span key={line}>{line}</span>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
+                  <span>Plano a partir</span>
+                  <span>de R$5mil/mês*</span>
                 </div>
               </div>
             </div>
+            <a href="#catalogo" className="hero-cta">
+              {"Ver todos os caminh\u00F5es para assinatura"}
+            </a>
+            <p className="hero-disclaimer">
+              Valor referente a modelos de entrada, sujeito a disponibilidade, região e análise de crédito
+            </p>
           </div>
         </div>
       </div>
