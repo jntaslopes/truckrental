@@ -3282,6 +3282,12 @@ html.proposal-drawer-open body {
   line-height: 17px;
 }
 
+.footer-list span {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+}
+
 .footer-button {
   margin-top: 24px;
 }
@@ -3306,6 +3312,22 @@ html.proposal-drawer-open body {
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
+}
+
+.static-link {
+  cursor: default;
+}
+
+.outline-cta.static-link:hover,
+.outline-cta.static-link:active {
+  border-color: var(--button-secondary-content);
+  color: var(--button-secondary-content);
+}
+
+.footer-button.static-link:hover,
+.footer-button.static-link:active {
+  border-color: var(--button-secondary-inverse-content);
+  color: var(--button-secondary-inverse-content);
 }
 
 .proposal-summary {

@@ -937,7 +937,7 @@ function FaqSection() {
             );
           })}
         </div>
-        <a href="#top" className="outline-cta centered">Ver todas as perguntas frequentes (+50)</a>
+        <span className="outline-cta centered static-link">Ver todas as perguntas frequentes (+50)</span>
       </div>
     </section>
   );
@@ -947,11 +947,13 @@ function FooterColumn({
   title,
   links,
   twoColumns,
+  disabledLinks,
   children,
 }: {
   title: string;
   links: string[];
   twoColumns?: boolean;
+  disabledLinks?: boolean;
   children?: React.ReactNode;
 }) {
   return (
@@ -959,7 +961,11 @@ function FooterColumn({
       <h3>{title}</h3>
       <div className={twoColumns ? "footer-list two-columns" : "footer-list"}>
         {links.map((link, index) => (
-          <a href="#top" key={`${link}-${index}`}>{link}</a>
+          disabledLinks ? (
+            <span className="static-link" key={`${link}-${index}`}>{link}</span>
+          ) : (
+            <a href="#top" key={`${link}-${index}`}>{link}</a>
+          )
         ))}
       </div>
       {children}
@@ -985,19 +991,20 @@ export function Footer() {
           <FooterColumn
             title="VW Truck Rental"
             links={["O que é o VW Truck Rental", "Como Funciona", "Perguntas Frequentes"]}
+            disabledLinks
           />
           <FooterColumn title="Caminhões por assinatura" links={footerTruckLinks} twoColumns />
-          <FooterColumn title="Atendimento" links={["Central de Ajuda"]}>
-            <a className="footer-button" href="#proposta">Falar com um especialista</a>
+          <FooterColumn title="Atendimento" links={["Central de Ajuda"]} disabledLinks>
+            <span className="footer-button static-link">Falar com um especialista</span>
           </FooterColumn>
         </div>
       </div>
       <div className="footer-bottom">
         <div>
-          <a href="#top">Aviso de Privacidade</a>
-          <a href="#top">Política de Cookies</a>
-          <a href="#top">Termos de Uso</a>
-          <a href="#top">Condições Legais</a>
+          <span className="static-link">Aviso de Privacidade</span>
+          <span className="static-link">Política de Cookies</span>
+          <span className="static-link">Termos de Uso</span>
+          <span className="static-link">Condições Legais</span>
         </div>
         <span>© Volkswagen Financial Services 2025</span>
       </div>
