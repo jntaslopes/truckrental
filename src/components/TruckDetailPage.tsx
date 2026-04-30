@@ -336,7 +336,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
               {selectedIds.includes(truck.id) ? "Remover da proposta" : "Solicitar proposta"}
               <img className="action-icon button-icon" src={asset("icon-add.svg")} alt="" />
             </button>
-            <Link className="outline-cta" href="/#proposta">Falar agora com um Especialista</Link>
+            <button className="outline-cta" type="button">Falar agora com um Especialista</button>
           </div>
         </section>
 
@@ -451,8 +451,10 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                     <button type="button" className="outline-cta" onClick={() => toggleTruck(truck)}>
                       {item.cta}
                     </button>
-                  ) : (
+                  ) : item.href ? (
                     <a className="outline-cta" href={item.href}>{item.cta}</a>
+                  ) : (
+                    <button type="button" className="outline-cta">{item.cta}</button>
                   )}
                 </article>
               ))}
@@ -518,7 +520,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           onClose={() => setIsProposalDrawerOpen(false)}
           onRemoveItem={removeProposalItem}
           onQuantityChange={changeProposalQuantity}
-          onSubmit={() => setIsProposalDrawerOpen(false)}
         />
       ) : null}
     </>
