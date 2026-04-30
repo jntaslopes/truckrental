@@ -3,7 +3,6 @@
 /* eslint-disable @next/next/no-img-element */
 
 import {
-  Fragment,
   type CSSProperties,
   type ChangeEvent,
   type FormEvent,
@@ -310,17 +309,14 @@ function Hero() {
 
       <div className="hero-benefits-bar">
         <div className="hero-benefits-inner">
-          {benefits.map(([icon, title, copy], index) => (
-            <Fragment key={title}>
-              <div className="hero-benefit">
-                <img src={asset(icon)} alt="" />
-                <div>
-                  <strong>{title}</strong>
-                  <span>{copy}</span>
-                </div>
+          {benefits.map(([icon, title, copy]) => (
+            <div className="hero-benefit" key={title}>
+              <img src={asset(icon)} alt="" />
+              <div>
+                <strong>{title}</strong>{" "}
+                <span>{copy}</span>
               </div>
-              {index < benefits.length - 1 ? <span className="hero-benefit-divider" aria-hidden="true" /> : null}
-            </Fragment>
+            </div>
           ))}
         </div>
       </div>
