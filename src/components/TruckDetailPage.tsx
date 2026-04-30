@@ -370,7 +370,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
               }
             }}
             style={{ "--gallery-drag-offset": `${galleryDragOffset}px` } as CSSProperties}
-            data-motion="fade"
           >
             {visibleGalleryPhotos.map((photo) => (
               <img
