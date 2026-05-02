@@ -1,0 +1,2427 @@
+.landing-page {
+  display: block;
+  overflow: visible;
+  position: static;
+}
+
+.landing-page > section:not(.hero-section) {
+  display: block;
+  overflow: visible;
+  position: relative;
+}
+
+.hero-section {
+  --site-header-height: 88px;
+  --hero-benefits-height: 124px;
+  --hero-surface-scale: min(1, calc(100vw / 1650px));
+  --hero-surface-height: 623px;
+  --hero-copy-height: 293px;
+  --hero-visual-scale: 0.893;
+  --hero-visual-left: 596px;
+  --hero-copy-top: calc((var(--hero-surface-height) - var(--hero-copy-height)) / 2);
+
+  background: var(--white);
+  box-sizing: border-box;
+  height: auto;
+  min-height: calc(var(--site-header-height) + (var(--hero-surface-height) * var(--hero-surface-scale)) + var(--hero-benefits-height));
+  overflow: hidden;
+  padding-top: var(--site-header-height);
+  position: relative;
+}
+
+.hero-surface-shell {
+  height: calc(var(--hero-surface-height) * var(--hero-surface-scale));
+  position: relative;
+}
+
+.hero-surface {
+  height: var(--hero-surface-height);
+  left: 50%;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%) scale(var(--hero-surface-scale));
+  transform-origin: top center;
+  width: 1650px;
+}
+
+.hero-inner {
+  height: var(--hero-surface-height);
+  inset: 0;
+  overflow: visible;
+  position: absolute;
+}
+
+.hero-copy {
+  animation: rise 600ms ease both;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  left: clamp(64px, calc((100vw - 1440px) / 2), 106px);
+  min-height: var(--hero-copy-height);
+  position: absolute;
+  top: var(--hero-copy-top);
+  width: 534px;
+  z-index: 3;
+}
+
+.eyebrow {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 48px;
+  margin: 0;
+  width: 453px;
+}
+
+.hero-copy h1 .accent-line,
+.section-title h2 span,
+.plans-section .section-title h2 span,
+.dealers-section .section-title h2 span {
+  color: var(--bright-blue);
+  font-weight: 300;
+}
+
+.hero-copy h1 .hero-copy-line {
+  display: block;
+}
+
+.hero-copy h1 .accent-line {
+  display: inline;
+}
+
+.hero-copy h1 .hero-copy-line.accent-line {
+  display: block;
+}
+
+.hero-copy > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 19px;
+  margin: 16px 0 32px;
+  width: 409px;
+}
+
+.hero-cta {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--button-secondary-content);
+  border-radius: 24px;
+  color: var(--button-secondary-content);
+  display: inline-flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 8px;
+  height: 48px;
+  justify-content: center;
+  line-height: 19px;
+  padding: 8px 20px;
+  position: absolute;
+  left: clamp(64px, calc((100vw - 1440px) / 2), 106px);
+  top: 405px;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  white-space: nowrap;
+  width: 314px;
+  z-index: 3;
+}
+
+.hero-cta:hover {
+  border-color: var(--button-secondary-content-hover);
+  color: var(--button-secondary-content-hover);
+}
+
+.hero-cta:active {
+  border-color: var(--button-secondary-content-active);
+  color: var(--button-secondary-content-active);
+}
+
+.hero-cta:disabled {
+  border-color: var(--button-secondary-border-disabled);
+  color: var(--button-secondary-content-disabled);
+  cursor: default;
+}
+
+.hero-cta-label-short {
+  display: none;
+}
+
+.hero-visual {
+  height: calc(566px * var(--hero-visual-scale));
+  left: var(--hero-visual-left);
+  overflow: visible;
+  position: absolute;
+  top: calc((var(--hero-surface-height) - (566px * var(--hero-visual-scale))) / 2);
+  width: calc(994.389px * var(--hero-visual-scale));
+  z-index: 1;
+}
+
+.hero-visual-stage {
+  height: 566px;
+  left: 0;
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  transform: scale(var(--hero-visual-scale));
+  transform-origin: left top;
+  width: 994.389px;
+  z-index: 1;
+}
+
+.hero-banner-image {
+  display: block;
+  height: 566px;
+  inset: 0;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  width: 994.389px;
+  z-index: 1;
+}
+
+.hero-badge {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-weight: 700;
+  justify-content: center;
+  position: absolute;
+  transform: scale(var(--hero-badge-local-scale, 1));
+  transform-origin: left top;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.hero-price-badge {
+  background: var(--bright-blue);
+  border-radius: 999px 999px 137px 999px;
+  flex-direction: column;
+  font-size: 15px;
+  left: 309px;
+  line-height: 19.5px;
+  min-height: 59px;
+  padding: 10px 21px 10px 20px;
+  top: 62px;
+}
+
+.hero-subscription-badge {
+  background: #4cc7f4;
+  border-radius: 999px;
+  flex-direction: row;
+  font-size: 16px;
+  font-style: italic;
+  gap: 10px;
+  height: 56px;
+  left: 686px;
+  line-height: 1;
+  min-height: 56px;
+  padding: 10px 20px;
+  top: 188px;
+  z-index: 4;
+}
+
+.hero-badge img {
+  display: block;
+  flex: 0 0 auto;
+  height: 32px;
+  width: 32px;
+}
+
+.hero-badge span {
+  color: var(--white);
+  display: block;
+}
+
+.hero-subscription-badge span {
+  color: #0f475c;
+}
+
+.hero-disclaimer {
+  color: var(--muted);
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  left: calc(var(--hero-visual-left) + ((994.389px * var(--hero-visual-scale) - 660px) / 2));
+  line-height: 12px;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: calc(((var(--hero-surface-height) - (566px * var(--hero-visual-scale))) / 2) + (566px * var(--hero-visual-scale)) - 12px);
+  width: 660px;
+  z-index: 3;
+}
+
+
+.hero-benefits-bar {
+  align-items: center;
+  background: var(--blue);
+  border-bottom: 4px solid var(--cyan);
+  display: flex;
+  height: 124px;
+  justify-content: center;
+  margin-left: calc(50% - 50vw);
+  position: relative;
+  width: 100vw;
+  z-index: 2;
+}
+
+.hero-benefits-inner {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  max-width: 1440px;
+  padding: 0 0 9px;
+  width: min(1440px, 100vw);
+}
+
+.hero-benefit {
+  align-items: center;
+  color: var(--white);
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  min-height: 100%;
+  min-width: 0;
+  padding: 20px;
+}
+
+.hero-benefit img {
+  height: 48px;
+  width: 48px;
+}
+
+.hero-benefit > div {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.hero-benefit strong {
+  display: inline;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.hero-benefit span {
+  display: inline;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.page-band {
+  padding: 100px 40px;
+}
+
+.page-band.soft {
+  background: var(--soft);
+}
+
+.page-inner {
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+}
+
+.section-title {
+  margin-bottom: 40px;
+}
+
+.section-title p {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.section-title h2 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
+  margin: 0;
+  position: relative;
+}
+
+.section-title h2::after {
+  background: var(--cyan);
+  bottom: -10px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 80px;
+}
+
+.section-title.section-title-catalog {
+  margin-bottom: 46px;
+}
+
+.section-title.section-title-catalog h2 {
+  max-width: 860px;
+}
+
+.section-title.section-title-catalog h2 span {
+  color: var(--blue);
+  font-family: "VW Head Light", "VW Head", Arial, sans-serif;
+  font-weight: 300;
+}
+
+.truck-grid {
+  align-items: start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.truck-card {
+  background: linear-gradient(to bottom, var(--panel) 0 158px, var(--white) 158px 100%);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  container: truck-card / inline-size;
+  min-height: 491px;
+  overflow: hidden;
+  position: relative;
+  transition: border 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.truck-card:hover {
+  box-shadow: 0 18px 42px rgba(0, 30, 80, 0.12);
+  transform: translateY(-3px);
+}
+
+.truck-card.selected {
+  border-color: var(--bright-blue);
+  border-width: 2px;
+}
+
+.select-dot {
+  background: transparent;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  flex: 0 0 auto;
+  height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.select-dot:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 130, 214, 0.22);
+  outline: 0;
+}
+
+.truck-card.selected .select-dot,
+.catalog-truck-card.selected .select-dot {
+  background: var(--bright-blue);
+  border-color: var(--bright-blue);
+}
+
+.truck-card.selected .select-dot::after,
+.catalog-truck-card.selected .select-dot::after {
+  border: solid var(--white);
+  border-width: 0 2px 2px 0;
+  content: "";
+  height: 9px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -58%) rotate(45deg);
+  width: 5px;
+}
+
+.catalogue-section {
+  background: var(--white);
+}
+
+.catalogue-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 220ms var(--motion-ease), transform 220ms var(--motion-ease);
+}
+
+.catalogue-reveal.catalogue-reveal-operations {
+  transition-delay: 40ms;
+}
+
+.catalogue-reveal.catalogue-reveal-grid {
+  transition-delay: 80ms;
+}
+
+.catalogue-section-visible .catalogue-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.catalog-operation-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-bottom: 24px;
+}
+
+.catalog-operation-intro {
+  align-self: center;
+  padding-right: 12px;
+}
+
+.catalog-operation-intro h3 {
+  color: var(--blue);
+  font-family: "VW Head Light", "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 29px;
+  margin: 0 0 28px;
+  max-width: 248px;
+}
+
+.catalog-operation-intro h3 span {
+  font-family: "VW Head Bold", "VW Head", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.catalog-operation-intro p {
+  color: var(--ink);
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+  max-width: 252px;
+}
+
+.catalog-operation-card {
+  background: #e5e9eb;
+  border: 1px solid #dadfe2;
+  border-radius: 8px;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  height: 320px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  transition: border-color 180ms ease;
+}
+
+.catalog-operation-card:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.catalog-operation-banner {
+  bottom: var(--catalog-image-bottom, 0);
+  display: block;
+  height: var(--catalog-image-height, auto);
+  left: var(--catalog-image-left, 0);
+  max-width: none;
+  position: absolute;
+  top: var(--catalog-image-top, auto);
+  transform-origin: center center;
+  transition: transform 220ms ease;
+  width: var(--catalog-image-width, 100%);
+  z-index: 0;
+}
+
+.catalog-operation-card::after {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, var(--catalog-overlay-top, 0.4)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  content: "";
+  height: 137px;
+  left: -1px;
+  pointer-events: none;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  transition: opacity 180ms ease;
+  z-index: 1;
+}
+
+.catalog-operation-content {
+  color: #f4f5f6;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  inset: 0 auto auto 0;
+  justify-content: center;
+  padding: 24px;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.catalog-operation-content h4 {
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+}
+
+.catalog-operation-content p {
+  color: inherit;
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0;
+  max-width: 221px;
+}
+
+.catalog-operation-card.road {
+  --catalog-overlay-top: 0.4;
+  --catalog-image-bottom: -91px;
+  --catalog-image-height: 519px;
+  --catalog-image-left: -42px;
+  --catalog-image-width: 464px;
+}
+
+.catalog-operation-card.urban {
+  --catalog-overlay-top: 0.6;
+  --catalog-image-bottom: auto;
+  --catalog-image-height: 407px;
+  --catalog-image-left: -90px;
+  --catalog-image-top: -15px;
+  --catalog-image-width: 392px;
+}
+
+.catalog-operation-card.construction {
+  --catalog-overlay-top: 0.2;
+  --catalog-image-bottom: -141px;
+  --catalog-image-height: 494px;
+  --catalog-image-left: -78px;
+  --catalog-image-width: 411px;
+}
+
+.catalog-operation-card.distribution {
+  --catalog-overlay-top: 0.6;
+  --catalog-image-bottom: -183px;
+  --catalog-image-height: 750px;
+  --catalog-image-left: -151px;
+  --catalog-image-width: 569.118px;
+}
+
+.catalogue-section .truck-grid {
+  align-items: start;
+  gap: 24px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.catalog-all-models-card {
+  align-items: center;
+  align-self: start;
+  background: var(--button-primary-bg);
+  border: 1px solid #dadfe2;
+  border-radius: 8px;
+  color: var(--button-primary-content);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 407px;
+  justify-content: flex-end;
+  min-height: 407px;
+  padding: 40px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.catalog-all-models-card span {
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 29px;
+}
+
+.catalog-all-models-card strong {
+  font-weight: 700;
+}
+
+.catalog-all-models-card img {
+  display: block;
+  height: 72px;
+  transition: transform 180ms ease;
+  width: 72px;
+}
+
+.catalog-all-models-card:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.catalog-all-models-card:active {
+  background: var(--button-primary-bg-active);
+  border-color: var(--button-primary-bg-active);
+  color: var(--button-primary-content);
+}
+
+.truck-media {
+  align-items: flex-start;
+  background: transparent;
+  display: flex;
+  height: 221px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.truck-image {
+  height: 202px;
+  max-width: none;
+  object-fit: contain;
+  position: absolute;
+  top: 30px;
+  width: 404px;
+}
+
+.truck-image-stack {
+  display: block;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.truck-image-layer {
+  display: block;
+  transition: transform var(--motion-fast) ease;
+}
+
+.truck-image-layer-shadow {
+  mix-blend-mode: multiply;
+}
+
+.truck-content {
+  background: transparent;
+  padding: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-truck-heading {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.card-truck-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.truck-content h3 {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+}
+
+.truck-content p {
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 27px;
+  margin: 0;
+}
+
+.badges {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  height: 24px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.truck-card .badges {
+  gap: 6px;
+}
+
+.truck-card .badge.engine {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.badge {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 2px;
+  height: 24px;
+  line-height: 14px;
+  justify-content: center;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+@container truck-card (max-width: 319px) {
+  .truck-card .badge:nth-child(n + 2) {
+    display: none;
+  }
+}
+
+.badge img {
+  height: 16px;
+  object-fit: contain;
+  width: 16px;
+}
+
+.badge.success {
+  background: var(--green);
+  color: var(--white);
+}
+
+.badge.engine {
+  background: #d1d9f2;
+  color: var(--blue);
+  padding: 4px 8px;
+}
+
+.badge.electric {
+  background: #dff5ff;
+  color: var(--blue);
+}
+
+.badge.neutral {
+  background: var(--soft);
+  color: var(--blue);
+}
+
+.text-link {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: var(--blue);
+  font-size: 16px;
+  justify-content: flex-start;
+  line-height: 19px;
+  padding: 16px 0 0;
+  text-decoration: underline;
+  width: 100%;
+}
+
+.text-link + .text-link {
+  margin-top: 16px;
+}
+
+.action-icon {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.text-link .text-link-icon {
+  height: 16px;
+  margin-left: 8px;
+  width: 16px;
+}
+
+.button-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.button-icon-on-dark {
+  filter: brightness(0) invert(1);
+}
+
+.card-selection-row {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 92px 1px 1fr;
+  padding-top: 16px;
+  width: 100%;
+}
+
+.card-selection-row + .text-link {
+  margin-top: 16px;
+}
+
+.card-quantity-field {
+  height: 40px;
+  padding: 0 12px;
+}
+
+.card-quantity-field input {
+  padding: 12px 0 0;
+}
+
+.card-quantity-field span {
+  font-size: 10px;
+  line-height: 12px;
+  top: 7px;
+  transform: none;
+}
+
+.card-selection-divider {
+  background: var(--line);
+  display: block;
+  height: 30px;
+  width: 1px;
+}
+
+.card-remove-link {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--bright-blue);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 8px;
+  justify-content: flex-start;
+  line-height: 17px;
+  padding: 0;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.card-remove-label {
+  text-decoration: underline;
+}
+
+.card-remove-icon {
+  color: var(--bright-blue);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.centered {
+  display: flex;
+  margin: 40px auto 0;
+  width: fit-content;
+}
+
+.outline-cta .button-icon {
+  margin-left: 8px;
+}
+
+.info-line strong {
+  color: var(--blue);
+  display: block;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.info-line span {
+  color: var(--muted);
+  display: block;
+  font-size: 14px;
+  line-height: 19px;
+  margin-top: 4px;
+}
+
+.benefits-section {
+  background: #F6F7FA;
+  padding: 100px 40px;
+  scroll-margin-top: 88px;
+}
+
+.benefits-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+}
+
+.benefits-heading {
+  color: var(--ink);
+}
+
+.benefits-heading > p:first-child {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  margin: 0 0 10px;
+}
+
+.benefits-heading h2 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
+  margin: 0;
+}
+
+.benefits-heading h2 span {
+  font-weight: 300;
+}
+
+.benefits-heading-rule {
+  background: var(--cyan);
+  height: 2px;
+  margin: 10px 0 16px;
+  width: 80px;
+}
+
+.benefits-intro {
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+}
+
+.benefits-layout {
+  align-items: flex-start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 311px minmax(0, 1105px);
+  justify-content: center;
+  width: 100%;
+}
+
+.benefits-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 540.5px));
+  grid-auto-rows: 112px;
+  gap: 24px;
+  width: 100%;
+}
+
+.benefits-column {
+  align-content: start;
+  align-items: stretch;
+  display: grid;
+  gap: 16px;
+  height: auto;
+  grid-template-rows: repeat(3, 128px);
+  min-height: 416px;
+  min-width: 0;
+}
+
+.benefits-card {
+  align-items: center;
+  background: var(--white);
+  border-radius: 8px;
+  display: flex;
+  gap: 24px;
+  justify-content: flex-start;
+  height: 100%;
+  min-height: 128px;
+  padding: 24px;
+  position: relative;
+  width: 100%;
+  text-align: left;
+  transition: transform var(--motion-fast) ease;
+}
+
+.benefits-card-icon-surface {
+  align-items: center;
+  background: #f4f6fc;
+  border-radius: 8px;
+  display: flex;
+  flex: 0 0 64px;
+  height: 64px;
+  justify-content: center;
+  padding: 8px;
+  width: 64px;
+}
+
+.benefits-card-copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  width: min(100%, 324px);
+}
+
+.benefits-card h3 {
+  align-items: baseline;
+  color: var(--blue);
+  column-gap: 0.35ch;
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  flex-wrap: wrap;
+  line-height: 29px;
+  margin: 0 0 2px;
+  max-width: 100%;
+  text-wrap: balance;
+}
+
+.benefits-card-title-strong {
+  font-weight: 700;
+}
+
+.benefits-card-title-light {
+  color: var(--blue);
+  font-weight: 300;
+}
+
+.benefits-card-title--stacked {
+  align-items: flex-start;
+  max-width: 284px;
+}
+
+.benefits-card-title--stacked .benefits-card-title-strong,
+.benefits-card-title--stacked .benefits-card-title-light {
+  width: auto;
+}
+
+.benefits-card-title--inline {
+  max-width: 320px;
+}
+
+.benefits-card p {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0;
+  max-width: 324px;
+}
+
+.benefits-visual {
+  --benefits-visual-scale: 1;
+  height: 440px;
+  pointer-events: none;
+  position: relative;
+  width: 311px;
+}
+
+.benefits-rings {
+  height: 440px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: scale(var(--benefits-visual-scale));
+  transform-origin: top left;
+  width: 311px;
+}
+
+.benefits-ring {
+  display: block;
+  max-width: none;
+  position: absolute;
+}
+
+.benefits-ring-outer {
+  height: 311px;
+  left: 0;
+  top: 66px;
+  width: 311px;
+}
+
+.benefits-ring-middle {
+  height: 274px;
+  left: 18px;
+  top: 85px;
+  width: 274px;
+}
+
+.benefits-ring-inner {
+  height: 233px;
+  left: 39px;
+  top: 105px;
+  width: 233px;
+}
+
+.benefits-device-layer {
+  height: 440px;
+  left: 8px;
+  max-width: none;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 293px;
+}
+
+.benefits-device-base {
+  mix-blend-mode: multiply;
+}
+
+.benefits-device-overlay {
+  pointer-events: none;
+}
+
+.benefits-footer {
+  align-items: center;
+  background: var(--blue);
+  border: 1px solid #dadfe2;
+  border-radius: 8px;
+  display: flex;
+  gap: 24px;
+  min-height: 100px;
+  padding: 24px 48px;
+  width: 100%;
+}
+
+.benefits-footer-copy {
+  color: var(--white);
+  display: flex;
+  flex: 0 0 314px;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.benefits-footer-copy h3 {
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.benefits-footer-copy h3 span {
+  font-weight: 300;
+}
+
+.benefits-footer-copy p {
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0;
+}
+
+.benefits-footer-highlights {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.benefits-footer-divider {
+  background: rgba(255, 255, 255, 0.42);
+  flex: 0 0 1px;
+  height: 30px;
+}
+
+.benefits-footer-highlight {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  justify-content: flex-start;
+  min-height: 52px;
+  min-width: 0;
+  padding: 10px 16px;
+}
+
+.benefits-footer-highlight img {
+  filter: brightness(0) invert(1);
+  height: 32px;
+  width: 32px;
+}
+
+.benefits-footer-highlight span {
+  color: var(--white);
+  font-size: 16px;
+  line-height: 19px;
+  white-space: nowrap;
+}
+
+.benefits-card-icon {
+  height: 48px;
+  object-fit: contain;
+  transition: transform var(--motion-fast) ease;
+  width: 48px;
+}
+
+.benefits-card-icon--compact {
+  height: 38px;
+  width: 38px;
+}
+
+.benefits-cta {
+  border-color: var(--white);
+  color: var(--white);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-weight: 700;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.benefits-cta:hover,
+.benefits-cta:active {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.plans-section {
+  background: var(--white);
+  padding: 100px clamp(16px, 5vw, 100px) 88px;
+  text-align: center;
+}
+
+.plans-section .page-inner {
+  max-width: 1501px;
+  padding: 0;
+  width: 100%;
+}
+
+.comparison-layout {
+  --comparison-side-space: clamp(16px, 5vw, 100px);
+  --comparison-content-max: 906px;
+  --comparison-gap: 32px;
+  --comparison-hero-track: min(563px, max(360px, calc(100% - var(--comparison-content-max) - var(--comparison-gap))));
+  align-items: stretch;
+  display: grid;
+  gap: var(--comparison-gap);
+  grid-template-columns: var(--comparison-hero-track) minmax(0, calc(100% - var(--comparison-hero-track) - var(--comparison-gap)));
+  justify-content: start;
+  margin: 0 auto;
+  max-width: 1501px;
+  width: 100%;
+}
+
+.comparison-hero {
+  background: #d6d9dc;
+  aspect-ratio: 563 / 721;
+  height: auto;
+  justify-self: start;
+  max-width: 563px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.comparison-hero img {
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center top;
+  position: absolute;
+  width: 100%;
+}
+
+.comparison-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  height: auto;
+  justify-content: flex-start;
+  max-width: var(--comparison-content-max);
+  min-height: 761px;
+  min-width: 0;
+  padding-top: 0;
+  width: 100%;
+}
+
+.comparison-heading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 825px;
+  padding: 3px 1px 13px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.comparison-heading::after {
+  background: var(--cyan);
+  bottom: 0;
+  content: "";
+  height: 2px;
+  position: absolute;
+  width: 80px;
+}
+
+.comparison-heading h2 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
+  margin: 0;
+}
+
+.comparison-heading h2 span {
+  font-weight: 300;
+}
+
+.comparison-heading p {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+}
+
+.comparison-grid-wrap {
+  display: flex;
+  justify-content: center;
+  min-height: 526px;
+  max-width: var(--comparison-content-max);
+  position: relative;
+  width: 100%;
+}
+
+.comparison-grid {
+  background: var(--white);
+  border: 1px solid #dadfe2;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  margin: 0 auto;
+  max-width: var(--comparison-content-max);
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
+}
+
+.comparison-feature {
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.comparison-feature-header {
+  justify-content: flex-start;
+  min-height: 206px;
+  padding: 48px;
+}
+
+.comparison-feature-mark {
+  align-items: center;
+  display: flex;
+  flex: 0 0 32px;
+  height: 32px;
+}
+
+.comparison-feature-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comparison-feature-list {
+  min-height: 288px;
+  padding-bottom: 48px;
+  padding-top: 0;
+}
+
+.comparison-feature-subscription.comparison-feature-header,
+.comparison-feature-subscription.comparison-feature-list {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.comparison-feature-financing.comparison-feature-header,
+.comparison-feature-financing.comparison-feature-list {
+  padding-right: 48px;
+  padding-left: 96px;
+}
+
+.comparison-wordmark {
+  height: 11px;
+  object-fit: contain;
+  object-position: left center;
+  width: 129px;
+}
+
+.comparison-vw-badge {
+  border-radius: 50%;
+  height: 32px;
+  object-fit: cover;
+  width: 32px;
+}
+
+.comparison-feature h3 {
+  align-items: center;
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  gap: 8px;
+  line-height: 29px;
+  margin: 0;
+}
+
+.comparison-feature-financing.comparison-feature-header h3 {
+  max-width: 100%;
+}
+
+.comparison-feature h3 img {
+  height: 16px;
+  width: 16px;
+}
+
+.comparison-feature-header p {
+  color: var(--blue);
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+}
+
+.comparison-feature-list h4 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+}
+
+.comparison-feature-list ul {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+}
+
+.comparison-feature-list li {
+  align-items: center;
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 16px;
+  line-height: 19px;
+}
+
+.comparison-feature-list li img {
+  flex: 0 0 auto;
+  height: 32px;
+  width: 32px;
+}
+
+.comparison-divider-axis {
+  border-left: 1px solid #dadfe2;
+  height: 474px;
+  left: calc(50% + 0.5px);
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% + 0.5px);
+  transform: translate(-50%, -50%);
+  width: 0;
+  z-index: 2;
+}
+
+.comparison-divider-axis img {
+  display: none;
+}
+
+.comparison-vs {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 116px;
+  justify-content: center;
+  left: calc(50% + 0.5px);
+  pointer-events: none;
+  position: absolute;
+  top: calc(50% + 0.5px);
+  transform: translate(-50%, -50%);
+  width: 116px;
+  z-index: 2;
+}
+
+.comparison-vs-ring {
+  display: block;
+  position: absolute;
+}
+
+.comparison-vs-ring-outer {
+  height: 116px;
+  width: 116px;
+}
+
+.comparison-vs-ring-middle {
+  height: 86px;
+  width: 86px;
+}
+
+.comparison-vs-ring-inner {
+  height: 64px;
+  width: 64px;
+}
+
+.comparison-vs-label {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.comparison-cta.centered {
+  margin: 0 auto;
+}
+
+.assistance-grid {
+  --assistance-shell-width: 1452px;
+  --assistance-available-width: min(var(--assistance-shell-width), calc(100vw - (var(--assistance-horizontal-gap) * 2)));
+  --assistance-shell-min-height: 933px;
+  --assistance-panel-padding-block: 80px;
+  --assistance-horizontal-gap: 80px;
+  --assistance-content-max-width: 652px;
+  --assistance-content-min-width: 360px;
+  --assistance-photo-min-width: 480px;
+  --assistance-photo-width: clamp(
+    var(--assistance-photo-min-width),
+    42vw,
+    640px
+  );
+  --assistance-content-width: clamp(
+    var(--assistance-content-min-width),
+    calc(var(--assistance-available-width) - var(--assistance-photo-width) - (var(--assistance-horizontal-gap) * 2)),
+    var(--assistance-content-max-width)
+  );
+  --assistance-copy-width: var(--assistance-content-width);
+  --assistance-content-gap: 48px;
+  --assistance-card-gap: 16px;
+  --assistance-outer-gutter: 0px;
+  --assistance-panel-right-cut: 104px;
+  --assistance-photo-height: 760px;
+  --assistance-photo-top: 187px;
+
+  display: block;
+  margin: 0 auto;
+  max-width: var(--assistance-shell-width);
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  width: min(
+    var(--assistance-shell-width),
+    calc(var(--assistance-content-width) + var(--assistance-photo-width) + (var(--assistance-horizontal-gap) * 2))
+  );
+}
+
+.assistance-section.page-band.soft {
+  background: #F6F7FA;
+  padding: 100px 48px;
+}
+
+.assistance-shell {
+  display: block;
+  min-height: 0;
+  position: relative;
+}
+
+.assistance-panel {
+  background: #001e50;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--assistance-panel-padding-block) var(--assistance-horizontal-gap);
+  position: relative;
+  width: calc(100% - var(--assistance-panel-right-cut));
+}
+
+.assistance-content {
+  align-items: stretch;
+  container-name: assistance-content;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--assistance-content-gap);
+  justify-content: flex-start;
+  max-width: var(--assistance-content-width);
+  min-height: 0;
+  position: relative;
+  width: min(100%, var(--assistance-content-width));
+  z-index: 1;
+}
+
+.assistance-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: var(--assistance-copy-width);
+}
+
+.assistance-copy .eyebrow {
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  margin: 0;
+  text-transform: none;
+}
+
+.assistance-copy h2 {
+  color: var(--white);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
+  margin: 0;
+  max-width: 100%;
+  position: relative;
+}
+
+.assistance-copy h2 span {
+  display: block;
+  font-weight: 300;
+}
+
+.assistance-copy h2::after {
+  background: var(--cyan);
+  bottom: -14px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 80px;
+}
+
+.assistance-copy > p:not(.eyebrow) {
+  color: var(--white);
+  font-size: 14px;
+  line-height: 17px;
+  margin: 10px 0 0;
+  max-width: 100%;
+}
+
+.assistance-cards {
+  align-items: start;
+  display: grid;
+  gap: var(--assistance-card-gap);
+  grid-template-columns: 1fr;
+}
+
+.assistance-card {
+  align-items: center;
+  background: #042356;
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+  min-height: 224px;
+  min-width: 0;
+  padding: 24px;
+  text-align: center;
+  transition: transform var(--motion-fast) ease;
+}
+
+.assistance-card.wide {
+  grid-column: 1 / -1;
+  min-height: 256px;
+}
+
+.assistance-card-copy {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  max-width: 620px;
+  width: 100%;
+}
+
+.assistance-card-copy img {
+  height: 80px;
+  width: 80px;
+}
+
+.assistance-card h3 {
+  align-items: center;
+  color: var(--white);
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 24px;
+}
+
+.assistance-card:not(.wide) h3 {
+  min-height: 48px;
+}
+
+.assistance-card p {
+  color: var(--white);
+  font-size: 14px;
+  line-height: 17px;
+  max-width: 287px;
+}
+
+.assistance-card.wide p {
+  max-width: 620px;
+}
+
+.assistance-card .outline-cta {
+  border-color: var(--white);
+  color: var(--white);
+  height: 48px;
+  max-width: 100%;
+  min-width: 0;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.assistance-card .outline-cta:hover {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+@container assistance-content (min-width: 540px) {
+  .assistance-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container assistance-content (max-width: 539px) {
+  .assistance-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .assistance-card {
+    min-height: 0;
+  }
+
+  .assistance-card .outline-cta {
+    white-space: normal;
+    width: 100%;
+  }
+}
+
+.assistance-photo {
+  aspect-ratio: 4 / 3;
+  height: var(--assistance-photo-height);
+  margin-top: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: var(--assistance-photo-top);
+  transform: none;
+  width: var(--assistance-photo-width);
+  z-index: 2;
+}
+
+.assistance-photo img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+@media (min-width: 1000px) and (max-width: 1649px) {
+  .assistance-section.page-band.soft {
+    padding: 80px 0;
+  }
+
+  .assistance-grid {
+    --assistance-panel-padding-block: clamp(48px, 4vw, 80px);
+    --assistance-horizontal-gap: clamp(48px, 5vw, 80px);
+    --assistance-content-gap: 32px;
+    --assistance-panel-right-cut: clamp(64px, 7vw, 104px);
+    --assistance-photo-height: clamp(520px, 43vw, 760px);
+    --assistance-photo-top: clamp(150px, 11vw, 187px);
+    --assistance-shell-min-height: calc(var(--assistance-photo-top) + var(--assistance-photo-height) - var(--assistance-panel-padding-block));
+  }
+
+  .assistance-shell {
+    min-height: var(--assistance-shell-min-height);
+  }
+
+}
+
+@media (min-width: 1650px) {
+  .assistance-grid {
+    --assistance-horizontal-gap: 80px;
+    --assistance-photo-width: 640px;
+    --assistance-content-width: 652px;
+    --assistance-panel-right-cut: 104px;
+  }
+
+  .assistance-section.page-band.soft {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .assistance-shell {
+    min-height: var(--assistance-shell-min-height);
+  }
+
+}
+
+@media (max-width: 999px) {
+  .assistance-grid {
+    --assistance-shell-min-height: 0px;
+    --assistance-panel-padding-block: 48px;
+    --assistance-horizontal-gap: clamp(24px, 5vw, 40px);
+    --assistance-content-width: 100%;
+    --assistance-copy-width: 100%;
+    --assistance-content-gap: 32px;
+
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .assistance-panel {
+    padding-right: var(--assistance-horizontal-gap);
+    width: 100%;
+  }
+
+  .assistance-content {
+    max-width: none;
+    width: 100%;
+  }
+
+  .assistance-photo {
+    aspect-ratio: 4 / 3;
+    height: auto;
+    left: auto;
+    margin-top: 48px;
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+.dealers-section {
+  background: var(--white);
+  padding-bottom: 48px;
+  scroll-margin-top: 88px;
+  text-align: left;
+}
+
+.dealer-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.dealer-section-header > p:first-child {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.dealer-section-header h2 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 43px;
+  position: relative;
+}
+
+.dealer-section-header h2::after {
+  background: var(--cyan);
+  bottom: -12px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 80px;
+}
+
+.dealer-section-header h2 strong {
+  font-weight: 700;
+}
+
+.dealer-section-copy {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: 26px;
+  max-width: 1120px;
+}
+
+.dealer-layout {
+  align-items: stretch;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 445px minmax(0, 1fr);
+  overflow: hidden;
+  padding-bottom: 32px;
+}
+
+.dealer-search {
+  align-self: stretch;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  padding: 24px;
+}
+
+.dealer-search h3 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.dealer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dealer-field {
+  align-items: center;
+  border: 1px solid var(--muted);
+  border-radius: 8px;
+  cursor: text;
+  display: flex;
+  gap: 10px;
+  height: 48px;
+  padding: 0 15px;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.dealer-field:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px var(--blue);
+}
+
+.dealer-field img {
+  flex: 0 0 auto;
+  height: 22px;
+  width: 22px;
+}
+
+.dealer-field input {
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  flex: 1;
+  font-size: 14px;
+  font-weight: 400;
+  height: 100%;
+  line-height: 17px;
+  min-width: 0;
+  outline: 0;
+  padding-top: 1px;
+}
+
+.dealer-field input::placeholder {
+  color: var(--ink);
+  opacity: 1;
+}
+
+.dealer-location,
+.dealer-route,
+.dealer-details,
+.map-card {
+  align-items: center;
+  display: inline-flex;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.dealer-location:disabled {
+  cursor: default;
+}
+
+.dealer-divider,
+.dealer-section-divider {
+  background: var(--line);
+  height: 1px;
+  width: 100%;
+}
+
+.dealer-nearest-label {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.dealer-nearest-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  transition: transform var(--motion-fast) ease;
+}
+
+.dealer-nearest-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dealer-distance {
+  align-items: center;
+  align-self: flex-start;
+  background: #d1d9f2;
+  color: var(--blue);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 2px;
+  line-height: 14px;
+  padding: 4px 8px;
+}
+
+.dealer-distance img {
+  height: 16px;
+  width: 16px;
+}
+
+.dealer-nearest-card h4 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.dealer-nearest-card p {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.dealer-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dealer-route,
+.dealer-details {
+  width: 100%;
+}
+
+.map-panel {
+  align-self: stretch;
+  border-radius: 8px;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.dealer-map-image {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.map-card {
+  background: var(--white);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  z-index: 2;
+}
+
+.dealer-stats-shell {
+  padding-top: 0;
+}
+
+.dealer-stats {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 24px;
+  padding: 0;
+}
+
+.dealer-stat {
+  align-items: center;
+  display: grid;
+  grid-template-rows: 64px 43px auto;
+  justify-items: center;
+  min-height: 136px;
+  padding: 0 36px;
+  position: relative;
+  text-align: center;
+  transition: transform var(--motion-fast) ease;
+}
+
+.dealer-stat:not(:last-child)::after {
+  background: var(--line);
+  content: "";
+  height: 122px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+}
+
+.dealer-stat img {
+  align-self: start;
+  height: 64px;
+  object-fit: contain;
+  width: 64px;
+}
+
+.dealer-stat.brand-stat img {
+  align-self: center;
+  height: 43px;
+  width: 43px;
+}
+
+.dealer-stat strong {
+  align-self: start;
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  line-height: 43px;
+}
+
+.dealer-stat.brand-stat strong {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.dealer-stat span {
+  align-self: start;
+  color: var(--blue);
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  max-width: 228px;
+}
+
+.trusted-companies-shell {
+  isolation: isolate;
+  margin-top: 24px;
+  position: relative;
+}
+
+.trusted-companies-shell::before,
+.trusted-companies-shell::after {
+  background: var(--line);
+  content: "";
+  height: 1px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: 0;
+}
+
+.trusted-companies-shell::before {
+  top: 0;
+}
+
+.trusted-companies-shell::after {
+  bottom: 0;
+}
+
+.trusted-companies-shell > .dealer-section-divider {
+  display: none;
+}
+
+.trusted-companies {
+  height: 120px;
+  margin: 0 auto;
+  max-width: min(100%, 1322px);
+  overflow: hidden;
+  padding: 40px 0;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.trusted-companies > p {
+  color: var(--blue);
+  font-size: 16px;
+  left: 0;
+  line-height: 20px;
+  max-width: 201px;
+  position: absolute;
+  top: 40px;
+}
+
+.trusted-companies-list {
+  height: 40px;
+  left: 0;
+  list-style: none;
+  position: absolute;
+  top: 40px;
+  width: 100%;
+}
+
+.trusted-company-item {
+  height: 40px;
+  left: var(--trusted-company-left, var(--trusted-company-x));
+  position: absolute;
+  top: 0;
+  width: var(--trusted-company-width, auto);
+}
+
+.trusted-company-logo {
+  display: block;
+  flex: 0 0 auto;
+  height: var(--trusted-company-height);
+  left: 0;
+  position: absolute;
+  top: var(--trusted-company-offset-top);
+  width: var(--trusted-company-width);
+}
+
+.faq-section {
+  align-items: center;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  padding: 100px 40px;
+  scroll-margin-top: 88px;
+  width: 100%;
+}
+
+.faq-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+}
+
+.faq-heading {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.faq-heading p {
+  color: var(--ink);
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.faq-heading h2 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.faq-heading h2 span {
+  font-weight: 400;
+}
+
+.faq-heading-rule {
+  background: var(--cyan);
+  height: 2px;
+  width: 80px;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.accordion-item button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  justify-content: space-between;
+  line-height: 1.3;
+  min-height: 64px;
+  padding: 24px 0;
+  text-align: left;
+  width: 100%;
+}
+
+.accordion-item button span:first-child {
+  min-width: 0;
+  padding-right: 24px;
+}
+
+.accordion-icon {
+  background: var(--cyan);
+  flex: 0 0 auto;
+  height: 24px;
+  mask: url("/assets/figma/icon-chevron-down.svg") center / 16px 10px no-repeat;
+  transition: transform 180ms ease;
+  width: 40px;
+  -webkit-mask: url("/assets/figma/icon-chevron-down.svg") center / 16px 10px no-repeat;
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-item p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 24px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-4px);
+  transition: max-height 180ms ease, opacity 180ms ease, padding 180ms ease, transform 180ms ease;
+}
+
+.accordion-item p.open {
+  max-height: 220px;
+  opacity: 1;
+  padding: 0 0 24px;
+  transform: translateY(0);
+}
+
+.faq-panel > .outline-cta.centered {
+  height: 48px;
+  margin-top: 0;
+  max-width: 100%;
+  min-height: 48px;
+  width: 318px;
+}

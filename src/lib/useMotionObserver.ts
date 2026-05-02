@@ -8,6 +8,10 @@ export function useMotionObserver() {
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const observedElements = new WeakSet<Element>();
+    const isInViewport = (element: Element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+    };
 
     const reveal = (element: Element) => {
       element.classList.add("motion-visible");
@@ -38,6 +42,11 @@ export function useMotionObserver() {
       observedElements.add(element);
 
       if (reducedMotion.matches) {
+        reveal(element);
+        return;
+      }
+
+      if (isInViewport(element)) {
         reveal(element);
         return;
       }
