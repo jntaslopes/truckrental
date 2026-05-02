@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Truck Rental Preview
 
-## Getting Started
+Preview navegável da experiência VW Truck Rental construída com Next.js 16 App Router.
 
-First, run the development server:
+## Objetivo
+
+Este repositório entrega uma preview funcional de landing page, catálogo e detalhe de caminhões por assinatura. A aplicação continua bloqueada para indexação pública e a proposta funciona como prévia local, sem envio real nem integração externa.
+
+## Stack
+
+- Next.js 16.2.4
+- React 19
+- TypeScript
+- ESLint 9
+- Vitest + Testing Library
+
+## Comandos
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
+npm run test
+npm run test:watch
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O script `npm run dev` usa `scripts/codex-dev.mjs` para escolher uma porta livre do worktree atual e expor a identidade do runtime em `/api/codex-runtime`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estrutura funcional
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/`: landing page da preview
+- `/caminhoes`: catálogo filtrável
+- `/caminhoes/[slug]`: detalhe do caminhão
+## Store da proposta
 
-## Learn More
+A proposta é centralizada no `ProposalProvider` e compartilhada entre landing, catálogo e detalhe.
 
-To learn more about Next.js, take a look at the following resources:
+- persiste entre páginas
+- persiste após reload via `localStorage`
+- expõe operações de domínio para adicionar, remover, atualizar quantidade e limpar a proposta
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O drawer de proposta consome a store, permite organizar os dados da prévia e apresenta um feedback local sem envio real.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Limites atuais da preview
 
-## Deploy on Vercel
+- `robots` e metadata mantêm o projeto fora de indexação pública
+- a proposta continua somente como prévia local
+- não há integração com CRM, e-mail, analytics comercial ou backend externo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Testes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+A suíte cobre os fluxos essenciais desta preview:
+
+- hidratação e persistência da store da proposta
+- atualização de quantidade com saneamento
+- continuidade da proposta entre consumidores/páginas
+- filtro inicial do catálogo com dados unificados
+- abertura e confirmação visual do drawer em modo preview
