@@ -10,12 +10,13 @@ export type FaqItem = {
 export type NavItem = {
   label: string;
   href: string;
+  disabled?: boolean;
 };
 
 export const navItems: NavItem[] = [
-  { label: "Caminhões por Assinatura", href: "/caminhoes" },
-  { label: "Como funciona", href: "/#como-funciona" },
-  { label: "Central de Ajuda", href: "/#faq" },
+  { label: "Monte sua Frota", href: "/caminhoes" },
+  { label: "Como funciona", href: "/#como-funciona", disabled: true },
+  { label: "Central de Ajuda", href: "/#faq", disabled: true },
 ];
 
 export const trucks = landingTrucks;

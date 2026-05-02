@@ -717,7 +717,7 @@ html.proposal-drawer-open body {
   }
 
   .brand {
-    --brand-scale: 0.92;
+    --brand-scale: 1;
   }
 
   .main-nav {
@@ -737,6 +737,7 @@ html.proposal-drawer-open body {
   }
 
   .site-header .primary-action {
+    height: 48px;
     font-size: 14px;
     line-height: 17px;
     padding-left: 14px;
@@ -744,20 +745,21 @@ html.proposal-drawer-open body {
   }
 
   .cart-action {
-    height: 44px;
-    width: 44px;
+    height: 48px;
+    width: 48px;
   }
 
   .cart-action img {
-    height: 28px;
-    width: 28px;
+    height: 32px;
+    width: 32px;
   }
 
   .header-actions .ghost-action {
+    height: 48px;
     font-size: 14px;
     line-height: 17px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .catalog-page ~ .fab {
@@ -917,8 +919,8 @@ html.proposal-drawer-open body {
 
 @media (max-width: 1520px) and (min-width: 1281px) {
   .site-header {
-    padding-left: clamp(20px, 2.4vw, 40px);
-    padding-right: clamp(20px, 2.4vw, 40px);
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   .brand {
@@ -926,20 +928,21 @@ html.proposal-drawer-open body {
   }
 
   .main-nav {
-    gap: clamp(14px, 1.6vw, 24px);
-    margin-left: clamp(16px, 2vw, 32px);
-    padding-left: clamp(16px, 2vw, 24px);
+    gap: 24px;
+    margin-left: 32px;
+    padding-left: 24px;
   }
 
   .header-actions {
-    gap: clamp(10px, 1.1vw, 16px);
+    gap: 16px;
   }
 
   .site-header .primary-action {
-    font-size: clamp(14px, 1vw, 16px);
-    line-height: clamp(17px, 1.2vw, 19px);
-    padding-left: clamp(14px, 1.4vw, 20px);
-    padding-right: clamp(14px, 1.4vw, 20px);
+    height: 48px;
+    font-size: 16px;
+    line-height: 19px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .hero-section {
@@ -1345,19 +1348,19 @@ html.proposal-drawer-open body {
   }
 
   .header-actions .ghost-action {
-    font-size: 13px;
-    line-height: 16px;
+    font-size: 14px;
+    height: 40px;
+    line-height: 17px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .site-header .primary-action {
-    font-size: 13px;
+    font-size: 14px;
     height: 40px;
-    line-height: 16px;
-    max-width: 208px;
-    overflow: hidden;
+    line-height: 17px;
     padding-left: 12px;
     padding-right: 12px;
-    text-overflow: ellipsis;
   }
 
   .cart-action {
@@ -2878,5 +2881,3 @@ html.proposal-drawer-open body {
     padding-top: 0;
   }
 }
-
-
