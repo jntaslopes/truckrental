@@ -33,10 +33,10 @@ function SectionTitle({
 
 export function HeroSection() {
   const benefits = [
-    ["benefit-sign.svg", "Assinatura", "mensal"],
-    ["benefit-calendar.svg", "Planos", "de 36 ou 60 meses"],
-    ["benefit-doc.svg", "Sem entrada", "e valor fixo mensal"],
-    ["benefit-truck.svg", "Gestão", "completa da frota"],
+    ["hero-benefit-refund.svg", "Assinatura", "Mensal"],
+    ["hero-benefit-monthly.svg", "Planos", "de 18 a 60 meses"],
+    ["hero-benefit-sign.svg", "Sem entrada", "e valor fixo mensal"],
+    ["hero-benefit-shipment.svg", "Gestão", "completa da frota"],
   ] as const;
 
   return (
@@ -90,11 +90,19 @@ export function HeroSection() {
 
       <div className="hero-benefits-bar">
         <div className="hero-benefits-inner">
+          <div className="hero-benefits-brand" data-motion="card">
+            <p>VW Truck | Rental</p>
+            <h2>
+              <strong>Aluguel de frota</strong>
+              <span>descomplicado</span>
+            </h2>
+          </div>
           {benefits.map(([icon, title, copy]) => (
             <div className="hero-benefit" key={title} data-motion="card">
-              <img src={asset(icon)} alt="" />
+              <img src={asset(icon)} alt="" aria-hidden="true" />
               <div>
-                <strong>{title}</strong> <span>{copy}</span>
+                <strong>{title}</strong>
+                <span>{copy}</span>
               </div>
             </div>
           ))}
