@@ -3072,8 +3072,17 @@ html.proposal-drawer-open body {
   }
 
   .hero-benefit {
+    border-right: 1px solid var(--line);
     min-height: 132px;
     padding: 24px 20px;
+  }
+
+  .hero-benefit:nth-child(even) {
+    border-left: 1px solid var(--line);
+  }
+
+  .hero-benefit:nth-child(n + 4) {
+    border-top: 1px solid var(--line);
   }
 
   .hero-benefit > div {
@@ -3096,5 +3105,19 @@ html.proposal-drawer-open body {
   .hero-benefit span {
     font-size: 14px;
     line-height: 18px;
+  }
+}
+
+@media (max-width: 318px) {
+  .hero-benefits-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-benefit {
+    border-left: 1px solid var(--line);
+  }
+
+  .hero-benefit:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
   }
 }
