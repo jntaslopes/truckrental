@@ -11,17 +11,15 @@ import {
 } from "react";
 import Link from "next/link";
 import { faqs } from "@/data/landing";
-import { catalogTrucks, type CatalogTruck, type TruckDetailData } from "@/data/catalog";
+import { type CatalogTruck, type TruckDetailData } from "@/data/catalog";
+import { ProposalDrawer } from "@/components/proposal/ProposalDrawer";
+import { ProposalSummary } from "@/components/proposal/ProposalSummary";
+import { Footer } from "@/components/site/Footer";
+import { Header } from "@/components/site/Header";
 import { useMotionObserver } from "@/lib/useMotionObserver";
-import {
-  Footer,
-  Header,
-  ProposalDrawer,
-  ProposalSummary,
-  type ProposalItem,
-} from "@/components/LandingPage";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 import { TruckImageStack } from "@/components/TruckImageStack";
+import { useProposal } from "@/features/proposal/ProposalProvider";
 
 const asset = (name: string) => `/assets/figma/${name}`;
 
@@ -86,8 +84,7 @@ function DetailFaq() {
 export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
   useMotionObserver();
 
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const { isSelected, selectedItems, setQuantity, toggleTruck } = useProposal();
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [galleryDragOffset, setGalleryDragOffset] = useState(0);
@@ -102,20 +99,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
     width: 0,
   });
 
-  const selectedItems = useMemo<ProposalItem[]>(
-    () =>
-      catalogTrucks
-        .filter((item) => selectedIds.includes(item.id))
-        .map((item) => ({
-          id: item.id,
-          family: item.family,
-          model: item.model,
-          image: item.image,
-          shadowImage: item.shadowImage,
-          quantity: quantities[item.id] ?? 1,
-        })),
-    [quantities, selectedIds],
-  );
   const visibleGalleryPhotos = useMemo(() => {
     if (truck.gallery.length === 0) {
       return [];
@@ -131,52 +114,17 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
       { ...truck.gallery[nextIndex], position: "next" },
     ];
   }, [activePhotoIndex, truck.gallery]);
+  const quantities = useMemo(
+    () => Object.fromEntries(selectedItems.map((item) => [item.id, item.quantity])),
+    [selectedItems],
+  );
 
-  function toggleTruck(item: CatalogTruck) {
-    setSelectedIds((current) => {
-      if (current.includes(item.id)) {
-        if (current.length <= 1) {
-          setIsProposalDrawerOpen(false);
-        }
-        setQuantities((currentQuantities) => {
-          const next = { ...currentQuantities };
-          delete next[item.id];
-          return next;
-        });
-        return current.filter((id) => id !== item.id);
-      }
-
-      setQuantities((currentQuantities) => ({
-        ...currentQuantities,
-        [item.id]: currentQuantities[item.id] ?? 1,
-      }));
-      return [...current, item.id];
-    });
-  }
-
-  function clearProposal() {
-    setSelectedIds([]);
-    setQuantities({});
-    setIsProposalDrawerOpen(false);
-  }
-
-  function removeProposalItem(id: string) {
-    if (selectedIds.length <= 1) {
-      setIsProposalDrawerOpen(false);
+  function ensureTruckInProposal(item: TruckDetailData | CatalogTruck) {
+    if (!isSelected(item.id)) {
+      toggleTruck(item);
     }
-    setQuantities((currentQuantities) => {
-      const next = { ...currentQuantities };
-      delete next[id];
-      return next;
-    });
-    setSelectedIds((current) => current.filter((currentId) => currentId !== id));
-  }
 
-  function changeProposalQuantity(id: string, quantity: number) {
-    setQuantities((currentQuantities) => ({
-      ...currentQuantities,
-      [id]: quantity,
-    }));
+    setIsProposalDrawerOpen(true);
   }
 
   function showPreviousPhoto() {
@@ -293,7 +241,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
 
   return (
     <>
-      <Header proposalCount={selectedIds.length} activePath="/caminhoes" />
+      <Header activePath="/caminhoes" onOpenProposal={() => setIsProposalDrawerOpen(true)} />
       <main id="top" className="truck-detail-page">
         <section className="truck-detail-hero" data-motion="fade">
           <div className="page-inner truck-detail-hero-inner">
@@ -335,11 +283,13 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
 
         <section id="proposta" className="truck-detail-actions" data-motion="fade">
           <div className="page-inner detail-action-row">
-            <button className="primary-action" type="button" onClick={() => toggleTruck(truck)}>
-              {selectedIds.includes(truck.id) ? "Remover da proposta" : "Solicitar proposta"}
+            <button className="primary-action" type="button" onClick={() => ensureTruckInProposal(truck)}>
+              {isSelected(truck.id) ? "Atualizar proposta" : "Solicitar proposta"}
               <img className="action-icon button-icon" src={asset("icon-add.svg")} alt="" />
             </button>
-            <button className="outline-cta" type="button">Falar agora com um Especialista</button>
+            <button className="outline-cta" type="button" onClick={() => setIsProposalDrawerOpen(true)}>
+              Falar agora com um especialista
+            </button>
           </div>
         </section>
 
@@ -451,7 +401,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                   <h3>{item.title}</h3>
                   <p>{item.copy}</p>
                   {item.href === "#proposta" ? (
-                    <button type="button" className="outline-cta" onClick={() => toggleTruck(truck)}>
+                    <button type="button" className="outline-cta" onClick={() => ensureTruckInProposal(truck)}>
                       {item.cta}
                     </button>
                   ) : item.href ? (
@@ -486,10 +436,10 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                   <TruckSelectionCard
                     key={item.id}
                     truck={item}
-                    selected={selectedIds.includes(item.id)}
+                    selected={isSelected(item.id)}
                     quantity={quantities[item.id] ?? 1}
                     onToggle={toggleTruck}
-                    onQuantityChange={changeProposalQuantity}
+                    onQuantityChange={setQuantity}
                   />
                 ))}
               </div>
@@ -512,19 +462,8 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
         <DetailFaq />
       </main>
       <Footer />
-      <ProposalSummary
-        selectedItems={selectedItems}
-        onClear={clearProposal}
-        onContinue={() => setIsProposalDrawerOpen(true)}
-      />
-      {isProposalDrawerOpen ? (
-        <ProposalDrawer
-          selectedItems={selectedItems}
-          onClose={() => setIsProposalDrawerOpen(false)}
-          onRemoveItem={removeProposalItem}
-          onQuantityChange={changeProposalQuantity}
-        />
-      ) : null}
+      <ProposalSummary onContinue={() => setIsProposalDrawerOpen(true)} />
+      <ProposalDrawer isOpen={isProposalDrawerOpen} onClose={() => setIsProposalDrawerOpen(false)} />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ProposalProvider } from "@/features/proposal/ProposalProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth">
-      <body>{children}</body>
+      <body>
+        <ProposalProvider>{children}</ProposalProvider>
+      </body>
     </html>
   );
 }

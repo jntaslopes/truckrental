@@ -1,0 +1,657 @@
+.site-header {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 37px rgba(0, 30, 80, 0.1);
+  display: flex;
+  height: 88px;
+  inset: 0 0 auto;
+  padding: 22px 40px;
+  position: fixed;
+  z-index: 20;
+}
+
+.brand {
+  --brand-scale: 1;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: calc(12px * var(--brand-scale));
+}
+
+.brand-symbol {
+  display: block;
+  flex: 0 0 auto;
+  height: calc(42.6915px * var(--brand-scale));
+  object-fit: contain;
+  width: calc(43px * var(--brand-scale));
+}
+
+.brand-word {
+  display: block;
+  flex: 0 0 auto;
+  height: calc(14px * var(--brand-scale));
+  object-fit: contain;
+  width: calc(165px * var(--brand-scale));
+}
+
+.main-nav {
+  align-items: center;
+  border-left: 1px solid var(--line);
+  display: flex;
+  gap: 24px;
+  margin-left: 32px;
+  min-width: 0;
+  padding-left: 24px;
+}
+
+.main-nav a,
+.main-nav .nav-link-disabled,
+.text-link,
+.ghost-action,
+.primary-action,
+.secondary-action,
+.outline-cta,
+.footer-button,
+.dealer-location,
+.dealer-route,
+.dealer-details,
+.map-card,
+.proposal-summary button,
+.proposal-cancel,
+.proposal-submit {
+  align-items: center;
+  display: inline-flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.ghost-action,
+.primary-action,
+.secondary-action,
+.outline-cta,
+.footer-button,
+.dealer-location,
+.dealer-route,
+.dealer-details,
+.map-card,
+.proposal-summary button {
+  border-radius: 24px;
+  font-size: 16px;
+  gap: 8px;
+  height: 48px;
+  line-height: 19px;
+  padding: 8px 20px;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+:is(.ghost-action, .primary-action, .secondary-action, .outline-cta, .footer-button, .dealer-location, .dealer-route, .dealer-details, .map-card, .proposal-summary button, .text-link):not(:disabled) {
+  transition:
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease,
+    transform var(--motion-fast) ease;
+}
+
+:is(.ghost-action, .primary-action, .secondary-action, .outline-cta, .footer-button, .dealer-location, .dealer-route, .dealer-details, .map-card, .proposal-summary button, .text-link):hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+:is(.ghost-action, .primary-action, .secondary-action, .outline-cta, .footer-button, .dealer-location, .dealer-route, .dealer-details, .map-card, .proposal-summary button, .text-link):active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.proposal-cancel,
+.proposal-submit {
+  border-radius: 24px;
+  font-size: 14px;
+  gap: 8px;
+  height: 40px;
+  line-height: 17px;
+  padding: 8px 16px;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.primary-action,
+.dealer-route,
+.proposal-submit {
+  background: var(--button-primary-bg);
+  border: 1px solid var(--button-primary-bg);
+  color: var(--button-primary-content);
+}
+
+.primary-action:hover,
+.dealer-route:hover,
+.proposal-submit:hover {
+  background: var(--button-primary-bg-hover);
+  border-color: var(--button-primary-bg-hover);
+  color: var(--button-primary-content-hover);
+}
+
+.primary-action:active,
+.dealer-route:active,
+.proposal-submit:active {
+  background: var(--button-primary-bg-active);
+  border-color: var(--button-primary-bg-active);
+  color: var(--button-primary-content);
+}
+
+.primary-action:disabled,
+.dealer-route:disabled,
+.proposal-submit:disabled {
+  background: var(--button-primary-bg-disabled);
+  border-color: var(--button-primary-bg-disabled);
+  color: var(--button-primary-content-disabled);
+  cursor: default;
+}
+
+.secondary-action,
+.outline-cta,
+.dealer-location,
+.dealer-details,
+.map-card {
+  background: transparent;
+  border: 1px solid var(--button-secondary-content);
+  color: var(--button-secondary-content);
+}
+
+.secondary-action:hover,
+.outline-cta:hover,
+.dealer-location:hover:not(:disabled),
+.dealer-details:hover,
+.map-card:hover {
+  border-color: var(--button-secondary-content-hover);
+  color: var(--button-secondary-content-hover);
+}
+
+.secondary-action:active,
+.outline-cta:active,
+.dealer-location:active:not(:disabled),
+.dealer-details:active,
+.map-card:active {
+  border-color: var(--button-secondary-content-active);
+  color: var(--button-secondary-content-active);
+}
+
+.secondary-action:disabled,
+.outline-cta:disabled,
+.dealer-location:disabled,
+.dealer-details:disabled,
+.map-card:disabled {
+  border-color: var(--button-secondary-border-disabled);
+  color: var(--button-secondary-content-disabled);
+  cursor: default;
+}
+
+.ghost-action,
+.proposal-cancel {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--button-secondary-content);
+}
+
+.ghost-action:hover,
+.proposal-cancel:hover {
+  color: var(--button-secondary-content-hover);
+}
+
+.ghost-action:active,
+.proposal-cancel:active {
+  color: var(--button-secondary-content-active);
+}
+
+.ghost-action-label-short {
+  display: none;
+}
+
+.footer-button,
+.proposal-summary button {
+  background: transparent;
+  border: 1px solid var(--button-secondary-inverse-content);
+  color: var(--button-secondary-inverse-content);
+}
+
+.footer-button:hover,
+.proposal-summary button:hover {
+  border-color: var(--button-secondary-inverse-content-hover);
+  color: var(--button-secondary-inverse-content-hover);
+}
+
+.footer-button:active,
+.proposal-summary button:active {
+  border-color: var(--button-secondary-inverse-content-active);
+  color: var(--button-secondary-inverse-content-active);
+}
+
+.proposal-summary .proposal-continue {
+  background: var(--button-primary-inverse-bg);
+  border-color: var(--button-primary-inverse-bg);
+  color: var(--button-primary-inverse-content);
+}
+
+.proposal-summary .proposal-continue:hover {
+  background: var(--button-primary-inverse-bg-hover);
+  border-color: var(--button-primary-inverse-bg-hover);
+  color: var(--button-primary-inverse-content-hover);
+}
+
+.proposal-summary .proposal-continue:active {
+  background: var(--button-primary-inverse-bg-active);
+  border-color: var(--button-primary-inverse-bg-active);
+  color: var(--button-primary-inverse-content);
+}
+
+:is(.ghost-action, .primary-action, .secondary-action, .outline-cta, .footer-button, .dealer-location, .dealer-route, .dealer-details, .map-card, .proposal-summary button) :is(img, .button-icon) {
+  box-sizing: border-box;
+  height: 24px;
+  padding: 3px;
+  transition: transform var(--motion-fast) ease;
+  width: 24px;
+}
+
+:is(.ghost-action, .primary-action, .secondary-action, .outline-cta, .footer-button, .dealer-location, .dealer-route, .dealer-details, .map-card, .proposal-summary button, .text-link):hover :is(img, .button-icon, .text-link-icon) {
+  transform: translateX(3px);
+}
+
+:is(.proposal-cancel, .proposal-submit) :is(img, .button-icon) {
+  box-sizing: border-box;
+  height: 20px;
+  padding: 2px;
+  width: 20px;
+}
+
+.main-nav a,
+.main-nav .nav-link-disabled {
+  color: var(--blue);
+  font-size: 16px;
+  gap: 8px;
+  line-height: 19px;
+  min-height: 30px;
+  position: relative;
+}
+
+.main-nav .nav-link-disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.main-nav a.active {
+  color: var(--bright-blue);
+}
+
+.main-nav a.active::after {
+  background: var(--bright-blue);
+  border-radius: 999px;
+  bottom: -8px;
+  content: "";
+  height: 4px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 30px;
+}
+
+.header-actions {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.cart-action {
+  align-items: center;
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  position: relative;
+  width: 48px;
+}
+
+.cart-action img {
+  height: 32px;
+  width: 32px;
+}
+
+.cart-action span {
+  align-items: center;
+  background: var(--bright-blue);
+  border-radius: 50%;
+  color: var(--white);
+  display: flex;
+  font-size: 11px;
+  font-weight: 700;
+  height: 20px;
+  justify-content: center;
+  position: absolute;
+  right: -6px;
+  top: -4px;
+  width: 20px;
+}
+
+.mobile-menu-toggle {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  cursor: pointer;
+  display: none;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+  height: 40px;
+  justify-content: center;
+  padding: 0;
+  transition: border-color 160ms ease, color 160ms ease;
+  width: 40px;
+}
+
+.mobile-menu-toggle span {
+  background: var(--blue);
+  border-radius: 999px;
+  display: block;
+  height: 2px;
+  transition: background-color 160ms ease, transform 160ms ease;
+  width: 18px;
+}
+
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle[aria-expanded="true"] {
+  border-color: var(--bright-blue);
+}
+
+.mobile-menu-toggle:hover span,
+.mobile-menu-toggle[aria-expanded="true"] span {
+  background: var(--bright-blue);
+}
+
+.mobile-menu-backdrop {
+  animation: motion-fade-in 180ms ease both;
+  background: rgba(0, 30, 80, 0.28);
+  border: 0;
+  cursor: pointer;
+  inset: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 21;
+}
+
+.mobile-menu-drawer {
+  animation: motion-slide-left 220ms var(--motion-ease) both;
+  background: var(--white);
+  box-shadow: -12px 0 32px rgba(0, 30, 80, 0.18);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  inset: 0 0 auto auto;
+  min-height: 100svh;
+  padding: 24px 20px 28px;
+  position: fixed;
+  width: min(328px, 88vw);
+  z-index: 22;
+}
+
+.mobile-menu-drawer-header {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  justify-content: space-between;
+  line-height: 19px;
+  padding-bottom: 18px;
+}
+
+.mobile-menu-close {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  height: 36px;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  width: 36px;
+}
+
+.mobile-menu-close span {
+  background: var(--blue);
+  border-radius: 999px;
+  display: block;
+  height: 2px;
+  position: absolute;
+  width: 16px;
+}
+
+.mobile-menu-close span:first-child {
+  transform: rotate(45deg);
+}
+
+.mobile-menu-close span:last-child {
+  transform: rotate(-45deg);
+}
+
+.mobile-menu-nav,
+.mobile-menu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-menu-nav a,
+.mobile-menu-nav .nav-link-disabled {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  justify-content: space-between;
+  letter-spacing: 0;
+  line-height: 19px;
+  min-height: 48px;
+  padding: 0 0 12px;
+}
+
+.mobile-menu-nav a.active {
+  color: var(--bright-blue);
+}
+
+.mobile-menu-nav .nav-link-disabled {
+  color: var(--button-secondary-content-disabled);
+  cursor: default;
+}
+
+.mobile-menu-ghost-action,
+.mobile-menu-primary-action {
+  align-items: center;
+  border-radius: 24px;
+  display: inline-flex;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 8px;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 19px;
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.mobile-menu-ghost-action {
+  border: 1px solid var(--button-secondary-content);
+  color: var(--button-secondary-content);
+}
+
+.mobile-menu-ghost-action img {
+  box-sizing: border-box;
+  height: 24px;
+  padding: 3px;
+  width: 24px;
+}
+
+.mobile-menu-primary-action {
+  background: var(--button-primary-bg);
+  border: 1px solid var(--button-primary-bg);
+  color: var(--button-primary-content);
+}
+
+.site-footer {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.footer-top {
+  display: flex;
+  gap: 32px;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 40px;
+  width: 100%;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 240px;
+}
+
+.footer-logo {
+  display: block;
+  height: 38px;
+  position: relative;
+  width: 196px;
+}
+
+.footer-logo-symbol,
+.footer-logo-word {
+  display: block;
+  object-fit: contain;
+  position: absolute;
+}
+
+.footer-logo-symbol {
+  height: 38px;
+  left: 0;
+  top: 0;
+  width: 38.309px;
+}
+
+.footer-logo-word {
+  height: 12.461px;
+  left: 53.457px;
+  top: 12.769px;
+  width: 144.086px;
+}
+
+.social-links {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.social-links img {
+  display: block;
+  height: 18px;
+  object-fit: contain;
+  width: auto;
+}
+
+.social-links img[alt="Facebook"] {
+  width: 9px;
+}
+
+.social-links img[alt="Instagram"] {
+  width: 18px;
+}
+
+.footer-links {
+  display: flex;
+  flex: 1;
+  gap: 80px;
+  justify-content: center;
+}
+
+.footer-column h3 {
+  border-bottom: 1px solid #536481;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+}
+
+.footer-list {
+  display: grid;
+  gap: 8px;
+}
+
+.footer-list.two-columns {
+  column-gap: 64px;
+  grid-template-columns: repeat(2, max-content);
+}
+
+.footer-list a {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+}
+
+.footer-list span {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+}
+
+.footer-button {
+  margin-top: 24px;
+}
+
+.footer-bottom {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 20px 40px;
+  width: 100%;
+}
+
+.footer-bottom div {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-bottom a,
+.footer-bottom span {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+}
+
+.static-link {
+  cursor: default;
+}
+
+.outline-cta.static-link:hover,
+.outline-cta.static-link:active {
+  border-color: var(--button-secondary-content);
+  color: var(--button-secondary-content);
+}
+
+.footer-button.static-link:hover,
+.footer-button.static-link:active {
+  border-color: var(--button-secondary-inverse-content);
+  color: var(--button-secondary-inverse-content);
+}
