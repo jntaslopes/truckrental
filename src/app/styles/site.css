@@ -1,11 +1,11 @@
 .site-header {
   align-items: center;
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 4px 37px rgba(0, 30, 80, 0.1);
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
   display: flex;
   height: 88px;
   inset: 0 0 auto;
-  padding: 22px 40px;
+  padding: 24px 40px;
   position: fixed;
   z-index: 20;
 }
@@ -15,23 +15,31 @@
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
-  gap: calc(12px * var(--brand-scale));
+  height: calc(34px * var(--brand-scale));
+  position: relative;
+  width: calc(176px * var(--brand-scale));
 }
 
 .brand-symbol {
   display: block;
   flex: 0 0 auto;
-  height: calc(42.6915px * var(--brand-scale));
+  height: calc(34px * var(--brand-scale));
+  left: 0;
   object-fit: contain;
-  width: calc(43px * var(--brand-scale));
+  position: absolute;
+  top: 0;
+  width: calc(34px * var(--brand-scale));
 }
 
 .brand-word {
   display: block;
   flex: 0 0 auto;
-  height: calc(14px * var(--brand-scale));
+  height: calc(11.42px * var(--brand-scale));
+  left: calc(44px * var(--brand-scale));
   object-fit: contain;
-  width: calc(165px * var(--brand-scale));
+  position: absolute;
+  top: calc(11.29px * var(--brand-scale));
+  width: calc(132px * var(--brand-scale));
 }
 
 .main-nav {
@@ -39,6 +47,7 @@
   border-left: 1px solid var(--line);
   display: flex;
   gap: 24px;
+  height: 30px;
   margin-left: 32px;
   min-width: 0;
   padding-left: 24px;
@@ -302,11 +311,13 @@
 
 .cart-action {
   align-items: center;
+  background: var(--white);
   border: 1px solid var(--blue);
-  border-radius: 999px;
+  border-radius: 24px;
   display: inline-flex;
   height: 48px;
   justify-content: center;
+  padding: 8px;
   position: relative;
   width: 48px;
 }
@@ -326,6 +337,7 @@
   font-weight: 700;
   height: 20px;
   justify-content: center;
+  line-height: 1;
   position: absolute;
   right: -6px;
   top: -4px;

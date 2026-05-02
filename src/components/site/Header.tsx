@@ -57,7 +57,8 @@ export function Header({
 
       <nav className="main-nav" aria-label="Navegação principal">
         {navItems.map((item) => {
-          const isDisabled = disableSectionLinks && disabledNavHrefs.has(item.href);
+          const isDisabled =
+            item.disabled === true || (disableSectionLinks && disabledNavHrefs.has(item.href));
           const className = [
             activePath === item.href ? "active" : "",
             isDisabled ? "nav-link-disabled" : "",
@@ -85,11 +86,11 @@ export function Header({
         <Link
           href="/#concessionarias"
           className="ghost-action"
-          aria-label="Encontrar uma concessionária"
+          aria-label="Encontrar uma Concessionária"
         >
           <img src={asset("icon-pin.svg")} alt="" />
           <span className="ghost-action-label ghost-action-label-full">
-            Encontrar uma concessionária
+            Encontrar uma Concessionária
           </span>
           <span className="ghost-action-label ghost-action-label-short">Concessionárias</span>
         </Link>
@@ -99,11 +100,11 @@ export function Header({
         </div>
         {selectedCount > 0 && onOpenProposal ? (
           <button type="button" className="primary-action" onClick={onOpenProposal}>
-            Falar agora com um especialista
+            Falar agora com um Especialista
           </button>
         ) : (
           <Link href={activePath ? "/caminhoes" : "/#catalogo"} className="primary-action">
-            Falar agora com um especialista
+            Falar agora com um Especialista
           </Link>
         )}
         <button
@@ -144,7 +145,8 @@ export function Header({
 
             <nav className="mobile-menu-nav" aria-label="Navegação mobile">
               {navItems.map((item) => {
-                const isDisabled = disableSectionLinks && disabledNavHrefs.has(item.href);
+                const isDisabled =
+                  item.disabled === true || (disableSectionLinks && disabledNavHrefs.has(item.href));
                 const className = [
                   activePath === item.href ? "active" : "",
                   isDisabled ? "nav-link-disabled" : "",
@@ -180,7 +182,7 @@ export function Header({
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <img src={asset("icon-pin.svg")} alt="" />
-                <span>Encontrar uma concessionária</span>
+                <span>Encontrar uma Concessionária</span>
               </Link>
               {selectedCount > 0 && onOpenProposal ? (
                 <button
@@ -191,7 +193,7 @@ export function Header({
                     onOpenProposal();
                   }}
                 >
-                  Falar agora com um especialista
+                  Falar agora com um Especialista
                 </button>
               ) : (
                 <Link
@@ -199,7 +201,7 @@ export function Header({
                   className="mobile-menu-primary-action"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Falar agora com um especialista
+                  Falar agora com um Especialista
                 </Link>
               )}
             </div>
