@@ -1,0 +1,659 @@
+.truck-detail-page {
+  background: var(--white);
+  overflow-x: clip;
+  padding-top: 88px;
+}
+
+.truck-detail-hero {
+  background: #f9f9fc;
+  min-height: 0;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+.truck-detail-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 647px) minmax(480px, 1fr);
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+  min-height: 0;
+  padding-bottom: 40px;
+  padding-left: max(40px, calc((100vw - 1440px) / 2));
+  padding-right: max(40px, calc((100vw - 1440px) / 2));
+  position: relative;
+}
+
+.truck-detail-hero-copy {
+  align-self: start;
+  padding-top: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.truck-detail-hero-copy .catalog-breadcrumb {
+  margin-bottom: 30px;
+}
+
+.truck-detail-hero-copy h1 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 43px;
+  margin: 0;
+}
+
+.truck-detail-hero-copy h1 strong {
+  font-weight: 700;
+}
+
+.truck-detail-hero-copy h1 span {
+  font-weight: 300;
+}
+
+.truck-detail-hero-copy h1 em {
+  color: var(--bright-blue);
+  display: block;
+  font-style: normal;
+  font-weight: 300;
+}
+
+.truck-detail-hero-copy > p {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: 16px;
+  max-width: 647px;
+}
+
+.truck-detail-rule {
+  background: var(--line);
+  height: 1px;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.truck-detail-specs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.truck-detail-spec {
+  align-items: center;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.truck-detail-spec:first-child {
+  padding-left: 0;
+}
+
+.truck-detail-spec:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+
+.truck-detail-spec img {
+  height: 32px;
+  object-fit: contain;
+  width: 32px;
+}
+
+.truck-detail-spec strong {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.truck-detail-spec span {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.truck-detail-hero-media {
+  bottom: -88px;
+  height: 443px;
+  position: absolute;
+  right: calc((100vw - 1440px) / 2 - 136px);
+  width: 886px;
+}
+
+.truck-detail-hero-image {
+  display: block;
+  height: 100%;
+  inset: 0;
+  max-width: none;
+  object-fit: contain;
+  position: absolute;
+  width: 100%;
+}
+
+.truck-detail-hero-image-shadow {
+  mix-blend-mode: multiply;
+}
+
+.proposal-selected-media .truck-image-stack {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.proposal-selected-image {
+  height: 100%;
+  inset: 0;
+  margin: auto;
+  max-height: 54px;
+  max-width: 96px;
+  object-fit: contain;
+  position: absolute;
+  width: 100%;
+}
+
+.truck-detail-actions {
+  border-bottom: 1px solid var(--line);
+  padding: 40px;
+  position: relative;
+  z-index: 0;
+}
+
+.detail-action-row {
+  display: flex;
+  gap: 10px;
+}
+
+.detail-action-row .primary-action,
+.detail-action-row .outline-cta {
+  height: 48px;
+}
+
+.detail-action-row .primary-action img {
+  filter: brightness(0) invert(1);
+}
+
+.truck-detail-info {
+  padding-bottom: 0;
+}
+
+.truck-detail-info h2,
+.truck-detail-gallery-title {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.truck-detail-list {
+  display: grid;
+  gap: 16px 90px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 32px 0 68px;
+}
+
+.truck-detail-list-item {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+
+.truck-detail-list-item img {
+  flex: 0 0 20px;
+  height: 20px;
+  margin-top: 2px;
+  width: 20px;
+}
+
+.truck-detail-list-item span {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.truck-detail-gallery-title {
+  margin-bottom: 32px;
+}
+
+.truck-detail-gallery {
+  --gallery-drag-offset: 0px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(290px, 0.9fr) minmax(360px, 1.3fr) minmax(290px, 0.9fr);
+  height: 466px;
+  overflow: hidden;
+  position: relative;
+  touch-action: pan-y;
+}
+
+.truck-detail-gallery.is-draggable {
+  cursor: grab;
+}
+
+.truck-detail-gallery.is-dragging {
+  cursor: grabbing;
+}
+
+.truck-detail-gallery-photo {
+  border: 1px solid #ddd;
+  height: 466px;
+  object-fit: cover;
+  transition: opacity 180ms ease, transform 220ms var(--motion-ease);
+  transform: translateX(var(--gallery-drag-offset));
+  user-select: none;
+  -webkit-user-drag: none;
+  width: 100%;
+}
+
+.truck-detail-gallery-photo.active {
+  transform: translateX(var(--gallery-drag-offset)) scale(1.01);
+}
+
+.truck-detail-gallery.is-dragging .truck-detail-gallery-photo {
+  transition: none;
+}
+
+.truck-detail-gallery .gallery-arrow {
+  background: var(--button-primary-bg);
+  border: 0;
+  border-radius: 50%;
+  color: var(--white);
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  height: 48px;
+  line-height: 0;
+  place-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  z-index: 2;
+}
+
+.truck-detail-gallery .gallery-arrow:hover {
+  background: var(--button-primary-bg-hover);
+  color: var(--white);
+}
+
+.truck-detail-gallery .gallery-arrow:active {
+  background: var(--button-primary-bg-active);
+  color: var(--white);
+}
+
+.truck-detail-gallery .gallery-arrow span {
+  display: block;
+  font-size: 32px;
+  height: 24px;
+  line-height: 18px;
+  text-align: center;
+  width: 24px;
+}
+
+.gallery-arrow.previous {
+  left: 80px;
+}
+
+.gallery-arrow.next {
+  right: 80px;
+}
+
+.detail-section-title {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-section-title p {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.detail-section-title h2 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
+  margin: 0;
+}
+
+.detail-section-title h2 span {
+  font-weight: 300;
+}
+
+.detail-section-title > div {
+  background: var(--cyan);
+  height: 2px;
+  width: 80px;
+}
+
+.detail-section-copy {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: 8px;
+}
+
+.detail-comparison {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 192px minmax(0, 1fr);
+  margin-top: 64px;
+  min-height: 528px;
+  overflow: hidden;
+  position: relative;
+}
+
+.detail-comparison::before {
+  background: var(--line);
+  content: "";
+  height: calc(100% - 56px);
+  left: 50%;
+  position: absolute;
+  top: 28px;
+  transform: translateX(-50%);
+  width: 1px;
+  z-index: 1;
+}
+
+.detail-comparison-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 56px 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.detail-comparison-column:last-child {
+  grid-column: 3;
+}
+
+.detail-comparison-wordmark {
+  height: 14px;
+  margin-bottom: 32px;
+  object-fit: contain;
+  object-position: left center;
+  width: 166px;
+}
+
+.detail-comparison-column .detail-comparison-symbol {
+  height: 32px;
+  margin-bottom: 28px;
+  object-fit: contain;
+  object-position: left center;
+  width: 32px;
+}
+
+.detail-comparison-column h3 {
+  align-items: center;
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 25px;
+  gap: 8px;
+  line-height: 30px;
+}
+
+.detail-comparison-column h3 img {
+  flex: 0 0 auto;
+  height: 16px;
+  width: 16px;
+}
+
+.detail-comparison-column p {
+  color: var(--blue);
+  font-size: 18px;
+  line-height: 22px;
+  margin: 6px 0 44px;
+}
+
+.detail-comparison-column h4 {
+  color: var(--blue);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 24px;
+}
+
+.detail-comparison-column ul {
+  display: grid;
+  gap: 18px;
+  list-style: none;
+}
+
+.detail-comparison-column li {
+  align-items: center;
+  color: var(--blue);
+  display: flex;
+  font-size: 18px;
+  font-weight: 700;
+  gap: 20px;
+  line-height: 22px;
+}
+
+.detail-comparison-column li img {
+  flex: 0 0 auto;
+  height: 32px;
+  width: 32px;
+}
+
+.detail-versus {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid #edf0f4;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px var(--white);
+  color: var(--blue);
+  display: flex;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  height: 96px;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 96px;
+  z-index: 3;
+}
+
+.detail-next-section {
+  background: var(--white);
+  border-bottom: 1px solid #ddd;
+  padding: 80px 72px;
+}
+
+.detail-next-section .detail-section-copy {
+  font-size: 14px;
+  line-height: 17px;
+  margin-top: 16px;
+}
+
+.detail-cta-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 48px;
+}
+
+.detail-cta-card {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 274px;
+  padding: 24px;
+  text-align: center;
+  transition: transform var(--motion-fast) ease;
+}
+
+.detail-cta-card > img {
+  height: 80px;
+  object-fit: contain;
+  transition: transform var(--motion-fast) ease;
+  width: 80px;
+}
+
+.detail-cta-card h3 {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  margin-top: 8px;
+}
+
+.detail-cta-card p {
+  color: var(--ink);
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  margin: 8px auto 0;
+  max-width: 310px;
+}
+
+.detail-cta-card .outline-cta {
+  height: 48px;
+  font-family: "VW Text", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 19px;
+  margin-top: 24px;
+  min-height: 48px;
+  padding: 8px 20px;
+}
+
+.detail-related-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  padding-bottom: 80px;
+  padding-top: 80px;
+}
+
+.detail-related-section .page-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.detail-related-carousel {
+  position: relative;
+  width: 100%;
+}
+
+.detail-related-grid {
+  display: flex;
+  gap: 24px;
+  min-height: 407px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.detail-related-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.detail-related-grid .catalog-truck-card {
+  flex: 0 0 268.8px;
+  scroll-snap-align: start;
+}
+
+.detail-related-arrow {
+  background: var(--white);
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  color: var(--blue);
+  display: grid;
+  height: 48px;
+  place-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  z-index: 3;
+}
+
+.detail-related-arrow span {
+  display: block;
+  font-size: 38px;
+  height: 38px;
+  line-height: 32px;
+  text-align: center;
+  width: 24px;
+}
+
+.detail-related-arrow.previous {
+  left: -24px;
+}
+
+.detail-related-arrow.next {
+  right: -24px;
+}
+
+.detail-faq-section {
+  border-top: 1px solid var(--line);
+  padding: 100px 40px;
+}
+
+.catalog-truck-content .text-link {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  padding-top: 15px;
+}
+
+.catalog-truck-content .text-link .text-link-icon {
+  height: 16px;
+  width: 16px;
+}
+
+.catalog-card-selection-row {
+  align-items: center;
+  gap: 30px;
+  grid-template-columns: 71px 1px minmax(0, 1fr);
+  padding-top: 15px;
+}
+
+.catalog-card-quantity-field {
+  height: 40px;
+  width: 71px;
+}
+
+.catalog-card-selection-row .card-selection-divider {
+  height: 31px;
+}
+
+.catalog-card-selection-row .card-remove-link {
+  gap: 10px;
+}
+
+.catalog-card-selection-row .card-remove-icon {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.catalog-card-selection-row + .text-link {
+  margin-top: 15px;
+}

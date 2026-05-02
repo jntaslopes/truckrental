@@ -8,15 +8,13 @@ import {
   type CatalogFilterKey,
   type CatalogTruck,
 } from "@/data/catalog";
+import { ProposalDrawer } from "@/components/proposal/ProposalDrawer";
+import { ProposalSummary } from "@/components/proposal/ProposalSummary";
+import { Footer } from "@/components/site/Footer";
+import { Header } from "@/components/site/Header";
 import { useMotionObserver } from "@/lib/useMotionObserver";
-import {
-  Header,
-  Footer,
-  ProposalDrawer,
-  ProposalSummary,
-  type ProposalItem,
-} from "@/components/LandingPage";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
+import { useProposal } from "@/features/proposal/ProposalProvider";
 
 const defaultCapacityRange = { min: 10, max: 80 };
 
@@ -185,27 +183,11 @@ function CatalogFilterSidebar({
 export function TruckCatalogPage({ initialApplication }: { initialApplication?: string }) {
   useMotionObserver();
 
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const { isSelected, selectedItems, setQuantity, toggleTruck } = useProposal();
   const [isProposalDrawerOpen, setIsProposalDrawerOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const initialFilters = useMemo(() => getFiltersFromApplication(initialApplication), [initialApplication]);
   const [filters, setFilters] = useState<CatalogFilters>(initialFilters);
-
-  const selectedItems = useMemo<ProposalItem[]>(
-    () =>
-      catalogTrucks
-        .filter((truck) => selectedIds.includes(truck.id))
-        .map((truck) => ({
-          id: truck.id,
-          family: truck.family,
-          model: truck.model,
-          image: truck.image,
-          shadowImage: truck.shadowImage,
-          quantity: quantities[truck.id] ?? 1,
-        })),
-    [quantities, selectedIds],
-  );
 
   const filtersActive = hasActiveFilters(filters);
   const selectedFilterCount = getSelectedFilterCount(filters);
@@ -222,44 +204,10 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
       ),
     [filters],
   );
-
-  function toggleTruck(truck: CatalogTruck) {
-    setSelectedIds((current) => {
-      if (current.includes(truck.id)) {
-        setQuantities((currentQuantities) => {
-          const next = { ...currentQuantities };
-          delete next[truck.id];
-          return next;
-        });
-        return current.filter((id) => id !== truck.id);
-      }
-
-      setQuantities((currentQuantities) => ({
-        ...currentQuantities,
-        [truck.id]: currentQuantities[truck.id] ?? 1,
-      }));
-      return [...current, truck.id];
-    });
-  }
-
-  function removeProposalItem(id: string) {
-    if (selectedIds.length <= 1) {
-      setIsProposalDrawerOpen(false);
-    }
-    setQuantities((currentQuantities) => {
-      const next = { ...currentQuantities };
-      delete next[id];
-      return next;
-    });
-    setSelectedIds((current) => current.filter((currentId) => currentId !== id));
-  }
-
-  function changeProposalQuantity(id: string, quantity: number) {
-    setQuantities((currentQuantities) => ({
-      ...currentQuantities,
-      [id]: quantity,
-    }));
-  }
+  const quantities = useMemo(
+    () => Object.fromEntries(selectedItems.map((item) => [item.id, item.quantity])),
+    [selectedItems],
+  );
 
   function toggleFilterOption(key: CatalogFilterKey, option: string) {
     setFilters((current) => {
@@ -290,7 +238,7 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
 
   return (
     <>
-      <Header proposalCount={selectedIds.length} activePath="/caminhoes" />
+      <Header activePath="/caminhoes" onOpenProposal={() => setIsProposalDrawerOpen(true)} />
       <main className="catalog-page">
         <CatalogFilterSidebar
           filters={filters}
@@ -330,10 +278,10 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
               <TruckSelectionCard
                 key={truck.id}
                 truck={truck}
-                selected={selectedIds.includes(truck.id)}
+                selected={isSelected(truck.id)}
                 quantity={quantities[truck.id] ?? 1}
                 onToggle={toggleTruck}
-                onQuantityChange={changeProposalQuantity}
+                onQuantityChange={setQuantity}
               />
             ))}
           </div>
@@ -375,22 +323,8 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
         </div>
       ) : null}
       <Footer />
-      <ProposalSummary
-        selectedItems={selectedItems}
-        onClear={() => {
-          setSelectedIds([]);
-          setIsProposalDrawerOpen(false);
-        }}
-        onContinue={() => setIsProposalDrawerOpen(true)}
-      />
-      {isProposalDrawerOpen ? (
-        <ProposalDrawer
-          selectedItems={selectedItems}
-          onClose={() => setIsProposalDrawerOpen(false)}
-          onRemoveItem={removeProposalItem}
-          onQuantityChange={changeProposalQuantity}
-        />
-      ) : null}
+      <ProposalSummary onContinue={() => setIsProposalDrawerOpen(true)} />
+      <ProposalDrawer isOpen={isProposalDrawerOpen} onClose={() => setIsProposalDrawerOpen(false)} />
     </>
   );
 }
