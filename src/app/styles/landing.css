@@ -1324,63 +1324,36 @@
 
 .plans-section {
   background: var(--white);
-  padding: 100px clamp(16px, 5vw, 100px) 88px;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 80px clamp(20px, 6.25vw, 100px) 50px;
+  position: relative;
   text-align: center;
 }
 
+.plans-section::before {
+  background: var(--blue);
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 272px;
+  z-index: -1;
+}
+
 .plans-section .page-inner {
-  max-width: 1501px;
+  max-width: 1240px;
   padding: 0;
   width: 100%;
 }
 
 .comparison-layout {
-  --comparison-side-space: clamp(16px, 5vw, 100px);
-  --comparison-content-max: 906px;
-  --comparison-gap: 32px;
-  --comparison-hero-track: min(563px, max(360px, calc(100% - var(--comparison-content-max) - var(--comparison-gap))));
-  align-items: stretch;
-  display: grid;
-  gap: var(--comparison-gap);
-  grid-template-columns: var(--comparison-hero-track) minmax(0, calc(100% - var(--comparison-hero-track) - var(--comparison-gap)));
-  justify-content: start;
-  margin: 0 auto;
-  max-width: 1501px;
-  width: 100%;
-}
-
-.comparison-hero {
-  background: #d6d9dc;
-  aspect-ratio: 563 / 721;
-  height: auto;
-  justify-self: start;
-  max-width: 563px;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-
-.comparison-hero img {
-  display: block;
-  height: 100%;
-  inset: 0;
-  object-fit: cover;
-  object-position: center top;
-  position: absolute;
-  width: 100%;
-}
-
-.comparison-content {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 48px;
-  height: auto;
-  justify-content: flex-start;
-  max-width: var(--comparison-content-max);
-  min-height: 761px;
-  min-width: 0;
-  padding-top: 0;
+  margin: 0 auto;
   width: 100%;
 }
 
@@ -1388,9 +1361,9 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-width: 825px;
-  padding: 3px 1px 13px;
+  gap: 0;
+  max-width: 100%;
+  padding: 0 0 32px;
   position: relative;
   text-align: center;
   width: 100%;
@@ -1405,12 +1378,22 @@
   width: 80px;
 }
 
+.comparison-heading > p {
+  color: #0082d6;
+  font-family: "VW Text", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
 .comparison-heading h2 {
   color: var(--blue);
   font-family: "VW Head", Arial, sans-serif;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 700;
-  line-height: 43px;
+  line-height: 48px;
   margin: 0;
 }
 
@@ -1418,18 +1401,10 @@
   font-weight: 300;
 }
 
-.comparison-heading p {
-  color: var(--ink);
-  font-size: 16px;
-  line-height: 24px;
-  margin: 0;
-}
-
 .comparison-grid-wrap {
   display: flex;
   justify-content: center;
-  min-height: 526px;
-  max-width: var(--comparison-content-max);
+  max-width: 1002px;
   position: relative;
   width: 100%;
 }
@@ -1440,29 +1415,23 @@
   border-radius: 8px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto auto;
   margin: 0 auto;
-  max-width: var(--comparison-content-max);
+  max-width: 1002px;
   position: relative;
   overflow: hidden;
   text-align: left;
   width: 100%;
 }
 
-.comparison-feature {
+.comparison-column {
   background: var(--white);
   display: flex;
   flex-direction: column;
   gap: 24px;
   min-width: 0;
+  padding: 48px 72px;
   position: relative;
   z-index: 1;
-}
-
-.comparison-feature-header {
-  justify-content: flex-start;
-  min-height: 206px;
-  padding: 48px;
 }
 
 .comparison-feature-mark {
@@ -1476,24 +1445,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.comparison-feature-list {
-  min-height: 288px;
-  padding-bottom: 48px;
-  padding-top: 0;
-}
-
-.comparison-feature-subscription.comparison-feature-header,
-.comparison-feature-subscription.comparison-feature-list {
-  padding-left: 48px;
-  padding-right: 48px;
-}
-
-.comparison-feature-financing.comparison-feature-header,
-.comparison-feature-financing.comparison-feature-list {
-  padding-right: 48px;
-  padding-left: 96px;
 }
 
 .comparison-wordmark {
@@ -1510,7 +1461,7 @@
   width: 32px;
 }
 
-.comparison-feature h3 {
+.comparison-feature-copy h3 {
   align-items: center;
   color: var(--blue);
   display: flex;
@@ -1522,39 +1473,27 @@
   margin: 0;
 }
 
-.comparison-feature-financing.comparison-feature-header h3 {
-  max-width: 100%;
-}
-
-.comparison-feature h3 img {
+.comparison-feature-copy h3 img {
   height: 16px;
   width: 16px;
 }
 
-.comparison-feature-header p {
+.comparison-feature-copy p {
   color: var(--blue);
   font-size: 16px;
   line-height: 19px;
   margin: 0;
 }
 
-.comparison-feature-list h4 {
-  color: var(--blue);
-  font-family: "VW Head", Arial, sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 24px;
-  margin: 0;
-}
-
-.comparison-feature-list ul {
+.comparison-list {
   display: grid;
   gap: 8px;
   list-style: none;
   margin: 0;
+  padding: 0;
 }
 
-.comparison-feature-list li {
+.comparison-list li {
   align-items: center;
   color: var(--blue);
   display: flex;
@@ -1565,7 +1504,7 @@
   line-height: 19px;
 }
 
-.comparison-feature-list li img {
+.comparison-list li img {
   flex: 0 0 auto;
   height: 32px;
   width: 32px;
@@ -1573,7 +1512,7 @@
 
 .comparison-divider-axis {
   border-left: 1px solid #dadfe2;
-  height: 474px;
+  height: 372px;
   left: calc(50% + 0.5px);
   pointer-events: none;
   position: absolute;

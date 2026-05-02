@@ -440,89 +440,34 @@ html.proposal-drawer-open body {
 
 @media (max-width: 1400px) {
   .plans-section {
-    padding: 96px clamp(16px, 3vw, 32px) 84px;
+    padding: 80px clamp(20px, 6.25vw, 100px) 50px;
   }
 
-  .comparison-layout {
-    --comparison-side-space: clamp(16px, 3vw, 32px);
-    --comparison-gap: var(--comparison-side-space);
-    --comparison-content-max: 872px;
-    --comparison-hero-track: min(480px, max(320px, calc(100% - var(--comparison-content-max) - var(--comparison-gap))));
-  }
-
-  .comparison-feature-subscription.comparison-feature-header,
-  .comparison-feature-subscription.comparison-feature-list {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-
-  .comparison-feature-financing.comparison-feature-header,
-  .comparison-feature-financing.comparison-feature-list {
-    padding-left: 80px;
-    padding-right: 40px;
-  }
-}
-
-@media (max-width: 1650px) {
-  .comparison-layout {
-    margin-left: calc(-1 * var(--comparison-side-space));
-    max-width: calc(1501px + var(--comparison-side-space));
-    width: calc(100% + var(--comparison-side-space));
-  }
-
-  .comparison-hero {
-    margin-left: 0;
+  .comparison-column {
+    padding-left: clamp(40px, 7vw, 72px);
+    padding-right: clamp(40px, 7vw, 72px);
   }
 }
 
 @media (max-width: 1280px) {
-  .comparison-layout {
-    --comparison-gap: var(--comparison-side-space);
-    --comparison-content-max: 752px;
-    --comparison-hero-track: min(360px, max(260px, calc(100% - var(--comparison-content-max) - var(--comparison-gap))));
-  }
-
-  .comparison-feature-subscription.comparison-feature-header,
-  .comparison-feature-subscription.comparison-feature-list {
-    padding-left: 36px;
-    padding-right: 36px;
-  }
-
-  .comparison-feature-financing.comparison-feature-header,
-  .comparison-feature-financing.comparison-feature-list {
-    padding-left: 64px;
-    padding-right: 32px;
-  }
-
-  .comparison-feature-financing.comparison-feature-list {
-    padding-left: 76px;
-  }
-
-  .comparison-feature-financing.comparison-feature-header h3 {
-    align-items: flex-start;
-    line-height: 1.05;
-    max-width: 224px;
-  }
-
   .comparison-vs {
-    height: 88px;
-    left: calc(50% - 12px);
-    width: 88px;
+    height: 96px;
+    width: 96px;
   }
 
   .comparison-vs-ring-outer {
-    height: 88px;
-    width: 88px;
+    height: 96px;
+    width: 96px;
   }
 
   .comparison-vs-ring-middle {
-    height: 66px;
-    width: 66px;
+    height: 72px;
+    width: 72px;
   }
 
   .comparison-vs-ring-inner {
-    height: 48px;
-    width: 48px;
+    height: 54px;
+    width: 54px;
   }
 
   .comparison-vs-label {
@@ -531,60 +476,26 @@ html.proposal-drawer-open body {
   }
 
   .comparison-divider-axis {
-    height: 396px;
-    left: calc(50% - 12px);
+    height: 360px;
   }
 }
 
 @media (max-width: 1023px) {
   .plans-section {
-    padding: 80px 24px;
+    padding: 72px 24px 48px;
+  }
+
+  .plans-section::before {
+    top: 244px;
   }
 
   .comparison-layout {
-    gap: 32px;
-    grid-template-columns: 1fr;
-    width: 100%;
-  }
-
-  .comparison-hero {
-    aspect-ratio: 563 / 721;
-    margin-left: 0;
-    max-width: none;
-    width: 100%;
-  }
-
-  .comparison-content {
     gap: 40px;
-    height: auto;
-    max-width: none;
-    min-height: 0;
-    padding-top: 0;
-    width: 100%;
   }
 
-  .comparison-grid-wrap {
-    height: auto;
-    width: 100%;
-  }
-
-  .comparison-grid {
-    max-width: 100%;
-  }
-
-  .comparison-feature-header,
-  .comparison-feature-list,
-  .comparison-feature-subscription.comparison-feature-header,
-  .comparison-feature-subscription.comparison-feature-list,
-  .comparison-feature-financing.comparison-feature-header,
-  .comparison-feature-financing.comparison-feature-list {
+  .comparison-column {
     padding-left: 36px;
     padding-right: 36px;
-  }
-
-  .comparison-feature-list {
-    padding-top: 32px;
-    padding-bottom: 40px;
   }
 }
 
@@ -601,34 +512,8 @@ html.proposal-drawer-open body {
     grid-template-rows: auto;
   }
 
-  .comparison-feature-header,
-  .comparison-feature-list,
-  .comparison-feature-subscription.comparison-feature-header,
-  .comparison-feature-subscription.comparison-feature-list,
-  .comparison-feature-financing.comparison-feature-header,
-  .comparison-feature-financing.comparison-feature-list {
-    min-height: auto;
+  .comparison-column {
     padding: 32px 28px;
-  }
-
-  .comparison-feature-list {
-    gap: 20px;
-  }
-
-  .comparison-feature-subscription.comparison-feature-header {
-    order: 1;
-  }
-
-  .comparison-feature-subscription.comparison-feature-list {
-    order: 2;
-  }
-
-  .comparison-feature-financing.comparison-feature-header {
-    order: 3;
-  }
-
-  .comparison-feature-financing.comparison-feature-list {
-    order: 4;
   }
 
   .comparison-divider-axis,
@@ -638,44 +523,26 @@ html.proposal-drawer-open body {
 }
 
 @media (max-width: 1100px) {
-  .comparison-layout {
-    gap: 32px;
-    grid-template-columns: 1fr;
-    justify-content: center;
-    margin-left: 0;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .comparison-hero {
-    display: none;
-  }
-
-  .comparison-content,
   .comparison-heading,
   .comparison-grid-wrap,
   .comparison-grid {
     margin-left: auto;
     margin-right: auto;
-    max-width: min(100%, var(--comparison-content-max));
-  }
-
-  .comparison-content {
-    min-height: 0;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 640px) {
   .plans-section {
-    padding: 64px 16px;
+    padding: 64px 16px 40px;
   }
 
-  .comparison-content {
+  .plans-section::before {
+    top: 242px;
+  }
+
+  .comparison-layout {
     gap: 32px;
-  }
-
-  .comparison-hero {
-    min-height: 420px;
   }
 
   .comparison-heading h2,
@@ -689,23 +556,18 @@ html.proposal-drawer-open body {
     line-height: 21px;
   }
 
-  .comparison-feature h3 {
+  .comparison-feature-copy h3 {
     font-size: 20px;
     line-height: 24px;
   }
 
-  .comparison-feature-header p,
-  .comparison-feature-list li {
+  .comparison-feature-copy p,
+  .comparison-list li {
     font-size: 14px;
     line-height: 18px;
   }
 
-  .comparison-feature-list h4 {
-    font-size: 20px;
-    line-height: 24px;
-  }
-
-  .comparison-feature-list li {
+  .comparison-list li {
     align-items: flex-start;
   }
 
