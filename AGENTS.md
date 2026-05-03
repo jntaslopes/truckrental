@@ -47,6 +47,16 @@ Decision rule:
 - "What is the base for current work?" -> always `origin/main`.
 - "Can I keep implementing in `detached HEAD` after fetch?" -> no; only temporary inspection is allowed.
 
+### Checkpoint Commit
+
+- After every completed user request or executed plan that changes files, create a checkpoint commit on the current branch/worktree.
+- A checkpoint commit is local workflow protection only: it must not merge into `main`, delete branches, clean the worktree, or push unless the user explicitly asks or invokes the `finish` rite.
+- The checkpoint rule applies on any current branch, including direct work on `main`.
+- If files changed but validation failed, was blocked, or was not applicable, still create the checkpoint commit and clearly report the pending or failing validation in the final summary and, when useful, in the commit message.
+- Before committing, inspect `git status --short --branch` and include only changes that belong to the current request.
+- Preserve unrelated user changes. If unrelated user edits are mixed with agent edits, use selective staging when safe; if separation is unsafe, stop and report the blocker instead of committing unrelated work.
+- If a later request asks to revert the last adjustment, prefer reverting the relevant checkpoint commit over destructive reset/checkout/clean operations.
+
 ## Browser Automation Policy
 
 For any local navigation, inspection, visual validation, clicking, typing, screenshot capture, or manual UI testing task:
