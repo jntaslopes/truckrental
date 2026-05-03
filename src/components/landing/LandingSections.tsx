@@ -391,7 +391,7 @@ export function TruckCatalogueSection({
       };
 
       const onPointerDown = (event: PointerEvent) => {
-        if (event.button !== 0 || event.pointerType === "touch" || isInteractiveTarget(event.target)) {
+        if (event.button !== 0 || isInteractiveTarget(event.target)) {
           return;
         }
 
