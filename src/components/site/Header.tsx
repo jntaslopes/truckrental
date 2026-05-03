@@ -57,6 +57,9 @@ export function Header({
 
       <nav className="main-nav" aria-label="Navegação principal">
         {navItems.map((item) => {
+          const label = activePath === "/caminhoes" && item.href === "/caminhoes"
+            ? "Caminhões Disponíveis"
+            : item.label;
           const isDisabled =
             item.disabled === true || (disableSectionLinks && disabledNavHrefs.has(item.href));
           const className = [
@@ -69,14 +72,14 @@ export function Header({
           if (isDisabled) {
             return (
               <span key={item.href} className={className} aria-disabled="true">
-                {item.label}
+                {label}
               </span>
             );
           }
 
           return (
             <Link key={item.href} href={item.href} className={className}>
-              {item.label}
+              {label}
             </Link>
           );
         })}
@@ -145,6 +148,9 @@ export function Header({
 
             <nav className="mobile-menu-nav" aria-label="Navegação mobile">
               {navItems.map((item) => {
+                const label = activePath === "/caminhoes" && item.href === "/caminhoes"
+                  ? "Caminhões Disponíveis"
+                  : item.label;
                 const isDisabled =
                   item.disabled === true || (disableSectionLinks && disabledNavHrefs.has(item.href));
                 const className = [
@@ -157,7 +163,7 @@ export function Header({
                 if (isDisabled) {
                   return (
                     <span key={item.href} className={className} aria-disabled="true">
-                      {item.label}
+                      {label}
                     </span>
                   );
                 }
@@ -169,7 +175,7 @@ export function Header({
                     className={className}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {item.label}
+                    {label}
                   </Link>
                 );
               })}
