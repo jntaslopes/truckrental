@@ -963,10 +963,13 @@ export function FaqSection() {
     <section id="faq" className="faq-section" data-motion="section">
       <div className="faq-panel">
         <div className="faq-heading">
-          <p>Respostas rápidas para seguir com mais clareza</p>
-          <h2>
-            Perguntas frequentes <span>sobre o VW Truck Rental</span>
-          </h2>
+          <div className="faq-heading-copy">
+            <p>Respostas rápidas para seguir com mais clareza</p>
+            <h2>
+              <span className="faq-heading-strong">Perguntas frequentes</span>
+              <span className="faq-heading-soft">sobre o VW Truck Rental</span>
+            </h2>
+          </div>
           <div className="faq-heading-rule" />
         </div>
         <div className="accordion">
