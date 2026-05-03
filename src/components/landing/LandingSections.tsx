@@ -116,13 +116,14 @@ export function HeroSection() {
                   aria-hidden="true"
                   data-node-id="544:20302"
                 />
-                <img
-                  className="hero-background-mobile-image"
-                  src={currentSlide.mobileImage ?? ""}
-                  alt=""
-                  aria-hidden="true"
-                  data-node-id="595:1078"
-                />
+                <div className="hero-background-mobile-frame" data-node-id="595:1078">
+                  <img
+                    className="hero-background-mobile-image"
+                    src={currentSlide.mobileImage ?? ""}
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
                 <img
                   className="hero-background-image"
                   src={currentSlide.backgroundImage ?? ""}
