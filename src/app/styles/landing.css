@@ -228,6 +228,24 @@
   z-index: 1;
 }
 
+@media (min-width: 768px) {
+  .hero-visual {
+    animation: hero-visual-in 760ms var(--motion-ease) 80ms both;
+  }
+}
+
+@keyframes hero-visual-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-50% + 16px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
 .hero-visual-stage {
   height: 521px;
   left: 0;
@@ -295,6 +313,7 @@
 }
 
 .hero-badge {
+  animation: hero-badge-in 640ms var(--motion-ease) 260ms both;
   align-items: flex-start;
   box-sizing: border-box;
   display: flex;
@@ -310,6 +329,22 @@
   text-align: left;
   white-space: normal;
   z-index: 4;
+}
+
+.hero-flex-plan-badge {
+  animation-delay: 340ms;
+}
+
+@keyframes hero-badge-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .hero-fixed-cost-badge {
@@ -530,12 +565,25 @@
 
 .hero-price-badges {
   align-items: flex-start;
+  animation: hero-price-badges-in 680ms var(--motion-ease) 220ms both;
   display: flex;
   gap: 0;
   position: absolute;
   right: clamp(40px, 6.42vw, 106px);
   top: 50px;
   z-index: 6;
+}
+
+@keyframes hero-price-badges-in {
+  from {
+    opacity: 0;
+    transform: translate3d(18px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .hero-h2-fixed-cost-badge {
@@ -1325,6 +1373,30 @@
   line-height: 19px;
 }
 
+.hero-benefits-inner > [data-motion="benefit-rail"] {
+  transition-duration: 520ms;
+}
+
+.hero-benefits-inner > [data-motion="benefit-rail"] img,
+.hero-benefits-inner > [data-motion="benefit-rail"] h2,
+.hero-benefits-inner > [data-motion="benefit-rail"] p,
+.hero-benefits-inner > [data-motion="benefit-rail"] strong,
+.hero-benefits-inner > [data-motion="benefit-rail"] span {
+  transition:
+    opacity 420ms var(--motion-ease),
+    transform 420ms var(--motion-ease);
+  transition-delay: calc(120ms + (var(--motion-index, 0) * 42ms));
+}
+
+.hero-benefits-inner > [data-motion="benefit-rail"]:not(.motion-visible) img,
+.hero-benefits-inner > [data-motion="benefit-rail"]:not(.motion-visible) h2,
+.hero-benefits-inner > [data-motion="benefit-rail"]:not(.motion-visible) p,
+.hero-benefits-inner > [data-motion="benefit-rail"]:not(.motion-visible) strong,
+.hero-benefits-inner > [data-motion="benefit-rail"]:not(.motion-visible) span {
+  opacity: 0;
+  transform: translate3d(-10px, 0, 0);
+}
+
 .page-band {
   padding: 100px 40px;
 }
@@ -1468,6 +1540,30 @@
 .catalogue-section-visible .catalogue-reveal {
   opacity: 1;
   transform: translateY(0);
+}
+
+.catalogue-truck-row > [data-motion="catalogue-card"] {
+  transition-delay: calc(120ms + (var(--motion-index, 0) * 56ms));
+  transition-duration: 560ms;
+}
+
+.catalogue-operation-row [data-motion="catalogue-operation"] {
+  transition-delay: calc(160ms + (var(--motion-index, 0) * 64ms));
+  transition-duration: 520ms;
+}
+
+.catalogue-truck-row > [data-motion="catalogue-card"].motion-visible .catalog-truck-media {
+  animation: catalogue-truck-media-in 640ms var(--motion-ease) both;
+}
+
+@keyframes catalogue-truck-media-in {
+  from {
+    transform: translate3d(10px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .catalog-operation-grid {
@@ -3063,27 +3159,64 @@
   width: 100%;
 }
 
-.comparison-layout[data-motion="section"] {
+.comparison-layout[data-motion="comparison"] {
   opacity: 1;
   transform: none;
   transition: none;
   will-change: auto;
 }
 
-.comparison-layout[data-motion="section"].motion-visible {
-  animation: comparison-layout-in var(--motion-slow) var(--motion-ease) both;
+.comparison-layout[data-motion="comparison"] .comparison-heading,
+.comparison-layout[data-motion="comparison"] .comparison-column,
+.comparison-layout[data-motion="comparison"] .comparison-divider-axis,
+.comparison-layout[data-motion="comparison"] .comparison-vs {
+  opacity: 0;
+  transition:
+    opacity 560ms var(--motion-ease),
+    transform 560ms var(--motion-ease);
+  will-change: opacity, transform;
 }
 
-@keyframes comparison-layout-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 24px, 0);
-  }
+.comparison-layout[data-motion="comparison"] .comparison-heading {
+  transform: translate3d(0, 18px, 0);
+}
 
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+.comparison-layout[data-motion="comparison"] .comparison-column-subscription {
+  transform: translate3d(-28px, 0, 0);
+}
+
+.comparison-layout[data-motion="comparison"] .comparison-column-financing {
+  transform: translate3d(28px, 0, 0);
+}
+
+.comparison-layout[data-motion="comparison"] .comparison-divider-axis,
+.comparison-layout[data-motion="comparison"] .comparison-vs {
+  transform: translate(-50%, -50%) scale(0.96);
+}
+
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-heading,
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-column {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-divider-axis,
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-vs {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-column-subscription {
+  transition-delay: 100ms;
+}
+
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-column-financing {
+  transition-delay: 170ms;
+}
+
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-divider-axis,
+.comparison-layout[data-motion="comparison"].motion-visible .comparison-vs {
+  transition-delay: 240ms;
 }
 
 .comparison-heading {
@@ -3321,27 +3454,38 @@
   width: 100%;
 }
 
-.assistance-grid[data-motion="section"] {
+.assistance-grid[data-motion="assistance"] {
   opacity: 1;
   transform: none;
   transition: none;
   will-change: auto;
 }
 
-.assistance-grid[data-motion="section"].motion-visible {
-  animation: assistance-grid-in var(--motion-slow) var(--motion-ease) both;
+.assistance-grid[data-motion="assistance"] .assistance-copy,
+.assistance-grid[data-motion="assistance"] .assistance-panel {
+  opacity: 0;
+  transition:
+    opacity 560ms var(--motion-ease),
+    transform 560ms var(--motion-ease);
+  will-change: opacity, transform;
 }
 
-@keyframes assistance-grid-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 24px, 0);
-  }
+.assistance-grid[data-motion="assistance"] .assistance-copy {
+  transform: translate3d(0, 18px, 0);
+}
 
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+.assistance-grid[data-motion="assistance"] .assistance-panel {
+  transform: translate3d(26px, 0, 0);
+}
+
+.assistance-grid[data-motion="assistance"].motion-visible .assistance-copy,
+.assistance-grid[data-motion="assistance"].motion-visible .assistance-panel {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.assistance-grid[data-motion="assistance"].motion-visible .assistance-panel {
+  transition-delay: 100ms;
 }
 
 .assistance-copy {
@@ -3442,6 +3586,11 @@
   text-align: left;
   text-decoration: none;
   width: 100%;
+}
+
+.assistance-actions > [data-motion="assist-card"] {
+  transition-delay: calc(180ms + (var(--motion-index, 0) * 70ms));
+  transition-duration: 520ms;
 }
 
 .assistance-card-copy {
@@ -3559,6 +3708,11 @@
   top: 40px;
   width: 620px;
   z-index: 2;
+}
+
+.assistance-photo[data-motion="assist-photo"] {
+  transition-delay: 140ms;
+  transition-duration: 580ms;
 }
 
 .assistance-photo img {

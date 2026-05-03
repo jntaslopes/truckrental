@@ -145,12 +145,34 @@ button {
   transform: translate3d(0, 24px, 0);
 }
 
+[data-motion="benefit-rail"] {
+  transform: translate3d(-24px, 0, 0);
+}
+
+[data-motion="catalogue-card"] {
+  transform: translate3d(28px, 0, 0);
+}
+
+[data-motion="catalogue-operation"] {
+  transform: translate3d(0, 18px, 0);
+}
+
+[data-motion="assist-card"] {
+  transform: translate3d(22px, 0, 0);
+}
+
+[data-motion="assist-photo"] {
+  transform: translate3d(-28px, 0, 0);
+}
+
 [data-motion].motion-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 
-[data-motion="fade"].motion-visible {
+[data-motion="fade"].motion-visible,
+[data-motion="comparison"].motion-visible,
+[data-motion="assistance"].motion-visible {
   transform: none;
 }
 

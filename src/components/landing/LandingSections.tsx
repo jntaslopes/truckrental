@@ -247,7 +247,7 @@ export function HeroSection() {
       </div>
       <div className="hero-benefits-bar">
         <div className="hero-benefits-inner">
-          <div className="hero-benefits-brand" data-motion="card">
+          <div className="hero-benefits-brand" data-motion="benefit-rail">
             <p>VW Truck | Rental</p>
             <h2>
               <strong>Aluguel de frota</strong>
@@ -255,7 +255,7 @@ export function HeroSection() {
             </h2>
           </div>
           {benefits.map(([icon, title, copy]) => (
-            <div className="hero-benefit" key={title} data-motion="card">
+            <div className="hero-benefit" key={title} data-motion="benefit-rail">
               <img src={asset(icon)} alt="" aria-hidden="true" />
               <div>
                 <strong>{title}</strong>
@@ -638,7 +638,7 @@ export function TruckCatalogueSection({
                 variant="landing"
               />
             ))}
-            <Link href="/caminhoes" className="catalog-all-models-card">
+            <Link href="/caminhoes" className="catalog-all-models-card" data-motion="catalogue-card">
               <span>
                 e mais 53 modelos.
                 <br />
@@ -653,7 +653,7 @@ export function TruckCatalogueSection({
           </div>
 
           <div className="catalogue-operation-row">
-            <article className="catalog-operation-intro-card">
+            <article className="catalog-operation-intro-card" data-motion="catalogue-operation">
               <span>
                 Encontre os ideais{" "}
                 <br />
@@ -669,6 +669,7 @@ export function TruckCatalogueSection({
                   className={`catalog-operation-card ${item.slug}`}
                   href={`/caminhoes?application=${encodeURIComponent(item.application)}`}
                   key={item.title}
+                  data-motion="catalogue-operation"
                 >
                   <span className="catalog-operation-media" aria-hidden="true">
                     <img src={item.image} alt="" className="catalog-operation-banner" />
@@ -830,7 +831,7 @@ export function PlansSection() {
   return (
     <section id="proposta" className="plans-section page-band">
       <div className="page-inner">
-        <div className="comparison-layout" data-motion="section">
+        <div className="comparison-layout" data-motion="comparison">
           <div className="comparison-heading">
             <p>POR QUE ALUGAR?</p>
             <h2>
@@ -938,7 +939,7 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
 
   return (
     <section id="assistance" className="assistance-section page-band soft">
-      <div className="page-inner assistance-grid" data-motion="section">
+      <div className="page-inner assistance-grid" data-motion="assistance">
         <div className="assistance-copy">
           <p className="eyebrow">DÊ O PRÓXIMO PASSO AGORA MESMO</p>
           <h2>
@@ -974,7 +975,7 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
                     onClick={onOpenProposal}
                     aria-label={path.cta}
                     key={path.title}
-                    data-motion="card"
+                    data-motion="assist-card"
                   >
                     {actionContent}
                   </button>
@@ -984,7 +985,7 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
                     className="assistance-card"
                     aria-label={path.cta}
                     key={path.title}
-                    data-motion="card"
+                    data-motion="assist-card"
                   >
                     {actionContent}
                   </Link>
@@ -994,7 +995,7 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
                     className="assistance-card"
                     aria-label={path.cta}
                     key={path.title}
-                    data-motion="card"
+                    data-motion="assist-card"
                   >
                     {actionContent}
                   </a>
@@ -1003,7 +1004,7 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
             </div>
           </div>
 
-          <div className="assistance-photo" data-motion="fade">
+          <div className="assistance-photo" data-motion="assist-photo">
             <img src={asset("assistance-fleet.png")} alt="Atendimento Volkswagen Caminhões" />
           </div>
         </div>

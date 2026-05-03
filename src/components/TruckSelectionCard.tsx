@@ -66,7 +66,10 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
   const visibleBadges = isLanding ? truck.badges.slice(0, 1) : truck.badges;
 
   return (
-    <article className={`catalog-truck-card ${isLanding ? "landing-truck-card" : ""} ${isWithoutProposalAction ? "without-proposal-action" : ""} ${selected ? "selected" : ""}`}>
+    <article
+      className={`catalog-truck-card ${isLanding ? "landing-truck-card" : ""} ${isWithoutProposalAction ? "without-proposal-action" : ""} ${selected ? "selected" : ""}`}
+      data-motion={isLanding ? "catalogue-card" : undefined}
+    >
       <div className="catalog-truck-surface" aria-hidden="true" />
       <div className="catalog-truck-media">
         <TruckImageStack
