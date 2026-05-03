@@ -94,8 +94,12 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
             }
           />
         </div>
-        {!selected && visibleBadges.length > 0 ? (
-          <div className="badges" aria-label="Características">
+        {!selected ? (
+          <div
+            className={`badges${visibleBadges.length === 0 ? " empty" : ""}`}
+            aria-hidden={visibleBadges.length === 0 ? "true" : undefined}
+            aria-label={visibleBadges.length > 0 ? "Características" : undefined}
+          >
             {visibleBadges.map((badge) => (
               <span className={`badge ${badge.tone}`} key={badge.label}>
                 <BadgeIcon badge={badge} />
@@ -122,15 +126,10 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
               <span className="card-remove-icon" aria-hidden="true">×</span>
             </button>
           </div>
-        ) : isLanding || !showProposalAction ? null : (
-          <button className="text-link" type="button" onClick={() => onToggle(truck)}>
-            Adicionar à proposta
-            <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
-          </button>
-        )}
+        ) : null}
         <Link className="text-link" href={`/caminhoes/${truck.slug}`}>
           Ver detalhes
-          <img className="action-icon text-link-icon" src={asset("icon-arrow-right.svg")} alt="" />
+          <span className="action-icon text-link-icon arrow-icon" aria-hidden="true" />
         </Link>
       </div>
     </article>

@@ -283,13 +283,7 @@ export function TruckCatalogueSection({
   const sectionRef = useRef<HTMLElement | null>(null);
   const truckRowRef = useRef<HTMLDivElement | null>(null);
   const operationCarouselRef = useRef<HTMLDivElement | null>(null);
-  const [isRevealed, setIsRevealed] = useState(() => {
-    if (typeof window === "undefined") {
-      return false;
-    }
-
-    return window.location.hash === "#catalogo";
-  });
+  const [isRevealed, setIsRevealed] = useState(false);
   const operationCards = [
     {
       slug: "road",
@@ -335,6 +329,8 @@ export function TruckCatalogueSection({
       let isMouseDown = false;
       let suppressClick = false;
       let suppressClickTimeout: number | undefined;
+      const supportsPointerEvents = "PointerEvent" in window;
+      const interactiveSelector = "a, button, input, label, select, textarea";
 
       const clearSuppressClickTimeout = () => {
         if (suppressClickTimeout !== undefined) {
@@ -342,6 +338,9 @@ export function TruckCatalogueSection({
           suppressClickTimeout = undefined;
         }
       };
+
+      const isInteractiveTarget = (target: EventTarget | null) =>
+        target instanceof Element && target.closest(interactiveSelector) !== null;
 
       const snapToNearestItem = () => {
         const currentScrollLeft = scroller.scrollLeft;
@@ -392,7 +391,7 @@ export function TruckCatalogueSection({
       };
 
       const onPointerDown = (event: PointerEvent) => {
-        if (event.button !== 0 || event.pointerType === "touch") {
+        if (event.button !== 0 || event.pointerType === "touch" || isInteractiveTarget(event.target)) {
           return;
         }
 
@@ -484,7 +483,7 @@ export function TruckCatalogueSection({
       };
 
       const onMouseDown = (event: MouseEvent) => {
-        if (event.button !== 0 || pointerId !== null) {
+        if (supportsPointerEvents || event.button !== 0 || pointerId !== null || isInteractiveTarget(event.target)) {
           return;
         }
 
@@ -523,7 +522,9 @@ export function TruckCatalogueSection({
       scroller.addEventListener("pointerup", endDrag);
       scroller.addEventListener("pointercancel", endDrag);
       scroller.addEventListener("lostpointercapture", endDrag);
-      scroller.addEventListener("mousedown", onMouseDown);
+      if (!supportsPointerEvents) {
+        scroller.addEventListener("mousedown", onMouseDown);
+      }
       scroller.addEventListener("click", onClickCapture, true);
 
       return () => {
@@ -534,7 +535,9 @@ export function TruckCatalogueSection({
         scroller.removeEventListener("pointerup", endDrag);
         scroller.removeEventListener("pointercancel", endDrag);
         scroller.removeEventListener("lostpointercapture", endDrag);
-        scroller.removeEventListener("mousedown", onMouseDown);
+        if (!supportsPointerEvents) {
+          scroller.removeEventListener("mousedown", onMouseDown);
+        }
         scroller.removeEventListener("click", onClickCapture, true);
       };
     };
@@ -645,7 +648,7 @@ export function TruckCatalogueSection({
                 <br />
                 <strong>disponíveis</strong>
               </span>
-              <img src={asset("catalog-all-models-arrow-72.svg")} alt="" />
+              <span className="catalog-all-models-arrow" aria-hidden="true" />
             </Link>
           </div>
 
@@ -799,7 +802,7 @@ export function OperationSection() {
 
             <button className="benefits-cta" type="button">
               <span>Entender como funciona</span>
-              <img src={asset("icon-arrow-right.svg")} alt="" aria-hidden="true" />
+              <span className="action-icon button-icon arrow-icon" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -959,7 +962,7 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
                     </div>
                     <span className="assistance-arrow" aria-hidden="true">
                       <span className="assistance-arrow-text">{path.cta}</span>
-                      <img src={asset("icon-arrow-right.svg")} alt="" />
+                      <span className="action-icon button-icon arrow-icon" aria-hidden="true" />
                     </span>
                   </>
                 );
@@ -1036,7 +1039,7 @@ export function DealersSection() {
           <img className="dealer-map-image dealer-map-overlay" src={asset("dealer-map-overlay-540-12183.png")} alt="" aria-hidden="true" />
           <button className="map-card" type="button">
             <span>Ver todas as concessionárias</span>
-            <img src={asset("icon-arrow-right.svg")} alt="" aria-hidden="true" />
+            <span className="action-icon button-icon arrow-icon" aria-hidden="true" />
           </button>
         </div>
       </div>

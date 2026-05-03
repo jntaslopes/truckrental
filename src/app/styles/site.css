@@ -264,11 +264,32 @@
   transform: translateX(3px);
 }
 
+.arrow-icon {
+  background: currentColor;
+  display: block;
+  flex: 0 0 auto;
+  height: 20px;
+  mask: url("/assets/figma/icon-arrow-right.svg") center / 15px 11.3075px no-repeat;
+  padding: 0;
+  width: 20px;
+  -webkit-mask: url("/assets/figma/icon-arrow-right.svg") center / 15px 11.3075px no-repeat;
+}
+
+:is(.ghost-action, .primary-action, .secondary-action, .outline-cta, .footer-button, .dealer-location, .dealer-route, .dealer-details, .map-card, .proposal-summary button, .proposal-submit) .button-icon.arrow-icon {
+  height: 20px;
+  padding: 0;
+  width: 20px;
+}
+
 :is(.proposal-cancel, .proposal-submit) :is(img, .button-icon) {
   box-sizing: border-box;
   height: 20px;
   padding: 2px;
   width: 20px;
+}
+
+.button-icon-on-dark.arrow-icon {
+  filter: none;
 }
 
 .main-nav a,

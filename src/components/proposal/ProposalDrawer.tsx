@@ -1,14 +1,10 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useMemo, useState, type ChangeEvent } from "react";
 import { TruckImageStack } from "@/components/TruckImageStack";
 import { sanitizeProposalQuantity } from "@/features/proposal/model";
 import { useProposal } from "@/features/proposal/ProposalProvider";
 import type { ProposalConsents, ProposalContact } from "@/features/proposal/types";
-
-const asset = (name: string) => `/assets/figma/${name}`;
 
 const initialContact: ProposalContact = {
   name: "",
@@ -288,11 +284,7 @@ export function ProposalDrawer({
           </button>
           <button type="button" className="proposal-submit" onClick={handlePreviewAction}>
             Solicitar proposta
-            <img
-              className="action-icon button-icon button-icon-on-dark"
-              src={asset("icon-arrow-right.svg")}
-              alt=""
-            />
+            <span className="action-icon button-icon button-icon-on-dark arrow-icon" aria-hidden="true" />
           </button>
         </footer>
       </div>
