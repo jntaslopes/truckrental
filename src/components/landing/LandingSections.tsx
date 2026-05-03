@@ -57,13 +57,21 @@ export function HeroSection() {
     ["hero-benefit-shipment.svg", "Gestão", "completa da frota"],
   ] as const;
 
+  const heroIcons = [
+    ["hero-icon-dollar.svg", "hero-icon-overlay hero-icon-dollar"],
+    ["hero-icon-zero-sign.svg", "hero-icon-overlay hero-icon-zero-sign"],
+    ["hero-icon-shield-check.svg", "hero-icon-overlay hero-icon-shield-check"],
+    ["hero-icon-calendar-cash.svg", "hero-icon-overlay hero-icon-calendar-cash"],
+    ["hero-icon-baseline-chart.svg", "hero-icon-overlay hero-icon-baseline-chart"],
+  ] as const;
+
   return (
     <section id="top" className="hero-section" data-motion="fade">
       <div className="hero-surface-shell">
         <div className="hero-surface">
           <div className="hero-inner">
             <div className="hero-copy">
-              <p className="eyebrow">ASSINATURA DE CAMINHÕES</p>
+              <p className="eyebrow">ALUGUEL DE CAMINHÕES</p>
               <h1>
                 <span className="hero-copy-line">Sua frota,</span>
                 <span className="hero-copy-line">sem burocracia e</span>
@@ -77,35 +85,46 @@ export function HeroSection() {
 
             <div className="hero-visual">
               <div className="hero-visual-stage">
-                <img className="hero-banner-image" src={asset("hero-banner-visual.png")} alt="" aria-hidden="true" />
-                <div className="hero-badge hero-price-badge">
-                  <span>Plano a partir</span>
-                  <span>de R$5mil/mês*</span>
+                <img className="hero-banner-image" src={asset("hero-banner-vectors-v2.png")} alt="" aria-hidden="true" />
+                {heroIcons.map(([icon, className]) => (
+                  <img key={icon} className={className} src={asset(icon)} alt="" aria-hidden="true" />
+                ))}
+                <div className="hero-badge hero-fixed-cost-badge" data-node-id="540:8951">
+                  <span>Custo</span>
+                  <span>Fixo</span>
+                  <span>Mensal</span>
                 </div>
-                <div className="hero-badge hero-subscription-badge">
-                  <img src={asset("hero-badge-subscription.svg")} alt="" aria-hidden="true" />
-                  <span>Assinatura mensal</span>
+                <div className="hero-badge hero-flex-plan-badge" data-node-id="540:8947">
+                  <span>Planos</span>
+                  <span>flexíveis</span>
+                  <span>para o seu</span>
+                  <span>negócios</span>
                 </div>
               </div>
             </div>
             <a
               href="#catalogo"
               className="hero-cta"
-              data-motion="fade"
-              aria-label="Ver todos os caminhões para assinatura"
+              aria-label="Ver caminhões disponíveis"
             >
-              <span className="hero-cta-label-full">Ver todos os caminhões para assinatura</span>
+              <span className="hero-cta-label-full">Ver Caminhões Disponíveis</span>
               <span className="hero-cta-label-short" aria-hidden="true">
                 Ver caminhões
               </span>
+              <span className="hero-cta-arrow" aria-hidden="true" />
             </a>
-            <p className="hero-disclaimer">
-              Valor referente a modelos de entrada, sujeito a disponibilidade, região e análise de crédito
-            </p>
+            <div className="hero-banner-control" aria-label="Controle do banner" data-node-id="540:9075">
+              <button type="button" aria-label="Banner anterior">
+                <span aria-hidden="true" />
+              </button>
+              <button type="button" aria-label="Próximo banner">
+                <span aria-hidden="true" />
+              </button>
+            </div>
+            <div className="hero-corner-shape" aria-hidden="true" data-node-id="540:9074" />
           </div>
         </div>
       </div>
-
       <div className="hero-benefits-bar">
         <div className="hero-benefits-inner">
           <div className="hero-benefits-brand" data-motion="card">
