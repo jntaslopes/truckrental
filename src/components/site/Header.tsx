@@ -58,7 +58,7 @@ export function Header({
       <nav className="main-nav" aria-label="Navegação principal">
         {navItems.map((item) => {
           const label = activePath === "/caminhoes" && item.href === "/caminhoes"
-            ? "Caminhões Disponíveis"
+            ? "Caminhões"
             : item.label;
           const isDisabled =
             item.disabled === true || (disableSectionLinks && disabledNavHrefs.has(item.href));
@@ -149,7 +149,7 @@ export function Header({
             <nav className="mobile-menu-nav" aria-label="Navegação mobile">
               {navItems.map((item) => {
                 const label = activePath === "/caminhoes" && item.href === "/caminhoes"
-                  ? "Caminhões Disponíveis"
+                  ? "Caminhões"
                   : item.label;
                 const isDisabled =
                   item.disabled === true || (disableSectionLinks && disabledNavHrefs.has(item.href));
