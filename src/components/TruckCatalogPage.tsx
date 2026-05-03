@@ -282,6 +282,7 @@ export function TruckCatalogPage({ initialApplication }: { initialApplication?: 
                 quantity={quantities[truck.id] ?? 1}
                 onToggle={toggleTruck}
                 onQuantityChange={setQuantity}
+                showProposalAction={false}
               />
             ))}
           </div>
