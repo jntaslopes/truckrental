@@ -2271,7 +2271,7 @@
   }
 
   .catalogue-section .catalog-operation-card {
-    flex: 0 0 min(310px, calc(100vw - 88px));
+    flex: 0 0 min(292px, calc(100vw - 104px));
     scroll-snap-align: start;
   }
 
@@ -2316,6 +2316,10 @@
   .landing-page .catalogue-section .landing-truck-card.selected {
     height: 390px;
     min-height: 390px;
+  }
+
+  .catalogue-section .catalog-operation-card {
+    flex-basis: min(292px, calc(100vw - 128px));
   }
 }
 
