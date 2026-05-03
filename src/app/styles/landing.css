@@ -3074,8 +3074,8 @@
 
 @media (max-width: 699px) {
   .benefits-section {
-    --benefits-mobile-pad-left: 24px;
-    --benefits-mobile-pad-right: 12px;
+    --benefits-mobile-pad-left: 16px;
+    --benefits-mobile-pad-right: 16px;
     padding: 48px var(--benefits-mobile-pad-right) 56px var(--benefits-mobile-pad-left);
   }
 
@@ -3110,7 +3110,8 @@
   .benefits-card-grid {
     grid-template-columns: 1fr;
     row-gap: 28px;
-    width: calc(100vw - var(--benefits-mobile-pad-left) - var(--benefits-mobile-pad-right));
+    max-width: 100%;
+    width: 100%;
   }
 
   .benefits-card {
@@ -3152,6 +3153,7 @@
   .benefits-cta-card {
     box-sizing: border-box;
     gap: 32px;
+    max-width: 100%;
     min-height: 220px;
     min-width: 0;
     padding: 32px 20px;
@@ -3166,9 +3168,10 @@
   .benefits-cta {
     height: auto;
     line-height: 19px;
+    max-width: 100%;
     min-height: 48px;
     min-width: 0;
-    padding: 8px 14px;
+    padding: 8px 12px;
     text-align: center;
     white-space: normal;
   }
@@ -3176,6 +3179,10 @@
   .benefits-cta span {
     min-width: 0;
     white-space: normal;
+  }
+
+  .benefits-cta .button-icon {
+    display: none;
   }
 }
 

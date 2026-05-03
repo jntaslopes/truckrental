@@ -2697,8 +2697,8 @@ html.proposal-drawer-open body {
 
 @media (max-width: 699px) {
   .benefits-section {
-    --benefits-mobile-pad-left: 24px;
-    --benefits-mobile-pad-right: 12px;
+    --benefits-mobile-pad-left: 16px;
+    --benefits-mobile-pad-right: 16px;
     padding-left: var(--benefits-mobile-pad-left);
     padding-right: var(--benefits-mobile-pad-right);
   }
@@ -2712,7 +2712,8 @@ html.proposal-drawer-open body {
 
   .benefits-card-grid {
     row-gap: 28px;
-    width: calc(100vw - var(--benefits-mobile-pad-left) - var(--benefits-mobile-pad-right));
+    max-width: 100%;
+    width: 100%;
   }
 
   .benefits-card {
@@ -2723,6 +2724,7 @@ html.proposal-drawer-open body {
 
   .benefits-cta-card {
     box-sizing: border-box;
+    max-width: 100%;
     min-width: 0;
     padding-left: 20px;
     padding-right: 20px;
@@ -2732,10 +2734,11 @@ html.proposal-drawer-open body {
   .benefits-cta {
     height: auto;
     line-height: 19px;
+    max-width: 100%;
     min-height: 48px;
     min-width: 0;
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
     text-align: center;
     white-space: normal;
   }
@@ -2746,6 +2749,10 @@ html.proposal-drawer-open body {
   }
 
   .benefits-section::before {
+    display: none;
+  }
+
+  .benefits-cta .button-icon {
     display: none;
   }
 }
