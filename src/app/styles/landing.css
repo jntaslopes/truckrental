@@ -2530,23 +2530,18 @@
 }
 
 .plans-section {
-  background: var(--white);
+  --plans-blue-start: 272px;
+
+  background: linear-gradient(
+    to bottom,
+    var(--white) 0 var(--plans-blue-start),
+    var(--blue) var(--plans-blue-start) 100%
+  );
   isolation: isolate;
   overflow: hidden;
   padding: 80px clamp(20px, 6.25vw, 100px) 50px;
   position: relative;
   text-align: center;
-}
-
-.plans-section::before {
-  background: var(--blue);
-  bottom: 0;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 272px;
-  z-index: -1;
 }
 
 .plans-section .page-inner {
@@ -2562,6 +2557,29 @@
   gap: 48px;
   margin: 0 auto;
   width: 100%;
+}
+
+.comparison-layout[data-motion="section"] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+
+.comparison-layout[data-motion="section"].motion-visible {
+  animation: comparison-layout-in var(--motion-medium) var(--motion-ease) both;
+}
+
+@keyframes comparison-layout-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .comparison-heading {
@@ -2797,6 +2815,29 @@
   padding: 0;
   position: relative;
   width: 100%;
+}
+
+.assistance-grid[data-motion="section"] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+
+.assistance-grid[data-motion="section"].motion-visible {
+  animation: assistance-grid-in var(--motion-medium) var(--motion-ease) both;
+}
+
+@keyframes assistance-grid-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .assistance-copy {

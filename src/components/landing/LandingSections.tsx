@@ -705,9 +705,9 @@ export function PlansSection() {
   ];
 
   return (
-    <section id="proposta" className="plans-section page-band" data-motion="section">
+    <section id="proposta" className="plans-section page-band">
       <div className="page-inner">
-        <div className="comparison-layout">
+        <div className="comparison-layout" data-motion="section">
           <div className="comparison-heading">
             <p>POR QUE ALUGAR?</p>
             <h2>
@@ -814,8 +814,8 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
   ] as const;
 
   return (
-    <section id="assistance" className="assistance-section page-band soft" data-motion="section">
-      <div className="page-inner assistance-grid">
+    <section id="assistance" className="assistance-section page-band soft">
+      <div className="page-inner assistance-grid" data-motion="section">
         <div className="assistance-copy">
           <p className="eyebrow">DÊ O PRÓXIMO PASSO AGORA MESMO</p>
           <h2>
