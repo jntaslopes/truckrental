@@ -14,7 +14,7 @@ export type NavItem = {
 };
 
 export const navItems: NavItem[] = [
-  { label: "Monte sua Frota", href: "/caminhoes" },
+  { label: "Caminhões", href: "/caminhoes" },
   { label: "Como funciona", href: "/#como-funciona", disabled: true },
   { label: "Central de Ajuda", href: "/#faq", disabled: true },
 ];
