@@ -998,13 +998,17 @@
     padding: 0 20px;
   }
 
+  .hero-section-background {
+    --hero-surface-height: 660px;
+  }
+
   .hero-section-background .hero-background-composite {
     display: none;
   }
 
   .hero-section-background .hero-background-copy-panel {
     display: block;
-    height: 270px;
+    height: 225px;
     left: -20px;
     width: calc(100% + 40px);
   }
@@ -1021,7 +1025,7 @@
     height: auto;
     left: 50%;
     top: 10px;
-    transform: translateX(-62%);
+    transform: translateX(-59%);
     width: 1600px;
   }
 
@@ -1030,7 +1034,7 @@
     height: auto;
     left: 50%;
     top: 10px;
-    transform: translateX(-62%);
+    transform: translateX(-59%);
     width: 1600px;
   }
 
@@ -1071,8 +1075,21 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     left: 20px;
     right: 20px;
-    top: 505px;
+    top: 455px;
     width: calc(100% - 40px);
+  }
+
+  .hero-section-background .hero-cta {
+    left: 20px;
+    margin-top: 0;
+    position: absolute;
+    top: 552px;
+    width: calc(100% - 40px);
+    z-index: 7;
+  }
+
+  .hero-section-background .hero-benefits-bar {
+    margin-top: 0;
   }
 
   .hero-section-background .hero-h2-fixed-cost-badge,
@@ -1141,6 +1158,10 @@
 @media (max-width: 360px) {
   .hero-section {
     --hero-surface-height: 700px;
+  }
+
+  .hero-section-background {
+    --hero-surface-height: 660px;
   }
 
   .hero-visual {
