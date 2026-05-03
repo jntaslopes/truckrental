@@ -388,6 +388,214 @@
   z-index: 2;
 }
 
+.hero-section-background {
+  --hero-h2-bg-left: -12.303%;
+  --hero-h2-bg-top: -56.137%;
+  --hero-h2-bg-width: 137.946%;
+  --hero-h2-montage-width: 48.788%;
+  --hero-h2-shadow-wide-left: 14.788%;
+  --hero-h2-shadow-wide-top: 32.852%;
+  --hero-h2-shadow-wide-width: 44.485%;
+  --hero-h2-shadow-tight-left: 22.182%;
+  --hero-h2-shadow-tight-top: 47.834%;
+  --hero-h2-shadow-tight-width: 33.273%;
+  --hero-copy-text-height: 160px;
+  --hero-cta-gap: 24px;
+}
+
+.hero-section-background .hero-surface-shell::after {
+  display: none;
+}
+
+.hero-background-scene {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.hero-background-image {
+  display: block;
+  height: auto;
+  left: var(--hero-h2-bg-left);
+  max-width: none;
+  object-fit: contain;
+  position: absolute;
+  top: var(--hero-h2-bg-top);
+  width: var(--hero-h2-bg-width);
+  z-index: 1;
+}
+
+.hero-background-copy-panel {
+  background: var(--white);
+  height: calc(100% + 7px);
+  left: 0;
+  position: absolute;
+  top: -7px;
+  width: max(36.485%, calc(var(--hero-copy-left) + var(--hero-copy-width) + 24px));
+  z-index: 2;
+}
+
+.hero-background-cyan-tab {
+  background: var(--cyan);
+  height: clamp(74px, 7.6vw, 126px);
+  left: calc(max(36.485%, calc(var(--hero-copy-left) + var(--hero-copy-width) + 24px)) - 1px);
+  position: absolute;
+  top: 0;
+  width: 2px;
+  z-index: 3;
+}
+
+.hero-background-shadow {
+  display: block;
+  max-width: none;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+
+.hero-background-shadow-wide {
+  height: auto;
+  left: var(--hero-h2-shadow-wide-left);
+  opacity: 0.23;
+  top: var(--hero-h2-shadow-wide-top);
+  width: var(--hero-h2-shadow-wide-width);
+}
+
+.hero-background-shadow-tight {
+  height: auto;
+  left: var(--hero-h2-shadow-tight-left);
+  opacity: 0.54;
+  top: var(--hero-h2-shadow-tight-top);
+  width: var(--hero-h2-shadow-tight-width);
+}
+
+.hero-background-montage {
+  display: block;
+  height: auto;
+  left: var(--hero-h2-bg-left);
+  max-width: none;
+  object-fit: contain;
+  pointer-events: none;
+  position: absolute;
+  top: var(--hero-h2-bg-top);
+  width: var(--hero-h2-montage-width);
+  z-index: 4;
+}
+
+.hero-background-overlay {
+  background: var(--blue);
+  inset: 0;
+  mix-blend-mode: color;
+  opacity: 0.16;
+  position: absolute;
+  z-index: 5;
+}
+
+.hero-section-background .hero-copy {
+  gap: 0;
+  width: 444px;
+}
+
+.hero-section-background .hero-copy .eyebrow {
+  margin-bottom: 16px;
+}
+
+.hero-section-background .hero-copy h1 {
+  font-size: 50px;
+  line-height: 48px;
+  width: 430px;
+}
+
+.hero-section-background .hero-copy h1 .accent-line {
+  display: block;
+}
+
+.hero-price-badges {
+  align-items: flex-start;
+  display: flex;
+  gap: 0;
+  position: absolute;
+  right: clamp(40px, 6.42vw, 106px);
+  top: 50px;
+  z-index: 6;
+}
+
+.hero-h2-fixed-cost-badge {
+  background: var(--cyan);
+  box-sizing: border-box;
+  color: var(--blue);
+  display: flex;
+  flex-direction: column;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  height: 64px;
+  line-height: 17px;
+  padding: 5px 6px;
+  width: 80px;
+}
+
+.hero-h2-plan-badge {
+  background: var(--blue);
+  box-shadow: 0 7px 0 var(--cyan);
+  box-sizing: border-box;
+  color: var(--white);
+  height: 170px;
+  position: relative;
+  width: 170px;
+}
+
+.hero-h2-plan-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 18px;
+  position: absolute;
+  top: 21px;
+  width: 125px;
+}
+
+.hero-h2-plan-label {
+  display: flex;
+  flex-direction: column;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.hero-h2-plan-price {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2px;
+}
+
+.hero-h2-plan-price strong {
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+}
+
+.hero-h2-plan-price span {
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.hero-section-theme-dark .hero-banner-control button {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.hero-section-theme-dark .hero-banner-control button:hover {
+  background: rgb(255 255 255 / 10%);
+}
+
 @media (min-width: 1400px) {
   .hero-section {
     --hero-frame-width: min(1650px, 100vw);
@@ -404,6 +612,22 @@
     --hero-edge-stripe-width: 40px;
     --hero-control-right: clamp(40px, 6vw, 101px);
     --hero-control-top-offset: 195px;
+  }
+
+  .hero-section-background {
+    --hero-h2-bg-left: 0%;
+    --hero-h2-bg-top: -43%;
+    --hero-h2-bg-width: 125%;
+    --hero-h2-montage-width: 44.4%;
+    --hero-h2-shadow-wide-left: 27.1%;
+    --hero-h2-shadow-wide-top: 46%;
+    --hero-h2-shadow-wide-width: 39.8%;
+    --hero-h2-shadow-tight-left: 33.9%;
+    --hero-h2-shadow-tight-top: 58%;
+    --hero-h2-shadow-tight-width: 29.9%;
+    --hero-copy-width: 444px;
+    --hero-copy-text-height: 175px;
+    --hero-cta-gap: 32px;
   }
 }
 
@@ -432,6 +656,47 @@
     font-size: 15px;
     line-height: 18px;
     width: 392px;
+  }
+
+  .hero-section-background {
+    --hero-h2-bg-left: 2%;
+    --hero-h2-bg-top: -38%;
+    --hero-h2-bg-width: 123%;
+    --hero-h2-montage-width: 43.7%;
+    --hero-h2-shadow-wide-left: 30.5%;
+    --hero-h2-shadow-wide-top: 48%;
+    --hero-h2-shadow-wide-width: 37.9%;
+    --hero-h2-shadow-tight-left: 36.5%;
+    --hero-h2-shadow-tight-top: 60%;
+    --hero-h2-shadow-tight-width: 28.7%;
+    --hero-copy-width: 444px;
+    --hero-copy-text-height: 163px;
+    --hero-cta-gap: 32px;
+  }
+
+  .hero-section-background .hero-copy h1 {
+    font-size: 46px;
+    line-height: 44px;
+    width: 472px;
+  }
+
+  .hero-section-background .hero-background-image {
+    height: auto;
+    inset: auto;
+    object-fit: contain;
+  }
+
+  .hero-section-background .hero-background-montage {
+    display: block;
+  }
+
+  .hero-section-background .hero-background-shadow {
+    display: block;
+  }
+
+  .hero-section-background .hero-price-badges {
+    right: clamp(48px, 5vw, 70px);
+    top: 42px;
   }
 }
 
@@ -490,6 +755,57 @@
 
   .hero-cta {
     width: 244px;
+  }
+
+  .hero-section-background {
+    --hero-h2-bg-left: 8%;
+    --hero-h2-bg-top: -33%;
+    --hero-h2-bg-width: 120%;
+    --hero-h2-montage-width: 42.5%;
+    --hero-h2-shadow-wide-left: 39.5%;
+    --hero-h2-shadow-wide-top: 50%;
+    --hero-h2-shadow-wide-width: 36.5%;
+    --hero-h2-shadow-tight-left: 45%;
+    --hero-h2-shadow-tight-top: 61%;
+    --hero-h2-shadow-tight-width: 27.5%;
+    --hero-copy-text-height: 157px;
+    --hero-cta-gap: 24px;
+  }
+
+  .hero-section-background .hero-background-image {
+    height: auto;
+    inset: auto;
+    object-fit: contain;
+  }
+
+  .hero-section-background .hero-background-montage,
+  .hero-section-background .hero-background-shadow {
+    display: block;
+  }
+
+  .hero-section-background .hero-copy {
+    width: 390px;
+  }
+
+  .hero-section-background .hero-copy h1 {
+    font-size: 42px;
+    line-height: 42px;
+    width: 404px;
+  }
+
+  .hero-section-background .hero-price-badges {
+    right: 42px;
+    top: 36px;
+  }
+
+  .hero-section-background .hero-h2-plan-badge {
+    height: 148px;
+    width: 148px;
+  }
+
+  .hero-section-background .hero-h2-plan-copy {
+    left: 15px;
+    top: 17px;
   }
 }
 
@@ -552,6 +868,45 @@
 
   .hero-banner-control {
     display: none;
+  }
+
+  .hero-section-background .hero-copy {
+    width: 320px;
+  }
+
+  .hero-section-background .hero-background-image {
+    height: auto;
+    inset: auto;
+    object-fit: contain;
+  }
+
+  .hero-section-background .hero-background-montage {
+    display: block;
+  }
+
+  .hero-section-background .hero-background-shadow {
+    display: block;
+  }
+
+  .hero-section-background .hero-copy h1 {
+    font-size: 32px;
+    line-height: 34px;
+    width: 306px;
+  }
+
+  .hero-section-background {
+    --hero-h2-bg-left: 8%;
+    --hero-h2-bg-width: 116%;
+    --hero-h2-montage-width: 41%;
+    --hero-copy-text-height: 132px;
+    --hero-cta-gap: 20px;
+  }
+
+  .hero-section-background .hero-price-badges {
+    right: 30px;
+    top: 32px;
+    transform: scale(0.82);
+    transform-origin: top right;
   }
 }
 
@@ -703,6 +1058,142 @@
 
   .hero-corner-shape {
     display: none;
+  }
+
+  .hero-section-background .hero-inner {
+    padding: 0 20px;
+  }
+
+  .hero-section-background .hero-background-copy-panel {
+    height: 270px;
+    left: -20px;
+    width: calc(100% + 40px);
+  }
+
+  .hero-section-background .hero-background-cyan-tab {
+    height: 80px;
+    left: calc(100% - 31px);
+    width: 2px;
+  }
+
+  .hero-section-background .hero-background-image {
+    height: auto;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-62%);
+    width: 1600px;
+  }
+
+  .hero-section-background .hero-background-montage {
+    display: block;
+    height: auto;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-62%);
+    width: 1600px;
+  }
+
+  .hero-section-background .hero-background-shadow {
+    display: block;
+  }
+
+  .hero-section-background .hero-background-shadow-wide {
+    left: -6px;
+    top: 475px;
+    width: 338px;
+  }
+
+  .hero-section-background .hero-background-shadow-tight {
+    left: 44px;
+    top: 553px;
+    width: 250px;
+  }
+
+  .hero-section-background .hero-copy {
+    margin-top: 34px;
+    width: 100%;
+  }
+
+  .hero-section-background .hero-copy h1 {
+    font-size: 30px;
+    line-height: 34px;
+    width: 100%;
+  }
+
+  .hero-section-background .hero-copy h1 .accent-line {
+    display: block;
+  }
+
+  .hero-section-background .hero-price-badges {
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    left: 20px;
+    right: 20px;
+    top: 505px;
+    width: calc(100% - 40px);
+  }
+
+  .hero-section-background .hero-h2-fixed-cost-badge,
+  .hero-section-background .hero-h2-plan-badge {
+    height: 78px;
+    width: auto;
+  }
+
+  .hero-section-background .hero-h2-fixed-cost-badge {
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    justify-content: center;
+    line-height: 16px;
+    padding: 9px 10px;
+    text-align: center;
+  }
+
+  .hero-section-background .hero-h2-plan-badge {
+    align-items: center;
+    box-shadow: 0 4px 0 var(--cyan);
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-section-background .hero-h2-plan-copy {
+    align-items: center;
+    gap: 1px;
+    justify-content: center;
+    left: auto;
+    position: relative;
+    text-align: center;
+    top: auto;
+    width: calc(100% - 18px);
+  }
+
+  .hero-section-background .hero-h2-plan-label {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 13px;
+    gap: 4px;
+    justify-content: center;
+    line-height: 16px;
+  }
+
+  .hero-section-background .hero-h2-plan-price {
+    align-items: baseline;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: center;
+    padding-bottom: 0;
+  }
+
+  .hero-section-background .hero-h2-plan-price strong {
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  .hero-section-background .hero-h2-plan-price span {
+    font-size: 16px;
+    line-height: 20px;
   }
 }
 
