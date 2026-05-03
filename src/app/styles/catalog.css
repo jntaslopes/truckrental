@@ -460,6 +460,17 @@
   margin-top: auto;
 }
 
+.catalog-truck-card.selected .catalog-truck-content > a.text-link {
+  align-self: flex-start;
+  gap: 8px;
+  justify-content: flex-start;
+  line-height: 17px;
+  margin-top: auto;
+  padding-top: 0;
+  white-space: nowrap;
+  width: max-content;
+}
+
 .catalog-truck-card.selected .badge.engine {
   background: #d1d9f2;
 }
