@@ -1542,9 +1542,29 @@
   transform: translateY(0);
 }
 
-.catalogue-truck-row > [data-motion="catalogue-card"] {
-  transition-delay: calc(120ms + (var(--motion-index, 0) * 56ms));
-  transition-duration: 560ms;
+.catalogue-section:not(.catalogue-section-visible) .catalogue-truck-row > .landing-truck-card {
+  opacity: 0;
+  transform: translate3d(28px, 0, 0);
+}
+
+.catalogue-section-visible .catalogue-truck-row > .landing-truck-card {
+  animation: catalogue-card-in 560ms var(--motion-ease) both;
+}
+
+.catalogue-section-visible .catalogue-truck-row > .landing-truck-card:nth-of-type(2) {
+  animation-delay: 56ms;
+}
+
+.catalogue-section-visible .catalogue-truck-row > .landing-truck-card:nth-of-type(3) {
+  animation-delay: 112ms;
+}
+
+.catalogue-section-visible .catalogue-truck-row > .landing-truck-card:nth-of-type(4) {
+  animation-delay: 168ms;
+}
+
+.catalogue-section-visible .catalogue-truck-row > .landing-truck-card:nth-of-type(n + 5) {
+  animation-delay: 224ms;
 }
 
 .catalogue-operation-row [data-motion="catalogue-operation"] {
@@ -1552,8 +1572,20 @@
   transition-duration: 520ms;
 }
 
-.catalogue-truck-row > [data-motion="catalogue-card"].motion-visible .catalog-truck-media {
+.catalogue-section-visible .catalogue-truck-row > .landing-truck-card .catalog-truck-media {
   animation: catalogue-truck-media-in 640ms var(--motion-ease) both;
+}
+
+@keyframes catalogue-card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(28px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes catalogue-truck-media-in {
