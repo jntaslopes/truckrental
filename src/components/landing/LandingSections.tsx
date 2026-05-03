@@ -2,12 +2,30 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { faqs, trucks, type Truck } from "@/data/landing";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
 const asset = (name: string) => `/assets/figma/${name}`;
+
+const trustedCompanies = [
+  { name: "Coca-Cola", className: "coca-cola", asset: asset("trusted-company-coca-cola-540-12242.svg"), width: 104, height: 33 },
+  { name: "Raízen", className: "raizen", asset: asset("trusted-company-raizen-540-12242.svg"), width: 84, height: 34 },
+  { name: "Ambev", className: "ambev", asset: asset("trusted-company-ambev-540-12242.svg"), width: 82, height: 22 },
+  {
+    name: "BRF",
+    className: "brf",
+    width: 73,
+    height: 36,
+    parts: [
+      { asset: asset("trusted-company-brf-part-b-540-12242.svg"), className: "brf-symbol" },
+      { asset: asset("trusted-company-brf-part-a-540-12242.svg"), className: "brf-wordmark" },
+    ],
+  },
+  { name: "Natura", className: "natura", asset: asset("trusted-company-natura-540-12242.svg"), width: 75, height: 58 },
+  { name: "Mercado Livre", className: "mercado-livre", asset: asset("trusted-company-mercado-livre-540-12242.svg"), width: 116, height: 30 },
+] as const;
 
 function SectionTitle({
   eyebrow,
@@ -853,135 +871,41 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
 }
 
 export function DealersSection() {
-  const [dealerQuery, setDealerQuery] = useState("");
-
-  const dealers = [
-    {
-      name: "Volkswagen Itaim Bibi",
-      distance: "3km de você",
-      address: "Av. Brig. Faria Lima, 3.173",
-      city: "Itaim Bibi, São Paulo - SP",
-      phone: "(11) 3047-7400",
-      terms: ["são paulo", "sao paulo", "sp", "itaim", "itaim bibi", "faria lima", "04538", "cep"],
-    },
-    {
-      name: "Volkswagen Vila Leopoldina",
-      distance: "5km de você",
-      address: "Av. Imperatriz Leopoldina, 950",
-      city: "Vila Leopoldina, São Paulo - SP",
-      phone: "(11) 3838-1200",
-      terms: ["vila leopoldina", "leopoldina", "lapa", "alto de pinheiros", "05085"],
-    },
-    {
-      name: "Volkswagen ABC",
-      distance: "18km de você",
-      address: "Av. Pereira Barreto, 1.600",
-      city: "Santo André - SP",
-      phone: "(11) 4433-2200",
-      terms: ["santo andre", "santo andré", "abc", "são bernardo", "sao bernardo", "maua", "mauá"],
-    },
-  ];
-
-  const normalizedDealerQuery = dealerQuery.trim().toLocaleLowerCase("pt-BR");
-  const selectedDealer = normalizedDealerQuery
-    ? dealers.find((dealer) => dealer.terms.some((term) => normalizedDealerQuery.includes(term))) ?? dealers[0]
-    : dealers[0];
-
   const dealerStats = [
-    { icon: "dealer-stat-pin.svg", title: "+100", copy: "concessionárias em todo o Brasil" },
-    { icon: "dealer-stat-person.svg", title: "+3.000", copy: "profissionais especializados" },
-    { icon: "dealer-stat-tools.svg", title: "+500", copy: "pontos de atendimento e serviços" },
-    {
-      icon: "dealer-stat-vw.svg",
-      title: "Padrão Volkswagen",
-      copy: "qualidade que você já conhece e confia",
-      brand: true,
-    },
+    { title: "+100", copy: "concessionárias em todo o Brasil" },
+    { title: "+3.000", copy: "profissionais especializados" },
+    { title: "+500", copy: "pontos de atendimento e serviços" },
   ];
-
-  const trustedCompanies = useMemo(
-    () => [
-      { name: "Coca-Cola", className: "coca-cola", asset: asset("trusted-company-coca-cola.png"), x: 313.33, width: 109, height: 34, offsetTop: 3 },
-      { name: "Raízen", className: "raizen", asset: asset("trusted-company-raizen.png"), x: 514.67, width: 83, height: 34, offsetTop: 3 },
-      { name: "Ambev", className: "ambev", asset: asset("trusted-company-ambev.png"), x: 690, width: 104, height: 26, offsetTop: 7 },
-      { name: "BRF", className: "brf", asset: asset("trusted-company-brf.png"), x: 886.33, width: 71, height: 34, offsetTop: 3 },
-      { name: "Natura", className: "natura", asset: asset("trusted-company-natura.png"), x: 1049.67, width: 44, height: 33, offsetTop: 3.5 },
-      { name: "Mercado Livre", className: "mercado-livre", asset: asset("trusted-company-mercado-livre.png"), x: 1186, width: 136, height: 34, offsetTop: 3 },
-    ],
-    [],
-  );
 
   return (
     <section id="concessionarias" className="dealers-section page-band" data-motion="section">
-      <div className="page-inner">
-        <div className="dealer-section-header">
-          <p>Por todo o Brasil</p>
-          <h2>
-            <span>Uma rede pronta para atender seu negócio </span>
-            <strong>em todo o Brasil</strong>
-          </h2>
-          <p className="dealer-section-copy">
-            Conte com uma rede nacional pronta para apoiar sua operação, com atendimento especializado e suporte completo para sua frota.
-          </p>
-        </div>
-        <div className="dealer-layout">
-          <aside className="dealer-search" aria-label="Busca demonstrativa de concessionária" data-motion="card">
-            <h3>Encontre uma Concessionária</h3>
-            <div className="dealer-controls">
-              <label className="dealer-field" htmlFor="dealer-city">
-                <img src={asset("dealer-icon-search.svg")} alt="" />
-                <input
-                  id="dealer-city"
-                  value={dealerQuery}
-                  onChange={(event) => setDealerQuery(event.target.value)}
-                  placeholder="Digite o CEP, cidade, ou região"
-                  aria-label="Digite o CEP, cidade, ou região"
-                />
-              </label>
-              <button className="dealer-location" type="button" disabled>
-                <img src={asset("dealer-icon-target.svg")} alt="" />
-                Usar minha localização
-              </button>
-            </div>
-            <div className="dealer-divider" />
-            <p className="dealer-nearest-label">Concessionária mais próxima:</p>
-            <article className="dealer-nearest-card">
-              <div className="dealer-nearest-copy">
-                <span className="dealer-distance">
-                  <img src={asset("dealer-icon-target-small.svg")} alt="" />
-                  {selectedDealer.distance}
-                </span>
-                <h4>{selectedDealer.name}</h4>
-                <p>
-                  {selectedDealer.address}
-                  <br />
-                  {selectedDealer.city}
-                </p>
-                <p>{selectedDealer.phone}</p>
-              </div>
-              <div className="dealer-card-actions">
-                <button className="dealer-route" type="button">
-                  Traçar rota
-                </button>
-                <button className="dealer-details" type="button">
-                  Ver detalhes
-                </button>
-              </div>
-            </article>
-          </aside>
-          <div className="map-panel" aria-label="Mapa ilustrativo de concessionárias" data-motion="fade">
-            <img className="dealer-map-image" src={asset("dealer-map-figma.png")} alt="" aria-hidden="true" />
-            <button className="map-card" type="button">
-              Ver todas as concessionárias
-            </button>
+      <div className="dealer-map-frame">
+        <div className="dealer-map-copy-panel">
+          <div className="dealer-section-header">
+            <p>Por todo o Brasil</p>
+            <h2>
+              <span>Uma rede pronta para atender seu negócio </span>
+              <strong>em todo o Brasil</strong>
+            </h2>
+            <p className="dealer-section-copy">
+              Conte com uma rede nacional pronta para apoiar sua operação, com atendimento especializado e suporte completo para sua frota.
+            </p>
           </div>
         </div>
+        <div className="map-panel" aria-label="Mapa ilustrativo de concessionárias" data-motion="fade">
+          <img className="dealer-map-image dealer-map-base" src={asset("dealer-map-base-540-12183.png")} alt="" aria-hidden="true" />
+          <img className="dealer-map-image dealer-map-overlay" src={asset("dealer-map-overlay-540-12183.png")} alt="" aria-hidden="true" />
+          <button className="map-card" type="button">
+            <span>Ver todas as concessionárias</span>
+            <img src={asset("dealer-map-arrow-540-12183.svg")} alt="" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+      <div className="page-inner">
         <div className="dealer-stats-shell">
-          <div className="dealer-section-divider" />
           <div className="dealer-stats">
             {dealerStats.map((item) => (
-              <div className={`dealer-stat ${item.brand ? "brand-stat" : ""}`} key={item.title} data-motion="card">
-                <img src={asset(item.icon)} alt="" />
+              <div className="dealer-stat" key={item.title} data-motion="card">
                 <strong>{item.title}</strong>
                 <span>{item.copy}</span>
               </div>
@@ -989,28 +913,24 @@ export function DealersSection() {
           </div>
         </div>
         <div className="trusted-companies-shell">
-          <div className="dealer-section-divider" />
           <div className="trusted-companies" aria-label="Empresas que confiam na frota">
             <p>Junte-se a empresas que confiam na nossa frota</p>
             <ul className="trusted-companies-list">
               {trustedCompanies.map((company) => (
-                <li
-                  className={`trusted-company-item ${company.className}`}
-                  key={company.name}
-                  style={{
-                    "--trusted-company-x": `${company.x}px`,
-                    "--trusted-company-left": `${(company.x / 1322) * 100}%`,
-                    "--trusted-company-width": `${company.width}px`,
-                    "--trusted-company-height": `${company.height}px`,
-                    "--trusted-company-offset-top": `${company.offsetTop}px`,
-                  } as CSSProperties}
-                >
-                  <img className={`trusted-company-logo ${company.className}`} src={company.asset} alt={company.name} />
+                <li className={`trusted-company-item ${company.className}`} key={company.name}>
+                  {"parts" in company ? (
+                    <span className="trusted-company-logo brf-composite" aria-label={company.name}>
+                      {company.parts.map((part) => (
+                        <img className={`trusted-company-logo-part ${part.className}`} src={part.asset} alt="" aria-hidden="true" key={part.className} />
+                      ))}
+                    </span>
+                  ) : (
+                    <img className={`trusted-company-logo ${company.className}`} src={company.asset} alt={company.name} />
+                  )}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="dealer-section-divider" />
         </div>
       </div>
     </section>

@@ -2777,18 +2777,36 @@
   }
 }
 
-.dealers-section {
+.dealers-section.page-band {
   background: var(--white);
-  padding-bottom: 48px;
+  padding: 0 0 48px;
   scroll-margin-top: 88px;
   text-align: left;
+}
+
+.dealer-map-frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 433px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dealer-map-copy-panel {
+  align-items: center;
+  background: var(--white);
+  display: flex;
+  min-width: 0;
 }
 
 .dealer-section-header {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 32px;
+  margin: 0;
+  max-width: 696px;
+  padding: 80px 100px;
+  width: 100%;
 }
 
 .dealer-section-header > p:first-child {
@@ -2818,6 +2836,7 @@
 }
 
 .dealer-section-header h2 strong {
+  display: block;
   font-weight: 700;
 }
 
@@ -2826,7 +2845,7 @@
   font-size: 16px;
   line-height: 19px;
   margin-top: 26px;
-  max-width: 1120px;
+  max-width: 577px;
 }
 
 .dealer-layout {
@@ -2919,13 +2938,6 @@
   cursor: default;
 }
 
-.dealer-divider,
-.dealer-section-divider {
-  background: var(--line);
-  height: 1px;
-  width: 100%;
-}
-
 .dealer-nearest-label {
   color: var(--ink);
   font-size: 16px;
@@ -2993,8 +3005,9 @@
 
 .map-panel {
   align-self: stretch;
-  border-radius: 8px;
+  border-radius: 0;
   height: auto;
+  min-height: 433px;
   overflow: hidden;
   position: relative;
 }
@@ -3017,153 +3030,164 @@
   z-index: 2;
 }
 
+.dealers-section .map-card:hover:not(:disabled),
+.dealers-section .map-card:active:not(:disabled) {
+  transform: translate(-50%, -50%);
+}
+
+.map-card img {
+  display: block;
+  height: 24px;
+  width: 24px;
+}
+
 .dealer-stats-shell {
+  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
   padding-top: 0;
 }
 
 .dealer-stats {
   display: grid;
-  gap: 0;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 24px;
+  grid-template-columns: repeat(3, minmax(0, 448px));
+  height: 138px;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1440px;
   padding: 0;
 }
 
 .dealer-stat {
   align-items: center;
-  display: grid;
-  grid-template-rows: 64px 43px auto;
-  justify-items: center;
-  min-height: 136px;
-  padding: 0 36px;
-  position: relative;
-  text-align: center;
+  display: flex;
+  gap: 24px;
+  height: 138px;
+  justify-content: center;
+  padding: 0;
+  text-align: left;
   transition: transform var(--motion-fast) ease;
 }
 
-.dealer-stat:not(:last-child)::after {
-  background: var(--line);
-  content: "";
-  height: 122px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-}
-
-.dealer-stat img {
-  align-self: start;
-  height: 64px;
-  object-fit: contain;
-  width: 64px;
-}
-
-.dealer-stat.brand-stat img {
-  align-self: center;
-  height: 43px;
-  width: 43px;
-}
-
 .dealer-stat strong {
-  align-self: start;
   color: var(--blue);
   font-family: "VW Head", Arial, sans-serif;
   font-size: 36px;
+  font-weight: 700;
   line-height: 43px;
-}
-
-.dealer-stat.brand-stat strong {
-  font-size: 24px;
-  line-height: 30px;
+  white-space: nowrap;
 }
 
 .dealer-stat span {
-  align-self: start;
   color: var(--blue);
   display: block;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 22px;
-  max-width: 228px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+  max-width: 240px;
 }
 
 .trusted-companies-shell {
+  border-bottom: 1px solid var(--line);
   isolation: isolate;
-  margin-top: 24px;
+  margin-top: 0;
   position: relative;
-}
-
-.trusted-companies-shell::before,
-.trusted-companies-shell::after {
-  background: var(--line);
-  content: "";
-  height: 1px;
-  left: 50%;
-  position: absolute;
-  transform: translateX(-50%);
-  width: 100vw;
-  z-index: 0;
-}
-
-.trusted-companies-shell::before {
-  top: 0;
-}
-
-.trusted-companies-shell::after {
-  bottom: 0;
-}
-
-.trusted-companies-shell > .dealer-section-divider {
-  display: none;
 }
 
 .trusted-companies {
-  height: 120px;
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: 205.71px repeat(6, 205.71px);
+  height: 160px;
   margin: 0 auto;
-  max-width: min(100%, 1322px);
+  max-width: min(100%, 1440px);
   overflow: hidden;
-  padding: 40px 0;
-  position: relative;
+  padding: 0;
   width: 100%;
   z-index: 1;
 }
 
 .trusted-companies > p {
+  align-self: center;
   color: var(--blue);
   font-size: 16px;
-  left: 0;
+  font-weight: 700;
+  grid-column: 1;
+  justify-self: start;
   line-height: 20px;
-  max-width: 201px;
-  position: absolute;
-  top: 40px;
+  margin: 0;
+  max-width: 126px;
+  padding-left: 40px;
 }
 
 .trusted-companies-list {
-  height: 40px;
-  left: 0;
+  align-items: stretch;
+  display: grid;
+  grid-column: 2 / -1;
+  grid-template-columns: repeat(6, 205.71px);
+  height: 160px;
   list-style: none;
-  position: absolute;
-  top: 40px;
+  margin: 0;
+  padding: 0;
   width: 100%;
 }
 
 .trusted-company-item {
-  height: 40px;
-  left: var(--trusted-company-left, var(--trusted-company-x));
-  position: absolute;
-  top: 0;
-  width: var(--trusted-company-width, auto);
+  align-items: center;
+  display: flex;
+  height: 160px;
+  justify-content: center;
+  min-width: 0;
 }
 
 .trusted-company-logo {
   display: block;
-  flex: 0 0 auto;
-  height: var(--trusted-company-height);
-  left: 0;
-  position: absolute;
-  top: var(--trusted-company-offset-top);
-  width: var(--trusted-company-width);
+}
+
+.trusted-company-logo.coca-cola {
+  height: 33px;
+  width: 104px;
+}
+
+.trusted-company-logo.raizen {
+  height: 34px;
+  width: 84px;
+}
+
+.trusted-company-logo.ambev {
+  height: 22px;
+  width: 82px;
+}
+
+.trusted-company-logo.natura {
+  height: 58px;
+  width: 75px;
+}
+
+.trusted-company-logo.mercado-livre {
+  height: 30px;
+  width: 116px;
+}
+
+.brf-composite {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+  height: 36px;
+  width: 73px;
+}
+
+.trusted-company-logo-part {
+  display: block;
+}
+
+.trusted-company-logo-part.brf-symbol {
+  height: 36px;
+  width: 34.75px;
+}
+
+.trusted-company-logo-part.brf-wordmark {
+  height: 20px;
+  width: 33.28px;
 }
 
 .faq-section {
