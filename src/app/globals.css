@@ -2983,3 +2983,112 @@ html.proposal-drawer-open body {
     border-top: 1px solid var(--line);
   }
 }
+
+@media (min-width: 1100px) and (max-width: 1499px) {
+  .benefits-section {
+    padding-left: clamp(104px, 9vw, 128px);
+    padding-right: clamp(104px, 9vw, 128px);
+  }
+
+  .benefits-photo {
+    right: calc(clamp(104px, 9vw, 128px) * -1);
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+  .benefits-photo {
+    right: -220px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1099px) {
+  .benefits-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .benefits-cta-card {
+    align-items: center;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: space-between;
+    min-height: 160px;
+    padding: 32px 44px;
+  }
+
+  .benefits-cta-copy {
+    min-width: 0;
+    width: auto;
+  }
+
+  .benefits-cta {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    width: auto;
+  }
+
+  .benefits-cta span {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 699px) {
+  .benefits-section {
+    --benefits-mobile-pad-left: 24px;
+    --benefits-mobile-pad-right: 12px;
+    padding-left: var(--benefits-mobile-pad-left);
+    padding-right: var(--benefits-mobile-pad-right);
+  }
+
+  .benefits-photo {
+    margin-left: calc(var(--benefits-mobile-pad-left) * -1);
+    margin-right: calc(var(--benefits-mobile-pad-right) * -1);
+    max-width: none;
+    width: 100vw;
+  }
+
+  .benefits-card-grid {
+    row-gap: 28px;
+    width: calc(100vw - var(--benefits-mobile-pad-left) - var(--benefits-mobile-pad-right));
+  }
+
+  .benefits-card {
+    min-width: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .benefits-cta-card {
+    box-sizing: border-box;
+    min-width: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+  }
+
+  .benefits-cta {
+    height: auto;
+    line-height: 19px;
+    min-height: 48px;
+    min-width: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .benefits-cta span {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .benefits-section::before {
+    display: none;
+  }
+}
+
+.benefits-cta img {
+  flex: 0 0 18px;
+  height: 18px;
+  object-fit: contain;
+  width: 18px;
+}
