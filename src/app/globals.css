@@ -2161,33 +2161,43 @@ html.proposal-drawer-open body {
     align-items: start;
     grid-template-columns: 82px minmax(0, 1fr);
     grid-template-rows: auto auto;
-    min-height: 100px;
-    padding: 0 12px 12px 0;
+    min-height: 112px;
+    padding: 0 12px 0 0;
   }
 
   .proposal-selected-media {
     grid-row: 1 / span 2;
-    min-height: 70px;
+    min-height: 108px;
   }
 
   .proposal-selected-details {
     align-self: start;
-    padding: 0 0 0 16px;
+    padding: 10px 0 0 16px;
   }
 
   .proposal-quantity-field {
     grid-column: 2;
     grid-row: 2;
-    margin: 8px 0 0 16px;
+    margin: 6px 0 10px 16px;
     width: 72px;
   }
 
   .proposal-remove-item {
+    gap: 6px;
     grid-column: 2;
     grid-row: 2;
     justify-content: flex-start;
-    margin: 18px 0 0 104px;
+    margin: 11px 0 10px 96px;
     padding: 0;
+  }
+
+  .proposal-remove-item::before {
+    background: var(--line);
+    content: "";
+    display: block;
+    flex: 0 0 auto;
+    height: 30px;
+    width: 1px;
   }
 
   .proposal-fields {
