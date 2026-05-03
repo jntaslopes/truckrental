@@ -431,6 +431,16 @@
   z-index: 2;
 }
 
+.catalog-truck-card.without-proposal-action .catalog-truck-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.catalog-truck-card.without-proposal-action .catalog-truck-content > a.text-link {
+  margin-top: auto;
+}
+
 .catalog-truck-card.selected .badge.engine {
   background: #d1d9f2;
 }
