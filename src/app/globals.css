@@ -482,11 +482,9 @@ html.proposal-drawer-open body {
 
 @media (max-width: 1023px) {
   .plans-section {
-    padding: 72px 24px 48px;
-  }
+    --plans-blue-start: 244px;
 
-  .plans-section::before {
-    top: 244px;
+    padding: 72px 24px 48px;
   }
 
   .comparison-layout {
@@ -534,11 +532,9 @@ html.proposal-drawer-open body {
 
 @media (max-width: 640px) {
   .plans-section {
-    padding: 64px 16px 40px;
-  }
+    --plans-blue-start: 242px;
 
-  .plans-section::before {
-    top: 242px;
+    padding: 64px 16px 40px;
   }
 
   .comparison-layout {
