@@ -5,6 +5,7 @@
 import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -89,7 +90,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [galleryDragOffset, setGalleryDragOffset] = useState(0);
   const [isGalleryDragging, setIsGalleryDragging] = useState(false);
-  const relatedTrackRef = useRef<HTMLDivElement>(null);
+  const relatedTrackRef = useRef<HTMLDivElement | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const galleryDragStateRef = useRef({
     deltaX: 0,
@@ -118,6 +119,209 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
     () => Object.fromEntries(selectedItems.map((item) => [item.id, item.quantity])),
     [selectedItems],
   );
+
+  useEffect(() => {
+    const scroller = relatedTrackRef.current;
+
+    if (!scroller) {
+      return undefined;
+    }
+
+    let startX = 0;
+    let startY = 0;
+    let startScrollLeft = 0;
+    let didDrag = false;
+    let isMouseDown = false;
+    let suppressClick = false;
+    let suppressClickTimeout: number | undefined;
+    let visibilityFrame = 0;
+    const mobileDragQuery = window.matchMedia("(max-width: 640px)");
+
+    const clearSuppressClickTimeout = () => {
+      if (suppressClickTimeout !== undefined) {
+        window.clearTimeout(suppressClickTimeout);
+        suppressClickTimeout = undefined;
+      }
+    };
+
+    const getItems = () =>
+      Array.from(scroller.children).filter((child): child is HTMLElement => child instanceof HTMLElement);
+
+    const updateCardVisibility = () => {
+      visibilityFrame = 0;
+      const scrollerRect = scroller.getBoundingClientRect();
+      const tolerance = 1;
+
+      getItems().forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const isFullyVisible = rect.left >= scrollerRect.left - tolerance && rect.right <= scrollerRect.right + tolerance;
+        item.classList.toggle("is-partial", !isFullyVisible);
+      });
+    };
+
+    const scheduleCardVisibility = () => {
+      if (visibilityFrame) {
+        return;
+      }
+
+      visibilityFrame = window.requestAnimationFrame(updateCardVisibility);
+    };
+
+    const snapToNearestItem = () => {
+      const currentScrollLeft = scroller.scrollLeft;
+      const scrollerLeft = scroller.getBoundingClientRect().left;
+      const items = getItems();
+
+      if (!items.length) {
+        return;
+      }
+
+      const nearestScrollLeft = items.reduce((nearest, item) => {
+        const itemScrollLeft = item.getBoundingClientRect().left - scrollerLeft + currentScrollLeft;
+
+        if (Math.abs(itemScrollLeft - currentScrollLeft) < Math.abs(nearest - currentScrollLeft)) {
+          return itemScrollLeft;
+        }
+
+        return nearest;
+      }, 0);
+
+      scroller.scrollTo({ left: nearestScrollLeft, behavior: "auto" });
+      scheduleCardVisibility();
+    };
+
+    const finishDrag = () => {
+      if (didDrag) {
+        snapToNearestItem();
+        clearSuppressClickTimeout();
+        suppressClickTimeout = window.setTimeout(() => {
+          suppressClick = false;
+          suppressClickTimeout = undefined;
+        }, 120);
+      }
+
+      scroller.classList.remove("is-pointer-down", "is-dragging");
+    };
+
+    const endMouseDrag = () => {
+      if (!isMouseDown) {
+        return;
+      }
+
+      isMouseDown = false;
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+      finishDrag();
+    };
+
+    const onMouseMove = (event: MouseEvent) => {
+      if (!isMouseDown) {
+        return;
+      }
+
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+
+      if (!didDrag && Math.abs(deltaX) > 6 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        didDrag = true;
+        suppressClick = true;
+        scroller.classList.add("is-dragging");
+      }
+
+      if (!didDrag) {
+        return;
+      }
+
+      event.preventDefault();
+      scroller.scrollLeft = startScrollLeft - deltaX;
+      scheduleCardVisibility();
+    };
+
+    const onMouseUp = () => {
+      endMouseDrag();
+    };
+
+    const onMouseDown = (event: MouseEvent) => {
+      if (!mobileDragQuery.matches) {
+        return;
+      }
+
+      if (event.button !== 0) {
+        return;
+      }
+
+      if (scroller.scrollWidth <= scroller.clientWidth) {
+        return;
+      }
+
+      clearSuppressClickTimeout();
+      isMouseDown = true;
+      startX = event.clientX;
+      startY = event.clientY;
+      startScrollLeft = scroller.scrollLeft;
+      didDrag = false;
+      suppressClick = false;
+      scroller.classList.add("is-pointer-down");
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    };
+
+    const onClickCapture = (event: MouseEvent) => {
+      if (!suppressClick) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClick = false;
+      clearSuppressClickTimeout();
+    };
+
+    const onScroll = () => {
+      scheduleCardVisibility();
+    };
+
+    scroller.addEventListener("mousedown", onMouseDown);
+    scroller.addEventListener("click", onClickCapture, true);
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", scheduleCardVisibility);
+    scheduleCardVisibility();
+
+    return () => {
+      clearSuppressClickTimeout();
+      endMouseDrag();
+
+      if (visibilityFrame) {
+        window.cancelAnimationFrame(visibilityFrame);
+      }
+
+      scroller.removeEventListener("mousedown", onMouseDown);
+      scroller.removeEventListener("click", onClickCapture, true);
+      scroller.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", scheduleCardVisibility);
+    };
+  }, [truck.related]);
+
+  function scrollRelated(direction: "previous" | "next") {
+    const track = relatedTrackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    const card = track.querySelector(".catalog-truck-card");
+    const cardWidth = card instanceof HTMLElement ? card.getBoundingClientRect().width : 292;
+    const gap = Number.parseFloat(window.getComputedStyle(track).columnGap || "24");
+
+    track.scrollBy({
+      behavior: "smooth",
+      left: direction === "next" ? cardWidth + gap : -(cardWidth + gap),
+    });
+  }
 
   function ensureTruckInProposal(item: TruckDetailData | CatalogTruck) {
     if (!isSelected(item.id)) {
@@ -226,19 +430,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
     }
   }
 
-  function scrollRelated(direction: "previous" | "next") {
-    const track = relatedTrackRef.current;
-
-    if (!track) {
-      return;
-    }
-
-    track.scrollBy({
-      behavior: "smooth",
-      left: direction === "next" ? 293 : -293,
-    });
-  }
-
   return (
     <>
       <Header activePath="/caminhoes" onOpenProposal={() => setIsProposalDrawerOpen(true)} />
@@ -339,13 +530,15 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
           </div>
         </section>
 
-        <section className="detail-comparison-section page-band" data-motion="section">
+        <section className="detail-comparison-section page-band">
           <div className="page-inner">
-            <DetailTitle
-              title="Assinatura"
-              light={`vs compra de frota de um ${truck.family}`}
-            />
-            <p className="detail-section-copy">Veja como cada modelo impacta seu custo mensal e total ao longo do contrato.</p>
+            <div className="detail-comparison-title">
+              <p>POR QUE ALUGAR?</p>
+              <h2>
+                Aluguel vs <span>compra de um {truck.family}</span>
+              </h2>
+              <div />
+            </div>
             <div className="detail-comparison">
               <div className="detail-comparison-column">
                 <img className="detail-comparison-wordmark" src={asset("comparison-wordmark.png")} alt="VW Truck Rental" />
@@ -354,7 +547,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                   <img src={asset("comparison-icon-info.svg")} alt="" />
                 </h3>
                 <p>Gestão completa com previsibilidade de custos</p>
-                <h4>Assinatura</h4>
                 <ul>
                   {truck.comparison.subscription.map((item) => (
                     <li key={item.label}>
@@ -372,7 +564,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                   <img src={asset("comparison-icon-info.svg")} alt="" />
                 </h3>
                 <p>Aquisição do ativo com gestão própria</p>
-                <h4>Financiamento</h4>
                 <ul>
                   {truck.comparison.financing.map((item) => (
                     <li key={item.label}>
@@ -431,7 +622,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
               >
                 <span aria-hidden="true">‹</span>
               </button>
-              <div className="detail-related-grid" ref={relatedTrackRef}>
+              <div className="detail-related-grid" ref={relatedTrackRef} aria-label="Modelos relacionados">
                 {truck.related.map((item) => (
                   <TruckSelectionCard
                     key={item.id}
