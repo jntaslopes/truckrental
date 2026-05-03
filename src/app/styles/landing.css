@@ -3242,8 +3242,7 @@
 .dealers-section.page-band {
   --dealer-content-max: 1440px;
   --dealer-content-gutter: max(0px, calc((100vw - var(--dealer-content-max)) / 2));
-  --dealer-header-padding: 100px;
-  --dealer-header-start: calc(var(--dealer-content-gutter) + var(--dealer-header-padding));
+  --dealer-header-start: max(40px, var(--dealer-content-gutter));
   --dealer-shell-padding: 40px;
 
   background: var(--white);
@@ -3491,7 +3490,13 @@
 
 .map-card {
   background: var(--white);
+  border: 1px solid var(--button-secondary-content);
+  border-radius: 24px;
+  color: var(--button-secondary-content);
+  gap: 8px;
+  height: 48px;
   left: 50%;
+  padding: 8px 20px;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -3499,15 +3504,31 @@
   z-index: 2;
 }
 
+.dealers-section .map-card:hover:not(:disabled) {
+  background: var(--white);
+  border-color: var(--button-secondary-content-hover);
+  color: var(--button-secondary-content-hover);
+}
+
 .dealers-section .map-card:hover:not(:disabled),
 .dealers-section .map-card:active:not(:disabled) {
   transform: translate(-50%, -50%);
 }
 
-.map-card img {
+.dealers-section .map-card:active:not(:disabled) {
+  background: var(--white);
+  border-color: var(--button-secondary-content-active);
+  color: var(--button-secondary-content-active);
+}
+
+.dealers-section .map-card img {
+  box-sizing: content-box;
   display: block;
-  height: 24px;
-  width: 24px;
+  flex: 0 0 15px;
+  height: 11.3075px;
+  object-fit: contain;
+  padding: 0;
+  width: 15px;
 }
 
 .dealer-stats-shell {

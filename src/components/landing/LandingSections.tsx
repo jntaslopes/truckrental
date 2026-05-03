@@ -916,7 +916,7 @@ export function DealersSection() {
           <img className="dealer-map-image dealer-map-overlay" src={asset("dealer-map-overlay-540-12183.png")} alt="" aria-hidden="true" />
           <button className="map-card" type="button">
             <span>Ver todas as concessionárias</span>
-            <img src={asset("dealer-map-arrow-540-12183.svg")} alt="" aria-hidden="true" />
+            <img src={asset("icon-arrow-right.svg")} alt="" aria-hidden="true" />
           </button>
         </div>
       </div>
