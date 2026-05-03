@@ -51,6 +51,7 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
   onToggle,
   onQuantityChange,
   variant = "catalog",
+  showProposalAction = true,
 }: {
   truck: T;
   selected: boolean;
@@ -58,12 +59,14 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
   onToggle: (truck: T) => void;
   onQuantityChange: (id: string, quantity: number) => void;
   variant?: "catalog" | "landing";
+  showProposalAction?: boolean;
 }) {
   const isLanding = variant === "landing";
+  const isWithoutProposalAction = !showProposalAction;
   const visibleBadges = isLanding ? truck.badges.slice(0, 1) : truck.badges;
 
   return (
-    <article className={`catalog-truck-card ${isLanding ? "landing-truck-card" : ""} ${selected ? "selected" : ""}`}>
+    <article className={`catalog-truck-card ${isLanding ? "landing-truck-card" : ""} ${isWithoutProposalAction ? "without-proposal-action" : ""} ${selected ? "selected" : ""}`}>
       <div className="catalog-truck-surface" aria-hidden="true" />
       <div className="catalog-truck-media">
         <TruckImageStack
@@ -119,7 +122,7 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
               <span className="card-remove-icon" aria-hidden="true">×</span>
             </button>
           </div>
-        ) : isLanding ? null : (
+        ) : isLanding || !showProposalAction ? null : (
           <button className="text-link" type="button" onClick={() => onToggle(truck)}>
             Adicionar à proposta
             <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
