@@ -754,12 +754,9 @@ html.proposal-drawer-open body {
     transform: none;
   }
 
-  .dealer-layout {
-    grid-template-columns: minmax(360px, 400px) minmax(0, 1fr);
-  }
-
-  .map-panel {
-    height: auto;
+  .dealer-section-header {
+    padding-left: 64px;
+    padding-right: 64px;
   }
 }
 
@@ -1536,11 +1533,68 @@ html.proposal-drawer-open body {
 
 @media (min-width: 1024px) and (max-width: 1321px) {
   .trusted-companies {
-    max-width: calc(100vw - 80px);
+    grid-template-columns: 160px repeat(6, 132px);
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .trusted-companies > p {
+    padding-left: 0;
+  }
+
+  .trusted-companies-list {
+    grid-template-columns: repeat(6, 132px);
   }
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 861px) and (max-width: 1023px) {
+  .trusted-companies {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 150px);
+    height: 160px;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .trusted-companies > p {
+    align-self: center;
+    margin: 0;
+    max-width: 126px;
+    padding-left: 0;
+    position: static;
+  }
+
+  .trusted-companies-list {
+    align-items: stretch;
+    display: grid;
+    grid-column: 2 / -1;
+    grid-template-columns: repeat(4, 150px);
+    height: 160px;
+    justify-content: stretch;
+    overflow: hidden;
+    position: static;
+    top: auto;
+  }
+
+  .trusted-company-item {
+    align-items: center;
+    display: flex;
+    height: 160px;
+    justify-content: center;
+    left: auto;
+    position: static;
+    top: auto;
+  }
+
+  .trusted-company-item.natura,
+  .trusted-company-item.mercado-livre {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
   .trusted-companies > p {
     margin-bottom: 24px;
     max-width: none;
@@ -1548,6 +1602,7 @@ html.proposal-drawer-open body {
   }
 
   .trusted-companies {
+    display: block;
     height: auto;
     margin: 0;
     padding: 28px 24px;
@@ -1555,15 +1610,15 @@ html.proposal-drawer-open body {
   }
 
   .trusted-companies-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, max-content));
-    gap: 20px 32px;
-    height: auto;
     align-items: center;
+    display: grid;
+    gap: 20px 32px;
+    grid-template-columns: repeat(3, minmax(120px, 1fr));
+    height: auto;
     justify-content: flex-start;
+    overflow: visible;
     position: relative;
     top: auto;
-    overflow: visible;
   }
 
   .trusted-company-item {
@@ -1936,25 +1991,27 @@ html.proposal-drawer-open body {
     font-size: 30px;
   }
 
-  .dealer-layout {
+  .dealer-map-frame {
     grid-template-columns: 1fr;
   }
 
-  .dealer-search {
-    min-height: 0;
+  .dealer-section-header {
+    max-width: 100%;
+    padding: 72px 40px;
   }
 
   .map-panel {
-    height: 520px;
+    height: 433px;
+    min-height: 433px;
   }
 
   .dealer-stats {
+    gap: 0 24px;
     grid-template-columns: repeat(2, 1fr);
+    height: auto;
+    padding-left: 24px;
+    padding-right: 24px;
     row-gap: 28px;
-  }
-
-  .dealer-stat:nth-child(2)::after {
-    display: none;
   }
 }
 
@@ -2244,16 +2301,13 @@ html.proposal-drawer-open body {
     line-height: 38px;
   }
 
-  .dealer-search {
-    padding: 24px;
-  }
-
-  .dealer-nearest-card {
-    padding: 20px;
+  .dealer-section-header {
+    padding: 64px 24px;
   }
 
   .map-panel {
     height: 360px;
+    min-height: 360px;
   }
 
   .map-card {
@@ -2262,15 +2316,15 @@ html.proposal-drawer-open body {
 
   .dealer-stats {
     grid-template-columns: 1fr;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
   .dealer-stat {
-    min-height: 0;
+    height: auto;
+    justify-content: flex-start;
+    min-height: 96px;
     padding: 0;
-  }
-
-  .dealer-stat::after {
-    display: none;
   }
 
   .trusted-companies {
@@ -2279,19 +2333,19 @@ html.proposal-drawer-open body {
 
   .trusted-companies-list {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, max-content));
-    gap: 16px 24px;
+    gap: 28px 24px;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
     justify-content: center;
     overflow: visible;
   }
 
   .trusted-company-item {
-    width: var(--trusted-company-width, auto);
+    height: 72px;
+    width: auto;
   }
 
   .trusted-company-logo {
-    height: var(--trusted-company-height);
-    width: var(--trusted-company-width);
+    position: static;
   }
 }
 
