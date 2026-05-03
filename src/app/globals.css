@@ -1240,6 +1240,8 @@ html.proposal-drawer-open body {
     margin-bottom: 24px;
     max-width: none;
     position: static;
+    text-align: center;
+    width: 100%;
   }
 
   .trusted-companies {
@@ -1655,13 +1657,17 @@ html.proposal-drawer-open body {
   }
 
   .dealer-stat {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
     height: auto;
     min-height: 82px;
   }
 
   .dealer-stat:nth-child(3) {
     grid-column: 1 / -1;
-    justify-content: center;
+    justify-self: center;
+    width: calc((100% - 24px) / 2);
   }
 }
 
@@ -1961,6 +1967,8 @@ html.proposal-drawer-open body {
   }
 
   .map-card {
+    height: 48px;
+    padding: 8px 20px;
     width: min(280px, calc(100% - 32px));
   }
 
@@ -1975,6 +1983,11 @@ html.proposal-drawer-open body {
     justify-content: flex-start;
     min-height: 76px;
     padding: 0;
+  }
+
+  .dealer-stat:nth-child(3) {
+    justify-self: stretch;
+    width: 100%;
   }
 
   .trusted-companies {
@@ -2659,7 +2672,9 @@ html.proposal-drawer-open body {
     flex-direction: column;
     gap: 8px;
     justify-content: center;
+    justify-self: stretch;
     min-height: auto;
+    width: 100%;
   }
 
   .dealer-stat strong {
@@ -2687,5 +2702,91 @@ html.proposal-drawer-open body {
   .trusted-companies {
     padding-left: 20px;
     padding-right: 20px;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1023px) {
+  .dealer-map-frame {
+    grid-template-columns: 1fr;
+  }
+
+  .dealer-section-header {
+    max-width: 100%;
+    padding: 72px 40px;
+  }
+
+  .map-panel {
+    height: 433px;
+    min-height: 433px;
+  }
+
+  .dealer-stats {
+    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    height: auto;
+    min-height: 138px;
+    padding: 24px var(--dealer-shell-padding) 32px;
+  }
+
+  .dealer-stat {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    justify-content: center;
+    min-height: 82px;
+  }
+
+  .dealer-stat:nth-child(3) {
+    grid-column: auto;
+    justify-self: auto;
+    width: auto;
+  }
+
+  .dealer-stat span {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 561px) and (max-width: 860px) {
+  .dealer-map-frame {
+    grid-template-columns: 1fr;
+  }
+
+  .dealer-section-header {
+    max-width: 100%;
+    padding: 72px 40px;
+  }
+
+  .map-panel {
+    height: 433px;
+    min-height: 433px;
+  }
+
+  .dealer-stats {
+    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: auto;
+    min-height: 138px;
+    padding: 24px var(--dealer-shell-padding) 32px;
+  }
+
+  .dealer-stat {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    justify-content: center;
+    min-height: 82px;
+  }
+
+  .dealer-stat:nth-child(3) {
+    grid-column: 1 / 2;
+    justify-self: stretch;
+    width: auto;
+  }
+
+  .dealer-stat span {
+    max-width: 100%;
   }
 }
