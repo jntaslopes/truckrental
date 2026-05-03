@@ -697,12 +697,12 @@ html.proposal-drawer-open body {
   }
 
   .detail-comparison {
-    grid-template-columns: minmax(0, 1fr) 128px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .detail-comparison-column {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 48px;
+    padding-right: 48px;
   }
 
   .detail-related-grid {
@@ -1431,6 +1431,15 @@ html.proposal-drawer-open body {
     min-height: 0;
   }
 
+  .detail-comparison-section {
+    margin-top: 72px;
+    padding: 72px 32px;
+  }
+
+  .detail-comparison-section::before {
+    height: 408px;
+  }
+
   .detail-comparison::before {
     display: none;
   }
@@ -1438,19 +1447,19 @@ html.proposal-drawer-open body {
   .detail-comparison-column:first-child {
     border-bottom: 1px solid var(--line);
     border-right: 0;
-    padding-bottom: 80px;
+    padding-bottom: 72px;
   }
 
   .detail-comparison-column:last-child {
     grid-column: 1;
-    padding-top: 80px;
+    padding-top: 72px;
   }
 
   .detail-versus {
     grid-column: 1;
     justify-self: center;
     left: auto;
-    margin: -49px 0;
+    margin: -33px 0;
     position: relative;
     top: auto;
     transform: none;
@@ -1522,6 +1531,16 @@ html.proposal-drawer-open body {
 @media (max-width: 900px) {
   .page-band {
     padding: 72px 24px;
+  }
+
+  .detail-comparison-section.page-band {
+    margin-top: 64px;
+    padding: 72px 24px;
+  }
+
+  .detail-comparison-title h2 {
+    font-size: 34px;
+    line-height: 40px;
   }
 
   .truck-grid {
@@ -1821,7 +1840,7 @@ html.proposal-drawer-open body {
   }
 
   .detail-comparison {
-    margin-top: 40px;
+    margin-top: 0;
   }
 
   .detail-comparison-column {
@@ -1837,11 +1856,11 @@ html.proposal-drawer-open body {
   }
 
   .detail-comparison-wordmark {
-    margin-bottom: 36px;
+    margin-bottom: 0;
   }
 
   .detail-comparison-column .detail-comparison-symbol {
-    margin-bottom: 32px;
+    margin-bottom: 0;
   }
 
   .detail-comparison-column h3 {
@@ -1850,24 +1869,24 @@ html.proposal-drawer-open body {
   }
 
   .detail-comparison-column p {
-    margin-bottom: 40px;
+    margin-bottom: 0;
   }
 
   .detail-comparison-column li {
-    gap: 14px;
+    gap: 16px;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 19px;
   }
 
   .detail-comparison-column li img {
-    height: 28px;
-    width: 28px;
+    height: 32px;
+    width: 32px;
   }
 
   .detail-versus {
-    height: 72px;
-    margin: -37px 0;
-    width: 72px;
+    height: 64px;
+    margin: -33px 0;
+    width: 64px;
   }
 
   .detail-faq-section {
@@ -2081,7 +2100,11 @@ html.proposal-drawer-open body {
   }
 
   .detail-related-grid .catalog-truck-card {
-    flex-basis: min(268.8px, calc(100vw - 32px));
+    flex-basis: min(292px, calc(100vw - 72px));
+  }
+
+  .detail-related-grid {
+    cursor: grab;
   }
 
   .detail-related-arrow {

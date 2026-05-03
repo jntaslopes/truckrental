@@ -345,25 +345,96 @@
   margin-top: 8px;
 }
 
+.detail-comparison-section {
+  background: var(--white);
+  margin-top: 80px;
+  overflow: hidden;
+  padding: 80px 100px;
+  position: relative;
+}
+
+.detail-comparison-section::before {
+  background: var(--blue);
+  content: "";
+  height: 425px;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: max(100vw, 1864px);
+}
+
+.detail-comparison-section .page-inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 1002px;
+  position: relative;
+  z-index: 1;
+}
+
+.detail-comparison-title {
+  align-items: center;
+  color: var(--soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.detail-comparison-title p {
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.detail-comparison-title h2 {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  gap: 0 12px;
+  justify-content: center;
+  line-height: 48px;
+}
+
+.detail-comparison-title h2 span {
+  font-weight: 300;
+}
+
+.detail-comparison-title > div {
+  background: var(--cyan);
+  height: 2px;
+  margin-top: 32px;
+  width: 80px;
+}
+
 .detail-comparison {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 8px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 192px minmax(0, 1fr);
-  margin-top: 64px;
-  min-height: 528px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-top: 0;
+  min-height: 326px;
   overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
 .detail-comparison::before {
   background: var(--line);
   content: "";
-  height: calc(100% - 56px);
+  height: calc(100% - 34px);
   left: 50%;
   position: absolute;
-  top: 28px;
+  top: 17px;
   transform: translateX(-50%);
   width: 1px;
   z-index: 1;
@@ -372,30 +443,35 @@
 .detail-comparison-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 56px 48px;
+  gap: 24px;
+  justify-content: flex-start;
+  padding: 48px 72px;
   position: relative;
   z-index: 2;
 }
 
 .detail-comparison-column:last-child {
-  grid-column: 3;
+  grid-column: 2;
 }
 
 .detail-comparison-wordmark {
-  height: 14px;
-  margin-bottom: 32px;
+  height: 11px;
   object-fit: contain;
   object-position: left center;
-  width: 166px;
+  width: 129px;
 }
 
 .detail-comparison-column .detail-comparison-symbol {
   height: 32px;
-  margin-bottom: 28px;
   object-fit: contain;
   object-position: left center;
   width: 32px;
+}
+
+.detail-comparison-column h3,
+.detail-comparison-column p,
+.detail-comparison-column ul {
+  margin: 0;
 }
 
 .detail-comparison-column h3 {
@@ -403,9 +479,9 @@
   color: var(--blue);
   display: flex;
   font-family: "VW Head", Arial, sans-serif;
-  font-size: 25px;
+  font-size: 24px;
   gap: 8px;
-  line-height: 30px;
+  line-height: 29px;
 }
 
 .detail-comparison-column h3 img {
@@ -416,22 +492,14 @@
 
 .detail-comparison-column p {
   color: var(--blue);
-  font-size: 18px;
-  line-height: 22px;
-  margin: 6px 0 44px;
-}
-
-.detail-comparison-column h4 {
-  color: var(--blue);
-  font-family: "VW Head", Arial, sans-serif;
-  font-size: 20px;
-  line-height: 24px;
-  margin-bottom: 24px;
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: -16px;
 }
 
 .detail-comparison-column ul {
   display: grid;
-  gap: 18px;
+  gap: 8px;
   list-style: none;
 }
 
@@ -439,10 +507,10 @@
   align-items: center;
   color: var(--blue);
   display: flex;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  gap: 20px;
-  line-height: 22px;
+  gap: 16px;
+  line-height: 19px;
 }
 
 .detail-comparison-column li img {
@@ -456,19 +524,20 @@
   background: var(--white);
   border: 1px solid #edf0f4;
   border-radius: 50%;
-  box-shadow: 0 0 0 10px var(--white);
+  box-shadow: 0 0 0 21px var(--white), 0 0 0 22px #edf0f4;
   color: var(--blue);
   display: flex;
   font-family: "VW Head", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
-  height: 96px;
+  height: 64px;
   justify-content: center;
   left: 50%;
+  line-height: 24px;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 96px;
+  width: 64px;
   z-index: 3;
 }
 
@@ -556,6 +625,8 @@
 }
 
 .detail-related-carousel {
+  margin-inline: auto;
+  max-width: 100%;
   position: relative;
   width: 100%;
 }
@@ -566,9 +637,12 @@
   min-height: 407px;
   overflow-x: auto;
   overflow-y: hidden;
+  overscroll-behavior-x: contain;
   scroll-behavior: smooth;
+  scroll-padding-inline: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .detail-related-grid::-webkit-scrollbar {
@@ -576,8 +650,28 @@
 }
 
 .detail-related-grid .catalog-truck-card {
-  flex: 0 0 268.8px;
+  flex: 0 0 292px;
+  opacity: 1;
   scroll-snap-align: start;
+  transition:
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    opacity var(--motion-fast) ease;
+}
+
+.detail-related-grid .catalog-truck-card.is-partial {
+  opacity: 0.2;
+}
+
+.detail-related-grid.is-pointer-down,
+.detail-related-grid.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.detail-related-grid.is-dragging {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
 }
 
 .detail-related-arrow {
