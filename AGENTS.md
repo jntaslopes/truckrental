@@ -63,6 +63,14 @@ For any local navigation, inspection, visual validation, clicking, typing, scree
 - Do not start a server on a port already occupied by another worktree; choose a different free port and record the port used in the summary.
 - Suggested default allocation order without conflicts: `3000`, `3001`, `3002`, `3003`, and so on.
 
+### npm run dev Restart Intent
+
+- When the user's task implies `npm run dev`, treat that as authorization to get the correct dev server running without asking the user to stop stale processes manually.
+- Start with `npm run dev`. If the wrapper reports that another Next dev server is already running and prints a PID, stop only that identified process with a precise command such as `Stop-Process -Id <pid> -Force` or `taskkill /PID <pid> /F`, then run `npm run dev` again.
+- Preserve multi-agent isolation: do not stop servers owned by other worktrees. Only stop the reported PID when it is confirmed to belong to the same project/worktree, or when `scripts/codex-dev.mjs` itself identifies it as the blocking Next dev server for this project.
+- If process ownership is ambiguous, inspect the PID, command line, and/or HTTP runtime identity before stopping it. If ambiguity remains, report the blocker instead of killing the process.
+- In the final summary, record any PID stopped, the port selected, the validated URL, and the browser/tool used for validation when applicable.
+
 ## Project Figma Source
 
 Official design source:
