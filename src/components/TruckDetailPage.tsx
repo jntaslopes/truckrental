@@ -90,6 +90,10 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [galleryDragOffset, setGalleryDragOffset] = useState(0);
   const [isGalleryDragging, setIsGalleryDragging] = useState(false);
+  const [relatedScrollState, setRelatedScrollState] = useState({
+    canScrollNext: false,
+    canScrollPrevious: false,
+  });
   const relatedTrackRef = useRef<HTMLDivElement | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const galleryDragStateRef = useRef({
@@ -137,6 +141,24 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
     let visibilityFrame = 0;
     const mobileDragQuery = window.matchMedia("(max-width: 640px)");
 
+    const updateRelatedScrollState = () => {
+      const maxScrollLeft = scroller.scrollWidth - scroller.clientWidth;
+      const canScroll = maxScrollLeft > 1;
+      const canScrollPrevious = canScroll && scroller.scrollLeft > 1;
+      const canScrollNext = canScroll && scroller.scrollLeft < maxScrollLeft - 1;
+
+      setRelatedScrollState((current) => {
+        if (
+          current.canScrollNext === canScrollNext
+          && current.canScrollPrevious === canScrollPrevious
+        ) {
+          return current;
+        }
+
+        return { canScrollNext, canScrollPrevious };
+      });
+    };
+
     const clearSuppressClickTimeout = () => {
       if (suppressClickTimeout !== undefined) {
         window.clearTimeout(suppressClickTimeout);
@@ -149,6 +171,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
 
     const updateCardVisibility = () => {
       visibilityFrame = 0;
+      updateRelatedScrollState();
       const scrollerRect = scroller.getBoundingClientRect();
       const tolerance = 1;
 
@@ -449,6 +472,17 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                 <em>por assinatura</em>
               </h1>
               <p>{truck.heroCopy}</p>
+            </div>
+            <div className="truck-detail-hero-media" data-motion="fade">
+              <TruckImageStack
+                image={truck.heroImage}
+                shadowImage={truck.heroShadowImage}
+                alt={`${truck.family} ${truck.model}`}
+                frontClassName="truck-detail-hero-image truck-detail-hero-image-front"
+                shadowClassName="truck-detail-hero-image truck-detail-hero-image-shadow"
+              />
+            </div>
+            <div className="truck-detail-hero-spec-panel">
               <div className="truck-detail-rule" />
               <div className="truck-detail-specs" aria-label="Especificações principais">
                 {truck.specs.map((spec) => (
@@ -459,15 +493,6 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="truck-detail-hero-media" data-motion="fade">
-              <TruckImageStack
-                image={truck.heroImage}
-                shadowImage={truck.heroShadowImage}
-                alt={`${truck.family} ${truck.model}`}
-                frontClassName="truck-detail-hero-image truck-detail-hero-image-front"
-                shadowClassName="truck-detail-hero-image truck-detail-hero-image-shadow"
-              />
             </div>
           </div>
         </section>
@@ -615,7 +640,7 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
             />
             <div className="detail-related-carousel">
               <button
-                className="detail-related-arrow previous"
+                className={`detail-related-arrow previous${relatedScrollState.canScrollPrevious ? "" : " is-hidden"}`}
                 type="button"
                 aria-label="Modelos anteriores"
                 onClick={() => scrollRelated("previous")}
@@ -631,11 +656,12 @@ export function TruckDetailPage({ truck }: { truck: TruckDetailData }) {
                     quantity={quantities[item.id] ?? 1}
                     onToggle={toggleTruck}
                     onQuantityChange={setQuantity}
+                    showProposalAction={false}
                   />
                 ))}
               </div>
               <button
-                className="detail-related-arrow next"
+                className={`detail-related-arrow next${relatedScrollState.canScrollNext ? "" : " is-hidden"}`}
                 type="button"
                 aria-label="Próximos modelos"
                 onClick={() => scrollRelated("next")}
