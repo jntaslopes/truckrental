@@ -14,6 +14,7 @@ type HeroSlide = {
   theme: "light" | "dark";
   variant: "current" | "background";
   backgroundImage?: string;
+  compositeImage?: string;
 };
 
 const heroSlides: HeroSlide[] = [
@@ -23,6 +24,7 @@ const heroSlides: HeroSlide[] = [
     theme: "dark",
     variant: "background",
     backgroundImage: asset("hero-banner-h2-bg.png"),
+    compositeImage: asset("hero-banner-h2-composite-desktop.png"),
   },
 ];
 
@@ -105,6 +107,13 @@ export function HeroSection() {
           <div className="hero-inner">
             {isBackgroundSlide ? (
               <div className="hero-background-scene" aria-hidden="true" data-node-id="544:20302">
+                <img
+                  className="hero-background-composite"
+                  src={currentSlide.compositeImage ?? ""}
+                  alt=""
+                  aria-hidden="true"
+                  data-node-id="544:20302"
+                />
                 <img
                   className="hero-background-image"
                   src={currentSlide.backgroundImage ?? ""}

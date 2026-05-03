@@ -389,16 +389,6 @@
 }
 
 .hero-section-background {
-  --hero-h2-bg-left: -12.303%;
-  --hero-h2-bg-top: -56.137%;
-  --hero-h2-bg-width: 137.946%;
-  --hero-h2-montage-width: 48.788%;
-  --hero-h2-shadow-wide-left: 14.788%;
-  --hero-h2-shadow-wide-top: 32.852%;
-  --hero-h2-shadow-wide-width: 44.485%;
-  --hero-h2-shadow-tight-left: 22.182%;
-  --hero-h2-shadow-tight-top: 47.834%;
-  --hero-h2-shadow-tight-width: 33.273%;
   --hero-copy-text-height: 160px;
   --hero-cta-gap: 24px;
 }
@@ -415,20 +405,34 @@
   z-index: 0;
 }
 
-.hero-background-image {
+.hero-background-composite {
   display: block;
+  height: 100%;
+  left: 0;
+  max-width: none;
+  object-fit: contain;
+  object-position: left top;
+  position: absolute;
+  top: 0;
+  width: auto;
+  z-index: 1;
+}
+
+.hero-background-image {
+  display: none;
   height: auto;
-  left: var(--hero-h2-bg-left);
+  left: 0;
   max-width: none;
   object-fit: contain;
   position: absolute;
-  top: var(--hero-h2-bg-top);
-  width: var(--hero-h2-bg-width);
+  top: 0;
+  width: auto;
   z-index: 1;
 }
 
 .hero-background-copy-panel {
   background: var(--white);
+  display: none;
   height: calc(100% + 7px);
   left: 0;
   position: absolute;
@@ -439,6 +443,7 @@
 
 .hero-background-cyan-tab {
   background: var(--cyan);
+  display: none;
   height: clamp(74px, 7.6vw, 126px);
   left: calc(max(36.485%, calc(var(--hero-copy-left) + var(--hero-copy-width) + 24px)) - 1px);
   position: absolute;
@@ -448,7 +453,7 @@
 }
 
 .hero-background-shadow {
-  display: block;
+  display: none;
   max-width: none;
   mix-blend-mode: multiply;
   pointer-events: none;
@@ -473,20 +478,21 @@
 }
 
 .hero-background-montage {
-  display: block;
+  display: none;
   height: auto;
-  left: var(--hero-h2-bg-left);
+  left: 0;
   max-width: none;
   object-fit: contain;
   pointer-events: none;
   position: absolute;
-  top: var(--hero-h2-bg-top);
-  width: var(--hero-h2-montage-width);
+  top: 0;
+  width: auto;
   z-index: 4;
 }
 
 .hero-background-overlay {
   background: var(--blue);
+  display: none;
   inset: 0;
   mix-blend-mode: color;
   opacity: 0.16;
@@ -615,16 +621,6 @@
   }
 
   .hero-section-background {
-    --hero-h2-bg-left: 0%;
-    --hero-h2-bg-top: -43%;
-    --hero-h2-bg-width: 125%;
-    --hero-h2-montage-width: 44.4%;
-    --hero-h2-shadow-wide-left: 27.1%;
-    --hero-h2-shadow-wide-top: 46%;
-    --hero-h2-shadow-wide-width: 39.8%;
-    --hero-h2-shadow-tight-left: 33.9%;
-    --hero-h2-shadow-tight-top: 58%;
-    --hero-h2-shadow-tight-width: 29.9%;
     --hero-copy-width: 444px;
     --hero-copy-text-height: 175px;
     --hero-cta-gap: 32px;
@@ -659,16 +655,6 @@
   }
 
   .hero-section-background {
-    --hero-h2-bg-left: 2%;
-    --hero-h2-bg-top: -38%;
-    --hero-h2-bg-width: 123%;
-    --hero-h2-montage-width: 43.7%;
-    --hero-h2-shadow-wide-left: 30.5%;
-    --hero-h2-shadow-wide-top: 48%;
-    --hero-h2-shadow-wide-width: 37.9%;
-    --hero-h2-shadow-tight-left: 36.5%;
-    --hero-h2-shadow-tight-top: 60%;
-    --hero-h2-shadow-tight-width: 28.7%;
     --hero-copy-width: 444px;
     --hero-copy-text-height: 163px;
     --hero-cta-gap: 32px;
@@ -678,20 +664,6 @@
     font-size: 46px;
     line-height: 44px;
     width: 472px;
-  }
-
-  .hero-section-background .hero-background-image {
-    height: auto;
-    inset: auto;
-    object-fit: contain;
-  }
-
-  .hero-section-background .hero-background-montage {
-    display: block;
-  }
-
-  .hero-section-background .hero-background-shadow {
-    display: block;
   }
 
   .hero-section-background .hero-price-badges {
@@ -758,29 +730,8 @@
   }
 
   .hero-section-background {
-    --hero-h2-bg-left: 8%;
-    --hero-h2-bg-top: -33%;
-    --hero-h2-bg-width: 120%;
-    --hero-h2-montage-width: 42.5%;
-    --hero-h2-shadow-wide-left: 39.5%;
-    --hero-h2-shadow-wide-top: 50%;
-    --hero-h2-shadow-wide-width: 36.5%;
-    --hero-h2-shadow-tight-left: 45%;
-    --hero-h2-shadow-tight-top: 61%;
-    --hero-h2-shadow-tight-width: 27.5%;
     --hero-copy-text-height: 157px;
     --hero-cta-gap: 24px;
-  }
-
-  .hero-section-background .hero-background-image {
-    height: auto;
-    inset: auto;
-    object-fit: contain;
-  }
-
-  .hero-section-background .hero-background-montage,
-  .hero-section-background .hero-background-shadow {
-    display: block;
   }
 
   .hero-section-background .hero-copy {
@@ -874,20 +825,6 @@
     width: 320px;
   }
 
-  .hero-section-background .hero-background-image {
-    height: auto;
-    inset: auto;
-    object-fit: contain;
-  }
-
-  .hero-section-background .hero-background-montage {
-    display: block;
-  }
-
-  .hero-section-background .hero-background-shadow {
-    display: block;
-  }
-
   .hero-section-background .hero-copy h1 {
     font-size: 32px;
     line-height: 34px;
@@ -895,9 +832,6 @@
   }
 
   .hero-section-background {
-    --hero-h2-bg-left: 8%;
-    --hero-h2-bg-width: 116%;
-    --hero-h2-montage-width: 41%;
     --hero-copy-text-height: 132px;
     --hero-cta-gap: 20px;
   }
@@ -1064,19 +998,26 @@
     padding: 0 20px;
   }
 
+  .hero-section-background .hero-background-composite {
+    display: none;
+  }
+
   .hero-section-background .hero-background-copy-panel {
+    display: block;
     height: 270px;
     left: -20px;
     width: calc(100% + 40px);
   }
 
   .hero-section-background .hero-background-cyan-tab {
+    display: block;
     height: 80px;
     left: calc(100% - 31px);
     width: 2px;
   }
 
   .hero-section-background .hero-background-image {
+    display: block;
     height: auto;
     left: 50%;
     top: 10px;
