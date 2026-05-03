@@ -998,6 +998,18 @@
     padding: 0 20px;
   }
 
+  .hero-section-background .hero-inner::after {
+    background: var(--white);
+    bottom: 0;
+    content: "";
+    height: 128px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    z-index: 5;
+  }
+
   .hero-section-background {
     --hero-surface-height: 660px;
   }
@@ -1025,8 +1037,8 @@
     height: auto;
     left: 50%;
     top: 10px;
-    transform: translateX(-59%);
-    width: 1600px;
+    transform: translateX(-62%);
+    width: 1250px;
   }
 
   .hero-section-background .hero-background-montage {
@@ -1034,8 +1046,8 @@
     height: auto;
     left: 50%;
     top: 10px;
-    transform: translateX(-59%);
-    width: 1600px;
+    transform: translateX(-62%);
+    width: 1250px;
   }
 
   .hero-section-background .hero-background-shadow {
@@ -1077,6 +1089,7 @@
     right: 20px;
     top: 455px;
     width: calc(100% - 40px);
+    z-index: 7;
   }
 
   .hero-section-background .hero-cta {
@@ -1085,7 +1098,7 @@
     position: absolute;
     top: 552px;
     width: calc(100% - 40px);
-    z-index: 7;
+    z-index: 8;
   }
 
   .hero-section-background .hero-benefits-bar {
