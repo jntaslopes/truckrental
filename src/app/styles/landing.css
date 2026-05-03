@@ -188,32 +188,20 @@
 }
 
 .hero-cta-arrow {
+  background: currentColor;
   display: block;
   height: 16px;
-  position: relative;
+  mask: url("/assets/figma/icon-arrow-right.svg") center / 15px 11.3075px no-repeat;
   width: 16px;
+  -webkit-mask: url("/assets/figma/icon-arrow-right.svg") center / 15px 11.3075px no-repeat;
 }
 
 .hero-cta-arrow::before {
-  background: currentColor;
-  content: "";
-  height: 1.5px;
-  left: 2px;
-  position: absolute;
-  top: 7px;
-  width: 12px;
+  content: none;
 }
 
 .hero-cta-arrow::after {
-  border-right: 1.5px solid currentColor;
-  border-top: 1.5px solid currentColor;
-  content: "";
-  height: 6px;
-  position: absolute;
-  right: 2px;
-  top: 4.5px;
-  transform: rotate(45deg);
-  width: 6px;
+  content: none;
 }
 
 .hero-visual {
@@ -1173,18 +1161,18 @@
 .catalogue-model-grid {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
 .catalogue-truck-row {
   display: grid;
-  gap: 16px;
+  gap: 24px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .catalogue-operation-row {
   display: grid;
-  gap: 16px;
+  gap: 24px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
@@ -1196,16 +1184,16 @@
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 8px;
-  height: 389px;
-  min-height: 389px;
+  height: 390px;
+  min-height: 390px;
   padding-top: 180px;
 }
 
 .landing-page .catalogue-section .landing-truck-card.selected {
   background: var(--white);
   border: 2px solid var(--bright-blue);
-  height: 389px;
-  min-height: 389px;
+  height: 390px;
+  min-height: 390px;
 }
 
 .landing-page .catalogue-section .landing-truck-card .catalog-truck-surface {
@@ -1225,25 +1213,27 @@
 }
 
 .landing-page .catalogue-section .landing-truck-card .catalog-truck-media {
-  background: #f0f5f9;
+  background: var(--white);
   height: 180px;
 }
 
 .landing-page .catalogue-section .landing-truck-card .catalog-truck-image {
+  bottom: 14px;
   height: 136px;
-  top: 30px;
+  top: auto;
   width: 272px;
 }
 
 .landing-page .catalogue-section .landing-truck-card .catalog-truck-content {
   display: flex;
   flex-direction: column;
-  min-height: 209px;
+  height: 210px;
+  min-height: 210px;
   padding: 24px;
 }
 
 .landing-page .catalogue-section .landing-truck-card.selected .catalog-truck-content {
-  min-height: 209px;
+  min-height: 210px;
 }
 
 .landing-page .catalogue-section .landing-truck-card .card-truck-heading {
@@ -1331,7 +1321,7 @@
 
 .landing-page .catalogue-section .landing-truck-card .catalog-card-selection-row {
   border-top: 0;
-  gap: 16px;
+  gap: 30px;
   grid-template-columns: 71px 1px minmax(0, 1fr);
   margin-bottom: 16px;
   padding-top: 0;
@@ -1363,9 +1353,9 @@
   color: var(--white);
   display: flex;
   flex-direction: column;
-  height: 389px;
+  height: 390px;
   justify-content: flex-end;
-  min-height: 389px;
+  min-height: 390px;
   padding: 24px;
   text-align: left;
   text-decoration: none;
@@ -1385,13 +1375,27 @@
   font-weight: 700;
 }
 
-.catalogue-section .catalog-all-models-card img {
+.catalogue-section .catalog-all-models-card .catalog-all-models-arrow {
+  align-items: center;
   border: 1px solid var(--white);
   border-radius: 50%;
+  box-sizing: border-box;
+  color: var(--white);
+  display: flex;
   height: 48px;
+  justify-content: center;
   margin-top: 24px;
-  padding: 14px;
   width: 48px;
+}
+
+.catalogue-section .catalog-all-models-card .catalog-all-models-arrow::after {
+  background: currentColor;
+  content: "";
+  display: block;
+  height: 20px;
+  mask: url("/assets/figma/icon-arrow-right.svg") center / 15px 11.3075px no-repeat;
+  width: 20px;
+  -webkit-mask: url("/assets/figma/icon-arrow-right.svg") center / 15px 11.3075px no-repeat;
 }
 
 .catalog-operation-intro-card {
@@ -1546,19 +1550,19 @@
   .catalogue-section .catalog-all-models-card,
   .landing-page .catalogue-section .landing-truck-card,
   .landing-page .catalogue-section .landing-truck-card.selected {
-    min-height: 389px;
+    min-height: 390px;
   }
 }
 
 @media (max-width: 900px) {
   .catalogue-model-grid {
-    gap: 16px;
+    gap: 24px;
   }
 
   .catalogue-truck-row {
     cursor: grab;
     display: flex;
-    gap: 16px;
+    gap: 24px;
     grid-template-columns: none;
     overflow-x: auto;
     overscroll-behavior-x: contain;
@@ -1622,7 +1626,7 @@
   .catalogue-operation-carousel {
     cursor: grab;
     display: flex;
-    gap: 16px;
+    gap: 24px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     padding-bottom: 0;
@@ -1690,8 +1694,8 @@
   .catalogue-section .catalog-all-models-card,
   .landing-page .catalogue-section .landing-truck-card,
   .landing-page .catalogue-section .landing-truck-card.selected {
-    height: 389px;
-    min-height: 389px;
+    height: 390px;
+    min-height: 390px;
   }
 }
 
@@ -1711,9 +1715,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 407px;
+  height: 390px;
   justify-content: flex-end;
-  min-height: 407px;
+  min-height: 390px;
   padding: 40px;
   text-align: center;
   text-decoration: none;
@@ -1731,11 +1735,15 @@
   font-weight: 700;
 }
 
-.catalog-all-models-card img {
+.catalog-all-models-card .catalog-all-models-arrow {
   display: block;
-  height: 72px;
+  height: 48px;
   transition: transform 180ms ease;
-  width: 72px;
+  width: 48px;
+}
+
+.catalog-all-models-card:hover .catalog-all-models-arrow {
+  transform: translateX(3px);
 }
 
 .catalog-all-models-card:focus-visible {
@@ -1909,9 +1917,9 @@
 }
 
 .text-link .text-link-icon {
-  height: 16px;
+  height: 20px;
   margin-left: 8px;
-  width: 16px;
+  width: 20px;
 }
 
 .button-icon {
@@ -1921,6 +1929,10 @@
 
 .button-icon-on-dark {
   filter: brightness(0) invert(1);
+}
+
+.button-icon-on-dark.arrow-icon {
+  filter: none;
 }
 
 .card-selection-row {

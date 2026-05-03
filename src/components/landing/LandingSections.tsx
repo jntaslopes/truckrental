@@ -163,13 +163,7 @@ export function TruckCatalogueSection({
   const sectionRef = useRef<HTMLElement | null>(null);
   const truckRowRef = useRef<HTMLDivElement | null>(null);
   const operationCarouselRef = useRef<HTMLDivElement | null>(null);
-  const [isRevealed, setIsRevealed] = useState(() => {
-    if (typeof window === "undefined") {
-      return false;
-    }
-
-    return window.location.hash === "#catalogo";
-  });
+  const [isRevealed, setIsRevealed] = useState(false);
   const operationCards = [
     {
       slug: "road",
@@ -525,7 +519,7 @@ export function TruckCatalogueSection({
                 <br />
                 <strong>disponíveis</strong>
               </span>
-              <img src={asset("catalog-all-models-arrow-72.svg")} alt="" />
+              <span className="catalog-all-models-arrow" aria-hidden="true" />
             </Link>
           </div>
 
@@ -679,7 +673,7 @@ export function OperationSection() {
 
             <button className="benefits-cta" type="button">
               <span>Entender como funciona</span>
-              <img src={asset("icon-arrow-right.svg")} alt="" aria-hidden="true" />
+              <span className="action-icon button-icon arrow-icon" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -839,7 +833,7 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
                     </div>
                     <span className="assistance-arrow" aria-hidden="true">
                       <span className="assistance-arrow-text">{path.cta}</span>
-                      <img src={asset("icon-arrow-right.svg")} alt="" />
+                      <span className="action-icon button-icon arrow-icon" aria-hidden="true" />
                     </span>
                   </>
                 );
@@ -916,7 +910,7 @@ export function DealersSection() {
           <img className="dealer-map-image dealer-map-overlay" src={asset("dealer-map-overlay-540-12183.png")} alt="" aria-hidden="true" />
           <button className="map-card" type="button">
             <span>Ver todas as concessionárias</span>
-            <img src={asset("icon-arrow-right.svg")} alt="" aria-hidden="true" />
+            <span className="action-icon button-icon arrow-icon" aria-hidden="true" />
           </button>
         </div>
       </div>
