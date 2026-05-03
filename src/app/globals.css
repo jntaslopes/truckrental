@@ -482,7 +482,7 @@ html.proposal-drawer-open body {
 
 @media (max-width: 1023px) {
   .plans-section {
-    --plans-blue-start: 244px;
+    --plans-blue-start: 520px;
 
     padding: 72px 24px 48px;
   }
@@ -532,7 +532,7 @@ html.proposal-drawer-open body {
 
 @media (max-width: 640px) {
   .plans-section {
-    --plans-blue-start: 242px;
+    --plans-blue-start: 570px;
 
     padding: 64px 16px 40px;
   }
@@ -1398,8 +1398,8 @@ html.proposal-drawer-open body {
 
   .truck-detail-hero-media {
     bottom: auto;
-    height: auto;
-    margin: 24px auto -8px;
+    height: clamp(180px, 44vw, 360px);
+    margin: 24px auto 0;
     max-width: 760px;
     position: relative;
     right: auto;
@@ -1419,7 +1419,7 @@ html.proposal-drawer-open body {
 
   .truck-detail-gallery {
     grid-template-columns: repeat(3, minmax(280px, 1fr));
-    overflow-x: auto;
+    overflow-x: hidden;
   }
 
   .detail-comparison {
@@ -1794,11 +1794,18 @@ html.proposal-drawer-open body {
     line-height: 34px;
   }
 
-  .truck-detail-specs,
   .truck-detail-list,
   .detail-cta-grid,
   .detail-related-grid {
     grid-template-columns: 1fr;
+  }
+
+  .truck-detail-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .truck-detail-hero-spec-panel {
+    padding-bottom: 40px;
   }
 
   .truck-detail-spec,
@@ -2096,11 +2103,29 @@ html.proposal-drawer-open body {
   }
 
   .detail-related-grid .catalog-truck-card {
-    flex-basis: min(292px, calc(100vw - 72px));
+    flex-basis: clamp(236px, 68vw, 292px);
+    opacity: 1;
+  }
+
+  .detail-related-grid .catalog-truck-card.is-partial {
+    opacity: 1;
   }
 
   .detail-related-grid {
     cursor: grab;
+  }
+
+  .truck-detail-gallery {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .truck-detail-gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .truck-detail-gallery .gallery-arrow {
+    display: none;
   }
 
   .detail-related-arrow {
