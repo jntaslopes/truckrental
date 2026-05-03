@@ -124,6 +124,8 @@ export function TruckCatalogueSection({
   onQuantityChange: (id: string, quantity: number) => void;
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const truckRowRef = useRef<HTMLDivElement | null>(null);
+  const operationCarouselRef = useRef<HTMLDivElement | null>(null);
   const [isRevealed, setIsRevealed] = useState(() => {
     if (typeof window === "undefined") {
       return false;
@@ -137,33 +139,270 @@ export function TruckCatalogueSection({
       title: "Rodoviário",
       application: "Rodoviário",
       description: "Desempenho e eficiência para longas distâncias",
-      image: "/assets/figma/catalog-banner-road.jpg",
+      image: "/assets/figma/catalog-operation-road-figma.png",
     },
     {
       slug: "urban",
       title: "Urbano",
       application: "Urbano",
       description: "Agilidade e segurança para o dia a dia da cidade.",
-      image: "/assets/figma/catalog-banner-urban-figma-362-1278.png",
+      image: "/assets/figma/catalog-operation-urban-figma.png",
     },
     {
       slug: "construction",
       title: "Construção",
       application: "Construção",
       description: "Robustez e força para os trabalhos mais exigentes.",
-      image: "/assets/figma/catalog-banner-construction.jpg",
+      image: "/assets/figma/catalog-operation-construction-figma.png",
     },
     {
       slug: "distribution",
       title: "Distribuição",
       application: "Distribuição",
       description: "Versatilidade e economia para suas entregas.",
-      image: "/assets/figma/catalog-banner-distribution.jpg",
+      image: "/assets/figma/catalog-operation-distribution-figma.png",
     },
   ] as const;
 
   useEffect(() => {
+    const bindDragScroll = (scroller: HTMLDivElement | null) => {
+      if (!scroller) {
+        return undefined;
+      }
+
+      let pointerId: number | null = null;
+      let startX = 0;
+      let startY = 0;
+      let startScrollLeft = 0;
+      let didDrag = false;
+      let isMouseDown = false;
+      let suppressClick = false;
+      let suppressClickTimeout: number | undefined;
+
+      const clearSuppressClickTimeout = () => {
+        if (suppressClickTimeout !== undefined) {
+          window.clearTimeout(suppressClickTimeout);
+          suppressClickTimeout = undefined;
+        }
+      };
+
+      const snapToNearestItem = () => {
+        const currentScrollLeft = scroller.scrollLeft;
+        const scrollerLeft = scroller.getBoundingClientRect().left;
+        const items = Array.from(scroller.children).filter(
+          (child): child is HTMLElement => child instanceof HTMLElement,
+        );
+
+        if (!items.length) {
+          return;
+        }
+
+        const nearestScrollLeft = items.reduce((nearest, item) => {
+          const itemScrollLeft =
+            item.getBoundingClientRect().left - scrollerLeft + currentScrollLeft;
+
+          if (Math.abs(itemScrollLeft - currentScrollLeft) < Math.abs(nearest - currentScrollLeft)) {
+            return itemScrollLeft;
+          }
+
+          return nearest;
+        }, 0);
+
+        scroller.scrollTo({ left: nearestScrollLeft, behavior: "auto" });
+      };
+
+      const endDrag = (event: PointerEvent) => {
+        if (pointerId !== event.pointerId) {
+          return;
+        }
+
+        if (scroller.hasPointerCapture(event.pointerId)) {
+          scroller.releasePointerCapture(event.pointerId);
+        }
+
+        pointerId = null;
+
+        if (didDrag) {
+          snapToNearestItem();
+          clearSuppressClickTimeout();
+          suppressClickTimeout = window.setTimeout(() => {
+            suppressClick = false;
+            suppressClickTimeout = undefined;
+          }, 120);
+        }
+
+        scroller.classList.remove("is-pointer-down", "is-dragging");
+      };
+
+      const onPointerDown = (event: PointerEvent) => {
+        if (event.button !== 0 || event.pointerType === "touch") {
+          return;
+        }
+
+        if (scroller.scrollWidth <= scroller.clientWidth) {
+          return;
+        }
+
+        clearSuppressClickTimeout();
+        pointerId = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
+        startScrollLeft = scroller.scrollLeft;
+        didDrag = false;
+        suppressClick = false;
+        scroller.classList.add("is-pointer-down");
+        event.preventDefault();
+        scroller.setPointerCapture(event.pointerId);
+      };
+
+      const onPointerMove = (event: PointerEvent) => {
+        if (pointerId !== event.pointerId) {
+          return;
+        }
+
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+
+        if (!didDrag && Math.abs(deltaX) > 6 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          didDrag = true;
+          suppressClick = true;
+          scroller.classList.add("is-dragging");
+        }
+
+        if (!didDrag) {
+          return;
+        }
+
+        event.preventDefault();
+        scroller.scrollLeft = startScrollLeft - deltaX;
+      };
+
+      const endMouseDrag = () => {
+        if (!isMouseDown) {
+          return;
+        }
+
+        isMouseDown = false;
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+
+        if (didDrag) {
+          snapToNearestItem();
+          clearSuppressClickTimeout();
+          suppressClickTimeout = window.setTimeout(() => {
+            suppressClick = false;
+            suppressClickTimeout = undefined;
+          }, 120);
+        }
+
+        scroller.classList.remove("is-pointer-down", "is-dragging");
+      };
+
+      const onMouseMove = (event: MouseEvent) => {
+        if (!isMouseDown) {
+          return;
+        }
+
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+
+        if (!didDrag && Math.abs(deltaX) > 6 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          didDrag = true;
+          suppressClick = true;
+          scroller.classList.add("is-dragging");
+        }
+
+        if (!didDrag) {
+          return;
+        }
+
+        event.preventDefault();
+        scroller.scrollLeft = startScrollLeft - deltaX;
+      };
+
+      const onMouseUp = () => {
+        endMouseDrag();
+      };
+
+      const onMouseDown = (event: MouseEvent) => {
+        if (event.button !== 0 || pointerId !== null) {
+          return;
+        }
+
+        if (scroller.scrollWidth <= scroller.clientWidth) {
+          return;
+        }
+
+        clearSuppressClickTimeout();
+        isMouseDown = true;
+        startX = event.clientX;
+        startY = event.clientY;
+        startScrollLeft = scroller.scrollLeft;
+        didDrag = false;
+        suppressClick = false;
+        scroller.classList.add("is-pointer-down");
+        event.preventDefault();
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      };
+
+      const onClickCapture = (event: MouseEvent) => {
+        if (!suppressClick) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        suppressClick = false;
+        clearSuppressClickTimeout();
+      };
+
+      scroller.addEventListener("pointerdown", onPointerDown);
+      scroller.addEventListener("pointermove", onPointerMove);
+      scroller.addEventListener("pointerup", endDrag);
+      scroller.addEventListener("pointercancel", endDrag);
+      scroller.addEventListener("lostpointercapture", endDrag);
+      scroller.addEventListener("mousedown", onMouseDown);
+      scroller.addEventListener("click", onClickCapture, true);
+
+      return () => {
+        clearSuppressClickTimeout();
+        endMouseDrag();
+        scroller.removeEventListener("pointerdown", onPointerDown);
+        scroller.removeEventListener("pointermove", onPointerMove);
+        scroller.removeEventListener("pointerup", endDrag);
+        scroller.removeEventListener("pointercancel", endDrag);
+        scroller.removeEventListener("lostpointercapture", endDrag);
+        scroller.removeEventListener("mousedown", onMouseDown);
+        scroller.removeEventListener("click", onClickCapture, true);
+      };
+    };
+
+    const cleanupTruckRow = bindDragScroll(truckRowRef.current);
+    const cleanupOperationCarousel = bindDragScroll(operationCarouselRef.current);
+
+    return () => {
+      cleanupTruckRow?.();
+      cleanupOperationCarousel?.();
+    };
+  }, []);
+
+  useEffect(() => {
     const sectionElement = sectionRef.current;
+
+    if (window.location.hash === "#catalogo") {
+      const hashReveal = window.setTimeout(() => {
+        setIsRevealed(true);
+      }, 0);
+
+      return () => {
+        window.clearTimeout(hashReveal);
+      };
+    }
 
     if (!sectionElement || isRevealed) {
       return;
@@ -222,53 +461,66 @@ export function TruckCatalogueSection({
       <div className="page-inner">
         <SectionTitle
           className="section-title-catalog catalogue-reveal catalogue-reveal-title"
-          eyebrow="Caminhões disponíveis para assinatura"
+          eyebrow="DESTAQUES"
           title="Explore os modelos"
           light="e solicite uma proposta"
         />
-        <div className="catalog-operation-grid catalogue-reveal catalogue-reveal-operations">
-          <article className="catalog-operation-intro">
-            <h3>
-              Caminhões para cada
-              <span> tipo de operação</span>
-            </h3>
-            <p>Explore por tipo de uso e descubra os modelos ideais</p>
-          </article>
-          {operationCards.map((item) => (
-            <Link
-              className={`catalog-operation-card ${item.slug}`}
-              href={`/caminhoes?application=${encodeURIComponent(item.application)}`}
-              key={item.title}
-            >
-              <img src={item.image} alt="" className="catalog-operation-banner" />
-              <div className="catalog-operation-content">
-                <h4>{item.title}</h4>
-                <p>{item.description}</p>
-              </div>
+        <div className="catalogue-model-grid catalogue-reveal catalogue-reveal-grid">
+          <div className="catalogue-truck-row" ref={truckRowRef}>
+            {trucks.map((truck) => (
+              <TruckSelectionCard
+                key={truck.id}
+                truck={truck}
+                selected={selectedIds.includes(truck.id)}
+                quantity={quantities[truck.id] ?? 1}
+                onToggle={onToggle}
+                onQuantityChange={onQuantityChange}
+                variant="landing"
+              />
+            ))}
+            <Link href="/caminhoes" className="catalog-all-models-card">
+              <span>
+                e mais 53 modelos.
+                <br />
+                <strong>Confira todos os</strong>
+                <br />
+                <strong>caminhões</strong>
+                <br />
+                <strong>disponíveis</strong>
+              </span>
+              <img src={asset("catalog-all-models-arrow-72.svg")} alt="" />
             </Link>
-          ))}
-        </div>
-        <div className="truck-grid catalogue-reveal catalogue-reveal-grid">
-          {trucks.map((truck) => (
-            <TruckSelectionCard
-              key={truck.id}
-              truck={truck}
-              selected={selectedIds.includes(truck.id)}
-              quantity={quantities[truck.id] ?? 1}
-              onToggle={onToggle}
-              onQuantityChange={onQuantityChange}
-            />
-          ))}
-          <Link href="/caminhoes" className="catalog-all-models-card" data-motion="card">
-            <span>
-              <strong>Ver todos</strong> os
-              <br />
-              modelos
-              <br />
-              disponíveis
-            </span>
-            <img src={asset("catalog-all-models-arrow-72.svg")} alt="" />
-          </Link>
+          </div>
+
+          <div className="catalogue-operation-row">
+            <article className="catalog-operation-intro-card">
+              <span>
+                Encontre os ideais{" "}
+                <br />
+                para <strong>a sua</strong>{" "}
+                <br />
+                <strong>operação</strong>
+              </span>
+              <img src={asset("catalog-all-models-arrow-72.svg")} alt="" />
+            </article>
+            <div className="catalogue-operation-carousel" ref={operationCarouselRef}>
+              {operationCards.map((item) => (
+                <Link
+                  className={`catalog-operation-card ${item.slug}`}
+                  href={`/caminhoes?application=${encodeURIComponent(item.application)}`}
+                  key={item.title}
+                >
+                  <span className="catalog-operation-media" aria-hidden="true">
+                    <img src={item.image} alt="" className="catalog-operation-banner" />
+                  </span>
+                  <div className="catalog-operation-content">
+                    <h4>{item.title}</h4>
+                    <p>{item.description}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

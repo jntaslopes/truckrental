@@ -50,15 +50,20 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
   quantity,
   onToggle,
   onQuantityChange,
+  variant = "catalog",
 }: {
   truck: T;
   selected: boolean;
   quantity: number;
   onToggle: (truck: T) => void;
   onQuantityChange: (id: string, quantity: number) => void;
+  variant?: "catalog" | "landing";
 }) {
+  const isLanding = variant === "landing";
+  const visibleBadges = isLanding ? truck.badges.slice(0, 1) : truck.badges;
+
   return (
-    <article className={`catalog-truck-card ${selected ? "selected" : ""}`}>
+    <article className={`catalog-truck-card ${isLanding ? "landing-truck-card" : ""} ${selected ? "selected" : ""}`}>
       <div className="catalog-truck-surface" aria-hidden="true" />
       <div className="catalog-truck-media">
         <TruckImageStack
@@ -86,14 +91,16 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
             }
           />
         </div>
-        <div className="badges" aria-label="Características">
-          {truck.badges.map((badge) => (
-            <span className={`badge ${badge.tone}`} key={badge.label}>
-              <BadgeIcon badge={badge} />
-              {badge.label}
-            </span>
-          ))}
-        </div>
+        {!selected && visibleBadges.length > 0 ? (
+          <div className="badges" aria-label="Características">
+            {visibleBadges.map((badge) => (
+              <span className={`badge ${badge.tone}`} key={badge.label}>
+                <BadgeIcon badge={badge} />
+                {badge.label}
+              </span>
+            ))}
+          </div>
+        ) : null}
         {selected ? (
           <div className="card-selection-row catalog-card-selection-row">
             <label className="floating-field card-quantity-field catalog-card-quantity-field">
@@ -112,7 +119,7 @@ export function TruckSelectionCard<T extends SharedTruckCardData>({
               <span className="card-remove-icon" aria-hidden="true">×</span>
             </button>
           </div>
-        ) : (
+        ) : isLanding ? null : (
           <button className="text-link" type="button" onClick={() => onToggle(truck)}>
             Adicionar à proposta
             <img className="action-icon text-link-icon" src={asset("icon-add.svg")} alt="" />
