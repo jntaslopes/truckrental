@@ -75,7 +75,7 @@
 }
 
 .hero-copy {
-  animation: rise 600ms ease both;
+  animation: rise var(--motion-slow) var(--motion-ease) both;
   display: flex;
   flex-direction: column;
   height: auto;
@@ -113,10 +113,23 @@
   text-decoration: none;
   top: calc(50% - ((var(--hero-copy-text-height) + var(--hero-cta-gap) + var(--hero-cta-height)) / 2) + var(--hero-copy-text-height) + var(--hero-cta-gap));
   transform: none;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  animation: hero-cta-in 680ms var(--motion-ease) 120ms both;
+  transition: background-color var(--motion-fast) ease, border-color var(--motion-fast) ease, color var(--motion-fast) ease;
   white-space: nowrap;
   width: 258px;
   z-index: 5;
+}
+
+@keyframes hero-cta-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .eyebrow {
@@ -1440,26 +1453,21 @@
 
 .catalogue-reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 220ms var(--motion-ease), transform 220ms var(--motion-ease);
+  transform: translateY(22px);
+  transition: opacity var(--motion-medium) var(--motion-ease), transform var(--motion-medium) var(--motion-ease);
 }
 
 .catalogue-reveal.catalogue-reveal-operations {
-  transition-delay: 40ms;
+  transition-delay: 80ms;
 }
 
 .catalogue-reveal.catalogue-reveal-grid {
-  transition-delay: 80ms;
+  transition-delay: 140ms;
 }
 
 .catalogue-section-visible .catalogue-reveal {
   opacity: 1;
   transform: translateY(0);
-}
-
-.catalogue-section .catalogue-reveal {
-  opacity: 1;
-  transform: none;
 }
 
 .catalog-operation-grid {
@@ -3063,13 +3071,13 @@
 }
 
 .comparison-layout[data-motion="section"].motion-visible {
-  animation: comparison-layout-in var(--motion-medium) var(--motion-ease) both;
+  animation: comparison-layout-in var(--motion-slow) var(--motion-ease) both;
 }
 
 @keyframes comparison-layout-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 24px, 0);
   }
 
   to {
@@ -3321,13 +3329,13 @@
 }
 
 .assistance-grid[data-motion="section"].motion-visible {
-  animation: assistance-grid-in var(--motion-medium) var(--motion-ease) both;
+  animation: assistance-grid-in var(--motion-slow) var(--motion-ease) both;
 }
 
 @keyframes assistance-grid-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 24px, 0);
   }
 
   to {

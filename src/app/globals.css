@@ -75,10 +75,10 @@
   --button-secondary-inverse-content: #ffffff;
   --button-secondary-inverse-content-hover: #70c7ff;
   --button-secondary-inverse-content-active: #dbe9ff;
-  --motion-fast: 160ms;
-  --motion-medium: 260ms;
-  --motion-slow: 340ms;
-  --motion-ease: cubic-bezier(0.2, 0, 0.2, 1);
+  --motion-fast: 180ms;
+  --motion-medium: 560ms;
+  --motion-slow: 720ms;
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
@@ -125,11 +125,11 @@ button {
 
 [data-motion] {
   opacity: 0;
-  transform: translate3d(0, 14px, 0);
+  transform: translate3d(0, 18px, 0);
   transition:
     opacity var(--motion-medium) var(--motion-ease),
     transform var(--motion-medium) var(--motion-ease);
-  transition-delay: calc(var(--motion-index, 0) * 28ms);
+  transition-delay: calc(var(--motion-index, 0) * 48ms);
   will-change: opacity, transform;
 }
 
@@ -138,11 +138,11 @@ button {
 }
 
 [data-motion="card"] {
-  transform: translate3d(0, 10px, 0);
+  transform: translate3d(0, 14px, 0);
 }
 
 [data-motion="section"] {
-  transform: translate3d(0, 18px, 0);
+  transform: translate3d(0, 24px, 0);
 }
 
 [data-motion].motion-visible {
@@ -371,7 +371,7 @@ html.proposal-drawer-open body {
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(22px);
   }
   to {
     opacity: 1;
@@ -431,7 +431,8 @@ html.proposal-drawer-open body {
     transition-duration: 1ms !important;
   }
 
-  [data-motion] {
+  [data-motion],
+  [data-motion].motion-visible {
     opacity: 1;
     transform: none;
     transition: none;

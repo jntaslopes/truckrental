@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 
 const motionSelector = "[data-motion]";
+const maxMotionIndex = 8;
 
 export function useMotionObserver() {
   useEffect(() => {
@@ -15,6 +16,25 @@ export function useMotionObserver() {
 
     const reveal = (element: Element) => {
       element.classList.add("motion-visible");
+    };
+
+    const assignMotionIndex = (element: Element) => {
+      if (!(element instanceof HTMLElement) || element.style.getPropertyValue("--motion-index")) {
+        return;
+      }
+
+      const parent = element.parentElement;
+
+      if (!parent) {
+        return;
+      }
+
+      const motionSiblings = Array.from(parent.querySelectorAll(`:scope > ${motionSelector}`));
+      const index = motionSiblings.indexOf(element);
+
+      if (index > 0) {
+        element.style.setProperty("--motion-index", String(Math.min(index, maxMotionIndex)));
+      }
     };
 
     const observer = new IntersectionObserver(
@@ -40,6 +60,7 @@ export function useMotionObserver() {
       }
 
       observedElements.add(element);
+      assignMotionIndex(element);
 
       if (reducedMotion.matches) {
         reveal(element);
