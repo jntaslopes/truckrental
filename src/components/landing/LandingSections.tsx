@@ -9,6 +9,23 @@ import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
 const asset = (name: string) => `/assets/figma/${name}`;
 
+type HeroSlide = {
+  id: string;
+  theme: "light" | "dark";
+  variant: "current" | "background";
+  backgroundImage?: string;
+};
+
+const heroSlides: HeroSlide[] = [
+  { id: "fleet-subscription", theme: "light", variant: "current" },
+  {
+    id: "fixed-cost",
+    theme: "dark",
+    variant: "background",
+    backgroundImage: asset("hero-banner-h2-bg.png"),
+  },
+];
+
 const trustedCompanies = [
   { name: "Coca-Cola", className: "coca-cola", asset: asset("trusted-company-coca-cola-540-12242.svg"), width: 104, height: 33 },
   { name: "Raízen", className: "raizen", asset: asset("trusted-company-raizen-540-12242.svg"), width: 84, height: 34 },
@@ -50,6 +67,10 @@ function SectionTitle({
 }
 
 export function HeroSection() {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const currentSlide = heroSlides[currentSlideIndex];
+  const isBackgroundSlide = currentSlide.variant === "background";
+
   const benefits = [
     ["hero-benefit-refund.svg", "Assinatura", "Mensal"],
     ["hero-benefit-monthly.svg", "Planos", "de 18 a 60 meses"],
@@ -65,25 +86,85 @@ export function HeroSection() {
     ["hero-icon-baseline-chart.svg", "hero-icon-overlay hero-icon-baseline-chart"],
   ] as const;
 
+  function showPreviousBanner() {
+    setCurrentSlideIndex((index) => (index - 1 + heroSlides.length) % heroSlides.length);
+  }
+
+  function showNextBanner() {
+    setCurrentSlideIndex((index) => (index + 1) % heroSlides.length);
+  }
+
   return (
-    <section id="top" className="hero-section" data-motion="fade">
+    <section
+      id="top"
+      className={`hero-section hero-section-${currentSlide.variant} hero-section-theme-${currentSlide.theme}`}
+      data-active-banner={currentSlide.id}
+    >
       <div className="hero-surface-shell">
         <div className="hero-surface">
           <div className="hero-inner">
+            {isBackgroundSlide ? (
+              <div className="hero-background-scene" aria-hidden="true" data-node-id="544:20302">
+                <img
+                  className="hero-background-image"
+                  src={currentSlide.backgroundImage ?? ""}
+                  alt=""
+                  aria-hidden="true"
+                  data-node-id="544:20304"
+                />
+                <div className="hero-background-cyan-tab" data-node-id="544:20305" />
+                <div className="hero-background-copy-panel" data-node-id="544:20306" />
+                <img
+                  className="hero-background-shadow hero-background-shadow-wide"
+                  src={asset("hero-banner-h2-shadow-wide.png")}
+                  alt=""
+                  aria-hidden="true"
+                  data-node-id="544:20307"
+                />
+                <img
+                  className="hero-background-shadow hero-background-shadow-tight"
+                  src={asset("hero-banner-h2-shadow-tight.png")}
+                  alt=""
+                  aria-hidden="true"
+                  data-node-id="544:20308"
+                />
+                <img
+                  className="hero-background-montage"
+                  src={asset("hero-banner-h2-montage.png")}
+                  alt=""
+                  aria-hidden="true"
+                  data-node-id="544:20309"
+                />
+                <div className="hero-background-overlay" data-node-id="544:20324" />
+              </div>
+            ) : null}
             <div className="hero-copy">
               <p className="eyebrow">ALUGUEL DE CAMINHÕES</p>
               <h1>
-                <span className="hero-copy-line">Sua frota,</span>
-                <span className="hero-copy-line">sem burocracia e</span>
-                <span className="hero-copy-line accent-line">com tudo incluso</span>
+                {isBackgroundSlide ? (
+                  <>
+                    <span className="hero-copy-line">Sua frota,</span>
+                    <span className="hero-copy-line">sem burocracia</span>
+                    <span className="hero-copy-line accent-line">e com tudo incluso</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="hero-copy-line">Sua frota,</span>
+                    <span className="hero-copy-line">sem burocracia e</span>
+                    <span className="hero-copy-line accent-line">com tudo incluso</span>
+                  </>
+                )}
               </h1>
-              <p>
-                Assine a frota ideal para o seu negócio e tenha mais controle, previsibilidade e
-                eficiência na sua operação.
-              </p>
+              {!isBackgroundSlide ? (
+                <p>
+                  Assine a frota ideal para o seu negócio e tenha mais controle, previsibilidade e
+                  eficiência na sua operação.
+                </p>
+              ) : null}
             </div>
 
-            <div className="hero-visual">
+            {!isBackgroundSlide ? (
+              <div className="hero-visual">
               <div className="hero-visual-stage">
                 <img className="hero-banner-image" src={asset("hero-banner-vectors-v2.png")} alt="" aria-hidden="true" />
                 {heroIcons.map(([icon, className]) => (
@@ -101,7 +182,28 @@ export function HeroSection() {
                   <span>negócios</span>
                 </div>
               </div>
-            </div>
+              </div>
+            ) : (
+              <div className="hero-price-badges" data-node-id="544:20328">
+                <div className="hero-h2-fixed-cost-badge" data-node-id="544:20330">
+                  <span>Custo</span>
+                  <span>Fixo</span>
+                  <span>Mensal</span>
+                </div>
+                <div className="hero-h2-plan-badge" data-node-id="544:20331">
+                  <div className="hero-h2-plan-copy" data-node-id="544:20334">
+                    <div className="hero-h2-plan-label" data-node-id="544:20335">
+                      <span>Planos</span>
+                      <span>à partir de</span>
+                    </div>
+                    <div className="hero-h2-plan-price" data-node-id="544:20336">
+                      <strong>R$5</strong>
+                      <span>mil/mês</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             <a
               href="#catalogo"
               className="hero-cta"
@@ -114,10 +216,10 @@ export function HeroSection() {
               <span className="hero-cta-arrow" aria-hidden="true" />
             </a>
             <div className="hero-banner-control" aria-label="Controle do banner" data-node-id="540:9075">
-              <button type="button" aria-label="Banner anterior">
+              <button type="button" aria-label="Banner anterior" onClick={showPreviousBanner}>
                 <span aria-hidden="true" />
               </button>
-              <button type="button" aria-label="Próximo banner">
+              <button type="button" aria-label="Próximo banner" onClick={showNextBanner}>
                 <span aria-hidden="true" />
               </button>
             </div>
