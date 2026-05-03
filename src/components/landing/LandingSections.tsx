@@ -15,6 +15,7 @@ type HeroSlide = {
   variant: "current" | "background";
   backgroundImage?: string;
   compositeImage?: string;
+  mobileImage?: string;
 };
 
 const heroSlides: HeroSlide[] = [
@@ -25,6 +26,7 @@ const heroSlides: HeroSlide[] = [
     variant: "background",
     backgroundImage: asset("hero-banner-h2-bg.png"),
     compositeImage: asset("hero-banner-h2-composite-desktop.png"),
+    mobileImage: asset("hero-banner-h2-mobile.png"),
   },
 ];
 
@@ -113,6 +115,13 @@ export function HeroSection() {
                   alt=""
                   aria-hidden="true"
                   data-node-id="544:20302"
+                />
+                <img
+                  className="hero-background-mobile-image"
+                  src={currentSlide.mobileImage ?? ""}
+                  alt=""
+                  aria-hidden="true"
+                  data-node-id="595:1078"
                 />
                 <img
                   className="hero-background-image"

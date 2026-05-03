@@ -418,6 +418,14 @@
   z-index: 1;
 }
 
+.hero-background-mobile-image {
+  display: none;
+  max-width: none;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
 .hero-background-image {
   display: none;
   height: auto;
@@ -1018,6 +1026,16 @@
     display: none;
   }
 
+  .hero-section-background .hero-background-mobile-image {
+    display: block;
+    height: auto;
+    left: 0;
+    object-fit: contain;
+    position: absolute;
+    top: 218px;
+    width: 100%;
+  }
+
   .hero-section-background .hero-background-copy-panel {
     display: block;
     height: 225px;
@@ -1033,7 +1051,7 @@
   }
 
   .hero-section-background .hero-background-image {
-    display: block;
+    display: none;
     height: auto;
     left: 50%;
     top: 10px;
@@ -1042,7 +1060,7 @@
   }
 
   .hero-section-background .hero-background-montage {
-    display: block;
+    display: none;
     height: auto;
     left: 50%;
     top: 10px;
@@ -1051,7 +1069,7 @@
   }
 
   .hero-section-background .hero-background-shadow {
-    display: block;
+    display: none;
   }
 
   .hero-section-background .hero-background-shadow-wide {
