@@ -531,7 +531,7 @@ export function getTruckDetailBySlug(slug: string): TruckDetailData | undefined 
     ],
     comparison,
     ctas: detailCtas,
-    related: catalogTrucks.filter((item) => item.id !== truck.id).slice(0, 5),
+    related: catalogTrucks.filter((item) => item.id !== truck.id),
   };
 }
 
