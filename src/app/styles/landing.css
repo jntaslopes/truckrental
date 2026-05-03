@@ -501,6 +501,7 @@
 
 .catalogue-section {
   background: var(--white);
+  scroll-margin-top: 88px;
 }
 
 .catalogue-reveal {
@@ -520,6 +521,11 @@
 .catalogue-section-visible .catalogue-reveal {
   opacity: 1;
   transform: translateY(0);
+}
+
+.catalogue-section .catalogue-reveal {
+  opacity: 1;
+  transform: none;
 }
 
 .catalog-operation-grid {
@@ -670,6 +676,561 @@
   --catalog-image-height: 750px;
   --catalog-image-left: -151px;
   --catalog-image-width: 569.118px;
+}
+
+.catalogue-section.page-band {
+  padding-bottom: 72px;
+  padding-left: clamp(24px, 2.8vw, 40px);
+  padding-right: clamp(24px, 2.8vw, 40px);
+  padding-top: 80px;
+}
+
+.catalogue-section .section-title.section-title-catalog {
+  margin-bottom: 88px;
+}
+
+.catalogue-section .section-title.section-title-catalog p {
+  color: var(--bright-blue);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.catalogue-section .section-title.section-title-catalog h2 {
+  font-size: 36px;
+  line-height: 43px;
+  max-width: 100%;
+}
+
+.catalogue-section .section-title.section-title-catalog h2::after {
+  bottom: -31px;
+}
+
+.catalogue-model-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.catalogue-truck-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.catalogue-operation-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.catalogue-operation-carousel {
+  display: contents;
+}
+
+.landing-page .catalogue-section .landing-truck-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  height: 389px;
+  min-height: 389px;
+  padding-top: 180px;
+}
+
+.landing-page .catalogue-section .landing-truck-card.selected {
+  background: var(--white);
+  border: 2px solid var(--bright-blue);
+  height: 389px;
+  min-height: 389px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-truck-surface {
+  background: var(--white);
+  bottom: 0;
+  height: auto;
+  left: 0;
+  right: 0;
+  top: 180px;
+}
+
+.landing-page .catalogue-section .landing-truck-card.selected .catalog-truck-surface {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 180px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-truck-media {
+  background: #f0f5f9;
+  height: 180px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-truck-image {
+  height: 136px;
+  top: 30px;
+  width: 272px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-truck-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 209px;
+  padding: 24px;
+}
+
+.landing-page .catalogue-section .landing-truck-card.selected .catalog-truck-content {
+  min-height: 209px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .card-truck-heading {
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .select-dot {
+  height: 20px;
+  margin-top: 0;
+  width: 20px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-truck-content h3 {
+  color: var(--ink);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-truck-content p {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.landing-page .catalogue-section .landing-truck-card .card-truck-title {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.landing-page .catalogue-section .landing-truck-card .badges {
+  height: 24px;
+  margin-bottom: 16px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .badge {
+  font-size: 12px;
+  gap: 2px;
+  height: 24px;
+  line-height: 14px;
+  padding: 4px 8px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .badge.success {
+  background: var(--green);
+  color: var(--white);
+}
+
+.landing-page .catalogue-section .landing-truck-card .badge.engine {
+  background: #d1d9f2;
+  color: var(--blue);
+}
+
+.landing-page .catalogue-section .landing-truck-card .badge.electric {
+  background: #006bd6;
+  color: var(--white);
+}
+
+.landing-page .catalogue-section .landing-truck-card .text-link {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  color: var(--blue);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .text-link .text-link-icon {
+  height: 20px;
+  margin-left: 8px;
+  width: 20px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-card-selection-row {
+  border-top: 0;
+  gap: 16px;
+  grid-template-columns: 71px 1px minmax(0, 1fr);
+  margin-bottom: 16px;
+  padding-top: 0;
+}
+
+.landing-page .catalogue-section .landing-truck-card .catalog-card-quantity-field {
+  height: 40px;
+  width: 71px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .card-selection-divider {
+  background: var(--line);
+  height: 30px;
+}
+
+.landing-page .catalogue-section .landing-truck-card .card-remove-link {
+  color: var(--bright-blue);
+  font-size: 14px;
+  line-height: 17px;
+  min-width: 0;
+}
+
+.catalogue-section .catalog-all-models-card,
+.catalog-operation-intro-card {
+  align-items: flex-start;
+  background: var(--blue);
+  border: 0;
+  border-radius: 0;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  height: 389px;
+  justify-content: flex-end;
+  min-height: 389px;
+  padding: 24px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.catalogue-section .catalog-all-models-card span,
+.catalog-operation-intro-card span {
+  color: var(--white);
+  font-family: "VW Head", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 29px;
+}
+
+.catalogue-section .catalog-all-models-card strong,
+.catalog-operation-intro-card strong {
+  font-weight: 700;
+}
+
+.catalogue-section .catalog-all-models-card img {
+  border: 1px solid var(--white);
+  border-radius: 50%;
+  height: 48px;
+  margin-top: 24px;
+  padding: 14px;
+  width: 48px;
+}
+
+.catalog-operation-intro-card {
+  height: 247px;
+  justify-content: space-between;
+  min-height: 247px;
+  pointer-events: none;
+}
+
+.catalog-operation-intro-card img {
+  height: 72px;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 72px;
+}
+
+.catalogue-section .catalog-operation-card {
+  background: #e5e9eb;
+  border: 0;
+  border-radius: 0;
+  height: 247px;
+  overflow: hidden;
+}
+
+.catalogue-section .catalog-operation-card::after {
+  content: none;
+}
+
+.catalogue-section .catalog-operation-media {
+  display: block;
+  height: 139px;
+  inset: 0 0 auto;
+  overflow: hidden;
+  position: absolute;
+}
+
+.catalogue-section .catalog-operation-banner {
+  display: block;
+  height: var(--catalog-operation-image-height);
+  left: var(--catalog-operation-image-left);
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+  position: absolute;
+  top: var(--catalog-operation-image-top);
+  transform: none;
+  width: var(--catalog-operation-image-width);
+  z-index: 0;
+}
+
+.catalogue-section .catalog-operation-card.road .catalog-operation-banner {
+  --catalog-operation-image-height: 306px;
+  --catalog-operation-image-left: -0.2px;
+  --catalog-operation-image-top: -116px;
+  --catalog-operation-image-width: 274px;
+}
+
+.catalogue-section .catalog-operation-card.urban .catalog-operation-banner {
+  --catalog-operation-image-height: 247.381px;
+  --catalog-operation-image-left: -0.4px;
+  --catalog-operation-image-top: -62px;
+  --catalog-operation-image-width: 276px;
+}
+
+.catalogue-section .catalog-operation-card.construction .catalog-operation-banner {
+  --catalog-operation-image-height: 331.525px;
+  --catalog-operation-image-left: 0.4px;
+  --catalog-operation-image-top: -97px;
+  --catalog-operation-image-width: 276px;
+}
+
+.catalogue-section .catalog-operation-card.distribution .catalog-operation-banner {
+  --catalog-operation-image-height: 429.612px;
+  --catalog-operation-image-left: -26px;
+  --catalog-operation-image-top: -194px;
+  --catalog-operation-image-width: 326px;
+}
+
+.catalogue-section .catalog-operation-content {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  box-sizing: border-box;
+  color: var(--ink);
+  gap: 4px;
+  height: 108px;
+  inset: auto 0 0;
+  justify-content: flex-start;
+  padding: 24px;
+}
+
+.catalogue-section .catalog-operation-content h4 {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.catalogue-section .catalog-operation-content p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 18px;
+  max-width: 220px;
+}
+
+@media (max-width: 1439px) and (min-width: 901px) {
+  .catalogue-truck-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .catalogue-truck-row > .landing-truck-card:nth-of-type(4) {
+    display: none;
+  }
+
+  .catalogue-operation-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .catalogue-section .catalog-operation-media {
+    height: 139px;
+    inset: 0 0 auto;
+  }
+
+  .catalogue-section .catalog-operation-banner {
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+  }
+
+  .catalog-operation-intro-card {
+    background: transparent;
+    color: var(--blue);
+    grid-column: 1 / -1;
+    height: auto;
+    min-height: 0;
+    padding: 0 0 8px;
+  }
+
+  .catalog-operation-intro-card span {
+    color: var(--blue);
+    display: block;
+    white-space: nowrap;
+  }
+
+  .catalog-operation-intro-card br,
+  .catalog-operation-intro-card img {
+    display: none;
+  }
+
+  .catalogue-section .catalog-all-models-card,
+  .landing-page .catalogue-section .landing-truck-card,
+  .landing-page .catalogue-section .landing-truck-card.selected {
+    min-height: 389px;
+  }
+}
+
+@media (max-width: 900px) {
+  .catalogue-model-grid {
+    gap: 16px;
+  }
+
+  .catalogue-truck-row {
+    cursor: grab;
+    display: flex;
+    gap: 16px;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: 0;
+    scroll-padding-inline: 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .catalogue-truck-row.is-pointer-down,
+  .catalogue-truck-row.is-dragging {
+    cursor: grabbing;
+  }
+
+  .catalogue-truck-row.is-dragging {
+    scroll-snap-type: none;
+    user-select: none;
+  }
+
+  .catalogue-truck-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catalogue-truck-row > .landing-truck-card:nth-of-type(4) {
+    display: none;
+  }
+
+  .catalogue-truck-row > .landing-truck-card,
+  .catalogue-truck-row > .catalog-all-models-card {
+    flex: 0 0 min(326px, calc(100vw - 88px));
+    scroll-snap-align: start;
+  }
+
+  .catalogue-operation-row {
+    display: block;
+  }
+
+  .catalog-operation-intro-card {
+    background: transparent;
+    color: var(--blue);
+    grid-column: 1 / -1;
+    height: auto;
+    min-height: 0;
+    padding: 0 0 20px;
+  }
+
+  .catalog-operation-intro-card span {
+    color: var(--blue);
+    display: block;
+  }
+
+  .catalog-operation-intro-card img {
+    display: none;
+  }
+
+  .catalog-operation-intro-card br {
+    display: block;
+  }
+
+  .catalogue-operation-carousel {
+    cursor: grab;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: 0;
+    scroll-padding-inline: 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .catalogue-operation-carousel.is-pointer-down,
+  .catalogue-operation-carousel.is-dragging {
+    cursor: grabbing;
+  }
+
+  .catalogue-operation-carousel.is-dragging {
+    scroll-snap-type: none;
+    user-select: none;
+  }
+
+  .catalogue-operation-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catalogue-section .catalog-operation-card {
+    flex: 0 0 min(310px, calc(100vw - 88px));
+    scroll-snap-align: start;
+  }
+
+  .catalogue-section .catalog-operation-media {
+    height: 139px;
+    inset: 0 0 auto;
+    position: absolute;
+  }
+
+  .catalogue-section .catalog-operation-banner {
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+@media (min-width: 561px) and (max-width: 900px) {
+  .catalog-operation-intro-card span {
+    white-space: nowrap;
+  }
+
+  .catalog-operation-intro-card br {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .catalogue-section.page-band {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .catalog-operation-intro-card span {
+    white-space: normal;
+  }
+
+  .catalogue-section .catalog-all-models-card,
+  .landing-page .catalogue-section .landing-truck-card,
+  .landing-page .catalogue-section .landing-truck-card.selected {
+    height: 389px;
+    min-height: 389px;
+  }
 }
 
 .catalogue-section .truck-grid {

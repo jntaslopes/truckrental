@@ -64,6 +64,10 @@ export function useMotionObserver() {
 
     scan(document);
 
+    const initialScanFrame = window.requestAnimationFrame(() => {
+      scan(document);
+    });
+
     const mutationObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         mutation.addedNodes.forEach((node) => {
@@ -80,6 +84,7 @@ export function useMotionObserver() {
     });
 
     return () => {
+      window.cancelAnimationFrame(initialScanFrame);
       mutationObserver.disconnect();
       observer.disconnect();
     };
