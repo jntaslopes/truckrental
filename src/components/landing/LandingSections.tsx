@@ -209,6 +209,8 @@ export function TruckCatalogueSection({
       let isMouseDown = false;
       let suppressClick = false;
       let suppressClickTimeout: number | undefined;
+      const supportsPointerEvents = "PointerEvent" in window;
+      const interactiveSelector = "a, button, input, label, select, textarea";
 
       const clearSuppressClickTimeout = () => {
         if (suppressClickTimeout !== undefined) {
@@ -216,6 +218,9 @@ export function TruckCatalogueSection({
           suppressClickTimeout = undefined;
         }
       };
+
+      const isInteractiveTarget = (target: EventTarget | null) =>
+        target instanceof Element && target.closest(interactiveSelector) !== null;
 
       const snapToNearestItem = () => {
         const currentScrollLeft = scroller.scrollLeft;
@@ -266,7 +271,7 @@ export function TruckCatalogueSection({
       };
 
       const onPointerDown = (event: PointerEvent) => {
-        if (event.button !== 0 || event.pointerType === "touch") {
+        if (event.button !== 0 || event.pointerType === "touch" || isInteractiveTarget(event.target)) {
           return;
         }
 
@@ -358,7 +363,7 @@ export function TruckCatalogueSection({
       };
 
       const onMouseDown = (event: MouseEvent) => {
-        if (event.button !== 0 || pointerId !== null) {
+        if (supportsPointerEvents || event.button !== 0 || pointerId !== null || isInteractiveTarget(event.target)) {
           return;
         }
 
@@ -397,7 +402,9 @@ export function TruckCatalogueSection({
       scroller.addEventListener("pointerup", endDrag);
       scroller.addEventListener("pointercancel", endDrag);
       scroller.addEventListener("lostpointercapture", endDrag);
-      scroller.addEventListener("mousedown", onMouseDown);
+      if (!supportsPointerEvents) {
+        scroller.addEventListener("mousedown", onMouseDown);
+      }
       scroller.addEventListener("click", onClickCapture, true);
 
       return () => {
@@ -408,7 +415,9 @@ export function TruckCatalogueSection({
         scroller.removeEventListener("pointerup", endDrag);
         scroller.removeEventListener("pointercancel", endDrag);
         scroller.removeEventListener("lostpointercapture", endDrag);
-        scroller.removeEventListener("mousedown", onMouseDown);
+        if (!supportsPointerEvents) {
+          scroller.removeEventListener("mousedown", onMouseDown);
+        }
         scroller.removeEventListener("click", onClickCapture, true);
       };
     };
