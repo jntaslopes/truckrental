@@ -3240,6 +3240,12 @@
 }
 
 .dealers-section.page-band {
+  --dealer-content-max: 1440px;
+  --dealer-content-gutter: max(0px, calc((100vw - var(--dealer-content-max)) / 2));
+  --dealer-header-padding: 100px;
+  --dealer-header-start: calc(var(--dealer-content-gutter) + var(--dealer-header-padding));
+  --dealer-shell-padding: 40px;
+
   background: var(--white);
   padding: 0 0 48px;
   scroll-margin-top: 88px;
@@ -3262,12 +3268,13 @@
 }
 
 .dealer-section-header {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin: 0;
-  max-width: 696px;
-  padding: 80px 100px;
+  max-width: none;
+  padding: 80px 100px 80px var(--dealer-header-start);
   width: 100%;
 }
 
@@ -3506,17 +3513,23 @@
 .dealer-stats-shell {
   border-bottom: 1px solid var(--line);
   border-top: 1px solid var(--line);
+  box-sizing: border-box;
+  margin-left: calc(50% - 50vw);
   padding-top: 0;
+  width: 100vw;
 }
 
 .dealer-stats {
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 448px));
+  gap: 0 48px;
+  grid-template-columns: repeat(3, minmax(240px, 1fr));
   height: 138px;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 auto;
-  max-width: 1440px;
-  padding: 0;
+  max-width: var(--dealer-content-max);
+  padding: 0 var(--dealer-shell-padding);
+  width: 100%;
 }
 
 .dealer-stat {
@@ -3525,6 +3538,7 @@
   gap: 24px;
   height: 138px;
   justify-content: center;
+  min-width: 0;
   padding: 0;
   text-align: left;
   transition: transform var(--motion-fast) ease;
@@ -3546,24 +3560,29 @@
   font-weight: 400;
   line-height: 29px;
   max-width: 240px;
+  min-width: 0;
 }
 
 .trusted-companies-shell {
   border-bottom: 1px solid var(--line);
+  box-sizing: border-box;
   isolation: isolate;
+  margin-left: calc(50% - 50vw);
   margin-top: 0;
   position: relative;
+  width: 100vw;
 }
 
 .trusted-companies {
   align-items: stretch;
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 205.71px repeat(6, 205.71px);
+  grid-template-columns: minmax(126px, 180px) minmax(0, 1fr);
   height: 160px;
   margin: 0 auto;
-  max-width: min(100%, 1440px);
+  max-width: var(--dealer-content-max);
   overflow: hidden;
-  padding: 0;
+  padding: 0 var(--dealer-shell-padding);
   width: 100%;
   z-index: 1;
 }
@@ -3578,17 +3597,17 @@
   line-height: 20px;
   margin: 0;
   max-width: 126px;
-  padding-left: 40px;
 }
 
 .trusted-companies-list {
   align-items: stretch;
   display: grid;
   grid-column: 2 / -1;
-  grid-template-columns: repeat(6, 205.71px);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   height: 160px;
   list-style: none;
   margin: 0;
+  min-width: 0;
   padding: 0;
   width: 100%;
 }
@@ -3599,6 +3618,7 @@
   height: 160px;
   justify-content: center;
   min-width: 0;
+  padding: 0 12px;
 }
 
 .trusted-company-logo {
