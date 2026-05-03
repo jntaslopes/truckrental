@@ -2320,333 +2320,460 @@
   margin: 0 auto;
 }
 
-.assistance-grid {
-  --assistance-shell-width: 1452px;
-  --assistance-available-width: min(var(--assistance-shell-width), calc(100vw - (var(--assistance-horizontal-gap) * 2)));
-  --assistance-shell-min-height: 933px;
-  --assistance-panel-padding-block: 80px;
-  --assistance-horizontal-gap: 80px;
-  --assistance-content-max-width: 652px;
-  --assistance-content-min-width: 360px;
-  --assistance-photo-min-width: 480px;
-  --assistance-photo-width: clamp(
-    var(--assistance-photo-min-width),
-    42vw,
-    640px
-  );
-  --assistance-content-width: clamp(
-    var(--assistance-content-min-width),
-    calc(var(--assistance-available-width) - var(--assistance-photo-width) - (var(--assistance-horizontal-gap) * 2)),
-    var(--assistance-content-max-width)
-  );
-  --assistance-copy-width: var(--assistance-content-width);
-  --assistance-content-gap: 48px;
-  --assistance-card-gap: 16px;
-  --assistance-outer-gutter: 0px;
-  --assistance-panel-right-cut: 104px;
-  --assistance-photo-height: 760px;
-  --assistance-photo-top: 187px;
+.assistance-section.page-band.soft {
+  background: var(--blue);
+  padding: 80px 100px 163px;
+}
 
-  display: block;
+.assistance-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
   margin: 0 auto;
-  max-width: var(--assistance-shell-width);
+  max-width: 1452px;
   overflow: visible;
   padding: 0;
   position: relative;
-  width: min(
-    var(--assistance-shell-width),
-    calc(var(--assistance-content-width) + var(--assistance-photo-width) + (var(--assistance-horizontal-gap) * 2))
-  );
-}
-
-.assistance-section.page-band.soft {
-  background: #F6F7FA;
-  padding: 100px 48px;
-}
-
-.assistance-shell {
-  display: block;
-  min-height: 0;
-  position: relative;
-}
-
-.assistance-panel {
-  background: #001e50;
-  box-sizing: border-box;
-  max-width: 100%;
-  min-width: 0;
-  padding: var(--assistance-panel-padding-block) var(--assistance-horizontal-gap);
-  position: relative;
-  width: calc(100% - var(--assistance-panel-right-cut));
-}
-
-.assistance-content {
-  align-items: stretch;
-  container-name: assistance-content;
-  container-type: inline-size;
-  display: flex;
-  flex-direction: column;
-  gap: var(--assistance-content-gap);
-  justify-content: flex-start;
-  max-width: var(--assistance-content-width);
-  min-height: 0;
-  position: relative;
-  width: min(100%, var(--assistance-content-width));
-  z-index: 1;
+  width: 100%;
 }
 
 .assistance-copy {
+  align-items: flex-start;
+  color: var(--white);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: var(--assistance-copy-width);
+  gap: 8px;
+  width: 100%;
 }
 
 .assistance-copy .eyebrow {
   color: var(--white);
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 700;
+  letter-spacing: 0;
   line-height: 19px;
   margin: 0;
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .assistance-copy h2 {
   color: var(--white);
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 12px;
   font-family: "VW Head", Arial, sans-serif;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 700;
-  line-height: 43px;
+  letter-spacing: 0;
+  line-height: 48px;
   margin: 0;
-  max-width: 100%;
-  position: relative;
 }
 
 .assistance-copy h2 span {
-  display: block;
   font-weight: 300;
 }
 
-.assistance-copy h2::after {
+.assistance-title-rule {
   background: var(--cyan);
-  bottom: -14px;
-  content: "";
   height: 2px;
-  left: 0;
-  position: absolute;
+  margin-top: 23px;
   width: 80px;
 }
 
-.assistance-copy > p:not(.eyebrow) {
-  color: var(--white);
-  font-size: 14px;
-  line-height: 17px;
-  margin: 10px 0 0;
-  max-width: 100%;
+.assistance-shell {
+  min-height: 366px;
+  position: relative;
+  width: 100%;
 }
 
-.assistance-cards {
-  align-items: start;
-  display: grid;
-  gap: var(--assistance-card-gap);
-  grid-template-columns: 1fr;
+.assistance-panel {
+  align-items: flex-end;
+  background: transparent;
+  border: 2px solid var(--cyan);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  max-width: 1348px;
+  min-height: 238px;
+  padding: 80px;
+  position: relative;
+  width: calc(100% - 104px);
+}
+
+.assistance-actions {
+  --assistance-arrow-visual-height: 12px;
+  --assistance-arrow-visual-width: 15px;
+  --assistance-button-font-size: 14px;
+  --assistance-button-height: 40px;
+  --assistance-button-icon-size: 20px;
+  --assistance-button-line-height: 17px;
+  --assistance-button-padding-x: 16px;
+  --assistance-button-width: 244px;
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 674px;
 }
 
 .assistance-card {
   align-items: center;
-  background: #042356;
+  appearance: none;
+  background: transparent;
   border: 0;
-  border-radius: 0;
+  color: var(--white);
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  font: inherit;
   gap: 24px;
   justify-content: space-between;
-  min-height: 224px;
-  min-width: 0;
-  padding: 24px;
-  text-align: center;
-  transition: transform var(--motion-fast) ease;
-}
-
-.assistance-card.wide {
-  grid-column: 1 / -1;
-  min-height: 256px;
+  min-width: 250px;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  width: 100%;
 }
 
 .assistance-card-copy {
   align-items: center;
   display: flex;
-  flex: 1;
-  flex-direction: column;
+  flex: 1 1 auto;
   gap: 8px;
-  justify-content: center;
-  max-width: 620px;
-  width: 100%;
+  min-width: 0;
 }
 
-.assistance-card-copy img {
-  height: 80px;
-  width: 80px;
+.assistance-card-copy > img {
+  flex: 0 0 auto;
+  height: 64px;
+  width: 64px;
 }
 
 .assistance-card h3 {
-  align-items: center;
   color: var(--white);
-  display: flex;
   font-family: "VW Head", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
-  justify-content: center;
+  letter-spacing: 0;
   line-height: 24px;
-}
-
-.assistance-card:not(.wide) h3 {
-  min-height: 48px;
+  margin: 0;
 }
 
 .assistance-card p {
   color: var(--white);
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
   font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
   line-height: 17px;
-  max-width: 287px;
+  margin: 8px 0 0;
 }
 
-.assistance-card.wide p {
-  max-width: 620px;
-}
-
-.assistance-card .outline-cta {
-  border-color: var(--white);
+.assistance-arrow {
+  align-items: center;
+  border: 1px solid var(--white);
+  border-radius: 50%;
+  box-sizing: border-box;
   color: var(--white);
-  height: 48px;
-  max-width: 100%;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0;
+  height: var(--assistance-button-height);
+  justify-content: center;
   min-width: 0;
-  text-align: center;
+  padding: 0;
+  transition:
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+  width: var(--assistance-button-height);
+}
+
+.assistance-card:hover .assistance-arrow,
+.assistance-card:focus-visible .assistance-arrow {
+  border-color: #70c7ff;
+  color: #70c7ff;
+}
+
+.assistance-card:focus-visible {
+  outline: 0;
+}
+
+.assistance-card:focus-visible .assistance-arrow {
+  outline: 2px solid #70c7ff;
+  outline-offset: 2px;
+}
+
+.assistance-card:active .assistance-arrow {
+  border-color: #dbe9ff;
+  color: #dbe9ff;
+}
+
+.assistance-arrow img {
+  display: none;
+}
+
+.assistance-arrow::after {
+  background: currentColor;
+  content: "";
+  display: block;
+  flex: 0 0 var(--assistance-button-icon-size);
+  height: var(--assistance-button-icon-size);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 11.3075'%3E%3Cpath d='M9.34625 11.3075L8.29225 10.223L12.1115 6.40375H0V4.90375H12.1115L8.29225 1.0845L9.34625 0L15 5.65375L9.34625 11.3075Z' fill='black'/%3E%3C/svg%3E") center / var(--assistance-arrow-visual-width) var(--assistance-arrow-visual-height) no-repeat;
+  width: var(--assistance-button-icon-size);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 11.3075'%3E%3Cpath d='M9.34625 11.3075L8.29225 10.223L12.1115 6.40375H0V4.90375H12.1115L8.29225 1.0845L9.34625 0L15 5.65375L9.34625 11.3075Z' fill='black'/%3E%3C/svg%3E") center / var(--assistance-arrow-visual-width) var(--assistance-arrow-visual-height) no-repeat;
+}
+
+.assistance-card:hover .assistance-arrow img,
+.assistance-card:focus-visible .assistance-arrow img {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(80%) saturate(1577%) hue-rotate(178deg) brightness(103%) contrast(101%);
+}
+
+.assistance-card:active .assistance-arrow img {
+  filter: brightness(0) saturate(100%) invert(91%) sepia(12%) saturate(661%) hue-rotate(185deg) brightness(105%) contrast(101%);
+}
+
+.assistance-arrow-text {
+  color: currentColor;
+  display: none;
+  font-family: "VW Text", Arial, Helvetica, sans-serif;
+  font-size: var(--assistance-button-font-size);
+  font-weight: 700;
+  line-height: var(--assistance-button-line-height);
   white-space: nowrap;
-  width: fit-content;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.assistance-card .outline-cta:hover {
-  border-color: var(--white);
-  color: var(--white);
-}
-
-@container assistance-content (min-width: 540px) {
-  .assistance-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@container assistance-content (max-width: 539px) {
-  .assistance-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .assistance-card {
-    min-height: 0;
-  }
-
-  .assistance-card .outline-cta {
-    white-space: normal;
-    width: 100%;
-  }
 }
 
 .assistance-photo {
-  aspect-ratio: 4 / 3;
-  height: var(--assistance-photo-height);
-  margin-top: 0;
+  height: 366px;
+  left: 0;
   overflow: hidden;
   position: absolute;
-  right: 0;
-  top: var(--assistance-photo-top);
-  transform: none;
-  width: var(--assistance-photo-width);
+  top: 40px;
+  width: 620px;
   z-index: 2;
 }
 
 .assistance-photo img {
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: 49% 50%;
   width: 100%;
 }
 
-@media (min-width: 1000px) and (max-width: 1649px) {
+@media (min-width: 768px) and (max-width: 1671px) {
   .assistance-section.page-band.soft {
-    padding: 80px 0;
+    padding: 72px clamp(32px, 4vw, 80px) 120px;
   }
 
   .assistance-grid {
-    --assistance-panel-padding-block: clamp(48px, 4vw, 80px);
-    --assistance-horizontal-gap: clamp(48px, 5vw, 80px);
-    --assistance-content-gap: 32px;
-    --assistance-panel-right-cut: clamp(64px, 7vw, 104px);
-    --assistance-photo-height: clamp(520px, 43vw, 760px);
-    --assistance-photo-top: clamp(150px, 11vw, 187px);
-    --assistance-shell-min-height: calc(var(--assistance-photo-top) + var(--assistance-photo-height) - var(--assistance-panel-padding-block));
+    --assistance-photo-clearance: max(
+      0px,
+      calc(
+        var(--assistance-photo-width) - var(--assistance-panel-left-offset) -
+          var(--assistance-panel-padding)
+      )
+    );
+    --assistance-actions-offset: calc(
+      var(--assistance-photo-clearance) +
+        max(
+          var(--assistance-safe-gap),
+          (
+            calc(
+                100% + var(--assistance-panel-padding) -
+                  var(--assistance-photo-clearance) - 674px
+              ) / 2
+          )
+        )
+    );
+    --assistance-actions-width: min(
+      674px,
+      calc(
+        100% + var(--assistance-panel-padding) -
+          var(--assistance-actions-offset)
+      )
+    );
+    --assistance-safe-gap: 16px;
+    --assistance-panel-left-offset: clamp(56px, 6.2vw, 104px);
+    --assistance-panel-padding: clamp(28px, 3.5vw, 64px);
+    --assistance-photo-width: clamp(360px, 38vw, 620px);
+
+    max-width: 1348px;
   }
 
   .assistance-shell {
-    min-height: var(--assistance-shell-min-height);
-  }
-
-}
-
-@media (min-width: 1650px) {
-  .assistance-grid {
-    --assistance-horizontal-gap: 80px;
-    --assistance-photo-width: 640px;
-    --assistance-content-width: 652px;
-    --assistance-panel-right-cut: 104px;
-  }
-
-  .assistance-section.page-band.soft {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .assistance-shell {
-    min-height: var(--assistance-shell-min-height);
-  }
-
-}
-
-@media (max-width: 999px) {
-  .assistance-grid {
-    --assistance-shell-min-height: 0px;
-    --assistance-panel-padding-block: 48px;
-    --assistance-horizontal-gap: clamp(24px, 5vw, 40px);
-    --assistance-content-width: 100%;
-    --assistance-copy-width: 100%;
-    --assistance-content-gap: 32px;
-
-    max-width: 100%;
-    width: 100%;
+    min-height: calc((var(--assistance-photo-width) * 0.59032258) + 80px);
   }
 
   .assistance-panel {
-    padding-right: var(--assistance-horizontal-gap);
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: auto;
+    min-height: calc(var(--assistance-photo-width) * 0.59032258 + 80px);
+    padding: var(--assistance-panel-padding);
+    width: calc(100% - var(--assistance-panel-left-offset));
+  }
+
+  .assistance-actions {
+    margin-left: var(--assistance-actions-offset);
+    max-width: 674px;
+    min-width: 0;
+    position: relative;
+    width: var(--assistance-actions-width);
+    z-index: 3;
+  }
+
+  .assistance-photo {
+    height: calc(var(--assistance-photo-width) * 0.59032258);
+    top: 40px;
+    transform: none;
+    width: var(--assistance-photo-width);
+  }
+}
+
+@media (min-width: 1200px) {
+  .assistance-actions {
+    --assistance-arrow-visual-height: 14px;
+    --assistance-arrow-visual-width: 18px;
+    --assistance-button-font-size: 16px;
+    --assistance-button-height: 48px;
+    --assistance-button-icon-size: 24px;
+    --assistance-button-line-height: 19px;
+    --assistance-button-padding-x: 20px;
+    --assistance-button-width: 284px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .assistance-grid {
+    --assistance-panel-padding: 24px;
+    --assistance-photo-width: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  .assistance-section.page-band.soft {
+    padding: 64px 16px;
+  }
+
+  .assistance-grid {
+    gap: 32px;
+  }
+
+  .assistance-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .assistance-panel {
+    border: 0;
+    margin-left: 0;
+    min-height: 0;
+    order: 2;
+    padding: 0;
     width: 100%;
   }
 
-  .assistance-content {
-    max-width: none;
+  .assistance-actions {
+    align-items: center;
+    gap: 0;
     width: 100%;
   }
 
   .assistance-photo {
-    aspect-ratio: 4 / 3;
     height: auto;
-    left: auto;
-    margin-top: 48px;
+    margin-bottom: 32px;
+    margin-left: -16px;
+    order: 1;
     position: relative;
-    right: auto;
     top: auto;
+    transform: none;
+    width: 100vw;
+  }
+
+  .assistance-photo img {
+    aspect-ratio: 620 / 366;
+    display: block;
+  }
+
+  .assistance-copy h2 {
+    display: block;
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .assistance-copy h2 span {
+    display: block;
+  }
+
+  .assistance-card {
+    align-items: center;
+    border: 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .assistance-card-copy {
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
     width: 100%;
-    z-index: 1;
+  }
+
+  .assistance-card-copy > div {
+    text-align: center;
+  }
+
+  .assistance-card-copy > img {
+    height: 48px;
+    width: 48px;
+  }
+
+  .assistance-card h3 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .assistance-arrow {
+    align-items: center;
+    align-self: center;
+    border-color: var(--white);
+    border-radius: 24px;
+    box-sizing: border-box;
+    gap: 8px;
+    height: auto;
+    justify-content: center;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 0 14px;
+    text-align: center;
+    width: auto;
+  }
+
+  .assistance-arrow-text {
+    color: var(--white);
+    display: block;
+    font-family: "VW Text", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .assistance-arrow img {
+    flex-basis: 0;
+    display: none;
+  }
+
+  .assistance-arrow::after {
+    content: none;
   }
 }
 

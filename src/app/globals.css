@@ -2458,37 +2458,6 @@ html.proposal-drawer-open body {
     display: none;
   }
 
-  .assistance-section.page-band.soft {
-    padding: 64px 16px;
-  }
-
-  .assistance-panel {
-    padding: 28px 20px;
-    width: 100%;
-  }
-
-  .assistance-content {
-    gap: 32px;
-    max-width: none;
-  }
-
-  .assistance-copy {
-    gap: 14px;
-  }
-
-  .assistance-copy h2 {
-    font-size: 30px;
-    line-height: 36px;
-  }
-
-  .assistance-card {
-    min-height: 0;
-  }
-
-  .assistance-card .outline-cta {
-    white-space: normal;
-    width: 100%;
-  }
 }
 
 @media (max-width: 420px) {
