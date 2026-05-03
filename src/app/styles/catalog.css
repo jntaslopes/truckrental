@@ -356,6 +356,12 @@
   height: 426px;
 }
 
+.catalog-truck-card.without-proposal-action,
+.catalog-truck-card.without-proposal-action.selected {
+  height: auto;
+  min-height: 0;
+}
+
 .catalog-truck-card .select-dot {
   height: 20px;
   margin-top: 6px;
@@ -378,11 +384,24 @@
   z-index: 0;
 }
 
+.catalog-truck-card.without-proposal-action .catalog-truck-surface,
+.catalog-truck-card.without-proposal-action.selected .catalog-truck-surface {
+  bottom: 0;
+  height: auto;
+  top: 161px;
+}
+
 .catalog-truck-card.selected .catalog-truck-surface {
   bottom: -2px;
   left: -2px;
   right: -2px;
   height: 303px;
+}
+
+.catalog-truck-card.without-proposal-action.selected .catalog-truck-surface {
+  bottom: -2px;
+  height: auto;
+  top: 161px;
 }
 
 .catalog-truck-media {
@@ -410,6 +429,16 @@
   padding: 24px;
   position: relative;
   z-index: 2;
+}
+
+.catalog-truck-card.without-proposal-action .catalog-truck-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.catalog-truck-card.without-proposal-action .catalog-truck-content > a.text-link {
+  margin-top: auto;
 }
 
 .catalog-truck-card.selected .badge.engine {
