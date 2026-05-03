@@ -2157,21 +2157,41 @@ html.proposal-drawer-open body {
     width: 100vw;
   }
 
+  .proposal-drawer-content {
+    gap: 24px;
+  }
+
   .proposal-selected-card {
+    align-items: start;
     grid-template-columns: 82px minmax(0, 1fr);
-    padding-right: 12px;
+    grid-template-rows: auto auto;
+    min-height: 100px;
+    padding: 0 12px 12px 0;
+  }
+
+  .proposal-selected-media {
+    grid-row: 1 / span 2;
+    min-height: 70px;
+  }
+
+  .proposal-selected-details {
+    align-self: start;
+    padding: 0 0 0 16px;
   }
 
   .proposal-quantity-field {
     grid-column: 2;
-    margin: 8px 0 12px;
+    grid-row: 2;
+    margin: 8px 0 0 16px;
     width: 72px;
   }
 
   .proposal-remove-item {
     grid-column: 2;
+    grid-row: 2;
     justify-content: flex-start;
-    padding: 0 0 14px;
+    margin: 18px 0 0 104px;
+    padding: 0;
   }
 
   .proposal-fields {
@@ -2179,7 +2199,7 @@ html.proposal-drawer-open body {
   }
 
   .proposal-consents {
-    margin-top: 32px;
+    margin-top: 0;
   }
 
   .proposal-consents label {
@@ -2189,7 +2209,7 @@ html.proposal-drawer-open body {
   .proposal-drawer-footer {
     align-items: stretch;
     flex-direction: column-reverse;
-    margin-top: 32px;
+    margin-top: 16px;
   }
 
   .proposal-cancel,

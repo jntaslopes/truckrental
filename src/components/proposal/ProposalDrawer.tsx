@@ -108,22 +108,22 @@ export function ProposalDrawer({
         aria-labelledby="proposal-drawer-title"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="proposal-drawer-content">
-          <header className="proposal-drawer-header">
-            <div>
-              <h2 id="proposal-drawer-title">Prévia da solicitação de proposta</h2>
-              <span aria-hidden="true" />
-            </div>
-            <button
-              type="button"
-              className="proposal-drawer-close"
-              onClick={handleClose}
-              aria-label="Fechar preview da proposta"
-            >
-              ×
-            </button>
-          </header>
+        <header className="proposal-drawer-header">
+          <div>
+            <h2 id="proposal-drawer-title">Prévia da solicitação de proposta</h2>
+            <span aria-hidden="true" />
+          </div>
+          <button
+            type="button"
+            className="proposal-drawer-close"
+            onClick={handleClose}
+            aria-label="Fechar preview da proposta"
+          >
+            ×
+          </button>
+        </header>
 
+        <div className="proposal-drawer-content">
           <p className="proposal-drawer-intro">
             Esta é uma prévia do fluxo final. Você pode selecionar caminhões e preencher os dados,
             mas nenhum envio real acontece nesta versão.
@@ -250,36 +250,36 @@ export function ProposalDrawer({
               </label>
             </div>
           </section>
-        </div>
 
-        <div className="proposal-consents">
-          <label>
-            <input
-              className="ds-checkbox"
-              type="checkbox"
-              name="marketing"
-              checked={consents.marketing}
-              data-state="default"
-              data-size="sm"
-              onChange={(event) => updateConsent("marketing", event.target.checked)}
-            />
-            <span>Autorizo a utilização dos meus dados para marketing</span>
-          </label>
-          <label>
-            <input
-              className="ds-checkbox"
-              type="checkbox"
-              name="legal"
-              checked={consents.legal}
-              data-state="default"
-              data-size="sm"
-              onChange={(event) => updateConsent("legal", event.target.checked)}
-            />
-            <span>
-              Li e concordo com as <a href="#top">Informações Legais</a> e com a{" "}
-              <a href="#top">Política de Privacidade</a>
-            </span>
-          </label>
+          <div className="proposal-consents">
+            <label>
+              <input
+                className="ds-checkbox"
+                type="checkbox"
+                name="marketing"
+                checked={consents.marketing}
+                data-state="default"
+                data-size="sm"
+                onChange={(event) => updateConsent("marketing", event.target.checked)}
+              />
+              <span>Autorizo a utilização dos meus dados para marketing</span>
+            </label>
+            <label>
+              <input
+                className="ds-checkbox"
+                type="checkbox"
+                name="legal"
+                checked={consents.legal}
+                data-state="default"
+                data-size="sm"
+                onChange={(event) => updateConsent("legal", event.target.checked)}
+              />
+              <span>
+                Li e concordo com as <a href="#top">Informações Legais</a> e com a{" "}
+                <a href="#top">Política de Privacidade</a>
+              </span>
+            </label>
+          </div>
         </div>
 
         <footer className="proposal-drawer-footer">
