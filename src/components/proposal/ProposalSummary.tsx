@@ -35,7 +35,7 @@ export function ProposalSummary({ onContinue }: { onContinue: () => void }) {
         </button>
         <button className="proposal-continue" type="button" onClick={onContinue}>
           Continuar com a proposta
-          <img className="action-icon button-icon" src={asset("icon-arrow-right.svg")} alt="" />
+          <span className="action-icon button-icon arrow-icon" aria-hidden="true" />
         </button>
       </div>
     </aside>
