@@ -771,73 +771,94 @@ export function AssistanceSection({ onOpenProposal }: { onOpenProposal: () => vo
     cta: string;
     href?: string;
     action?: "proposal";
-    wide?: boolean;
   }> = [
     {
       icon: "icon-fleet-online.svg",
       title: "Simule sua frota online",
-      copy: "Selecione os modelos e organize sua proposta de preview.",
+      copy: "Selecione os modelos e receba uma proposta personalizada",
       cta: "Ver caminhões disponíveis",
       href: "/caminhoes",
     },
     {
       icon: "icon-specialist.svg",
       title: "Fale com um especialista",
-      copy: "Abra a prévia da proposta para entender como o fluxo será na versão final.",
-      cta: "Abrir preview da proposta",
+      copy: "Nossa equipe ajuda a montar a melhor solução para sua operação",
+      cta: "Falar com um especialista",
       action: "proposal",
     },
     {
       icon: "icon-dealer-pin.svg",
       title: "Ou visite uma concessionária",
       copy: "Atendimento presencial com a rede Volkswagen",
-      cta: "Buscar uma concessionária",
+      cta: "Encontrar uma concessionária",
       href: "#concessionarias",
-      wide: true,
     },
   ] as const;
 
   return (
-    <section className="assistance-section page-band soft" data-motion="section">
+    <section id="assistance" className="assistance-section page-band soft" data-motion="section">
       <div className="page-inner assistance-grid">
+        <div className="assistance-copy">
+          <p className="eyebrow">DÊ O PRÓXIMO PASSO AGORA MESMO</p>
+          <h2>
+            <span>Três formas de</span> montar a sua frota Volkswagen
+          </h2>
+          <div className="assistance-title-rule" aria-hidden="true" />
+        </div>
+
         <div className="assistance-shell">
           <div className="assistance-panel">
-            <div className="assistance-content">
-              <div className="assistance-copy">
-                <p className="eyebrow">Dê o próximo passo agora mesmo</p>
-                <h2>
-                  <span>Três formas de</span> montar a sua frota Volkswagen
-                </h2>
-                <p>
-                  Você pode simular online, abrir a prévia da proposta ou visitar uma concessionária.
-                  Escolha o caminho mais conveniente para sua operação.
-                </p>
-              </div>
-
-              <div className="assistance-cards">
-                {paths.map((path) => (
-                  <article className={`assistance-card${path.wide ? " wide" : ""}`} key={path.title} data-motion="card">
+            <div className="assistance-actions">
+              {paths.map((path) => {
+                const actionContent = (
+                  <>
                     <div className="assistance-card-copy">
                       <img src={asset(path.icon)} alt="" />
-                      <h3>{path.title}</h3>
-                      <p>{path.copy}</p>
+                      <div>
+                        <h3>{path.title}</h3>
+                        <p>{path.copy}</p>
+                      </div>
                     </div>
-                    {path.action === "proposal" ? (
-                      <button type="button" className="outline-cta" onClick={onOpenProposal}>
-                        {path.cta}
-                      </button>
-                    ) : path.href?.startsWith("/") ? (
-                      <Link href={path.href} className="outline-cta">
-                        {path.cta}
-                      </Link>
-                    ) : (
-                      <a href={path.href ?? "#"} className="outline-cta">
-                        {path.cta}
-                      </a>
-                    )}
-                  </article>
-                ))}
-              </div>
+                    <span className="assistance-arrow" aria-hidden="true">
+                      <span className="assistance-arrow-text">{path.cta}</span>
+                      <img src={asset("icon-arrow-right.svg")} alt="" />
+                    </span>
+                  </>
+                );
+
+                return path.action === "proposal" ? (
+                  <button
+                    type="button"
+                    className="assistance-card"
+                    onClick={onOpenProposal}
+                    aria-label={path.cta}
+                    key={path.title}
+                    data-motion="card"
+                  >
+                    {actionContent}
+                  </button>
+                ) : path.href?.startsWith("/") ? (
+                  <Link
+                    href={path.href}
+                    className="assistance-card"
+                    aria-label={path.cta}
+                    key={path.title}
+                    data-motion="card"
+                  >
+                    {actionContent}
+                  </Link>
+                ) : (
+                  <a
+                    href={path.href ?? "#"}
+                    className="assistance-card"
+                    aria-label={path.cta}
+                    key={path.title}
+                    data-motion="card"
+                  >
+                    {actionContent}
+                  </a>
+                );
+              })}
             </div>
           </div>
 
