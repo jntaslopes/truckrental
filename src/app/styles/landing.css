@@ -425,8 +425,8 @@
 }
 
 .hero-section-background {
-  --hero-copy-text-height: 160px;
-  --hero-cta-gap: 24px;
+  --hero-copy-text-height: 223px;
+  --hero-cta-gap: 32px;
 }
 
 .hero-section-background .hero-surface-shell::after {
@@ -472,14 +472,15 @@
 }
 
 .hero-background-image {
-  display: none;
-  height: auto;
-  left: 0;
+  display: block;
+  height: 179%;
+  left: -24.36%;
   max-width: none;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center bottom;
   position: absolute;
-  top: 0;
-  width: auto;
+  top: -42.24%;
+  width: 160.25%;
   z-index: 1;
 }
 
@@ -559,17 +560,38 @@
 }
 
 .hero-section-background .hero-copy .eyebrow {
+  color: var(--white);
   margin-bottom: 16px;
 }
 
 .hero-section-background .hero-copy h1 {
-  font-size: 50px;
+  color: var(--white);
+  font-size: 60px;
   line-height: 48px;
   width: 430px;
 }
 
 .hero-section-background .hero-copy h1 .accent-line {
+  color: var(--white);
   display: block;
+}
+
+.hero-section-background .hero-cta {
+  background: var(--button-primary-inverse-bg);
+  border-color: var(--button-primary-inverse-bg);
+  color: var(--button-primary-inverse-content);
+}
+
+.hero-section-background .hero-cta:hover {
+  background: var(--button-primary-inverse-bg-hover);
+  border-color: var(--button-primary-inverse-bg-hover);
+  color: var(--button-primary-inverse-content-hover);
+}
+
+.hero-section-background .hero-cta:active {
+  background: var(--button-primary-inverse-bg-active);
+  border-color: var(--button-primary-inverse-bg-active);
+  color: var(--button-primary-inverse-content);
 }
 
 .hero-price-badges {
@@ -688,7 +710,7 @@
 
   .hero-section-background {
     --hero-copy-width: 444px;
-    --hero-copy-text-height: 175px;
+    --hero-copy-text-height: 223px;
     --hero-cta-gap: 32px;
   }
 }
@@ -1065,15 +1087,7 @@
   }
 
   .hero-section-background .hero-inner::after {
-    background: var(--white);
-    bottom: 0;
-    content: "";
-    height: 128px;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    z-index: 5;
+    content: none;
   }
 
   .hero-section-background {
@@ -1085,41 +1099,29 @@
   }
 
   .hero-section-background .hero-background-mobile-frame {
-    display: block;
-    height: calc(100vw * 1516 / 1814);
-    left: 0;
-    top: 218px;
-    width: 100%;
+    display: none;
   }
 
   .hero-section-background .hero-background-mobile-image {
-    left: -2%;
-    object-fit: contain;
-    top: -14px;
-    width: 104%;
+    display: none;
   }
 
   .hero-section-background .hero-background-copy-panel {
-    display: block;
-    height: 225px;
-    left: -20px;
-    width: calc(100% + 40px);
+    display: none;
   }
 
   .hero-section-background .hero-background-cyan-tab {
-    display: block;
-    height: 80px;
-    left: calc(100% - 31px);
-    width: 2px;
+    display: none;
   }
 
   .hero-section-background .hero-background-image {
-    display: none;
-    height: auto;
-    left: 50%;
-    top: 10px;
-    transform: translateX(-62%);
-    width: 1250px;
+    display: block;
+    height: 100%;
+    left: 0;
+    object-position: 57% center;
+    top: 0;
+    transform: none;
+    width: 100%;
   }
 
   .hero-section-background .hero-background-montage {

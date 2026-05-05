@@ -14,8 +14,6 @@ type HeroSlide = {
   theme: "light" | "dark";
   variant: "current" | "background";
   backgroundImage?: string;
-  compositeImage?: string;
-  mobileImage?: string;
 };
 
 const heroSlides: HeroSlide[] = [
@@ -24,9 +22,7 @@ const heroSlides: HeroSlide[] = [
     id: "fixed-cost",
     theme: "dark",
     variant: "background",
-    backgroundImage: asset("hero-banner-h2-bg.png"),
-    compositeImage: asset("hero-banner-h2-composite-desktop.png"),
-    mobileImage: asset("hero-banner-h2-mobile.png"),
+    backgroundImage: asset("hero-banner-fixed-cost-bg.jpg"),
   },
 ];
 
@@ -72,6 +68,8 @@ function SectionTitle({
 
 export function HeroSection() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const previousBannerButtonRef = useRef<HTMLButtonElement>(null);
+  const nextBannerButtonRef = useRef<HTMLButtonElement>(null);
   const currentSlide = heroSlides[currentSlideIndex];
   const isBackgroundSlide = currentSlide.variant === "background";
 
@@ -90,13 +88,25 @@ export function HeroSection() {
     ["hero-icon-baseline-chart.svg", "hero-icon-overlay hero-icon-baseline-chart"],
   ] as const;
 
-  function showPreviousBanner() {
-    setCurrentSlideIndex((index) => (index - 1 + heroSlides.length) % heroSlides.length);
-  }
+  useEffect(() => {
+    const previousButton = previousBannerButtonRef.current;
+    const nextButton = nextBannerButtonRef.current;
+    const showPreviousBanner = () => {
+      setCurrentSlideIndex((index) => (index - 1 + heroSlides.length) % heroSlides.length);
+    };
+    const showNextBanner = () => {
+      setCurrentSlideIndex((index) => (index + 1) % heroSlides.length);
+    };
 
-  function showNextBanner() {
-    setCurrentSlideIndex((index) => (index + 1) % heroSlides.length);
-  }
+    previousButton?.addEventListener("click", showPreviousBanner);
+    nextButton?.addEventListener("click", showNextBanner);
+
+    return () => {
+      previousButton?.removeEventListener("click", showPreviousBanner);
+      nextButton?.removeEventListener("click", showNextBanner);
+    };
+  }, []);
+
 
   return (
     <section
@@ -108,53 +118,15 @@ export function HeroSection() {
         <div className="hero-surface">
           <div className="hero-inner">
             {isBackgroundSlide ? (
-              <div className="hero-background-scene" aria-hidden="true" data-node-id="544:20302">
-                <img
-                  className="hero-background-composite"
-                  src={currentSlide.compositeImage ?? ""}
-                  alt=""
-                  aria-hidden="true"
-                  data-node-id="544:20302"
-                />
-                <div className="hero-background-mobile-frame" data-node-id="595:1078">
-                  <img
-                    className="hero-background-mobile-image"
-                    src={currentSlide.mobileImage ?? ""}
-                    alt=""
-                    aria-hidden="true"
-                  />
-                </div>
+              <div className="hero-background-scene" aria-hidden="true" data-node-id="623:463">
                 <img
                   className="hero-background-image"
                   src={currentSlide.backgroundImage ?? ""}
                   alt=""
                   aria-hidden="true"
-                  data-node-id="544:20304"
+                  data-node-id="623:492"
                 />
-                <div className="hero-background-cyan-tab" data-node-id="544:20305" />
-                <div className="hero-background-copy-panel" data-node-id="544:20306" />
-                <img
-                  className="hero-background-shadow hero-background-shadow-wide"
-                  src={asset("hero-banner-h2-shadow-wide.png")}
-                  alt=""
-                  aria-hidden="true"
-                  data-node-id="544:20307"
-                />
-                <img
-                  className="hero-background-shadow hero-background-shadow-tight"
-                  src={asset("hero-banner-h2-shadow-tight.png")}
-                  alt=""
-                  aria-hidden="true"
-                  data-node-id="544:20308"
-                />
-                <img
-                  className="hero-background-montage"
-                  src={asset("hero-banner-h2-montage.png")}
-                  alt=""
-                  aria-hidden="true"
-                  data-node-id="544:20309"
-                />
-                <div className="hero-background-overlay" data-node-id="544:20324" />
+                <div className="hero-background-overlay" data-node-id="623:506" />
               </div>
             ) : null}
             <div className="hero-copy">
@@ -235,10 +207,10 @@ export function HeroSection() {
               <span className="hero-cta-arrow" aria-hidden="true" />
             </a>
             <div className="hero-banner-control" aria-label="Controle do banner" data-node-id="540:9075">
-              <button type="button" aria-label="Banner anterior" onClick={showPreviousBanner}>
+              <button ref={previousBannerButtonRef} type="button" aria-label="Banner anterior">
                 <span aria-hidden="true" />
               </button>
-              <button type="button" aria-label="Próximo banner" onClick={showNextBanner}>
+              <button ref={nextBannerButtonRef} type="button" aria-label="Próximo banner">
                 <span aria-hidden="true" />
               </button>
             </div>
