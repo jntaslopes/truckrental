@@ -478,14 +478,16 @@
 
 .hero-background-image {
   display: block;
-  height: 179%;
-  left: -24.36%;
+  height: auto;
+  left: 50%;
   max-width: none;
-  object-fit: fill;
-  object-position: center bottom;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center center;
   position: absolute;
-  top: -42.24%;
-  width: 160.25%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100%, calc(var(--hero-surface-height) * 2644 / 991));
   z-index: 1;
 }
 
