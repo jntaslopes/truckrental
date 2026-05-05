@@ -2,12 +2,13 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { faqs, trucks, type Truck } from "@/data/landing";
 import { TruckSelectionCard } from "@/components/TruckSelectionCard";
 
 const asset = (name: string) => `/assets/figma/${name}`;
+const heroAutoplayDelayMs = 6000;
 
 type HeroSlide = {
   id: string;
@@ -68,8 +69,6 @@ function SectionTitle({
 
 export function HeroSection() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const previousBannerButtonRef = useRef<HTMLButtonElement>(null);
-  const nextBannerButtonRef = useRef<HTMLButtonElement>(null);
   const currentSlide = heroSlides[currentSlideIndex];
   const isBackgroundSlide = currentSlide.variant === "background";
 
@@ -88,24 +87,23 @@ export function HeroSection() {
     ["hero-icon-baseline-chart.svg", "hero-icon-overlay hero-icon-baseline-chart"],
   ] as const;
 
-  useEffect(() => {
-    const previousButton = previousBannerButtonRef.current;
-    const nextButton = nextBannerButtonRef.current;
-    const showPreviousBanner = () => {
-      setCurrentSlideIndex((index) => (index - 1 + heroSlides.length) % heroSlides.length);
-    };
-    const showNextBanner = () => {
-      setCurrentSlideIndex((index) => (index + 1) % heroSlides.length);
-    };
+  const showPreviousBanner = useCallback(() => {
+    setCurrentSlideIndex((index) => (index - 1 + heroSlides.length) % heroSlides.length);
+  }, []);
 
-    previousButton?.addEventListener("click", showPreviousBanner);
-    nextButton?.addEventListener("click", showNextBanner);
+  const showNextBanner = useCallback(() => {
+    setCurrentSlideIndex((index) => (index + 1) % heroSlides.length);
+  }, []);
+
+  useEffect(() => {
+    const autoplay = window.setInterval(() => {
+      showNextBanner();
+    }, heroAutoplayDelayMs);
 
     return () => {
-      previousButton?.removeEventListener("click", showPreviousBanner);
-      nextButton?.removeEventListener("click", showNextBanner);
+      window.clearInterval(autoplay);
     };
-  }, []);
+  }, [showNextBanner]);
 
 
   return (
@@ -207,10 +205,10 @@ export function HeroSection() {
               <span className="hero-cta-arrow" aria-hidden="true" />
             </a>
             <div className="hero-banner-control" aria-label="Controle do banner" data-node-id="540:9075">
-              <button ref={previousBannerButtonRef} type="button" aria-label="Banner anterior">
+              <button type="button" aria-label="Banner anterior" onClick={showPreviousBanner}>
                 <span aria-hidden="true" />
               </button>
-              <button ref={nextBannerButtonRef} type="button" aria-label="Próximo banner">
+              <button type="button" aria-label="Próximo banner" onClick={showNextBanner}>
                 <span aria-hidden="true" />
               </button>
             </div>
