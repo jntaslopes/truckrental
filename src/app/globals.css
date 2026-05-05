@@ -2852,6 +2852,11 @@ html.proposal-drawer-open body {
   }
 }
 
+.hero-section-background .hero-benefits-bar {
+  border-top: 0;
+  margin-top: 0;
+}
+
 @media (min-width: 561px) and (max-width: 860px) {
   .dealer-map-frame {
     grid-template-columns: 1fr;

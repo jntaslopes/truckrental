@@ -425,12 +425,17 @@
 }
 
 .hero-section-background {
+  --hero-background-content-offset: 0px;
   --hero-copy-text-height: 223px;
   --hero-cta-gap: 32px;
 }
 
 .hero-section-background .hero-surface-shell::after {
   display: none;
+}
+
+.hero-section-background .hero-benefits-bar {
+  border-top: 0;
 }
 
 .hero-background-scene {
@@ -473,14 +478,13 @@
 
 .hero-background-image {
   display: block;
-  height: 179%;
-  left: -24.36%;
+  height: 100%;
+  inset: 0;
   max-width: none;
   object-fit: cover;
-  object-position: center bottom;
+  object-position: 54% center;
   position: absolute;
-  top: -42.24%;
-  width: 160.25%;
+  width: 100%;
   z-index: 1;
 }
 
@@ -600,7 +604,7 @@
   display: flex;
   gap: 0;
   position: absolute;
-  right: clamp(40px, 6.42vw, 106px);
+  right: calc(var(--hero-background-content-offset) + clamp(40px, 6.42vw, 106px));
   top: 50px;
   z-index: 6;
 }
@@ -634,7 +638,7 @@
 
 .hero-h2-plan-badge {
   background: var(--blue);
-  box-shadow: 0 7px 0 var(--cyan);
+  box-shadow: none;
   box-sizing: border-box;
   color: var(--white);
   height: 170px;
@@ -709,9 +713,15 @@
   }
 
   .hero-section-background {
+    --hero-background-content-offset: max(0px, calc((100vw - 1650px) / 2));
+    --hero-frame-width: 100vw;
+    --hero-frame-left: 0;
+    --hero-frame-transform: none;
+    --hero-copy-left: calc(var(--hero-background-content-offset) + 106px);
     --hero-copy-width: 444px;
     --hero-copy-text-height: 223px;
     --hero-cta-gap: 32px;
+    --hero-control-right: calc(var(--hero-background-content-offset) + 101px);
   }
 }
 
@@ -1118,7 +1128,7 @@
     display: block;
     height: 100%;
     left: 0;
-    object-position: 57% center;
+    object-position: 62% center;
     top: 0;
     transform: none;
     width: 100%;
@@ -1206,7 +1216,7 @@
 
   .hero-section-background .hero-h2-plan-badge {
     align-items: center;
-    box-shadow: 0 4px 0 var(--cyan);
+    box-shadow: none;
     display: flex;
     justify-content: center;
   }
