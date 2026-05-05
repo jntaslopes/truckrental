@@ -17,13 +17,13 @@ type HeroSlide = {
 };
 
 const heroSlides: HeroSlide[] = [
-  { id: "fleet-subscription", theme: "light", variant: "current" },
   {
     id: "fixed-cost",
     theme: "dark",
     variant: "background",
     backgroundImage: asset("hero-banner-fixed-cost-bg.jpg"),
   },
+  { id: "fleet-subscription", theme: "light", variant: "current" },
 ];
 
 const trustedCompanies = [
