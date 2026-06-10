@@ -10,6 +10,7 @@ Before executing any plan, update yourself on the real project context:
 
 - Run `git status --short --branch`, confirm the current branch/worktree, and check whether there are commits ahead/behind.
 - Confirm whether you are in the main worktree (`C:\projects\truckrental`) or in an auxiliary worktree. In an auxiliary worktree, work on a branch with the `codex/` prefix; when creating a new branch, use the highest existing number + 1 in the format `codex/codex-1`, `codex/codex-2`, `codex/codex-3`, etc., considering both local and remote branches, without reusing gaps. If there is no branch with an upstream, create one and publish it with `git push -u origin <branch>`. In the main worktree on `main`, a branch is not required.
+- At the start of any new request or thread in an auxiliary worktree, branch setup is mandatory before implementation: if the current branch is not a valid `codex/codex-*` branch with an upstream, create the next `codex/codex-*` branch using the canonical command below, publish it with upstream, then incorporate `origin/main` into that branch before continuing.
 - Canonical PowerShell command to calculate, create, and publish the next `codex/codex-*` branch:
   ```powershell
   $refs = git for-each-ref --format='%(refname:short)' `
